@@ -123,6 +123,8 @@ Al finalizar o en caso de error, aparecerá una ventana de mensaje indicando el 
 # Contribuciones
 ¡Las contribuciones son bienvenidas! Si encuentras algún problema o tienes alguna mejora, no dudes en abrir un issue o un pull request.
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y2Z73AV)
+
 # Agradecimientos
 Este proyecto está inspirado en el trabajo de DvorakDwarf en Infinite-Storage-Glitch. Agradezco cualquier crítica del código para poder mejorar.
 
