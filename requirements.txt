@@ -1,4 +1,8 @@
 opencv-python
+Flask
+Flask-WTF
+Flask-Bootstrap
+opencv-python-headless
 numpy
 argparse
 PyQt5
