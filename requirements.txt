@@ -6,3 +6,4 @@ opencv-python-headless
 numpy
 argparse
 PyQt5
+gunicorn
