@@ -47,10 +47,10 @@ def index():
 
     if form.validate_on_submit():
         input_file = form.input_file.data
-        output_file_name = secure_filename(form.output_file_name.data)
-        frame_width = form.frame_width.data
-        frame_height = form.frame_height.data
-        block_size = form.block_size.data
+        output_file_name = secure_filename(sanitize_filename(form.output_file_name.data))
+        frame_width = int(form.frame_width.data)
+        frame_height = int(form.frame_height.data)
+        block_size = int(form.block_size.data)
         action = form.action.data
 
         input_file_path = os.path.join(tempfile.gettempdir(), secure_filename(input_file.filename))
@@ -59,10 +59,10 @@ def index():
         try:
             if action == 'encode':
                 output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}_{frame_width}x{frame_height}.mp4")
-                encode_file_to_video(input_file_path, output_file_path, (int(frame_width), int(frame_height)), 30, int(block_size))
+                encode_file_to_video(input_file_path, output_file_path, (frame_width, frame_height), 30, block_size)
             elif action == 'decode':
                 output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}.zip")
-                decode_video_to_file(input_file_path, output_file_path, int(block_size))
+                decode_video_to_file(input_file_path, output_file_path, block_size)
             flash('Operation successful!', 'success')
             download_url = url_for('download_file', filename=os.path.basename(output_file_path))
         except Exception as e:
@@ -89,6 +89,11 @@ def add_security_headers(response):
     response.cache_control.must_revalidate = True
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'DENY'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    response.headers['Content-Security-Policy'] = "default-src 'self'"
     return response
 
 @app.route('/upload', methods=['POST'])
@@ -110,9 +115,10 @@ def upload_file():
         block_size = int(request.form['block_size'])
         frame_width = int(request.form['frame_width'])
         frame_height = int(request.form['frame_height'])
+        fps = int(request.form['frame_height'])
         output_filename = f'output_{frame_width}x{frame_height}.mp4'
         output_filepath = os.path.join(app.config['DOWNLOAD_FOLDER'], output_filename)
-        encode_file_to_video(filepath, output_filepath, (frame_width, frame_height), 30, block_size)
+        encode_file_to_video(filepath, output_filepath, (frame_width, frame_height), fps, block_size)
     else:
         output_filename = 'output.zip'
         output_filepath = os.path.join(app.config['DOWNLOAD_FOLDER'], output_filename)
