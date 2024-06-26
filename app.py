@@ -1,7 +1,6 @@
 import os
 import tempfile
 from flask import Flask, render_template, request, flash, redirect, url_for, send_file, jsonify, send_from_directory
-from werkzeug.utils import secure_filename
 from flask_wtf import FlaskForm
 from wtforms import FileField, StringField, SelectField, SubmitField
 from wtforms.validators import DataRequired, Regexp
