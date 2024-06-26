@@ -10,6 +10,12 @@
         .btn-switch-mode {
             margin-bottom: 15px;
         }
+        .footer-output {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -24,37 +30,36 @@
         {% endwith %}
         <div class="row">
             <div class="col-md-6">
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
                     <div class="form-group">
-                        {{ form.input_string.label(class="form-label") }}
-                        {{ form.input_string(class="form-control") }}
+                        {{ form.input_file.label(class="form-label") }}
+                        {{ form.input_file(class="form-control") }}
                     </div>
                     <div class="form-group">
-                        {{ form.output_string.label(class="form-label") }}
-                        {{ form.output_string(class="form-control") }}
+                        {{ form.output_file_name.label(class="form-label") }}
+                        {{ form.output_file_name(class="form-control") }}
                     </div>
                     <div class="form-group">
-                        {{ form.width.label(class="form-label") }}
-                        {{ form.width(class="form-control") }}
+                        {{ form.frame_width.label(class="form-label") }}
+                        {{ form.frame_width(class="form-control") }}
                     </div>
                     <div class="form-group">
-                        {{ form.height.label(class="form-label") }}
-                        {{ form.height(class="form-control") }}
-                    </div>
-                    <div class="form-group">
-                        {{ form.fps.label(class="form-label") }}
-                        {{ form.fps(class="form-control") }}
+                        {{ form.frame_height.label(class="form-label") }}
+                        {{ form.frame_height(class="form-control") }}
                     </div>
                     <div class="form-group">
                         {{ form.block_size.label(class="form-label") }}
                         {{ form.block_size(class="form-control") }}
                     </div>
-                    <button type="submit" name="action" value="encode" class="btn btn-primary">Encode</button>
-                    <button type="submit" name="action" value="decode" class="btn btn-primary ml-2">Decode</button>
+                    <div class="form-group">
+                        {{ form.action.label(class="form-label") }}
+                        {{ form.action(class="form-control") }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Start</button>
                 </form>
                 <br /><br /><br />
-               <button class="btn btn-secondary btn-switch-mode" onclick="switchMode()">Dark Mode</button>
+                <button class="btn btn-secondary btn-switch-mode" onclick="switchMode()">Dark Mode</button>
             </div>
             <div class="col-md-6">
                 {% if result %}
@@ -63,7 +68,19 @@
                         <pre>{{ result }}</pre>
                     </div>
                 {% endif %}
+                {% if output_file_path %}
+                    <div class="content">
+                        <h5>Download:</h5>
+                        <a href="{{ url_for('download_file', filename=output_file_path) }}" class="btn btn-success">Download Output File</a>
+                    </div>
+                {% endif %}
             </div>
+        </div>
+        <div class="footer-output">
+            {% if result %}
+                <h5>Output:</h5>
+                <pre>{{ result }}</pre>
+            {% endif %}
         </div>
     </div>
     <script>
@@ -81,20 +98,19 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YF9NHRKCX"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-6YF9NHRKCX');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-6YF9NHRKCX');
     </script>
     <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
     <script>
-      kofiWidgetOverlay.draw('grisuno', {
-        'type': 'floating-chat',
-        'floating-chat.donateButton.text': 'Support me',
-        'floating-chat.donateButton.background-color': '#5cb85c',
-        'floating-chat.donateButton.text-color': '#fff'
-      });
-    </script>    
+        kofiWidgetOverlay.draw('grisuno', {
+            'type': 'floating-chat',
+            'floating-chat.donateButton.text': 'Support me',
+            'floating-chat.donateButton.background-color': '#5cb85c',
+            'floating-chat.donateButton.text-color': '#fff'
+        });
+    </script>
 </body>
 </html>
