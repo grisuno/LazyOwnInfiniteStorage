@@ -52,17 +52,19 @@ def index():
         frame_height = int(form.frame_height.data)
         block_size = int(form.block_size.data)
         action = form.action.data
-
+        fps = int(form.fps.data)
         input_file_path = os.path.join(tempfile.gettempdir(), secure_filename(input_file.filename))
         input_file.save(input_file_path)
 
         try:
             if action == 'encode':
                 output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}_{frame_width}x{frame_height}.mp4")
-                encode_file_to_video(input_file_path, output_file_path, (frame_width, frame_height), 30, block_size)
+                encode_file_to_video(input_file_path, output_file_path, (frame_width, frame_height), fps, block_size)
+                result = f"File encoded successfully to {output_file}"
             elif action == 'decode':
                 output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}.zip")
                 decode_video_to_file(input_file_path, output_file_path, block_size)
+                result = f"File decoded successfully to {output_file}"
             flash('Operation successful!', 'success')
             download_url = url_for('download_file', filename=os.path.basename(output_file_path))
         except Exception as e:
@@ -118,16 +120,19 @@ def upload_file():
         fps = int(request.form['frame_height'])
         output_filename = f'output_{frame_width}x{frame_height}.mp4'
         output_filepath = os.path.join(app.config['DOWNLOAD_FOLDER'], output_filename)
+        download_url = url_for('download_file', filename=os.path.basename(output_file_path))
         encode_file_to_video(filepath, output_filepath, (frame_width, frame_height), fps, block_size)
     else:
         output_filename = 'output.zip'
         output_filepath = os.path.join(app.config['DOWNLOAD_FOLDER'], output_filename)
-        decode_video_to_file(filepath, output_filepath, block_size)
-    
+        decode_video_to_file(filepath, output_filepath, block_size)    
+        download_url = url_for('download_file', filename=os.path.basename(output_file_path))
+
     os.remove(filepath)
     
-    download_url = url_for('download_file', filename=output_filename)
-    return jsonify({'download_url': download_url})
+
+    return render_template('index.html', form=form, result=result, action=action, download_url=download_url)
+
 
 # Uncomment the following lines if you want to run the app locally without Gunicorn
 # if __name__ == '__main__':
