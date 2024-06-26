@@ -56,6 +56,7 @@ def index():
         try:
             if action == 'encode':
                 output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"recursos_{frame_width}x{frame_height}.mp4")
+                print(output_file_path)
                 encode_file_to_video(input_file_path, output_file_path, (int(frame_width), int(frame_height)), 30, int(block_size))
             elif action == 'decode':
                 output_file_path = os.path.join(tempfile.gettempdir(), f"{output_file_name}.zip")
@@ -65,12 +66,14 @@ def index():
             flash(f'An error occurred: {e}', 'danger')
         finally:
             os.remove(input_file_path)
-
+    print(output_file_path)
     return render_template('index.html', form=form, result=result, output_file_path=output_file_path)
 
 @app.route('/download/<filename>')
 def download_file(filename):
     sanitized_filename = sanitize_filename(filename)
+    print(sanitized_filename)
+    print(filename)
     file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], sanitized_filename)
     if os.path.exists(file_path):
         return send_file(file_path, as_attachment=True)
