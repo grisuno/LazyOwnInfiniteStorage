@@ -5,7 +5,7 @@ from wtforms import StringField, IntegerField, SubmitField
 from wtforms.validators import DataRequired
 from flask_bootstrap import Bootstrap
 from werkzeug.utils import secure_filename
-from lazy_infinitestorage import encode_file_to_video, decode_video_to_file
+from lazyown_infinitestorage import encode_file_to_video, decode_video_to_file
 
 class EncodeDecodeForm(FlaskForm):
     input_string = StringField('Input File Path', validators=[DataRequired()])
