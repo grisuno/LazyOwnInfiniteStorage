@@ -40,11 +40,11 @@
         {% endwith %}
         <div class="row">
             <div class="col-md-6">
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data" id="uploadForm">
                     {{ form.hidden_tag() }}
                     <div class="form-group">
                         {{ form.input_file.label(class="form-label") }}
-                        {{ form.input_file(class="form-control-file") }}
+                        {{ form.input_file(class="form-control-file", id="file") }}
                     </div>
                     <div class="form-group">
                         {{ form.output_file_name.label(class="form-label") }}
@@ -52,19 +52,23 @@
                     </div>
                     <div class="form-group" id="frame_width_group">
                         {{ form.frame_width.label(class="form-label") }}
-                        {{ form.frame_width(class="form-control") }}
+                        {{ form.frame_width(class="form-control", id="frame_width") }}
                     </div>
                     <div class="form-group" id="frame_height_group">
                         {{ form.frame_height.label(class="form-label") }}
-                        {{ form.frame_height(class="form-control") }}
+                        {{ form.frame_height(class="form-control", id="frame_height") }}
+                    </div>
+                    <div class="form-group" id="fps_group">  <!-- Nuevo grupo para fps -->
+                        {{ form.fps.label(class="form-label") }}
+                        {{ form.fps(class="form-control", id="fps") }}
                     </div>
                     <div class="form-group" id="block_size_group">
                         {{ form.block_size.label(class="form-label") }}
-                        {{ form.block_size(class="form-control") }}
+                        {{ form.block_size(class="form-control", id="block_size") }}
                     </div>
                     <div class="form-group">
                         {{ form.action.label(class="form-label") }}
-                        {{ form.action(class="form-control") }}
+                        {{ form.action(class="form-control", id="action") }}
                     </div>
                     <button type="submit" class="btn btn-primary">Start</button>
                 </form>
