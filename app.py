@@ -33,6 +33,41 @@ app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
 app.config['SECRET_KEY'] = os.urandom(24)
 Bootstrap(app)
 
+import os
+import tempfile
+from flask import Flask, render_template, request, flash, redirect, url_for, send_file, jsonify, send_from_directory
+from flask_wtf import FlaskForm
+from wtforms import FileField, StringField, SelectField, SubmitField
+from wtforms.validators import DataRequired
+from flask_bootstrap import Bootstrap
+from werkzeug.utils import secure_filename
+from lazyown_infinitestorage import encode_file_to_video, decode_video_to_file
+
+class EncodeDecodeForm(FlaskForm):
+    input_file = FileField('Input File', validators=[DataRequired()])
+    output_file_name = StringField('Output File Name', validators=[DataRequired()])
+    frame_width = SelectField('Frame Width', choices=[('640', '640'), ('480', '480')])
+    frame_height = SelectField('Frame Height', choices=[('480', '480'), ('360', '360')])
+    block_size = SelectField('Block Size', choices=[('4', '4'), ('8', '8'), ('16', '16')])
+    action = SelectField('Action', choices=[('encode', 'Encode'), ('decode', 'Decode')], validators=[DataRequired()])
+    submit = SubmitField('Start')
+
+app = Flask(__name__)
+
+UPLOAD_FOLDER = 'uploads'
+DOWNLOAD_FOLDER = 'downloads'
+
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+
+if not os.path.exists(DOWNLOAD_FOLDER):
+    os.makedirs(DOWNLOAD_FOLDER)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
+app.config['SECRET_KEY'] = os.urandom(24)
+Bootstrap(app)
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = EncodeDecodeForm()
@@ -52,10 +87,10 @@ def index():
 
         try:
             if action == 'encode':
-                output_file_path = os.path.join(tempfile.gettempdir(), output_file_name + f"{frame_width}x{frame_height}.mp4")
+                output_file_path = os.path.join(tempfile.gettempdir(), f"{output_file_name}_{frame_width}x{frame_height}.mp4")
                 encode_file_to_video(input_file_path, output_file_path, (int(frame_width), int(frame_height)), 30, int(block_size))
             elif action == 'decode':
-                output_file_path = os.path.join(tempfile.gettempdir(), output_file_name + ".zip")
+                output_file_path = os.path.join(tempfile.gettempdir(), f"{output_file_name}.zip")
                 decode_video_to_file(input_file_path, output_file_path, int(block_size))
             flash('Operation successful!', 'success')
         except Exception as e:
@@ -68,10 +103,12 @@ def index():
 @app.route('/download/<filename>')
 def download_file(filename):
     file_path = os.path.join(tempfile.gettempdir(), filename)
-    response = send_file(file_path, as_attachment=True)
-    os.remove(file_path)
-    return send_from_directory(app.config['DOWNLOAD_FOLDER'], filename)
-    
+    if os.path.exists(file_path):
+        return send_file(file_path, as_attachment=True)
+    else:
+        flash(f"File {filename} not found", 'danger')
+        return redirect(url_for('index'))
+
 @app.after_request
 def add_security_headers(response):
     response.cache_control.no_cache = True
@@ -80,7 +117,7 @@ def add_security_headers(response):
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
     return response
-    
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
@@ -108,13 +145,12 @@ def upload_file():
         output_filepath = os.path.join(app.config['DOWNLOAD_FOLDER'], output_filename)
         decode_video_to_file(filepath, output_filepath)
     
-    # Eliminar el archivo de subida después de procesarlo
     os.remove(filepath)
+    download_url = f"/download/{output_filename}"
     
-    # Corregir la URL de descarga para evitar doble slash
-    return jsonify({'download_url': f'/download/{output_filename}'})
-
+    return jsonify({'download_url': download_url})
 
 # Uncomment the following lines if you want to run the app locally without Gunicorn
 # if __name__ == '__main__':
 #     app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+
