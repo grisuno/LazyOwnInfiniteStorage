@@ -87,25 +87,25 @@ def download_file(filename):
         flash(f"File {filename} not found", 'danger')
         return redirect(url_for('index'))
 
-@app.after_request
-def add_security_headers(response):
-    # Configuración para evitar el almacenamiento en caché
-    response.cache_control.no_cache = True
-    response.cache_control.no_store = True
-    response.cache_control.must_revalidate = True
-    response.headers['Pragma'] = 'no-cache'
-    response.headers['Expires'] = '0'
+# @app.after_request
+# def add_security_headers(response):
+#     # Configuración para evitar el almacenamiento en caché
+#     response.cache_control.no_cache = True
+#     response.cache_control.no_store = True
+#     response.cache_control.must_revalidate = True
+#     response.headers['Pragma'] = 'no-cache'
+#     response.headers['Expires'] = '0'
 
-    # Configuración de protección adicional de seguridad
-    response.headers['X-Content-Type-Options'] = 'nosniff'
-    response.headers['X-Frame-Options'] = 'DENY'
-    response.headers['X-XSS-Protection'] = '1; mode=block'
+#     # Configuración de protección adicional de seguridad
+#     response.headers['X-Content-Type-Options'] = 'nosniff'
+#     response.headers['X-Frame-Options'] = 'DENY'
+#     response.headers['X-XSS-Protection'] = '1; mode=block'
 
-    # Configuración de políticas de seguridad
-    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
-    response.headers['Content-Security-Policy'] = "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'"
+#     # Configuración de políticas de seguridad
+#     response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+#     response.headers['Content-Security-Policy'] = "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'"
 
-    return response
+#     return response
 
 
 
