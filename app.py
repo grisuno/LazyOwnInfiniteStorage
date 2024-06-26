@@ -70,8 +70,8 @@ def download_file(filename):
     file_path = os.path.join(tempfile.gettempdir(), filename)
     response = send_file(file_path, as_attachment=True)
     os.remove(file_path)
-    return response
-
+    return send_from_directory(app.config['DOWNLOAD_FOLDER'], filename)
+    
 @app.after_request
 def add_security_headers(response):
     response.cache_control.no_cache = True
@@ -100,7 +100,7 @@ def upload_file():
         block_size = int(request.form['block_size'])
         frame_width = int(request.form['frame_width'])
         frame_height = int(request.form['frame_height'])
-        output_filename = 'output.mp4'
+        output_filename = f'output_{frame_width}x{frame_height}.mp4'
         output_filepath = os.path.join(app.config['DOWNLOAD_FOLDER'], output_filename)
         encode_file_to_video(filepath, output_filepath, block_size, frame_width, frame_height)
     else:
@@ -108,6 +108,10 @@ def upload_file():
         output_filepath = os.path.join(app.config['DOWNLOAD_FOLDER'], output_filename)
         decode_video_to_file(filepath, output_filepath)
     
+    # Eliminar el archivo de subida después de procesarlo
+    os.remove(filepath)
+    
+    # Corregir la URL de descarga para evitar doble slash
     return jsonify({'download_url': f'/download/{output_filename}'})
 
 
