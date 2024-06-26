@@ -11,12 +11,16 @@ from lazyown_infinitestorage import encode_file_to_video, decode_video_to_file
 
 
 class EncodeDecodeForm(FlaskForm):
+    RESOLUTION_CHOICES = [('640x480', '640x480'), ('480x360', '480x360')]  # Lista de opciones para la resolución
+    FPS_CHOICES = [(i, str(i)) for i in range(1, 31)]  # Opciones para FPS del 1 al 30
+    BLOCK_SIZE_CHOICES = [(4, '4'), (8, '8'), (16, '16')]  # Opciones para el tamaño de bloque
+
     input_file = FileField('Input File', validators=[DataRequired()])
     output_file_name = StringField('Output File Name', validators=[DataRequired()])
-    frame_width = IntegerField('Frame Width', validators=[DataRequired()])
-    frame_height = IntegerField('Frame Height', validators=[DataRequired()])
-    fps = IntegerField('Frames Per Second', validators=[DataRequired(), NumberRange(min=1)])  # Agregado el campo fps
-    block_size = IntegerField('Block Size', validators=[DataRequired()])
+    frame_width = SelectField('Frame Width', choices=RESOLUTION_CHOICES, validators=[DataRequired()])
+    frame_height = SelectField('Frame Height', choices=RESOLUTION_CHOICES, validators=[DataRequired()])
+    fps = SelectField('Frames Per Second', choices=FPS_CHOICES, validators=[DataRequired(), NumberRange(min=1)])
+    block_size = SelectField('Block Size', choices=BLOCK_SIZE_CHOICES, validators=[DataRequired()])
     action = SelectField('Action', choices=[('encode', 'Encode'), ('decode', 'Decode')], validators=[DataRequired()])
     submit = SubmitField('Start')
 
