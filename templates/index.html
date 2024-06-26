@@ -83,10 +83,10 @@
                     <div class="content">
                         <h5>Download:</h5>
                         
-                        {% if download_url %}
+                 
                             <a href="{{ url_for('download_file', filename=output_file_path) }}" class="btn btn-success">Download Output File</a>
                             <a href="{{ download_url }}" class="btn btn-success">Download File</a>
-                        {% endif %}
+                 
                     </div>
                 {% endif %}
             </div>
