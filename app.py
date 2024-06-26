@@ -76,9 +76,9 @@ def index():
 @app.route('/download/<filename>', methods=['GET'])
 def download_file(filename):
     sanitized_filename = sanitize_filename(filename)
-    file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], sanitized_filename)
-    if os.path.exists(file_path):
-        return send_file(file_path, as_attachment=True)
+    sanitized_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], sanitized_filename)
+    if os.path.exists(sanitized_file_path):
+        return send_file(sanitized_file_path, as_attachment=True)
     else:
         flash(f"File {filename} not found", 'danger')
         return redirect(url_for('index'))
