@@ -1,55 +1,64 @@
 import os
-from flask import Flask, render_template, request, flash, redirect, url_for
+import tempfile
+from flask import Flask, render_template, request, flash, redirect, url_for, send_file
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms import FileField, StringField, SelectField, SubmitField
+from wtforms.validators import DataRequired, Regexp
 from flask_bootstrap import Bootstrap
 from werkzeug.utils import secure_filename
 from lazyown_infinitestorage import encode_file_to_video, decode_video_to_file
 
 class EncodeDecodeForm(FlaskForm):
-    input_string = StringField('Input File Path', validators=[DataRequired()])
-    output_string = StringField('Output File Path', validators=[DataRequired()])
-    width = IntegerField('Frame Width', validators=[DataRequired()])
-    height = IntegerField('Frame Height', validators=[DataRequired()])
-    fps = IntegerField('Frames Per Second', validators=[DataRequired()])
-    block_size = IntegerField('Block Size', validators=[DataRequired()])
-    submit = SubmitField('Submit')
+    input_file = FileField('Input File', validators=[DataRequired()])
+    output_file_name = StringField('Output File Name', validators=[DataRequired()])
+    frame_width = SelectField('Frame Width', choices=[('640', '640'), ('480', '480')])
+    frame_height = SelectField('Frame Height', choices=[('480', '480'), ('360', '360')])
+    block_size = SelectField('Block Size', choices=[('4', '4'), ('8', '8'), ('16', '16')])
+    action = SelectField('Action', choices=[('encode', 'Encode'), ('decode', 'Decode')], validators=[DataRequired()])
+    submit = SubmitField('Start')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
-app.config['SESSION_REFRESH_EACH_REQUEST'] = False
-app.config['SESSION_COOKIE_SECURE'] = True
-app.config['SESSION_COOKIE_HTTPONLY'] = True
-app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 Bootstrap(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = EncodeDecodeForm()
     result = None
-    action = None
+    output_file_path = None
+
     if form.validate_on_submit():
-        input_file = secure_filename(form.input_string.data)
-        output_file = secure_filename(form.output_string.data)
-        width = form.width.data
-        height = form.height.data
-        fps = form.fps.data
+        input_file = form.input_file.data
+        output_file_name = secure_filename(form.output_file_name.data)
+        frame_width = form.frame_width.data
+        frame_height = form.frame_height.data
         block_size = form.block_size.data
-        action = request.form.get('action')
+        action = form.action.data
+
+        input_file_path = os.path.join(tempfile.gettempdir(), secure_filename(input_file.filename))
+        input_file.save(input_file_path)
 
         try:
             if action == 'encode':
-                encode_file_to_video(input_file, output_file, (width, height), fps, block_size)
-                result = f"File encoded successfully to {output_file}"
+                output_file_path = os.path.join(tempfile.gettempdir(), output_file_name + ".mp4")
+                encode_file_to_video(input_file_path, output_file_path, (int(frame_width), int(frame_height)), 30, int(block_size))
             elif action == 'decode':
-                decode_video_to_file(input_file, output_file, block_size)
-                result = f"File decoded successfully to {output_file}"
+                output_file_path = os.path.join(tempfile.gettempdir(), output_file_name + ".zip")
+                decode_video_to_file(input_file_path, output_file_path, int(block_size))
             flash('Operation successful!', 'success')
         except Exception as e:
             flash(f'An error occurred: {e}', 'danger')
+        finally:
+            os.remove(input_file_path)
 
-    return render_template('index.html', form=form, result=result, action=action)
+    return render_template('index.html', form=form, result=result, output_file_path=output_file_path)
+
+@app.route('/download/<filename>')
+def download_file(filename):
+    file_path = os.path.join(tempfile.gettempdir(), filename)
+    response = send_file(file_path, as_attachment=True)
+    os.remove(file_path)
+    return response
 
 @app.after_request
 def add_security_headers(response):
@@ -60,6 +69,5 @@ def add_security_headers(response):
     response.headers['Expires'] = '0'
     return response
 
-# Uncomment the following lines if you want to run the app locally without Gunicorn
-# if __name__ == '__main__':
-#     app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+if __name__ == '__main__':
+    app.run(debug=True)
