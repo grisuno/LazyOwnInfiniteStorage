@@ -39,7 +39,7 @@ def index():
     if form.validate_on_submit():
         action = form.action.data
         input_file = form.input_file.data
-        output_file_name = form.output_file_name.data
+        output_file_name = secure_filename(form.output_file_name.data)
         frame_width = form.frame_width.data
         frame_height = form.frame_height.data
         block_size = form.block_size.data
@@ -48,13 +48,19 @@ def index():
         input_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         input_file.save(input_path)
 
-        if action == 'encode':
-            output_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}.mp4")
-            encode_file_to_video(input_path, output_path, int(frame_width), int(frame_height), int(block_size))
-        elif action == 'decode':
-            output_path = os.path.join(app.config['DOWNLOAD_FOLDER'], output_file_name)
-            decode_video_to_file(input_path, output_path)
-
+        try:
+            if action == 'encode':
+                output_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}.mp4")
+                encode_file_to_video(input_path, output_path, int(frame_width), int(frame_height), int(block_size))
+            elif action == 'decode':
+                output_path = os.path.join(app.config['DOWNLOAD_FOLDER'], output_file_name)
+                decode_video_to_file(input_path, output_path)
+            flash('Operation successful!', 'success')
+        except Exception as e:
+            flash(f'An error occurred: {e}', 'danger')
+        finally:
+            os.remove(input_path)
+        
         return send_from_directory(app.config['DOWNLOAD_FOLDER'], os.path.basename(output_path), as_attachment=True)
 
     return render_template('index.html', form=form)
