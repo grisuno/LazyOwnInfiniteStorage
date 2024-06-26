@@ -52,7 +52,7 @@ def index():
 
         try:
             if action == 'encode':
-                output_file_path = os.path.join(tempfile.gettempdir(), output_file_name.replace('/tmp/', '') + f"{frame_width}x{frame_height}.mp4")
+                output_file_path = os.path.join(tempfile.gettempdir(), output_file_name + f"{frame_width}x{frame_height}.mp4")
                 encode_file_to_video(input_file_path, output_file_path, (int(frame_width), int(frame_height)), 30, int(block_size))
             elif action == 'decode':
                 output_file_path = os.path.join(tempfile.gettempdir(), output_file_name + ".zip")
