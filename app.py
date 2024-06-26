@@ -52,7 +52,7 @@ def index():
 
         try:
             if action == 'encode':
-                output_file_path = os.path.join(tempfile.gettempdir(), f"{output_file_name}_{frame_width}x{frame_height}.mp4")
+                output_file_path = os.path.join(tempfile.gettempdir(), f"{output_file_name}.mp4")
                 encode_file_to_video(input_file_path, output_file_path, (int(frame_width), int(frame_height)), 30, int(block_size))
             elif action == 'decode':
                 output_file_path = os.path.join(tempfile.gettempdir(), f"{output_file_name}.zip")
@@ -73,6 +73,7 @@ def download_file(filename):
     else:
         flash(f"File {filename} not found", 'danger')
         return redirect(url_for('index'))
+
 
 @app.after_request
 def add_security_headers(response):
