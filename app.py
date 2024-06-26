@@ -11,8 +11,9 @@ from lazyown_infinitestorage import encode_file_to_video, decode_video_to_file
 
 
 class EncodeDecodeForm(FlaskForm):
-    RESOLUTION_CHOICES_W = [('640', '480')]  # Lista de opciones para la resolución
-    RESOLUTION_CHOICES_H = [('480', '360')]  # Lista de opciones para la resolución
+    
+    RESOLUTION_CHOICES_W = [('640', '640'), ('480', '480')]  # Lista de opciones para la resolución de ancho
+    RESOLUTION_CHOICES_H = [('480', '480'), ('360', '360')]  # Lista de opciones para la resolución de alto
 
     FPS_CHOICES = [(i, str(i)) for i in range(1, 31)]  # Opciones para FPS del 1 al 30
     BLOCK_SIZE_CHOICES = [(4, '4'), (8, '8'), (16, '16')]  # Opciones para el tamaño de bloque
