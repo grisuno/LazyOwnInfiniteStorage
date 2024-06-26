@@ -2,8 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LazyOwnEncoderDecoder</title>
+    <title>LazyOwnEncoderDecoder - Encode and Decode Files Easily</title>
+    <meta name="description" content="LazyOwnEncoderDecoder is a powerful tool to easily encode and decode files. Supports video and zip files with customizable parameters for frame size and block size.">
+    <meta name="keywords" content="LazyOwnEncoderDecoder, encode files, decode files, video encoding, zip decoding, file conversion">
+    <meta name="author" content="GrisUNO">
+    <meta property="og:title" content="LazyOwnEncoderDecoder - Encode and Decode Files Easily">
+    <meta property="og:description" content="LazyOwnEncoderDecoder is a powerful tool to easily encode and decode files. Supports video and zip files with customizable parameters for frame size and block size.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lazyowninfinitestorage.onrender.com/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LazyOwnEncoderDecoder - Encode and Decode Files Easily">
+    <meta name="twitter:description" content="LazyOwnEncoderDecoder is a powerful tool to easily encode and decode files. Supports video and zip files with customizable parameters for frame size and block size.">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link id="themeStylesheet" rel="stylesheet" href="{{ url_for('static', filename='css/light-mode.css') }}">
     <style>
@@ -34,21 +45,21 @@
                     {{ form.hidden_tag() }}
                     <div class="form-group">
                         {{ form.input_file.label(class="form-label") }}
-                        {{ form.input_file(class="form-control") }}
+                        {{ form.input_file(class="form-control-file") }}
                     </div>
                     <div class="form-group">
                         {{ form.output_file_name.label(class="form-label") }}
                         {{ form.output_file_name(class="form-control") }}
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="frame_width_group">
                         {{ form.frame_width.label(class="form-label") }}
                         {{ form.frame_width(class="form-control") }}
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="frame_height_group">
                         {{ form.frame_height.label(class="form-label") }}
                         {{ form.frame_height(class="form-control") }}
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="block_size_group">
                         {{ form.block_size.label(class="form-label") }}
                         {{ form.block_size(class="form-control") }}
                     </div>
@@ -94,6 +105,35 @@
                 document.querySelector('.btn-switch-mode').innerText = 'Dark Mode';
             }
         }
+
+        document.getElementById('frame_width').addEventListener('change', function() {
+            const width = this.value;
+            const heightSelect = document.getElementById('frame_height');
+            if (width === '640') {
+                heightSelect.value = '480';
+            } else if (width === '480') {
+                heightSelect.value = '360';
+            }
+        });
+
+        document.getElementById('action').addEventListener('change', function() {
+            const action = this.value;
+            const frameWidthGroup = document.getElementById('frame_width_group');
+            const frameHeightGroup = document.getElementById('frame_height_group');
+            const blockSizeGroup = document.getElementById('block_size_group');
+
+            if (action === 'encode') {
+                frameWidthGroup.style.display = 'block';
+                frameHeightGroup.style.display = 'block';
+                blockSizeGroup.style.display = 'block';
+                document.getElementById('input_file').setAttribute('accept', '.zip');
+            } else if (action === 'decode') {
+                frameWidthGroup.style.display = 'none';
+                frameHeightGroup.style.display = 'none';
+                blockSizeGroup.style.display = 'block';
+                document.getElementById('input_file').setAttribute('accept', '.mp4');
+            }
+        });
     </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YF9NHRKCX"></script>
@@ -108,7 +148,7 @@
         kofiWidgetOverlay.draw('grisuno', {
             'type': 'floating-chat',
             'floating-chat.donateButton.text': 'Support me',
-            'floating-chat.donateButton.background-color': '#5cb85c',
+            'floating-chat.donateButton.background-color': '#00b9fe',
             'floating-chat.donateButton.text-color': '#fff'
         });
     </script>
