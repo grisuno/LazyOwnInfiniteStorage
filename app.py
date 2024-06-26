@@ -61,7 +61,7 @@ def index():
                 output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"recursos_{frame_width}x{frame_height}.mp4")
                 encode_file_to_video(input_file_path, output_file_path, (int(frame_width), int(frame_height)), 30, int(block_size))
             elif action == 'decode':
-                output_file_path = os.path.join(tempfile.gettempdir(), f"{output_file_name}.zip")
+                output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}.zip")
                 decode_video_to_file(input_file_path, output_file_path, int(block_size))
             flash('Operation successful!', 'success')
             download_url = url_for('download_file', filename=os.path.basename(output_file_path))
