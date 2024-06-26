@@ -1,4 +1,5 @@
 import os
+import re
 import tempfile
 from flask import Flask, render_template, request, flash, redirect, url_for, send_file, jsonify, send_from_directory
 from flask_wtf import FlaskForm
@@ -25,15 +26,17 @@ app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
 DOWNLOAD_FOLDER = 'downloads'
 
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
-
-if not os.path.exists(DOWNLOAD_FOLDER):
-    os.makedirs(DOWNLOAD_FOLDER)
-
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
 app.config['SECRET_KEY'] = os.urandom(24)
+app.config['UPLOAD_FOLDER'] = os.path.abspath(UPLOAD_FOLDER)
+app.config['DOWNLOAD_FOLDER'] = os.path.abspath(DOWNLOAD_FOLDER)
+
+if not os.path.exists(app.config['UPLOAD_FOLDER']):
+    os.makedirs(app.config['UPLOAD_FOLDER'])
+
+if not os.path.exists(app.config['DOWNLOAD_FOLDER']):
+    os.makedirs(app.config['DOWNLOAD_FOLDER'])
+
+
 Bootstrap(app)
 
 @app.route('/', methods=['GET', 'POST'])
@@ -69,18 +72,17 @@ def index():
     print(output_file_path)
     return render_template('index.html', form=form, result=result, output_file_path=output_file_path)
 
-@app.route('/download/<filename>')
+@app.route('/download/<filename>', methods=['GET'])
 def download_file(filename):
     sanitized_filename = sanitize_filename(filename)
-    print(sanitized_filename)
-    print(filename)
     file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], sanitized_filename)
+    print(f"Attempting to send file from: {file_path}")
+    print(f"Attempting to send file filename: {filename}")
     if os.path.exists(file_path):
         return send_file(file_path, as_attachment=True)
     else:
         flash(f"File {filename} not found", 'danger')
         return redirect(url_for('index'))
-
 
 @app.after_request
 def add_security_headers(response):
