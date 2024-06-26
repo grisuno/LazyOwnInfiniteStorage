@@ -16,7 +16,10 @@ class EncodeDecodeForm(FlaskForm):
     block_size = SelectField('Block Size', choices=[('4', '4'), ('8', '8'), ('16', '16')])
     action = SelectField('Action', choices=[('encode', 'Encode'), ('decode', 'Decode')], validators=[DataRequired()])
     submit = SubmitField('Start')
-
+    
+def sanitize_filename(filename):
+    return re.sub(r'[^a-zA-Z0-9_\-\.]', '', filename)
+    
 app = Flask(__name__)
 
 UPLOAD_FOLDER = 'uploads'
@@ -67,8 +70,8 @@ def index():
 
 @app.route('/download/<filename>')
 def download_file(filename):
-    
-    file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], filename)
+    sanitized_filename = sanitize_filename(filename)
+    file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], sanitized_filename)
     if os.path.exists(file_path):
         return send_file(file_path, as_attachment=True)
     else:
