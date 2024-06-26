@@ -1,6 +1,7 @@
 import os
 import tempfile
-from flask import Flask, render_template, request, flash, redirect, url_for, send_file
+from flask import Flask, render_template, request, flash, redirect, url_for, send_file, jsonify, send_from_directory
+from werkzeug.utils import secure_filename
 from flask_wtf import FlaskForm
 from wtforms import FileField, StringField, SelectField, SubmitField
 from wtforms.validators import DataRequired, Regexp
@@ -18,6 +19,18 @@ class EncodeDecodeForm(FlaskForm):
     submit = SubmitField('Start')
 
 app = Flask(__name__)
+
+UPLOAD_FOLDER = 'uploads'
+DOWNLOAD_FOLDER = 'downloads'
+
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+
+if not os.path.exists(DOWNLOAD_FOLDER):
+    os.makedirs(DOWNLOAD_FOLDER)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
 app.config['SECRET_KEY'] = os.urandom(24)
 Bootstrap(app)
 
@@ -68,6 +81,37 @@ def add_security_headers(response):
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '0'
     return response
+    
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    if 'file' not in request.files:
+        return 'No file part', 400
+    
+    file = request.files['file']
+    if file.filename == '':
+        return 'No selected file', 400
+    
+    filename = secure_filename(file.filename)
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    file.save(filepath)
+    
+    mode = request.form['mode']
+    
+    if mode == 'encode':
+        block_size = int(request.form['block_size'])
+        frame_width = int(request.form['frame_width'])
+        frame_height = int(request.form['frame_height'])
+        output_filename = 'output.mp4'
+        output_filepath = os.path.join(app.config['DOWNLOAD_FOLDER'], output_filename)
+        encode_file_to_video(filepath, output_filepath, block_size, frame_width, frame_height)
+    else:
+        output_filename = 'output.zip'
+        output_filepath = os.path.join(app.config['DOWNLOAD_FOLDER'], output_filename)
+        decode_video_to_file(filepath, output_filepath)
+    
+    return jsonify({'download_url': f'/download/{output_filename}'})
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
+# Uncomment the following lines if you want to run the app locally without Gunicorn
+# if __name__ == '__main__':
+#     app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
