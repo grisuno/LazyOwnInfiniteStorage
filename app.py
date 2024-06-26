@@ -1,6 +1,6 @@
 import os
 import tempfile
-from flask import Flask, render_template, request, flash, redirect, url_for, send_file, jsonify
+from flask import Flask, render_template, request, flash, redirect, url_for, send_file, jsonify, send_from_directory
 from flask_wtf import FlaskForm
 from wtforms import FileField, StringField, SelectField, SubmitField
 from wtforms.validators import DataRequired
@@ -36,34 +36,28 @@ Bootstrap(app)
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = EncodeDecodeForm()
-    result = None
-    output_file_path = None
-
     if form.validate_on_submit():
+        action = form.action.data
         input_file = form.input_file.data
-        output_file_name = secure_filename(form.output_file_name.data)
+        output_file_name = form.output_file_name.data
         frame_width = form.frame_width.data
         frame_height = form.frame_height.data
         block_size = form.block_size.data
-        action = form.action.data
 
-        input_file_path = os.path.join(tempfile.gettempdir(), secure_filename(input_file.filename))
-        input_file.save(input_file_path)
+        filename = secure_filename(input_file.filename)
+        input_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        input_file.save(input_path)
 
-        try:
-            if action == 'encode':
-                output_file_path = os.path.join(tempfile.gettempdir(), secure_filename(f"{output_file_name}_{frame_width}x{frame_height}.mp4"))
-                encode_file_to_video(input_file_path, output_file_path, (int(frame_width), int(frame_height)), 30, int(block_size))
-            elif action == 'decode':
-                output_file_path = os.path.join(tempfile.gettempdir(), secure_filename(f"{output_file_name}.zip"))
-                decode_video_to_file(input_file_path, output_file_path, int(block_size))
-            flash('Operation successful!', 'success')
-        except Exception as e:
-            flash(f'An error occurred: {e}', 'danger')
-        finally:
-            os.remove(input_file_path)
+        if action == 'encode':
+            output_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}.mp4")
+            encode_file_to_video(input_path, output_path, int(frame_width), int(frame_height), int(block_size))
+        elif action == 'decode':
+            output_path = os.path.join(app.config['DOWNLOAD_FOLDER'], output_file_name)
+            decode_video_to_file(input_path, output_path)
 
-    return render_template('index.html', form=form, result=result, output_file_path=output_file_path)
+        return send_from_directory(app.config['DOWNLOAD_FOLDER'], os.path.basename(output_path), as_attachment=True)
+
+    return render_template('index.html', form=form)
 
 @app.route('/download/<filename>')
 def download_file(filename):
