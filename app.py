@@ -3,7 +3,7 @@ import re
 import tempfile
 from flask import Flask, render_template, request, flash, redirect, url_for, send_file, jsonify
 from flask_wtf import FlaskForm
-from wtforms import FileField, StringField, SelectField, SubmitField
+from wtforms import FileField, StringField, SelectField, SubmitField, IntegerField
 from wtforms.validators import DataRequired, NumberRange
 from flask_bootstrap import Bootstrap
 from werkzeug.utils import secure_filename
@@ -89,16 +89,16 @@ def download_file(filename):
 
 @app.after_request
 def add_security_headers(response):
-    # response.cache_control.no_cache = True
-    # response.cache_control.no_store = True
-    # response.cache_control.must_revalidate = True
-    # response.headers['Pragma'] = 'no-cache'
-    # response.headers['Expires'] = '0'
-    # response.headers['X-Content-Type-Options'] = 'nosniff'
-    # response.headers['X-Frame-Options'] = 'DENY'
-    # response.headers['X-XSS-Protection'] = '1; mode=block'
-    # response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
-    # response.headers['Content-Security-Policy'] = "default-src 'self'"
+    response.cache_control.no_cache = True
+    response.cache_control.no_store = True
+    response.cache_control.must_revalidate = True
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'DENY'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    response.headers['Content-Security-Policy'] = "default-src 'self'"
     return response
 
 @app.route('/upload', methods=['POST'])
