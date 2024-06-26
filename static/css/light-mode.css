@@ -1,0 +1,52 @@
+body {
+    background-color: #ffffff;
+    color: #000000;
+    font-family: 'VT323', monospace;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+h1, h2, h3, p {
+    margin: 0 0 20px 0;
+}
+a {
+    color: #0000ff;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+.banner {
+    text-align: center;
+    margin-bottom: 40px;
+}
+.content {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #0000ff;
+}
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #0000ff;
+}
+.neon-text {
+    color: #000000;
+    text-shadow: 0 0 5px #000000, 0 0 10px #000000, 0 0 20px #000000, 0 0 40px #000000;
+    animation: flicker 1.5s infinite alternate;
+}
+@keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+    }
+    20%, 24%, 55% {
+        opacity: 0.5;
+    }
+}
