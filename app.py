@@ -1,10 +1,10 @@
 import os
 import re
 import tempfile
-from flask import Flask, render_template, request, flash, redirect, url_for, send_file, jsonify, send_from_directory
+from flask import Flask, render_template, request, flash, redirect, url_for, send_file, jsonify
 from flask_wtf import FlaskForm
 from wtforms import FileField, StringField, SelectField, SubmitField
-from wtforms.validators import DataRequired, Regexp
+from wtforms.validators import DataRequired
 from flask_bootstrap import Bootstrap
 from werkzeug.utils import secure_filename
 from lazyown_infinitestorage import encode_file_to_video, decode_video_to_file
@@ -17,10 +17,10 @@ class EncodeDecodeForm(FlaskForm):
     block_size = SelectField('Block Size', choices=[('4', '4'), ('8', '8'), ('16', '16')])
     action = SelectField('Action', choices=[('encode', 'Encode'), ('decode', 'Decode')], validators=[DataRequired()])
     submit = SubmitField('Start')
-    
+
 def sanitize_filename(filename):
     return re.sub(r'[^a-zA-Z0-9_\-\.]', '', filename)
-    
+
 app = Flask(__name__)
 
 UPLOAD_FOLDER = 'uploads'
@@ -35,7 +35,6 @@ if not os.path.exists(app.config['UPLOAD_FOLDER']):
 
 if not os.path.exists(app.config['DOWNLOAD_FOLDER']):
     os.makedirs(app.config['DOWNLOAD_FOLDER'])
-
 
 Bootstrap(app)
 
@@ -82,7 +81,6 @@ def download_file(filename):
     else:
         flash(f"File {filename} not found", 'danger')
         return redirect(url_for('index'))
-
 
 @app.after_request
 def add_security_headers(response):
