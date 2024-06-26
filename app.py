@@ -4,19 +4,22 @@ import tempfile
 from flask import Flask, render_template, request, flash, redirect, url_for, send_file, jsonify
 from flask_wtf import FlaskForm
 from wtforms import FileField, StringField, SelectField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, NumberRange
 from flask_bootstrap import Bootstrap
 from werkzeug.utils import secure_filename
 from lazyown_infinitestorage import encode_file_to_video, decode_video_to_file
 
+
 class EncodeDecodeForm(FlaskForm):
     input_file = FileField('Input File', validators=[DataRequired()])
     output_file_name = StringField('Output File Name', validators=[DataRequired()])
-    frame_width = SelectField('Frame Width', choices=[('640', '640'), ('480', '480')])
-    frame_height = SelectField('Frame Height', choices=[('480', '480'), ('360', '360')])
-    block_size = SelectField('Block Size', choices=[('4', '4'), ('8', '8'), ('16', '16')])
+    frame_width = IntegerField('Frame Width', validators=[DataRequired()])
+    frame_height = IntegerField('Frame Height', validators=[DataRequired()])
+    fps = IntegerField('Frames Per Second', validators=[DataRequired(), NumberRange(min=1)])  # Agregado el campo fps
+    block_size = IntegerField('Block Size', validators=[DataRequired()])
     action = SelectField('Action', choices=[('encode', 'Encode'), ('decode', 'Decode')], validators=[DataRequired()])
     submit = SubmitField('Start')
+
 
 def sanitize_filename(filename):
     return re.sub(r'[^a-zA-Z0-9_\-\.]', '', filename)
@@ -86,16 +89,16 @@ def download_file(filename):
 
 @app.after_request
 def add_security_headers(response):
-    response.cache_control.no_cache = True
-    response.cache_control.no_store = True
-    response.cache_control.must_revalidate = True
-    response.headers['Pragma'] = 'no-cache'
-    response.headers['Expires'] = '0'
-    response.headers['X-Content-Type-Options'] = 'nosniff'
-    response.headers['X-Frame-Options'] = 'DENY'
-    response.headers['X-XSS-Protection'] = '1; mode=block'
-    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
-    response.headers['Content-Security-Policy'] = "default-src 'self'"
+    # response.cache_control.no_cache = True
+    # response.cache_control.no_store = True
+    # response.cache_control.must_revalidate = True
+    # response.headers['Pragma'] = 'no-cache'
+    # response.headers['Expires'] = '0'
+    # response.headers['X-Content-Type-Options'] = 'nosniff'
+    # response.headers['X-Frame-Options'] = 'DENY'
+    # response.headers['X-XSS-Protection'] = '1; mode=block'
+    # response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    # response.headers['Content-Security-Policy'] = "default-src 'self'"
     return response
 
 @app.route('/upload', methods=['POST'])
