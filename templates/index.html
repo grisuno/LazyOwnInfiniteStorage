@@ -78,12 +78,13 @@
                         <pre>{{ result }}</pre>
                     </div>
                 {% endif %}
-                {% if output_file_path %}
+                {% if download_url %}
                     <div class="content">
                         <h5>Download:</h5>
-                        <a href="{{ url_for('download_file', filename=output_file_path) }}" class="btn btn-success">Download Output File</a>
+                        <a href="{{ download_url }}" class="btn btn-success">Download Output File</a>
                     </div>
                 {% endif %}
+
             </div>
         </div>
         <div class="footer-output">
