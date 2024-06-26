@@ -112,8 +112,8 @@ def upload_file():
         decode_video_to_file(filepath, output_filepath, block_size)
     
     os.remove(filepath)
-    download_url = f"/download/{output_filename}"
     
+    download_url = url_for('download_file', filename=output_filename)
     return jsonify({'download_url': download_url})
 
 # Uncomment the following lines if you want to run the app locally without Gunicorn
