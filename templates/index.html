@@ -105,7 +105,33 @@
                 document.querySelector('.btn-switch-mode').innerText = 'Dark Mode';
             }
         }
+        function updateForm() {
+            var mode = document.getElementById("mode").value;
+            var fileInput = document.getElementById("file");
+            var blockSizeSelect = document.getElementById("block_size");
+            var resolutionDiv = document.getElementById("resolution");
 
+            if (mode === "encode") {
+                fileInput.accept = ".zip";
+                blockSizeSelect.style.display = "block";
+                resolutionDiv.style.display = "block";
+            } else {
+                fileInput.accept = "video/mp4";
+                blockSizeSelect.style.display = "none";
+                resolutionDiv.style.display = "none";
+            }
+        }
+        function handleResponse(response) {
+            response.json().then(data => {
+                var downloadUrl = data.download_url;
+                var link = document.createElement('a');
+                link.href = downloadUrl;
+                link.download = '';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
         document.getElementById('frame_width').addEventListener('change', function() {
             const width = this.value;
             const heightSelect = document.getElementById('frame_height');
@@ -115,7 +141,19 @@
                 heightSelect.value = '360';
             }
         });
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("uploadForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+                var formData = new FormData(this);
 
+                fetch("/upload", {
+                    method: "POST",
+                    body: formData
+                }).then(handleResponse).catch(error => console.error("Error:", error));
+            });
+
+            updateForm();
+        });
         document.getElementById('action').addEventListener('change', function() {
             const action = this.value;
             const frameWidthGroup = document.getElementById('frame_width_group');
@@ -134,6 +172,7 @@
                 document.getElementById('input_file').setAttribute('accept', '.mp4');
             }
         });
+        
     </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YF9NHRKCX"></script>
