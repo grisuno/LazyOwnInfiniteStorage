@@ -119,20 +119,34 @@
             }
         }
         function updateForm() {
-            var mode = document.getElementById("mode").value;
-            var fileInput = document.getElementById("file");
-            var blockSizeSelect = document.getElementById("block_size");
+            var modeElement = document.getElementById("mode");
+            var fileInputElement = document.getElementById("file");
+            var blockSizeSelectElement = document.getElementById("block_size");
             var resolutionDiv = document.getElementById("resolution");
-
-            if (mode === "encode") {
-                fileInput.accept = ".zip";
-                blockSizeSelect.style.display = "block";
-                resolutionDiv.style.display = "block";
+        
+            // Verificar la existencia de cada elemento antes de proceder
+            if (modeElement && fileInputElement && blockSizeSelectElement && resolutionDiv) {
+                var mode = modeElement.value;
+                var fileInput = fileInputElement;
+                var blockSizeSelect = blockSizeSelectElement;
+        
+                if (mode === "encode") {
+                    fileInput.accept = ".zip";
+                    blockSizeSelect.style.display = "block";
+                    if (resolutionDiv) {
+                        resolutionDiv.style.display = "block";
+                    }
+                } else {
+                    fileInput.accept = "video/mp4";
+                    blockSizeSelect.style.display = "none";
+                    if (resolutionDiv) {
+                        resolutionDiv.style.display = "none";
+                    }
+                }
             } else {
-                fileInput.accept = "video/mp4";
-                blockSizeSelect.style.display = "none";
-                resolutionDiv.style.display = "none";
-            }
+                console.error("One or more elements not found. Cannot update form.");
+            }        
+
         }
         function handleResponse(response) {
             response.json().then(data => {
