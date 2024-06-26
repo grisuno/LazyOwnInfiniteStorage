@@ -44,6 +44,7 @@ def index():
     form = EncodeDecodeForm()
     result = None
     output_file_path = None
+    download_url = None
 
     if form.validate_on_submit():
         input_file = form.input_file.data
@@ -59,30 +60,29 @@ def index():
         try:
             if action == 'encode':
                 output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"recursos_{frame_width}x{frame_height}.mp4")
-                print(output_file_path)
                 encode_file_to_video(input_file_path, output_file_path, (int(frame_width), int(frame_height)), 30, int(block_size))
             elif action == 'decode':
                 output_file_path = os.path.join(tempfile.gettempdir(), f"{output_file_name}.zip")
                 decode_video_to_file(input_file_path, output_file_path, int(block_size))
             flash('Operation successful!', 'success')
+            download_url = url_for('download_file', filename=os.path.basename(output_file_path))
         except Exception as e:
             flash(f'An error occurred: {e}', 'danger')
         finally:
             os.remove(input_file_path)
-    print(output_file_path)
-    return render_template('index.html', form=form, result=result, output_file_path=output_file_path)
+
+    return render_template('index.html', form=form, result=result, download_url=download_url)
 
 @app.route('/download/<filename>', methods=['GET'])
 def download_file(filename):
     sanitized_filename = sanitize_filename(filename)
     file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], sanitized_filename)
-    print(f"Attempting to send file from: {file_path}")
-    print(f"Attempting to send file filename: {filename}")
     if os.path.exists(file_path):
         return send_file(file_path, as_attachment=True)
     else:
         flash(f"File {filename} not found", 'danger')
         return redirect(url_for('index'))
+
 
 @app.after_request
 def add_security_headers(response):
