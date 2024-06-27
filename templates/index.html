@@ -137,17 +137,6 @@
                 frameHeightSelect.parentNode.style.display = "none";
             }
         }
-        function handleResponse(response) {
-            response.json().then(data => {
-                var downloadUrl = data.download_url;
-                var link = document.createElement('a');
-                link.href = downloadUrl;
-                link.download = '';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            });
-        }
         document.getElementById('frame_width').addEventListener('change', function() {
             const width = this.value;
             const heightSelect = document.getElementById('frame_height');
@@ -177,12 +166,7 @@
                     body: formData
                 })
                 .then(response => {
-                    console.log(response)
-
                     return response.json();
-                })
-                .then(data => {
-                    handleResponse(data); // Maneja la respuesta del servidor
                 })
                 .catch(error => {
                     console.error("Error:", error);

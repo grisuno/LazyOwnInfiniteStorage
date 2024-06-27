@@ -133,7 +133,7 @@ def upload_file():
     request.form['block_size'] = int(request.form['block_size'])
 
     file = request.files['input_file'] 
-    filename = secure_filename(sanitize_filename(request.form.output_file_name.data))
+    filename = secure_filename(sanitize_filename(request.form['output_file_name']))
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(filepath)
     
