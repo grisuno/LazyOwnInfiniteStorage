@@ -68,11 +68,11 @@ def index():
             if action == 'encode':
                 output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}_{frame_width}x{frame_height}.mp4")
                 encode_file_to_video(input_file_path, output_file_path, (frame_width, frame_height), fps, block_size)
-                result = f"File encoded successfully to {output_file}"
+                result = f"File encoded successfully to {output_file_path}"
             elif action == 'decode':
                 output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}.zip")
                 decode_video_to_file(input_file_path, output_file_path, block_size)
-                result = f"File decoded successfully to {output_file}"
+                result = f"File decoded successfully to {output_file_path}"
             flash('Operation successful!', 'success')
             download_url = url_for('download_file', filename=os.path.basename(output_file_path))
         except Exception as e:
@@ -124,7 +124,7 @@ def upload_file():
     if file.filename == '':
         return 'No selected file', 400
     
-    filename = secure_filename(file.filename)
+    filename = secure_filename(sanitize_filename(request.form.output_file_name.data))
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(filepath)
     
@@ -135,12 +135,12 @@ def upload_file():
         frame_width = int(request.form['frame_width'])
         frame_height = int(request.form['frame_height'])
         fps = int(request.form['frame_height'])
-        output_filename = f'output_{frame_width}x{frame_height}.mp4'
+        output_filename = f'{filename}_{frame_width}x{frame_height}.mp4'
         output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], output_filename)
         download_url = url_for('download_file', filename=os.path.basename(output_file_path))
         result = encode_file_to_video(filepath, output_file_path, (frame_width, frame_height), fps, block_size)
     else:
-        output_filename = 'output.zip'9
+        output_filename = f"{filename}.zip"
         output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], output_filename)
         result = decode_video_to_file(filepath, output_file_path, block_size)    
         download_url = url_for('download_file', filename=os.path.basename(output_file_path))
