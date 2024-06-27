@@ -44,37 +44,37 @@
                     {{ form.hidden_tag() }}
                 
                     <div class="form-group">
-                        {{ form.input_file.label(class="form-label") }}
+                        {{ form.input_file.label(class="file") }}
                         {{ form.input_file(class="form-control-file", id="file") }}
                     </div>
                 
                     <div class="form-group">
-                        {{ form.output_file_name.label(class="form-label") }}
+                        {{ form.output_file_name.label(class="output_file_name") }}
                         {{ form.output_file_name(class="form-control", id="output_file_name") }}
                     </div>
                 
                     <div class="form-group">
-                        {{ form.frame_width.label(class="form-label") }}
+                        {{ form.frame_width.label(class="frame_width") }}
                         {{ form.frame_width(class="form-control", id="frame_width") }}
                     </div>
                 
                     <div class="form-group">
-                        {{ form.frame_height.label(class="form-label") }}
+                        {{ form.frame_height.label(class="frame_height") }}
                         {{ form.frame_height(class="form-control", id="frame_height") }}
                     </div>
                 
                     <div class="form-group">
-                        {{ form.fps.label(class="form-label") }}
+                        {{ form.fps.label(class="fps") }}
                         {{ form.fps(class="form-control", id="fps") }}
                     </div>
                 
                     <div class="form-group">
-                        {{ form.block_size.label(class="form-label") }}
+                        {{ form.block_size.label(class="block_size") }}
                         {{ form.block_size(class="form-control", id="block_size") }}
                     </div>
                 
                     <div class="form-group">
-                        {{ form.action.label(class="form-label") }}
+                        {{ form.action.label(class="action") }}
                         {{ form.action(class="form-control", id="action") }}
                     </div>
                 
@@ -119,7 +119,7 @@
             }
         }
         function updateForm() {
-            var mode = document.getElementById("mode").value;
+            var mode = document.getElementById("action").value;
             var fileInput = document.getElementById("file");
             var blockSizeSelect = document.getElementById("block_size");
             var frameWidthSelect = document.getElementById("frame_width");
