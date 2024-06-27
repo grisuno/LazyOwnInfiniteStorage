@@ -52,6 +52,7 @@ def index():
     result = None
     output_file_path = None
     download_url = None
+    print(request.method)
     if request.method == 'POST':
         try:
             frame_width = int(request.form['frame_width'])  # Convertir a entero
@@ -136,10 +137,7 @@ def upload_file():
     if 'file' not in request.files:
         return 'No file part', 400
     
-    file = request.files['file']
-    if file.filename == '':
-        return 'No selected file', 400
-    
+    file = request.files['file'] 
     filename = secure_filename(sanitize_filename(request.form.output_file_name.data))
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(filepath)
