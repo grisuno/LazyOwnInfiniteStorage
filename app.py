@@ -133,7 +133,9 @@ def download_file(filename):
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    print(request)
+    print(request)  # Imprime la solicitud para depuración
+    print(request.files)  # Imprime el diccionario de archivos en la solicitud
+    print(request.form)  # Imprime el diccionario de otros datos del formulario
     if 'file' not in request.files:
         return f'No file part{request}', 400
     

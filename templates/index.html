@@ -168,7 +168,10 @@
                 event.preventDefault(); // Evita el envío estándar del formulario
                 var formData = new FormData(this);
                 
-
+                // Imprime los datos del formulario para depuración
+                for (var pair of formData.entries()) {
+                    console.log(pair[0] + ', ' + pair[1]); 
+                }
                 fetch("/upload", {
                     method: "POST",
                     body: formData
