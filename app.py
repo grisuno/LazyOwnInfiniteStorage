@@ -52,33 +52,49 @@ def index():
     result = None
     output_file_path = None
     download_url = None
-
-    if form.validate_on_submit():
-        input_file = form.input_file.data
-        output_file_name = secure_filename(sanitize_filename(form.output_file_name.data))
-        frame_width = int(form.frame_width.data)
-        frame_height = int(form.frame_height.data)
-        block_size = int(form.block_size.data)
-        action = form.action.data
-        fps = int(form.fps.data)
-        input_file_path = os.path.join(tempfile.gettempdir(), secure_filename(input_file.filename))
-        input_file.save(input_file_path)
-
+    if request.method == 'POST':
         try:
-            if action == 'encode':
-                output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}_{frame_width}x{frame_height}.mp4")
-                encode_file_to_video(input_file_path, output_file_path, (frame_width, frame_height), fps, block_size)
-                result = f"File encoded successfully to {output_file_path}"
-            elif action == 'decode':
-                output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}.zip")
-                decode_video_to_file(input_file_path, output_file_path, block_size)
-                result = f"File decoded successfully to {output_file_path}"
-            flash('Operation successful!', 'success')
-            download_url = url_for('download_file', filename=os.path.basename(output_file_path))
-        except Exception as e:
-            flash(f'An error occurred: {e}', 'danger')
-        finally:
-            os.remove(input_file_path)
+            frame_width = int(request.form['frame_width'])  # Convertir a entero
+            frame_height = int(request.form['frame_height'])  # Convertir a entero
+            fps = int(request.form['fps'])  # Convertir a entero
+            block_size = int(request.form['block_size'])  # Convertir a entero
+
+        except ValueError as e:
+            flash(f'Error converting field value: {e}', 'danger')
+            return render_template('index.html', form=form, result=result, download_url=download_url)
+
+        # Si no hay errores de conversión, asignar valores al formulario
+        form.frame_width.data = frame_width
+        form.frame_height.data = frame_height
+        form.fps.data = fps
+        form.block_size.data = block_size
+
+        if form.validate_on_submit():
+            input_file = form.input_file.data
+            output_file_name = secure_filename(sanitize_filename(form.output_file_name.data))
+            frame_width = int(form.frame_width.data)
+            frame_height = int(form.frame_height.data)
+            block_size = int(form.block_size.data)
+            action = form.action.data
+            fps = int(form.fps.data)
+            input_file_path = os.path.join(tempfile.gettempdir(), secure_filename(input_file.filename))
+            input_file.save(input_file_path)
+
+            try:
+                if action == 'encode':
+                    output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}_{frame_width}x{frame_height}.mp4")
+                    encode_file_to_video(input_file_path, output_file_path, (frame_width, frame_height), fps, block_size)
+                    result = f"File encoded successfully to {output_file_path}"
+                elif action == 'decode':
+                    output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}.zip")
+                    decode_video_to_file(input_file_path, output_file_path, block_size)
+                    result = f"File decoded successfully to {output_file_path}"
+                flash('Operation successful!', 'success')
+                download_url = url_for('download_file', filename=os.path.basename(output_file_path))
+            except Exception as e:
+                flash(f'An error occurred: {e}', 'danger')
+            finally:
+                os.remove(input_file_path)
 
     return render_template('index.html', form=form, result=result, download_url=download_url)
 
