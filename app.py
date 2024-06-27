@@ -54,16 +54,7 @@ def index():
     download_url = None
     print(request.method)
     if request.method == 'POST':
-        try:
-            frame_width = int(request.form['frame_width'])  # Convertir a entero
-            frame_height = int(request.form['frame_height'])  # Convertir a entero
-            fps = int(request.form['fps'])  # Convertir a entero
-            block_size = int(request.form['block_size'])  # Convertir a entero
-
-        except ValueError as e:
-            flash(f'Error converting field value: {e}', 'danger')
-            return render_template('index.html', form=form, result=result, download_url=download_url)
-
+        
         # Si no hay errores de conversión, asignar valores al formulario
         form.frame_width.data = frame_width
         form.frame_height.data = frame_height
@@ -138,6 +129,18 @@ def upload_file():
     print('Request form:', request.form)
     print('Form data:', form.data)
 
+
+    # Convertir los valores a enteros antes de la validación
+    try:
+        request.form = request.form.copy()
+        request.form['frame_width'] = int(request.form['frame_width'])
+        request.form['frame_height'] = int(request.form['frame_height'])
+        request.form['fps'] = int(request.form['fps'])
+        request.form['block_size'] = int(request.form['block_size'])
+    except ValueError as e:
+        print(f'Error converting field value: {e}')
+        return jsonify(error=f'Error converting field value: {e}'), 400
+    
     if not form.validate_on_submit():
         print('Form validation failed')
         print('Form errors:', form.errors)
