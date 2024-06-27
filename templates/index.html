@@ -163,28 +163,6 @@
             document.getElementById("action").addEventListener("change", function() {
                 updateForm(); // Actualiza el formulario cuando cambia la acción
             });
-
-            document.getElementById("uploadForm").addEventListener("submit", function(event) {
-                event.preventDefault(); // Evita el envío estándar del formulario
-                var formData = new FormData(this);
-
-                fetch("/upload", {
-                    method: "POST",
-                    body: formData
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    handleResponse(data); // Maneja la respuesta del servidor
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                });
-            });
         });
 
         document.getElementById('action').addEventListener('change', function() {
