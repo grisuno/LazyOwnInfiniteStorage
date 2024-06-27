@@ -21,7 +21,7 @@ class EncodeDecodeForm(FlaskForm):
     output_file_name = StringField('Output File Name', validators=[DataRequired()])
     frame_width = SelectField('Frame Width', choices=RESOLUTION_CHOICES_W, validators=[DataRequired()])
     frame_height = SelectField('Frame Height', choices=RESOLUTION_CHOICES_H, validators=[DataRequired()])
-    fps = SelectField('Frames Per Second', choices=FPS_CHOICES, validators=[DataRequired(), NumberRange(min=1)])
+    fps = SelectField('Frames Per Second', choices=FPS_CHOICES, validators=[DataRequired()])
     block_size = SelectField('Block Size', choices=BLOCK_SIZE_CHOICES, validators=[DataRequired()])
     action = SelectField('Action', choices=[('encode', 'Encode'), ('decode', 'Decode')], validators=[DataRequired()])
     submit = SubmitField('Start')
@@ -125,30 +125,12 @@ def download_file(filename):
 @app.route('/upload', methods=['POST'])
 def upload_file():
     form = EncodeDecodeForm()
-    print('Request files:', request.files)
-    print('Request form:', request.form)
-    print('Form data:', form.data)
 
-
-    # Convertir los valores a enteros antes de la validación
-    try:
-        request.form = request.form.copy()
-        request.form['frame_width'] = int(request.form['frame_width'])
-        request.form['frame_height'] = int(request.form['frame_height'])
-        request.form['fps'] = int(request.form['fps'])
-        request.form['block_size'] = int(request.form['block_size'])
-    except ValueError as e:
-        print(f'Error converting field value: {e}')
-        return jsonify(error=f'Error converting field value: {e}'), 400
-    
-    if not form.validate_on_submit():
-        print('Form validation failed')
-        print('Form errors:', form.errors)
-        return jsonify(error='Form validation failed', errors=form.errors), 400
-
-    if 'input_file' not in request.files:
-        print('No file part in request.files')
-        return jsonify(error='No file part in request.files'), 400
+    request.form = request.form.copy()
+    request.form['frame_width'] = int(request.form['frame_width'])
+    request.form['frame_height'] = int(request.form['frame_height'])
+    request.form['fps'] = int(request.form['fps'])
+    request.form['block_size'] = int(request.form['block_size'])
 
     file = request.files['input_file'] 
     filename = secure_filename(sanitize_filename(request.form.output_file_name.data))
