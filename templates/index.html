@@ -167,15 +167,15 @@
             document.getElementById("uploadForm").addEventListener("submit", function(event) {
                 event.preventDefault(); // Evita el envío estándar del formulario
                 var formData = new FormData(this);
+                
 
                 fetch("/upload", {
                     method: "POST",
                     body: formData
                 })
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
+                    console.log(response)
+
                     return response.json();
                 })
                 .then(data => {

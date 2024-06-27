@@ -135,7 +135,7 @@ def download_file(filename):
 def upload_file():
     print(request)
     if 'file' not in request.files:
-        return 'No file part', 400
+        return f'No file part{request}', 400
     
     file = request.files['file'] 
     filename = secure_filename(sanitize_filename(request.form.output_file_name.data))
