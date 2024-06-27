@@ -1,7 +1,7 @@
 import os
 import re
 import tempfile
-from flask import Flask, render_template, request, flash, redirect, url_for, send_file, render_template
+from flask import Flask, render_template, request, flash, redirect, url_for, send_file, render_template, jsonify
 from flask_wtf import FlaskForm
 from wtforms import FileField, StringField, SelectField, SubmitField,  SubmitField
 from wtforms.validators import DataRequired, NumberRange
@@ -133,13 +133,21 @@ def download_file(filename):
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-
+    form = EncodeDecodeForm()
     print('Request files:', request.files)
     print('Request form:', request.form)
-    # if 'file' not in request.files:
-    #     return f'No file part{request.input_file}', 400
-    
-    file = request.files['file'] 
+    print('Form data:', form.data)
+
+    if not form.validate_on_submit():
+        print('Form validation failed')
+        print('Form errors:', form.errors)
+        return jsonify(error='Form validation failed', errors=form.errors), 400
+
+    if 'input_file' not in request.files:
+        print('No file part in request.files')
+        return jsonify(error='No file part in request.files'), 400
+
+    file = request.files['input_file'] 
     filename = secure_filename(sanitize_filename(request.form.output_file_name.data))
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(filepath)
