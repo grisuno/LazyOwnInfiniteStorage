@@ -1,9 +1,9 @@
 import os
 import re
 import tempfile
-from flask import Flask, render_template, request, flash, redirect, url_for, send_file, jsonify
+from flask import Flask, render_template, request, flash, redirect, url_for, send_file, render_template
 from flask_wtf import FlaskForm
-from wtforms import FileField, StringField, SelectField, SubmitField, IntegerField
+from wtforms import FileField, StringField, SelectField, SubmitField,  SubmitField
 from wtforms.validators import DataRequired, NumberRange
 from flask_bootstrap import Bootstrap
 from werkzeug.utils import secure_filename
@@ -11,8 +11,8 @@ from lazyown_infinitestorage import encode_file_to_video, decode_video_to_file
 
 
 class EncodeDecodeForm(FlaskForm):
-    RESOLUTION_CHOICES_W = [('640', '480')]  # Lista de opciones para la resolución
-    RESOLUTION_CHOICES_H = [('480', '360')]  # Lista de opciones para la resolución
+    RESOLUTION_CHOICES_W = [('640', '640')]  # Lista de opciones para la resolución
+    RESOLUTION_CHOICES_H = [('480', '480')]  # Lista de opciones para la resolución
 
     FPS_CHOICES = [(i, str(i)) for i in range(1, 31)]  # Opciones para FPS del 1 al 30
     BLOCK_SIZE_CHOICES = [(4, '4'), (8, '8'), (16, '16')]  # Opciones para el tamaño de bloque
@@ -25,7 +25,6 @@ class EncodeDecodeForm(FlaskForm):
     block_size = SelectField('Block Size', choices=BLOCK_SIZE_CHOICES, validators=[DataRequired()])
     action = SelectField('Action', choices=[('encode', 'Encode'), ('decode', 'Decode')], validators=[DataRequired()])
     submit = SubmitField('Start')
-
 
 def sanitize_filename(filename):
     return re.sub(r'[^a-zA-Z0-9_\-\.]', '', filename)
@@ -117,6 +116,7 @@ def download_file(filename):
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
+    print(request)
     if 'file' not in request.files:
         return 'No file part', 400
     
@@ -128,27 +128,27 @@ def upload_file():
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(filepath)
     
-    mode = request.form['mode']
+    action = request.form['action']
     
-    if mode == 'encode':
+    if action == 'encode':
         block_size = int(request.form['block_size'])
         frame_width = int(request.form['frame_width'])
         frame_height = int(request.form['frame_height'])
         fps = int(request.form['frame_height'])
         output_filename = f'output_{frame_width}x{frame_height}.mp4'
-        output_filepath = os.path.join(app.config['DOWNLOAD_FOLDER'], output_filename)
+        output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], output_filename)
         download_url = url_for('download_file', filename=os.path.basename(output_file_path))
-        encode_file_to_video(filepath, output_filepath, (frame_width, frame_height), fps, block_size)
+        result = encode_file_to_video(filepath, output_file_path, (frame_width, frame_height), fps, block_size)
     else:
-        output_filename = 'output.zip'
-        output_filepath = os.path.join(app.config['DOWNLOAD_FOLDER'], output_filename)
-        decode_video_to_file(filepath, output_filepath, block_size)    
+        output_filename = 'output.zip'9
+        output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], output_filename)
+        result = decode_video_to_file(filepath, output_file_path, block_size)    
         download_url = url_for('download_file', filename=os.path.basename(output_file_path))
 
     os.remove(filepath)
     
 
-    return render_template('index.html', form=form, result=result, action=action, download_url=download_url)
+    return render_template('index.html', form=request.form, result=result, action=action, download_url=download_url)
 
 
 # Uncomment the following lines if you want to run the app locally without Gunicorn
