@@ -153,25 +153,6 @@
                 updateForm(); // Actualiza el formulario cuando cambia la acción
             });
 
-            document.getElementById("uploadForm").addEventListener("submit", function(event) {
-                event.preventDefault(); // Evita el envío estándar del formulario
-                var formData = new FormData(this);
-                
-                // Imprime los datos del formulario para depuración
-                for (var pair of formData.entries()) {
-                    console.log(pair[0] + ', ' + pair[1]); 
-                }
-                fetch("/upload", {
-                    method: "POST",
-                    body: formData
-                })
-                .then(response => {
-                    return response.json();
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                });
-            });
         });
 
         document.getElementById('action').addEventListener('change', function() {

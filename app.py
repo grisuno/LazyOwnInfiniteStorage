@@ -52,15 +52,9 @@ def index():
     result = None
     output_file_path = None
     download_url = None
-    print(request.method)
+
     if request.method == 'POST':
         
-        # Si no hay errores de conversión, asignar valores al formulario
-        form.frame_width.data = frame_width
-        form.frame_height.data = frame_height
-        form.fps.data = fps
-        form.block_size.data = block_size
-
         if form.validate_on_submit():
             input_file = form.input_file.data
             output_file_name = secure_filename(sanitize_filename(form.output_file_name.data))
@@ -74,13 +68,13 @@ def index():
 
             try:
                 if action == 'encode':
-                    output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}_{frame_width}x{frame_height}.mp4")
+                    output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}_{frame_width}x{frame_height}_{frame_width}x{frame_height}.mp4")
                     encode_file_to_video(input_file_path, output_file_path, (frame_width, frame_height), fps, block_size)
-                    result = f"File encoded successfully to {output_file_path}"
+                    result = "File encoded successfully"
                 elif action == 'decode':
                     output_file_path = os.path.join(app.config['DOWNLOAD_FOLDER'], f"{output_file_name}.zip")
                     decode_video_to_file(input_file_path, output_file_path, block_size)
-                    result = f"File decoded successfully to {output_file_path}"
+                    result = "File decoded successfully"
                 flash('Operation successful!', 'success')
                 download_url = url_for('download_file', filename=os.path.basename(output_file_path))
             except Exception as e:
@@ -100,37 +94,31 @@ def download_file(filename):
         flash(f"File {filename} not found", 'danger')
         return redirect(url_for('index'))
 
-# @app.after_request
-# def add_security_headers(response):
-#     # Configuración para evitar el almacenamiento en caché
-#     response.cache_control.no_cache = True
-#     response.cache_control.no_store = True
-#     response.cache_control.must_revalidate = True
-#     response.headers['Pragma'] = 'no-cache'
-#     response.headers['Expires'] = '0'
+@app.after_request
+def add_security_headers(response):
+    # Configuración para evitar el almacenamiento en caché
+    response.cache_control.no_cache = True
+    response.cache_control.no_store = True
+    response.cache_control.must_revalidate = True
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
 
-#     # Configuración de protección adicional de seguridad
-#     response.headers['X-Content-Type-Options'] = 'nosniff'
-#     response.headers['X-Frame-Options'] = 'DENY'
-#     response.headers['X-XSS-Protection'] = '1; mode=block'
+    # Configuración de protección adicional de seguridad
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'DENY'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
 
-#     # Configuración de políticas de seguridad
-#     response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
-#     response.headers['Content-Security-Policy'] = "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'"
+    # Configuración de políticas de seguridad
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
 
-#     return response
+
+    return response
 
 
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
     form = EncodeDecodeForm()
-
-    request.form = request.form.copy()
-    request.form['frame_width'] = int(request.form['frame_width'])
-    request.form['frame_height'] = int(request.form['frame_height'])
-    request.form['fps'] = int(request.form['fps'])
-    request.form['block_size'] = int(request.form['block_size'])
 
     file = request.files['input_file'] 
     filename = secure_filename(sanitize_filename(request.form['output_file_name']))
@@ -157,9 +145,9 @@ def upload_file():
     os.remove(filepath)
     
 
-    return render_template('index.html', form=request.form, result=result, action=action, download_url=download_url)
+    return render_template('index.html', form=form, result=result, action=action, download_url=download_url)
 
 
-# Uncomment the following lines if you want to run the app locally without Gunicorn
+#Uncomment the following lines if you want to run the app locally without Gunicorn
 # if __name__ == '__main__':
 #     app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
