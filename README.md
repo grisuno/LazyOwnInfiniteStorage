@@ -1,38 +1,35 @@
 ```sh
- ▄█          ▄████████  ▄███████▄  ▄██   ▄    ▄██████▄   ▄█     █▄  ███▄▄▄▄             
- ███         ███    ███ ██▀     ▄██ ███   ██▄ ███    ███ ███     ███ ███▀▀▀██▄           
- ███         ███    ███       ▄███▀ ███▄▄▄███ ███    ███ ███     ███ ███   ███           
- ███         ███    ███  ▀█▀▄███▀▄▄ ▀▀▀▀▀▀███ ███    ███ ███     ███ ███   ███           
- ███       ▀███████████   ▄███▀   ▀ ▄██   ███ ███    ███ ███     ███ ███   ███           
- ███         ███    ███ ▄███▀       ███   ███ ███    ███ ███     ███ ███   ███           
- ███▌    ▄   ███    ███ ███▄     ▄█ ███   ███ ███    ███ ███ ▄█▄ ███ ███   ███           
- █████▄▄██   ███    █▀   ▀████████▀  ▀█████▀   ▀██████▀   ▀███▀███▀   ▀█   █▀            
- ▀                                                                                        
-  ▄█  ███▄▄▄▄      ▄████████  ▄█  ███▄▄▄▄    ▄█      ███        ▄████████                
- ███  ███▀▀▀██▄   ███    ███ ███  ███▀▀▀██▄ ███  ▀█████████▄   ███    ███                
- ███▌ ███   ███   ███    █▀  ███▌ ███   ███ ███▌    ▀███▀▀██   ███    █▀                 
- ███▌ ███   ███  ▄███▄▄▄     ███▌ ███   ███ ███▌     ███   ▀  ▄███▄▄▄                    
- ███▌ ███   ███ ▀▀███▀▀▀     ███▌ ███   ███ ███▌     ███     ▀▀███▀▀▀                    
- ███  ███   ███   ███        ███  ███   ███ ███      ███       ███    █▄                 
- ███  ███   ███   ███        ███  ███   ███ ███      ███       ███    ███                
- █▀    ▀█   █▀    ███        █▀    ▀█   █▀  █▀      ▄████▀     ██████████                
-                                                                                          
-    ▄████████     ███      ▄██████▄     ▄████████    ▄████████    ▄██████▄     ▄████████ 
-   ███    ███ ▀█████████▄ ███    ███   ███    ███   ███    ███   ███    ███   ███    ███ 
-   ███    █▀     ▀███▀▀██ ███    ███   ███    ███   ███    ███   ███    █▀    ███    █▀  
-   ███            ███   ▀ ███    ███  ▄███▄▄▄▄██▀   ███    ███  ▄███         ▄███▄▄▄     
- ▀███████████     ███     ███    ███ ▀▀███▀▀▀▀▀   ▀███████████ ▀▀███ ████▄  ▀▀███▀▀▀     
-          ███     ███     ███    ███ ▀███████████   ███    ███   ███    ███   ███    █▄  
-    ▄█    ███     ███     ███    ███   ███    ███   ███    ███   ███    ███   ███    ███ 
-  ▄████████▀     ▄████▀    ▀██████▀    ███    ███   ███    █▀    ████████▀    ██████████ 
-                                       ███    ███                                         
+ ▄█          ▄████████  ▄███████▄  ▄██   ▄    ▄██████▄   ▄█     █▄  ███▄▄▄▄
+ ███         ███    ███ ██▀     ▄██ ███   ██▄ ███    ███ ███     ███ ███▀▀▀██▄
+ ███         ███    ███       ▄███▀ ███▄▄▄███ ███    ███ ███     ███ ███   ███
+ ███         ███    ███  ▀█▀▄███▀▄▄ ▀▀▀▀▀▀███ ███    ███ ███     ███ ███   ███
+ ███       ▀███████████   ▄███▀   ▀ ▄██   ███ ███    ███ ███     ███ ███   ███
+ ███         ███    ███ ▄███▀       ███   ███ ███    ███ ███     ███ ███   ███
+ ███▌    ▄   ███    ███ ███▄     ▄█ ███   ███ ███    ███ ███ ▄█▄ ███ ███   ███
+ █████▄▄██   ███    █▀   ▀████████▀  ▀█████▀   ▀██████▀   ▀███▀███▀   ▀█   █▀
+  ▄█  ███▄▄▄▄      ▄████████  ▄█  ███▄▄▄▄    ▄█      ███        ▄████████
+ ███  ███▀▀▀██▄   ███    ███ ███  ███▀▀▀██▄ ███  ▀█████████▄   ███    ███
+ ███▌ ███   ███   ███    █▀  ███▌ ███   ███ ███▌    ▀███▀▀██   ███    █▀
+ ███▌ ███   ███  ▄███▄▄▄     ███▌ ███   ███ ███▌     ███   ▀  ▄███▄▄▄
+ ███▌ ███   ███ ▀▀███▀▀▀     ███▌ ███   ███ ███▌     ███     ▀▀███▀▀▀
+ ███  ███   ███   ███        ███  ███   ███ ███      ███       ███    █▄
+ ███  ███   ███   ███        ███  ███   ███ ███      ███       ███    ███
+ █▀    ▀█   █▀    ███        █▀    ▀█   █▀  █▀      ▄████▀     ██████████
+    ▄████████     ███      ▄██████▄     ▄████████    ▄████████    ▄██████▄     ▄████████
+   ███    ███ ▀█████████▄ ███    ███   ███    ███   ███    ███   ███    ███   ███    ███
+   ███    █▀     ▀███▀▀██ ███    ███   ███    ███   ███    ███   ███    █▀    ███    █▀
+   ███            ███   ▀ ███    ███  ▄███▄▄▄▄██▀   ███    ███  ▄███         ▄███▄▄▄
+ ▀███████████     ███     ███    ███ ▀▀███▀▀▀▀▀   ▀███████████ ▀▀███ ████▄  ▀▀███▀▀▀
+          ███     ███     ███    ███ ▀███████████   ███    ███   ███    ███   ███    █▄
+    ▄█    ███     ███     ███    ███   ███    ███   ███    ███   ███    ███   ███    ███
+  ▄████████▀     ▄████▀    ▀██████▀    ███    ███   ███    █▀    ████████▀    ██████████
 ```
 
 # LazyOwnInfiniteStorage
 
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Shell Script](https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-LazyOwnInfiniteStorage is a tool for encoding and decoding files into videos. This project allows you to store data in videos by creating frames that represent data bits, making it easy to recover the original information even after the video has been modified (for example, by changing its resolution).
+LazyOwnInfiniteStorage is a production-grade tool for encoding and decoding files into videos. This project stores data in videos by creating grayscale frames that represent data bits, enabling recovery of the original information even after the video resolution has been modified.
 
 Resulting in a video like this:
 
@@ -40,14 +37,21 @@ Resulting in a video like this:
 
 ## Features
 
-- Encode files into videos using pixel blocks.
-- Decode files from videos, even if the video resolution has been changed.
-- Use filenames to store information about the original resolution.
+- **Dual Protocol Support:**
+  - **Legacy (v1):** Original encoding with end-marker and filename-based resolution recovery.
+  - **Secure (v2):** Structured binary header with CRC32 integrity checks and Hamming(8,4) error correction for robust decoding.
+- Encode any file into a video using configurable pixel blocks.
+- Decode files from videos even after resolution changes.
+- Single-file, self-contained Python script with CLI, GUI, and Web interfaces.
+- Vectorized NumPy frame processing for performance.
+- Direct FFmpeg stdin/stdout piping without intermediate frame files.
+- Security-hardened input validation and path sanitization.
 
 ## Requirements
 
-- Python 3.6+
-- OpenCV
+- Python 3.8+
+- OpenCV (opencv-python)
+- NumPy
 - FFmpeg
 
 ## Installation
@@ -59,70 +63,111 @@ Resulting in a video like this:
     cd LazyOwnInfiniteStorage
     ```
 
-2. Install the dependencies:
+2. Create a virtual environment and install dependencies:
 
     ```sh
-    chmod +x install.sh
-    ./install.sh
+    python3 -m venv env
+    source env/bin/activate
+    pip install opencv-python numpy
     ```
+
+3. Ensure FFmpeg is installed on your system.
 
 ## Usage
 
-### Encoding
+LazyOwnInfiniteStorage is provided as a single autocontained script.
 
-To encode a file into a video:
+### Command Line Interface (CLI)
+
+#### Encoding
+
+To encode a file into a video using the secure protocol (recommended):
 
 ```sh
-python lazyown_infinitestorage.py --mode encode --input file.zip --output video.mp4 --frame_size 640 480 --fps 30 --block_size 4
+python lazyown_infinitestorage.py --mode encode --input file.zip --output video.mp4 --frame_size 640 480 --fps 30 --block_size 4 --protocol secure
 ```
 
-### Decoding
+To use the legacy protocol:
+
+```sh
+python lazyown_infinitestorage.py --mode encode --input file.zip --output video.mp4 --frame_size 640 480 --fps 30 --block_size 4 --protocol legacy
+```
+
+#### Decoding
+
 To decode a file from a video:
 
 ```sh
-python lazyown_infinitestorage.py --mode decode --input video_640x480.mp4 --output recoveredfile.zip --block_size 4
+python lazyown_infinitestorage.py --mode decode --input video_640x480.mp4 --output recoveredfile.zip --block_size 4 --protocol secure
 ```
 
-# Using the GUI
+#### Built-in Tests
 
-![image](https://github.com/grisuno/LazyOwnInfiniteStorage/assets/1097185/2e9085ce-0a4f-42b9-bc08-d13e44deb777)
-
-
-## Mode Selection:
+Run the integrated test suite to verify both protocols including resize scenarios:
 
 ```sh
-python gui
+python lazyown_infinitestorage.py --mode test
 ```
 
-### Mode Selection:
+### Graphical User Interface (GUI)
 
-Choose between Encode and Decode modes using the dropdown menu.
-Encode Mode:
+Launch the PyQt5-based GUI:
 
-Select ZIP File: Click Browse to choose the ZIP file you want to encode.
-Video Name: Enter the desired name for the output video file.
-Frame Size: Adjust the width and height of the frames (in pixels).
-Block Size: Define the size of the blocks used for encoding (in pixels).
-Frames per Second: Specify the frame rate for the output video.
-Click Start to begin the encoding process.
-Decode Mode:
+```sh
+python lazyown_infinitestorage.py --gui
+```
 
-- Select Video File: Click Browse to choose the video file you want to decode.
-- Recovered ZIP File Name: Enter the name for the recovered ZIP file.
-- Block Size: Define the size of the blocks used for decoding (must match the block size used during encoding).
-- Click Start to begin the decoding process.
+Requires PyQt5 to be installed:
 
+```sh
+pip install PyQt5
+```
 
-#### Messages:
+### Web Interface
 
-When finished or in case of an error, a message window will appear indicating the status of the process.
+Start the Flask web server:
 
-# Contributions
-Contributions are welcome! If you find any issues or have any improvements, feel free to open an issue or a pull request.
+```sh
+python lazyown_infinitestorage.py --serve --host 0.0.0.0 --port 5000
+```
+
+Requires Flask to be installed:
+
+```sh
+pip install Flask
+```
+
+## Protocols
+
+### Legacy Protocol (v1)
+
+- Uses an end-of-file marker (`0x80`) to determine payload boundaries.
+- Stores the original frame resolution in the output filename.
+- Compatible with the original LazyOwnInfiniteStorage workflow.
+
+### Secure Protocol (v2)
+
+- Binary header (`LAZY` magic, version, original file size, width, height, block size, FPS).
+- Header and payload protected by CRC32 checksums.
+- Full payload protected by Hamming(8,4) extended error correction, capable of correcting single-bit errors per byte.
+- Resolution is recovered from the filename or video metadata.
+
+## Security
+
+- Path traversal prevention on all file operations.
+- Filename sanitization to remove unsafe characters.
+- Maximum file size limits to prevent abuse.
+- Web mode includes security headers (HSTS, X-Frame-Options, X-Content-Type-Options, XSS protection).
+- `MAX_CONTENT_LENGTH` enforced on web uploads.
+
+## Contributions
+
+Contributions are welcome. If you find any issues or have improvements, feel free to open an issue or a pull request.
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y2Z73AV)
 
-# Acknowledgments
+## Acknowledgments
+
 This project is inspired by the work of DvorakDwarf on Infinite-Storage-Glitch. Any code criticism to help improve is appreciated.
 
 Do whatever you want with the code, but credit would be appreciated. If you have any issues with LazyOwnInfiniteStorage, please contact me on Discord.
