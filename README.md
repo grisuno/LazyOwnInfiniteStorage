@@ -1,86 +1,83 @@
 ```sh
  ▄█          ▄████████  ▄███████▄  ▄██   ▄    ▄██████▄   ▄█     █▄  ███▄▄▄▄             
-███         ███    ███ ██▀     ▄██ ███   ██▄ ███    ███ ███     ███ ███▀▀▀██▄           
-███         ███    ███       ▄███▀ ███▄▄▄███ ███    ███ ███     ███ ███   ███           
-███         ███    ███  ▀█▀▄███▀▄▄ ▀▀▀▀▀▀███ ███    ███ ███     ███ ███   ███           
-███       ▀███████████   ▄███▀   ▀ ▄██   ███ ███    ███ ███     ███ ███   ███           
-███         ███    ███ ▄███▀       ███   ███ ███    ███ ███     ███ ███   ███           
-███▌    ▄   ███    ███ ███▄     ▄█ ███   ███ ███    ███ ███ ▄█▄ ███ ███   ███           
-█████▄▄██   ███    █▀   ▀████████▀  ▀█████▀   ▀██████▀   ▀███▀███▀   ▀█   █▀            
-▀                                                                                       
- ▄█  ███▄▄▄▄      ▄████████  ▄█  ███▄▄▄▄    ▄█      ███        ▄████████                
-███  ███▀▀▀██▄   ███    ███ ███  ███▀▀▀██▄ ███  ▀█████████▄   ███    ███                
-███▌ ███   ███   ███    █▀  ███▌ ███   ███ ███▌    ▀███▀▀██   ███    █▀                 
-███▌ ███   ███  ▄███▄▄▄     ███▌ ███   ███ ███▌     ███   ▀  ▄███▄▄▄                    
-███▌ ███   ███ ▀▀███▀▀▀     ███▌ ███   ███ ███▌     ███     ▀▀███▀▀▀                    
-███  ███   ███   ███        ███  ███   ███ ███      ███       ███    █▄                 
-███  ███   ███   ███        ███  ███   ███ ███      ███       ███    ███                
-█▀    ▀█   █▀    ███        █▀    ▀█   █▀  █▀      ▄████▀     ██████████                
-                                                                                        
-   ▄████████     ███      ▄██████▄     ▄████████    ▄████████    ▄██████▄     ▄████████ 
-  ███    ███ ▀█████████▄ ███    ███   ███    ███   ███    ███   ███    ███   ███    ███ 
-  ███    █▀     ▀███▀▀██ ███    ███   ███    ███   ███    ███   ███    █▀    ███    █▀  
-  ███            ███   ▀ ███    ███  ▄███▄▄▄▄██▀   ███    ███  ▄███         ▄███▄▄▄     
-▀███████████     ███     ███    ███ ▀▀███▀▀▀▀▀   ▀███████████ ▀▀███ ████▄  ▀▀███▀▀▀     
-         ███     ███     ███    ███ ▀███████████   ███    ███   ███    ███   ███    █▄  
-   ▄█    ███     ███     ███    ███   ███    ███   ███    ███   ███    ███   ███    ███ 
- ▄████████▀     ▄████▀    ▀██████▀    ███    ███   ███    █▀    ████████▀    ██████████ 
-                                      ███    ███                                        
+ ███         ███    ███ ██▀     ▄██ ███   ██▄ ███    ███ ███     ███ ███▀▀▀██▄           
+ ███         ███    ███       ▄███▀ ███▄▄▄███ ███    ███ ███     ███ ███   ███           
+ ███         ███    ███  ▀█▀▄███▀▄▄ ▀▀▀▀▀▀███ ███    ███ ███     ███ ███   ███           
+ ███       ▀███████████   ▄███▀   ▀ ▄██   ███ ███    ███ ███     ███ ███   ███           
+ ███         ███    ███ ▄███▀       ███   ███ ███    ███ ███     ███ ███   ███           
+ ███▌    ▄   ███    ███ ███▄     ▄█ ███   ███ ███    ███ ███ ▄█▄ ███ ███   ███           
+ █████▄▄██   ███    █▀   ▀████████▀  ▀█████▀   ▀██████▀   ▀███▀███▀   ▀█   █▀            
+ ▀                                                                                        
+  ▄█  ███▄▄▄▄      ▄████████  ▄█  ███▄▄▄▄    ▄█      ███        ▄████████                
+ ███  ███▀▀▀██▄   ███    ███ ███  ███▀▀▀██▄ ███  ▀█████████▄   ███    ███                
+ ███▌ ███   ███   ███    █▀  ███▌ ███   ███ ███▌    ▀███▀▀██   ███    █▀                 
+ ███▌ ███   ███  ▄███▄▄▄     ███▌ ███   ███ ███▌     ███   ▀  ▄███▄▄▄                    
+ ███▌ ███   ███ ▀▀███▀▀▀     ███▌ ███   ███ ███▌     ███     ▀▀███▀▀▀                    
+ ███  ███   ███   ███        ███  ███   ███ ███      ███       ███    █▄                 
+ ███  ███   ███   ███        ███  ███   ███ ███      ███       ███    ███                
+ █▀    ▀█   █▀    ███        █▀    ▀█   █▀  █▀      ▄████▀     ██████████                
+                                                                                          
+    ▄████████     ███      ▄██████▄     ▄████████    ▄████████    ▄██████▄     ▄████████ 
+   ███    ███ ▀█████████▄ ███    ███   ███    ███   ███    ███   ███    ███   ███    ███ 
+   ███    █▀     ▀███▀▀██ ███    ███   ███    ███   ███    ███   ███    █▀    ███    █▀  
+   ███            ███   ▀ ███    ███  ▄███▄▄▄▄██▀   ███    ███  ▄███         ▄███▄▄▄     
+ ▀███████████     ███     ███    ███ ▀▀███▀▀▀▀▀   ▀███████████ ▀▀███ ████▄  ▀▀███▀▀▀     
+          ███     ███     ███    ███ ▀███████████   ███    ███   ███    ███   ███    █▄  
+    ▄█    ███     ███     ███    ███   ███    ███   ███    ███   ███    ███   ███    ███ 
+  ▄████████▀     ▄████▀    ▀██████▀    ███    ███   ███    █▀    ████████▀    ██████████ 
+                                       ███    ███                                         
 ```
 
 # LazyOwnInfiniteStorage
 
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Shell Script](https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
+LazyOwnInfiniteStorage is a tool for encoding and decoding files into videos. This project allows you to store data in videos by creating frames that represent data bits, making it easy to recover the original information even after the video has been modified (for example, by changing its resolution).
 
-
-LazyOwnInfiniteStorage es una herramienta para codificar y decodificar archivos en videos. Este proyecto permite almacenar datos en videos mediante la creación de frames que representan bits de datos, lo que facilita la recuperación de la información original incluso después de que el video haya sido modificado (por ejemplo, cambiando su resolución).
-
-quedando un video como esto:
+Resulting in a video like this:
 
 ![image](https://github.com/grisuno/LazyOwnInfiniteStorage/assets/1097185/39044629-7e0c-4806-806a-9bbc5a847d88)
 
+## Features
 
-## Características
+- Encode files into videos using pixel blocks.
+- Decode files from videos, even if the video resolution has been changed.
+- Use filenames to store information about the original resolution.
 
-- Codificación de archivos en videos utilizando bloques de píxeles.
-- Decodificación de archivos a partir de videos, incluso si se ha cambiado la resolución del video.
-- Uso de nombres de archivos para almacenar información sobre la resolución original.
-
-## Requisitos
+## Requirements
 
 - Python 3.6+
 - OpenCV
 - FFmpeg
 
-## Instalación
+## Installation
 
-1. Clona el repositorio:
+1. Clone the repository:
 
     ```sh
     git clone https://github.com/grisuno/LazyOwnInfiniteStorage.git
     cd LazyOwnInfiniteStorage
     ```
 
-2. Instala las dependencias:
+2. Install the dependencies:
 
     ```sh
     chmod +x install.sh
     ./install.sh
     ```
 
-## Uso
+## Usage
 
-### Codificación
+### Encoding
 
-Para codificar un archivo en un video:
+To encode a file into a video:
 
 ```sh
-python lazyown_infinitestorage.py --mode encode --input archivo.zip --output video.mp4 --frame_size 640 480 --fps 30 --block_size 4
+python lazyown_infinitestorage.py --mode encode --input file.zip --output video.mp4 --frame_size 640 480 --fps 30 --block_size 4
 ```
 
-### Decodificación
-Para decodificar un archivo a partir de un video:
+### Decoding
+To decode a file from a video:
 
 ```sh
 python lazyown_infinitestorage.py --mode decode --input video_640x480.mp4 --output recoveredfile.zip --block_size 4
@@ -97,37 +94,37 @@ python lazyown_infinitestorage.py --mode decode --input video_640x480.mp4 --outp
 python gui
 ```
 
-### Selección de Modo:
+### Mode Selection:
 
-Elige entre los modos Codificar y Decodificar usando el menú desplegable.
-Modo Codificar:
+Choose between Encode and Decode modes using the dropdown menu.
+Encode Mode:
 
-Seleccionar Archivo ZIP: Haz clic en Buscar para elegir el archivo ZIP que deseas codificar.
-Nombre del Video: Ingresa el nombre deseado para el archivo de video de salida.
-Tamaño del Marco: Ajusta el ancho y alto de los marcos (en píxeles).
-Tamaño del Bloque: Define el tamaño de los bloques utilizados para la codificación (en píxeles).
-Frames por Segundo: Especifica la velocidad de cuadros para el video de salida.
-Haz clic en Iniciar para comenzar el proceso de codificación.
-Modo Decodificar:
+Select ZIP File: Click Browse to choose the ZIP file you want to encode.
+Video Name: Enter the desired name for the output video file.
+Frame Size: Adjust the width and height of the frames (in pixels).
+Block Size: Define the size of the blocks used for encoding (in pixels).
+Frames per Second: Specify the frame rate for the output video.
+Click Start to begin the encoding process.
+Decode Mode:
 
-- Seleccionar Archivo de Video: Haz clic en Buscar para elegir el archivo de video que deseas decodificar.
-- Nombre del Archivo ZIP Recuperado: Ingresa el nombre para el archivo ZIP recuperado.
-- Tamaño del Bloque: Define el tamaño de los bloques utilizados para la decodificación (debe coincidir con el tamaño de bloque utilizado durante la codificación).
-- Haz clic en Iniciar para comenzar el proceso de decodificación.
+- Select Video File: Click Browse to choose the video file you want to decode.
+- Recovered ZIP File Name: Enter the name for the recovered ZIP file.
+- Block Size: Define the size of the blocks used for decoding (must match the block size used during encoding).
+- Click Start to begin the decoding process.
 
 
-#### Mensajes:
+#### Messages:
 
-Al finalizar o en caso de error, aparecerá una ventana de mensaje indicando el estado del proceso.
+When finished or in case of an error, a message window will appear indicating the status of the process.
 
-# Contribuciones
-¡Las contribuciones son bienvenidas! Si encuentras algún problema o tienes alguna mejora, no dudes en abrir un issue o un pull request.
+# Contributions
+Contributions are welcome! If you find any issues or have any improvements, feel free to open an issue or a pull request.
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y2Z73AV)
 
-# Agradecimientos
-Este proyecto está inspirado en el trabajo de DvorakDwarf en Infinite-Storage-Glitch. Agradezco cualquier crítica del código para poder mejorar.
+# Acknowledgments
+This project is inspired by the work of DvorakDwarf on Infinite-Storage-Glitch. Any code criticism to help improve is appreciated.
 
-Haz lo que quieras con el código, pero se agradecería el crédito. Si tienes algún problema con LazyOwnInfiniteStorage, por favor contáctame en Discord.
+Do whatever you want with the code, but credit would be appreciated. If you have any issues with LazyOwnInfiniteStorage, please contact me on Discord.
 
-## Creado por grisuno
+## Created by grisuno
