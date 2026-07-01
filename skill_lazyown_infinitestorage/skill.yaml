@@ -1,0 +1,7 @@
+name: lazyown_infinitestorage
+description: Provides MCP tools for encoding files to videos and decoding videos to files using LazyOwnInfiniteStorage, plus YouTube upload via browser automation.
+category: productivity
+tools:
+  - lazyown_infinitestorage_encode
+  - lazyown_infinitestorage_decode
+  - lazyown_infinitestorage_upload_to_youtube
