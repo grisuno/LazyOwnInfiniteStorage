@@ -19,7 +19,7 @@ import cv2
 import numpy as np
 
 try:
-    from flask import Flask, request, send_file, render_template_string
+    from flask import Flask, request, send_file, render_template
     HAS_FLASK = True
 except ImportError:
     HAS_FLASK = False
@@ -61,72 +61,6 @@ BANNER = """
   ▄████████▀     ▄████▀    ▀██████▀    ███    ███   ███    █▀    ████████▀    ██████████
 """
 
-
-WEB_TEMPLATE = """<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LazyOwn Infinite Storage</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-<div class="container py-5">
-<h1 class="mb-4">LazyOwn Infinite Storage</h1>
-<form method="post" enctype="multipart/form-data">
-<div class="mb-3">
-<label class="form-label">Mode</label>
-<select name="action" class="form-select">
-<option value="encode">Encode</option>
-<option value="decode">Decode</option>
-</select>
-</div>
-<div class="mb-3">
-<label class="form-label">Input File</label>
-<input type="file" name="input_file" class="form-control" required>
-</div>
-<div class="mb-3">
-<label class="form-label">Output Filename</label>
-<input type="text" name="output_file_name" class="form-control" required>
-</div>
-<div class="mb-3">
-<label class="form-label">Protocol</label>
-<select name="protocol" class="form-select">
-<option value="secure">Secure (v2)</option>
-<option value="legacy">Legacy (v1)</option>
-</select>
-</div>
-<div class="row">
-<div class="col-md-6 mb-3">
-<label class="form-label">Frame Width</label>
-<input type="number" name="frame_width" class="form-control" value="640" min="64" max="4096">
-</div>
-<div class="col-md-6 mb-3">
-<label class="form-label">Frame Height</label>
-<input type="number" name="frame_height" class="form-control" value="480" min="64" max="4096">
-</div>
-</div>
-<div class="row">
-<div class="col-md-6 mb-3">
-<label class="form-label">FPS</label>
-<input type="number" name="fps" class="form-control" value="30" min="1" max="120">
-</div>
-<div class="col-md-6 mb-3">
-<label class="form-label">Block Size</label>
-<input type="number" name="block_size" class="form-control" value="4" min="1" max="64">
-</div>
-</div>
-<button type="submit" class="btn btn-primary">Start</button>
-</form>
-{% if result %}
-<div class="alert alert-info mt-4">{{ result }}</div>
-{% endif %}
-{% if download_url %}
-<a href="{{ download_url }}" class="btn btn-success mt-2">Download Output</a>
-{% endif %}
-</div>
-</body>
-</html>"""
 
 
 class LazyOwnConfig:
@@ -214,10 +148,10 @@ class SecurityValidator:
 
     def validate_file_path(self, file_path: str, must_exist: bool = False) -> str:
         """Resolves and validates an absolute file path."""
+        if '..' in file_path.split(os.sep):
+            raise ValueError("Path traversal detected")
         absolute = os.path.abspath(file_path)
         normalized = os.path.normpath(absolute)
-        if '..' in normalized.split(os.sep):
-            raise ValueError("Path traversal detected")
         if must_exist and not os.path.exists(normalized):
             raise FileNotFoundError(f"File not found: {normalized}")
         return normalized
@@ -230,7 +164,7 @@ class SecurityValidator:
     def sanitize_filename(self, filename: str) -> str:
         """Sanitizes a filename to remove unsafe characters."""
         name = os.path.basename(filename)
-        sanitized = re.sub(r'[^a-zA-Z0_\-\.]', '', name)
+        sanitized = re.sub(r'[^a-zA-Z0-9_\-\.]', '', name)
         if not sanitized:
             sanitized = 'file'
         return sanitized
@@ -557,6 +491,10 @@ class LazyOwnInfiniteStorage:
         self._legacy_handler = LegacyProtocolHandler(self.config)
         self._secure_handler = SecureProtocolHandler(self.config, self._corrector)
 
+    def create_web_runner(self):
+        """Return a WebRunner for WSGI or local web server use."""
+        return WebRunner(self)
+
     def encode(self, input_path: str, output_path: str, frame_width: int, frame_height: int, fps: int, block_size: int, protocol_version: Optional[int] = None) -> None:
         """Encodes a file into a video using the specified protocol."""
         input_path = self._validator.validate_file_path(input_path, must_exist=True)
@@ -575,14 +513,11 @@ class LazyOwnInfiniteStorage:
             data = f.read()
         bit_string = handler.pack(data, frame_width, frame_height, block_size, fps)
         frame_generator = self._frame_encoder.bits_to_frames(bit_string, frame_width, frame_height, block_size)
-        if protocol_version == self.config.PROTOCOL_VERSION_LEGACY:
-            base, ext = os.path.splitext(output_path)
-            if f"_{frame_width}x{frame_height}" not in base:
-                output_path = f"{base}_{frame_width}x{frame_height}{ext}"
-        else:
-            base, ext = os.path.splitext(output_path)
-            if f"_{frame_width}x{frame_height}" not in base:
-                output_path = f"{base}_{frame_width}x{frame_height}{ext}"
+        base, ext = os.path.splitext(output_path)
+        if f"_{frame_width}x{frame_height}" not in base:
+            output_path = f"{base}_{frame_width}x{frame_height}{ext}"
+        if not ext:
+            output_path = f"{output_path}.mp4"
         self._ffmpeg.encode_video(frame_generator, output_path, frame_width, frame_height, fps)
 
     def decode(self, input_path: str, output_path: str, block_size: int, protocol_version: Optional[int] = None) -> None:
@@ -674,7 +609,7 @@ class CLIRunner:
 
     def run(self) -> None:
         parser = argparse.ArgumentParser(description='LazyOwnInfiniteStorage')
-        parser.add_argument('--mode', choices=['encode', 'decode', 'test'], required=True, help='Operation mode')
+        parser.add_argument('--mode', choices=['encode', 'decode', 'test'], help='Operation mode')
         parser.add_argument('--input', help='Input file path')
         parser.add_argument('--output', help='Output file path')
         parser.add_argument('--frame_size', type=int, nargs=2, help='Frame width and height')
@@ -693,6 +628,8 @@ class CLIRunner:
         if args.serve:
             WebRunner(self._storage).run(args.host, args.port)
             return
+        if not args.mode:
+            parser.error('--mode is required unless --gui or --serve is specified')
         if args.mode == 'test':
             run_tests()
             return
@@ -885,13 +822,42 @@ if HAS_FLASK:
 
         def __init__(self, storage: LazyOwnInfiniteStorage):
             self._storage = storage
-            self._app = Flask(__name__)
+            base_dir = os.path.dirname(os.path.abspath(__file__)) if '__file__' in dir() else os.getcwd()
+            self._app = Flask(
+                __name__,
+                template_folder=os.path.join(base_dir, 'templates'),
+                static_folder=os.path.join(base_dir, 'static'),
+                static_url_path='/static'
+            )
             self._setup_routes()
+
+        def run_setup(self):
+            """Create directories and validate environment."""
+            cfg = self._storage.config
+            os.makedirs(cfg.WEB_UPLOAD_FOLDER, exist_ok=True)
+            os.makedirs(cfg.WEB_DOWNLOAD_FOLDER, exist_ok=True)
 
         def _setup_routes(self):
             cfg = self._storage.config
             self._app.config['SECRET_KEY'] = os.environ.get(cfg.WEB_SECRET_KEY_ENV, os.urandom(32).hex())
             self._app.config['MAX_CONTENT_LENGTH'] = cfg.WEB_MAX_CONTENT_LENGTH
+
+            def _validate_upload(input_file, action):
+                if not input_file or not input_file.filename:
+                    raise ValueError("No input file provided")
+                filename = self._storage._validator.sanitize_filename(input_file.filename)
+                ext = os.path.splitext(filename.lower())[1]
+                if action == 'encode':
+                    if ext not in cfg.ALLOWED_ENCODE_EXTENSIONS:
+                        raise ValueError(f"Disallowed extension for encode: {ext}")
+                else:
+                    if ext not in cfg.ALLOWED_DECODE_EXTENSIONS:
+                        raise ValueError(f"Disallowed extension for decode: {ext}")
+                input_file.seek(0, os.SEEK_END)
+                size = input_file.tell()
+                input_file.seek(0)
+                self._storage._validator.validate_size(size)
+                return filename
 
             @self._app.route('/', methods=['GET', 'POST'])
             def index():
@@ -908,21 +874,19 @@ if HAS_FLASK:
                         frame_height = int(request.form.get('frame_height', cfg.DEFAULT_FRAME_HEIGHT))
                         fps = int(request.form.get('fps', cfg.DEFAULT_FPS))
                         block_size = int(request.form.get('block_size', cfg.DEFAULT_BLOCK_SIZE))
-                        if not input_file or not input_file.filename:
-                            result = "No input file provided"
-                            return render_template_string(WEB_TEMPLATE, result=result, download_url=None)
+                        _validate_upload(input_file, action)
                         sanitized_output = self._storage._validator.sanitize_filename(output_name)
                         tmp_dir = tempfile.mkdtemp(prefix=cfg.TEMP_DIR_PREFIX)
                         try:
-                            input_path = os.path.join(tmp_dir, 'upload')
+                            upload_name = self._storage._validator.sanitize_filename(input_file.filename)
+                            input_path = os.path.join(tmp_dir, upload_name)
                             input_file.save(input_path)
                             output_path = os.path.join(tmp_dir, sanitized_output)
                             if action == 'encode':
                                 self._storage.encode(input_path, output_path, frame_width, frame_height, fps, block_size, protocol_version)
-                                if protocol_version == cfg.PROTOCOL_VERSION_LEGACY:
-                                    candidates = [f for f in os.listdir(tmp_dir) if f != 'upload']
-                                    if candidates:
-                                        output_path = os.path.join(tmp_dir, candidates[0])
+                                candidates = [f for f in os.listdir(tmp_dir) if f != upload_name]
+                                if candidates:
+                                    output_path = os.path.join(tmp_dir, candidates[0])
                             else:
                                 self._storage.decode(input_path, output_path, block_size, protocol_version)
                             download_name = self._storage._validator.sanitize_filename(os.path.basename(output_path))
@@ -938,7 +902,7 @@ if HAS_FLASK:
                             shutil.rmtree(tmp_dir, ignore_errors=True)
                     except Exception as exc:
                         result = f"Error: {exc}"
-                return render_template_string(WEB_TEMPLATE, result=result, download_url=download_url)
+                return render_template('index.html', result=result, download_url=download_url)
 
             @self._app.route('/download/<filename>')
             def download(filename):
@@ -946,7 +910,7 @@ if HAS_FLASK:
                 file_path = os.path.join(cfg.WEB_DOWNLOAD_FOLDER, safe_name)
                 if os.path.exists(file_path):
                     return send_file(file_path, as_attachment=True)
-                return render_template_string(WEB_TEMPLATE, result="File not found", download_url=None), 404
+                return render_template('index.html', result="File not found", download_url=None), 404
 
             @self._app.after_request
             def add_security_headers(response):

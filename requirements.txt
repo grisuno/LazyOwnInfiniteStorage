@@ -1,9 +1,17 @@
-opencv-python
-Flask
-Flask-WTF
-Flask-Bootstrap
-opencv-python-headless
-numpy
-argparse
-PyQt5
-gunicorn
+# LazyOwnInfiniteStorage
+# Production-grade file-to-video encoder/decoder
+
+# Core dependencies
+numpy>=1.21.0
+opencv-python>=4.5.0
+opencv-python-headless>=4.5.0
+
+# Web interface dependencies
+Flask>=2.3.0
+Werkzeug>=2.3.0
+
+# GUI dependencies (optional)
+PyQt5>=5.15.0
+
+# Server deployment
+gunicorn>=21.0.0

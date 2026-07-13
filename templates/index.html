@@ -1,196 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LazyOwnEncoderDecoder - Encode and Decode Files Easily</title>
-    <meta name="description" content="LazyOwnEncoderDecoder is a powerful tool to easily encode and decode files. Supports video and zip files with customizable parameters for frame size and block size.">
-    <meta name="keywords" content="LazyOwnEncoderDecoder, encode files, decode files, video encoding, zip decoding, file conversion">
-    <meta name="author" content="GrisUNO">
-    <meta property="og:title" content="LazyOwnEncoderDecoder - Encode and Decode Files Easily">
-    <meta property="og:description" content="LazyOwnEncoderDecoder is a powerful tool to easily encode and decode files. Supports video and zip files with customizable parameters for frame size and block size.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://lazyowninfinitestorage.onrender.com/">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="LazyOwnEncoderDecoder - Encode and Decode Files Easily">
-    <meta name="twitter:description" content="LazyOwnEncoderDecoder is a powerful tool to easily encode and decode files. Supports video and zip files with customizable parameters for frame size and block size.">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link id="themeStylesheet" rel="stylesheet" href="{{ url_for('static', filename='css/light-mode.css') }}">
-    <style>
-        .btn-switch-mode {
-            margin-bottom: 15px;
-        }
-        .footer-output {
-            background-color: #f8f9fa;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LazyOwnInfiniteStorage</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body { background-color: #0a0a0a; color: #e0e0e0; }
+.container { max-width: 720px; }
+.terminal { font-family: 'Courier New', monospace; }
+.header { border-bottom: 1px solid #333; margin-bottom: 2rem; padding-bottom: 1rem; }
+.header h1 { color: #00ff41; font-family: 'Courier New', monospace; font-size: 1.5rem; }
+label { color: #aaa; font-size: 0.875rem; }
+input, select { background-color: #1a1a1a !important; border: 1px solid #333 !important; color: #e0e0e0 !important; }
+input:focus, select:focus { border-color: #00ff41 !important; box-shadow: 0 0 0 0.2rem rgba(0,255,65,0.25) !important; }
+.btn-primary { background-color: #00ff41; border-color: #00ff41; color: #000; font-weight: 600; }
+.btn-primary:hover { background-color: #00cc34; border-color: #00cc34; }
+.btn-success { background-color: #007bff; border-color: #007bff; }
+.alert { border-radius: 0; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="mt-5 mb-4 neon-text">LazyOwnEncoderDecoder</h1>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        <div class="row">
-            <div class="col-md-6">
-                <form method="post" enctype="multipart/form-data" id="uploadForm">
-                    {{ form.hidden_tag() }}
-                
-                    <div class="form-group">
-                        {{ form.input_file.label(class="file") }}
-                        {{ form.input_file(class="form-control-file", id="file") }}
-                    </div>
-                
-                    <div class="form-group">
-                        {{ form.output_file_name.label(class="output_file_name") }}
-                        {{ form.output_file_name(class="form-control", id="output_file_name") }}
-                    </div>
-                
-                    <div class="form-group">
-                        {{ form.frame_width.label(class="frame_width") }}
-                        {{ form.frame_width(class="form-control", id="frame_width") }}
-                    </div>
-                
-                    <div class="form-group">
-                        {{ form.frame_height.label(class="frame_height") }}
-                        {{ form.frame_height(class="form-control", id="frame_height") }}
-                    </div>
-                
-                    <div class="form-group">
-                        {{ form.fps.label(class="fps") }}
-                        {{ form.fps(class="form-control", id="fps") }}
-                    </div>
-                
-                    <div class="form-group">
-                        {{ form.block_size.label(class="block_size") }}
-                        {{ form.block_size(class="form-control", id="block_size") }}
-                    </div>
-                
-                    <div class="form-group">
-                        {{ form.action.label(class="action") }}
-                        {{ form.action(class="form-control", id="action") }}
-                    </div>
-                
-                    <button type="submit" class="btn btn-primary">Start</button>
-                </form>
-
-                <br /><br /><br />
-                <button class="btn btn-secondary btn-switch-mode" onclick="switchMode()">Dark Mode</button>
-            </div>
-            <div class="col-md-6">
-                {% if result %}
-                    <div class="content">
-                        <h5>Result:</h5>
-                        <pre>{{ result }}</pre>
-                    </div>
-                {% endif %}
-                {% if download_url %}
-                    <div class="content">
-                        <h5>Download:</h5>
-                        <a href="{{ download_url }}" class="btn btn-success">Download Output File</a>
-                    </div>
-                {% endif %}
-
-            </div>
-        </div>
-        <div class="footer-output">
-            {% if result %}
-                <h5>Output:</h5>
-                <pre>{{ result }}</pre>
-            {% endif %}
-        </div>
-    </div>
-    <script>
-        function switchMode() {
-            const themeStylesheet = document.getElementById('themeStylesheet');
-            if (themeStylesheet.getAttribute('href').includes('light-mode.css')) {
-                themeStylesheet.setAttribute('href', '{{ url_for('static', filename='css/dark-mode.css') }}');
-                document.querySelector('.btn-switch-mode').innerText = 'Light Mode';
-            } else {
-                themeStylesheet.setAttribute('href', '{{ url_for('static', filename='css/light-mode.css') }}');
-                document.querySelector('.btn-switch-mode').innerText = 'Dark Mode';
-            }
-        }
-        function updateForm() {
-            var mode = document.getElementById("action").value;
-            var fileInput = document.getElementById("file");
-            var blockSizeSelect = document.getElementById("block_size");
-            var frameWidthSelect = document.getElementById("frame_width");
-            var frameHeightSelect = document.getElementById("frame_height");
-
-            if (mode === "encode") {
-                fileInput.accept = ".zip";
-                blockSizeSelect.style.display = "block";
-                frameWidthSelect.parentNode.style.display = "block";
-                frameHeightSelect.parentNode.style.display = "block";
-            } else if (mode === "decode") {
-                fileInput.accept = "video/mp4";
-                blockSizeSelect.style.display = "block";
-                frameWidthSelect.parentNode.style.display = "none";
-                frameHeightSelect.parentNode.style.display = "none";
-            }
-        }
-        document.getElementById('frame_width').addEventListener('change', function() {
-            const width = this.value;
-            const heightSelect = document.getElementById('frame_height');
-            if (width === '640') {
-                heightSelect.value = '480';
-            } else if (width === '480') {
-                heightSelect.value = '360';
-            }
-        });
-        document.addEventListener("DOMContentLoaded", function() {
-            updateForm(); // Actualiza el formulario al cargar la página
-
-            document.getElementById("action").addEventListener("change", function() {
-                updateForm(); // Actualiza el formulario cuando cambia la acción
-            });
-
-        });
-
-        document.getElementById('action').addEventListener('change', function() {
-            const action = this.value;
-            const frameWidthGroup = document.getElementById('frame_width_group');
-            const frameHeightGroup = document.getElementById('frame_height_group');
-            const blockSizeGroup = document.getElementById('block_size_group');
-
-            if (action === 'encode') {
-                frameWidthGroup.style.display = 'block';
-                frameHeightGroup.style.display = 'block';
-                blockSizeGroup.style.display = 'block';
-                document.getElementById('input_file').setAttribute('accept', '.zip');
-            } else if (action === 'decode') {
-                frameWidthGroup.style.display = 'none';
-                frameHeightGroup.style.display = 'none';
-                blockSizeGroup.style.display = 'block';
-                document.getElementById('input_file').setAttribute('accept', '.mp4');
-            }
-        });
-        
-    </script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YF9NHRKCX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-6YF9NHRKCX');
-    </script>
-    <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
-    <script>
-        kofiWidgetOverlay.draw('grisuno', {
-            'type': 'floating-chat',
-            'floating-chat.donateButton.text': 'Support me',
-            'floating-chat.donateButton.background-color': '#00b9fe',
-            'floating-chat.donateButton.text-color': '#fff'
-        });
-    </script>
+<div class="container py-4">
+<div class="header">
+<h1 class="terminal">LazyOwnInfiniteStorage</h1>
+<p class="text-muted small terminal">encode any file into video frames &mdash; decode it back</p>
+</div>
+<form method="post" enctype="multipart/form-data">
+<div class="row g-3">
+<div class="col-12">
+<label class="form-label">Mode</label>
+<select name="action" class="form-select">
+<option value="encode">Encode</option>
+<option value="decode">Decode</option>
+</select>
+</div>
+<div class="col-12">
+<label class="form-label">Input File</label>
+<input type="file" name="input_file" class="form-control" required>
+</div>
+<div class="col-12">
+<label class="form-label">Output Filename</label>
+<input type="text" name="output_file_name" class="form-control" value="output" required>
+</div>
+<div class="col-12">
+<label class="form-label">Protocol</label>
+<select name="protocol" class="form-select">
+<option value="secure">Secure (v2) &mdash; recommended</option>
+<option value="legacy">Legacy (v1)</option>
+</select>
+</div>
+<div class="col-md-6">
+<label class="form-label">Frame Width</label>
+<input type="number" name="frame_width" class="form-control" value="640" min="64" max="4096" step="1">
+</div>
+<div class="col-md-6">
+<label class="form-label">Frame Height</label>
+<input type="number" name="frame_height" class="form-control" value="480" min="64" max="4096" step="1">
+</div>
+<div class="col-md-6">
+<label class="form-label">FPS</label>
+<input type="number" name="fps" class="form-control" value="30" min="1" max="120" step="1">
+</div>
+<div class="col-md-6">
+<label class="form-label">Block Size</label>
+<input type="number" name="block_size" class="form-control" value="4" min="1" max="64" step="1">
+</div>
+<div class="col-12">
+<button type="submit" class="btn btn-primary w-100">Start</button>
+</div>
+</div>
+</form>
+{% if result %}
+<div class="alert alert-info mt-4 terminal">{{ result }}</div>
+{% endif %}
+{% if download_url %}
+<a href="{{ download_url }}" class="btn btn-success w-100 mt-2">Download Output</a>
+{% endif %}
+</div>
 </body>
 </html>
