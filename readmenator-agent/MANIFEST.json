@@ -1,0 +1,22 @@
+{
+  "tool": "readmenator",
+  "generated_at": "2026-09-11T04:52:43Z",
+  "project_root": "/tmp/push_LazyOwnInfiniteStorage_20260911_012907",
+  "files": 9,
+  "symbols": 153,
+  "imports": 909,
+  "resolved_imports": 7,
+  "security_findings": 0,
+  "languages": {
+    "sh": 1,
+    "py": 8
+  },
+  "entrypoints": [],
+  "start_here": "INDEX.md",
+  "workflow": [
+    "grep -n '<keyword>' INDEX.md",
+    "cat KB_<subsystem>.md",
+    "grep -n '<file>' ARCHITECTURE.md SYMBOLS.md"
+  ],
+  "regenerate": "readmenator . --rebuild"
+}
