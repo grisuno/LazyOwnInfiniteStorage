@@ -1,0 +1,120 @@
+# Concepts
+
+Nouns map atomically to file sets (EXTRACTED); verbs aggregate structural edges (INFERRED).
+
+- `setup` | files=6 | mentions=10 | `lazyown_infinitestorage.py`, `tests/test_error_correction.py`, `tests/test_frames.py`, `tests/test_integration.py`, `tests/test_protocols.py`, `tests/test_security.py`
+- `bit` | files=5 | mentions=16 | `lazyown_infinitestorage.py`, `tests/test_error_correction.py`, `tests/test_frames.py`, `tests/test_integration.py`, `tests/test_protocols.py`
+- `specification` | files=5 | mentions=9 | `tests/test_error_correction.py`, `tests/test_frames.py`, `tests/test_integration.py`, `tests/test_protocols.py`, `tests/test_security.py`
+- `file` | files=4 | mentions=21 | `lazyown_infinitestorage.py`, `skill_lazyown_infinitestorage/tools.py`, `tests/test_integration.py`, `tests/test_security.py`
+- `protocol` | files=4 | mentions=20 | `lazyown_infinitestorage.py`, `tests/test_integration.py`, `tests/test_protocols.py`, `tests/test_security.py`
+- `decode` | files=4 | mentions=14 | `lazyown_infinitestorage.py`, `skill_lazyown_infinitestorage/tools.py`, `tests/test_error_correction.py`, `tests/test_integration.py`
+- `lazy` | files=4 | mentions=14 | `lazyown_infinitestorage.py`, `skill_lazyown_infinitestorage/tools.py`, `tests/test_security.py`, `wsgi_app.py`
+- `own` | files=4 | mentions=14 | `lazyown_infinitestorage.py`, `skill_lazyown_infinitestorage/tools.py`, `tests/test_security.py`, `wsgi_app.py`
+- `encode` | files=4 | mentions=11 | `lazyown_infinitestorage.py`, `skill_lazyown_infinitestorage/tools.py`, `tests/test_error_correction.py`, `tests/test_integration.py`
+- `get` | files=4 | mentions=6 | `lazyown_infinitestorage.py`, `skill_lazyown_infinitestorage/tools.py`, `tests/test_integration.py`, `wsgi_app.py`
+- `bytes` | files=4 | mentions=4 | `lazyown_infinitestorage.py`, `tests/test_error_correction.py`, `tests/test_frames.py`, `tests/test_security.py`
+- `unit` | files=4 | mentions=4 | `tests/test_error_correction.py`, `tests/test_frames.py`, `tests/test_protocols.py`, `tests/test_security.py`
+- `video` | files=3 | mentions=14 | `lazyown_infinitestorage.py`, `skill_lazyown_infinitestorage/tools.py`, `tests/test_integration.py`
+- `error` | files=3 | mentions=13 | `lazyown_infinitestorage.py`, `tests/test_error_correction.py`, `tests/test_integration.py`
+- `data` | files=3 | mentions=11 | `lazyown_infinitestorage.py`, `tests/test_error_correction.py`, `tests/test_protocols.py`
+- `infinite` | files=3 | mentions=11 | `lazyown_infinitestorage.py`, `skill_lazyown_infinitestorage/tools.py`, `wsgi_app.py`
+- `storage` | files=3 | mentions=11 | `lazyown_infinitestorage.py`, `skill_lazyown_infinitestorage/tools.py`, `wsgi_app.py`
+- `web` | files=3 | mentions=11 | `lazyown_infinitestorage.py`, `tests/test_integration.py`, `wsgi_app.py`
+- `roundtrip` | files=3 | mentions=8 | `tests/test_error_correction.py`, `tests/test_integration.py`, `tests/test_protocols.py`
+- `secure` | files=3 | mentions=8 | `lazyown_infinitestorage.py`, `tests/test_integration.py`, `tests/test_protocols.py`
+- `security` | files=3 | mentions=8 | `lazyown_infinitestorage.py`, `tests/test_integration.py`, `tests/test_security.py`
+- `correction` | files=3 | mentions=7 | `lazyown_infinitestorage.py`, `tests/test_error_correction.py`, `tests/test_protocols.py`
+- `filename` | files=3 | mentions=7 | `lazyown_infinitestorage.py`, `tests/test_protocols.py`, `tests/test_security.py`
+- `hamming` | files=3 | mentions=7 | `lazyown_infinitestorage.py`, `tests/test_error_correction.py`, `tests/test_protocols.py`
+- `encodes` | files=3 | mentions=6 | `lazyown_infinitestorage.py`, `tests/test_error_correction.py`, `tests/test_integration.py`
+- `legacy` | files=3 | mentions=6 | `lazyown_infinitestorage.py`, `tests/test_integration.py`, `tests/test_protocols.py`
+- `upload` | files=3 | mentions=5 | `lazyown_infinitestorage.py`, `skill_lazyown_infinitestorage/tools.py`, `tests/test_integration.py`
+- `files` | files=3 | mentions=4 | `lazyown_infinitestorage.py`, `tests/test_integration.py`, `tests/test_security.py`
+- `original` | files=3 | mentions=4 | `lazyown_infinitestorage.py`, `skill_lazyown_infinitestorage/tools.py`, `tests/test_protocols.py`
+- `resolution` | files=3 | mentions=4 | `lazyown_infinitestorage.py`, `tests/test_integration.py`, `tests/test_protocols.py`
+- `back` | files=3 | mentions=3 | `lazyown_infinitestorage.py`, `skill_lazyown_infinitestorage/tools.py`, `tests/test_integration.py`
+- `frames` | files=2 | mentions=14 | `lazyown_infinitestorage.py`, `tests/test_frames.py`
+- `frame` | files=2 | mentions=13 | `lazyown_infinitestorage.py`, `tests/test_frames.py`
+- `validate` | files=2 | mentions=13 | `lazyown_infinitestorage.py`, `tests/test_security.py`
+- `bits` | files=2 | mentions=8 | `lazyown_infinitestorage.py`, `tests/test_frames.py`
+- `runner` | files=2 | mentions=8 | `lazyown_infinitestorage.py`, `tests/test_integration.py`
+- `unpack` | files=2 | mentions=8 | `lazyown_infinitestorage.py`, `tests/test_protocols.py`
+- `grayscale` | files=2 | mentions=7 | `lazyown_infinitestorage.py`, `tests/test_frames.py`
+- `handler` | files=2 | mentions=7 | `lazyown_infinitestorage.py`, `tests/test_protocols.py`
+- `lazyown` | files=2 | mentions=7 | `lazyown_infinitestorage.py`, `skill_lazyown_infinitestorage/tools.py`
+- `path` | files=2 | mentions=7 | `lazyown_infinitestorage.py`, `tests/test_security.py`
+- `using` | files=2 | mentions=7 | `lazyown_infinitestorage.py`, `skill_lazyown_infinitestorage/tools.py`
+- `extract` | files=2 | mentions=6 | `lazyown_infinitestorage.py`, `tests/test_frames.py`
+- `infinitestorage` | files=2 | mentions=6 | `lazyown_infinitestorage.py`, `skill_lazyown_infinitestorage/tools.py`
+- `raw` | files=2 | mentions=6 | `lazyown_infinitestorage.py`, `tests/test_frames.py`
+- `decoder` | files=2 | mentions=5 | `lazyown_infinitestorage.py`, `tests/test_frames.py`
+- `encoder` | files=2 | mentions=5 | `lazyown_infinitestorage.py`, `tests/test_frames.py`
+- `interface` | files=2 | mentions=5 | `lazyown_infinitestorage.py`, `tests/test_integration.py`
+- `nibble` | files=2 | mentions=5 | `lazyown_infinitestorage.py`, `tests/test_error_correction.py`
+- `pack` | files=2 | mentions=5 | `lazyown_infinitestorage.py`, `tests/test_protocols.py`
+
+## Verb Edges
+
+- `setup` --depends_on--> `back` (strength 1.00)
+- `setup` --depends_on--> `bit` (strength 1.00)
+- `setup` --depends_on--> `bits` (strength 1.00)
+- `setup` --depends_on--> `bytes` (strength 1.00)
+- `setup` --depends_on--> `correction` (strength 1.00)
+- `setup` --depends_on--> `data` (strength 1.00)
+- `setup` --depends_on--> `decode` (strength 1.00)
+- `setup` --depends_on--> `decoder` (strength 1.00)
+- `setup` --depends_on--> `encode` (strength 1.00)
+- `setup` --depends_on--> `encoder` (strength 1.00)
+- `setup` --depends_on--> `encodes` (strength 1.00)
+- `setup` --depends_on--> `error` (strength 1.00)
+- `setup` --depends_on--> `extract` (strength 1.00)
+- `setup` --depends_on--> `file` (strength 1.00)
+- `setup` --depends_on--> `filename` (strength 1.00)
+- `setup` --depends_on--> `files` (strength 1.00)
+- `setup` --depends_on--> `frame` (strength 1.00)
+- `setup` --depends_on--> `frames` (strength 1.00)
+- `setup` --depends_on--> `get` (strength 1.00)
+- `setup` --depends_on--> `grayscale` (strength 1.00)
+- `setup` --depends_on--> `hamming` (strength 1.00)
+- `setup` --depends_on--> `handler` (strength 1.00)
+- `setup` --depends_on--> `infinite` (strength 1.00)
+- `setup` --depends_on--> `infinitestorage` (strength 1.00)
+- `setup` --depends_on--> `interface` (strength 1.00)
+- `setup` --depends_on--> `lazy` (strength 1.00)
+- `setup` --depends_on--> `lazyown` (strength 1.00)
+- `setup` --depends_on--> `legacy` (strength 1.00)
+- `setup` --depends_on--> `nibble` (strength 1.00)
+- `setup` --depends_on--> `original` (strength 1.00)
+- `setup` --depends_on--> `own` (strength 1.00)
+- `setup` --depends_on--> `pack` (strength 1.00)
+- `setup` --depends_on--> `path` (strength 1.00)
+- `setup` --depends_on--> `protocol` (strength 1.00)
+- `setup` --depends_on--> `raw` (strength 1.00)
+- `setup` --depends_on--> `resolution` (strength 1.00)
+- `setup` --depends_on--> `runner` (strength 1.00)
+- `setup` --depends_on--> `secure` (strength 1.00)
+- `setup` --depends_on--> `security` (strength 1.00)
+- `setup` --depends_on--> `storage` (strength 1.00)
+- `setup` --depends_on--> `unpack` (strength 1.00)
+- `setup` --depends_on--> `upload` (strength 1.00)
+- `setup` --depends_on--> `using` (strength 1.00)
+- `setup` --depends_on--> `validate` (strength 1.00)
+- `setup` --depends_on--> `video` (strength 1.00)
+- `setup` --depends_on--> `web` (strength 1.00)
+- `specification` --depends_on--> `back` (strength 1.00)
+- `specification` --depends_on--> `bit` (strength 1.00)
+- `specification` --depends_on--> `bits` (strength 1.00)
+- `specification` --depends_on--> `bytes` (strength 1.00)
+
+## Dialectic
+
+- Thesis: `back` centralizes 3 files; Antithesis: `bit` pulls 5 files with 2 shared (Jaccard 0.33); Synthesis: should they merge, split by layer, or keep `depends_on` explicit?
+- Thesis: `back` centralizes 3 files; Antithesis: `decode` pulls 4 files with 3 shared (Jaccard 0.75); Synthesis: should they merge, split by layer, or keep `bridges` explicit?
+- Thesis: `back` centralizes 3 files; Antithesis: `encode` pulls 4 files with 3 shared (Jaccard 0.75); Synthesis: should they merge, split by layer, or keep `bridges` explicit?
+- Thesis: `back` centralizes 3 files; Antithesis: `encodes` pulls 3 files with 2 shared (Jaccard 0.50); Synthesis: should they merge, split by layer, or keep `bridges` explicit?
+- Thesis: `back` centralizes 3 files; Antithesis: `error` pulls 3 files with 2 shared (Jaccard 0.50); Synthesis: should they merge, split by layer, or keep `bridges` explicit?
+- Thesis: `back` centralizes 3 files; Antithesis: `file` pulls 4 files with 3 shared (Jaccard 0.75); Synthesis: should they merge, split by layer, or keep `bridges` explicit?
+- Thesis: `back` centralizes 3 files; Antithesis: `files` pulls 3 files with 2 shared (Jaccard 0.50); Synthesis: should they merge, split by layer, or keep `bridges` explicit?
+- Thesis: `back` centralizes 3 files; Antithesis: `get` pulls 4 files with 3 shared (Jaccard 0.75); Synthesis: should they merge, split by layer, or keep `bridges` explicit?
+- Thesis: `back` centralizes 3 files; Antithesis: `infinite` pulls 3 files with 2 shared (Jaccard 0.50); Synthesis: should they merge, split by layer, or keep `bridges` explicit?
+- Thesis: `back` centralizes 3 files; Antithesis: `infinitestorage` pulls 2 files with 2 shared (Jaccard 0.67); Synthesis: should they merge, split by layer, or keep `bridges` explicit?

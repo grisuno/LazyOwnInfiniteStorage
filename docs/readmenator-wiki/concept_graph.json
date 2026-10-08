@@ -1,0 +1,1908 @@
+{
+  "concepts": [
+    {
+      "name": "setup",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_error_correction.py",
+        "tests/test_frames.py",
+        "tests/test_integration.py",
+        "tests/test_protocols.py",
+        "tests/test_security.py"
+      ],
+      "mentions": 10,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "bit",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_error_correction.py",
+        "tests/test_frames.py",
+        "tests/test_integration.py",
+        "tests/test_protocols.py"
+      ],
+      "mentions": 16,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "specification",
+      "files": [
+        "tests/test_error_correction.py",
+        "tests/test_frames.py",
+        "tests/test_integration.py",
+        "tests/test_protocols.py",
+        "tests/test_security.py"
+      ],
+      "mentions": 9,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "file",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "skill_lazyown_infinitestorage/tools.py",
+        "tests/test_integration.py",
+        "tests/test_security.py"
+      ],
+      "mentions": 21,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "protocol",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_integration.py",
+        "tests/test_protocols.py",
+        "tests/test_security.py"
+      ],
+      "mentions": 20,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "decode",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "skill_lazyown_infinitestorage/tools.py",
+        "tests/test_error_correction.py",
+        "tests/test_integration.py"
+      ],
+      "mentions": 14,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "lazy",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "skill_lazyown_infinitestorage/tools.py",
+        "tests/test_security.py",
+        "wsgi_app.py"
+      ],
+      "mentions": 14,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "own",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "skill_lazyown_infinitestorage/tools.py",
+        "tests/test_security.py",
+        "wsgi_app.py"
+      ],
+      "mentions": 14,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "encode",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "skill_lazyown_infinitestorage/tools.py",
+        "tests/test_error_correction.py",
+        "tests/test_integration.py"
+      ],
+      "mentions": 11,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "get",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "skill_lazyown_infinitestorage/tools.py",
+        "tests/test_integration.py",
+        "wsgi_app.py"
+      ],
+      "mentions": 6,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "bytes",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_error_correction.py",
+        "tests/test_frames.py",
+        "tests/test_security.py"
+      ],
+      "mentions": 4,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "unit",
+      "files": [
+        "tests/test_error_correction.py",
+        "tests/test_frames.py",
+        "tests/test_protocols.py",
+        "tests/test_security.py"
+      ],
+      "mentions": 4,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "video",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "skill_lazyown_infinitestorage/tools.py",
+        "tests/test_integration.py"
+      ],
+      "mentions": 14,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "error",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_error_correction.py",
+        "tests/test_integration.py"
+      ],
+      "mentions": 13,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "data",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_error_correction.py",
+        "tests/test_protocols.py"
+      ],
+      "mentions": 11,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "infinite",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "skill_lazyown_infinitestorage/tools.py",
+        "wsgi_app.py"
+      ],
+      "mentions": 11,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "storage",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "skill_lazyown_infinitestorage/tools.py",
+        "wsgi_app.py"
+      ],
+      "mentions": 11,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "web",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_integration.py",
+        "wsgi_app.py"
+      ],
+      "mentions": 11,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "roundtrip",
+      "files": [
+        "tests/test_error_correction.py",
+        "tests/test_integration.py",
+        "tests/test_protocols.py"
+      ],
+      "mentions": 8,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "secure",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_integration.py",
+        "tests/test_protocols.py"
+      ],
+      "mentions": 8,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "security",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_integration.py",
+        "tests/test_security.py"
+      ],
+      "mentions": 8,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "correction",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_error_correction.py",
+        "tests/test_protocols.py"
+      ],
+      "mentions": 7,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "filename",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_protocols.py",
+        "tests/test_security.py"
+      ],
+      "mentions": 7,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "hamming",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_error_correction.py",
+        "tests/test_protocols.py"
+      ],
+      "mentions": 7,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "encodes",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_error_correction.py",
+        "tests/test_integration.py"
+      ],
+      "mentions": 6,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "legacy",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_integration.py",
+        "tests/test_protocols.py"
+      ],
+      "mentions": 6,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "upload",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "skill_lazyown_infinitestorage/tools.py",
+        "tests/test_integration.py"
+      ],
+      "mentions": 5,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "files",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_integration.py",
+        "tests/test_security.py"
+      ],
+      "mentions": 4,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "original",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "skill_lazyown_infinitestorage/tools.py",
+        "tests/test_protocols.py"
+      ],
+      "mentions": 4,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "resolution",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_integration.py",
+        "tests/test_protocols.py"
+      ],
+      "mentions": 4,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "back",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "skill_lazyown_infinitestorage/tools.py",
+        "tests/test_integration.py"
+      ],
+      "mentions": 3,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "frames",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_frames.py"
+      ],
+      "mentions": 14,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "frame",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_frames.py"
+      ],
+      "mentions": 13,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "validate",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_security.py"
+      ],
+      "mentions": 13,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "bits",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_frames.py"
+      ],
+      "mentions": 8,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "runner",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_integration.py"
+      ],
+      "mentions": 8,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "unpack",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_protocols.py"
+      ],
+      "mentions": 8,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "grayscale",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_frames.py"
+      ],
+      "mentions": 7,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "handler",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_protocols.py"
+      ],
+      "mentions": 7,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "lazyown",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "skill_lazyown_infinitestorage/tools.py"
+      ],
+      "mentions": 7,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "path",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_security.py"
+      ],
+      "mentions": 7,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "using",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "skill_lazyown_infinitestorage/tools.py"
+      ],
+      "mentions": 7,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "extract",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_frames.py"
+      ],
+      "mentions": 6,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "infinitestorage",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "skill_lazyown_infinitestorage/tools.py"
+      ],
+      "mentions": 6,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "raw",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_frames.py"
+      ],
+      "mentions": 6,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "decoder",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_frames.py"
+      ],
+      "mentions": 5,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "encoder",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_frames.py"
+      ],
+      "mentions": 5,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "interface",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_integration.py"
+      ],
+      "mentions": 5,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "nibble",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_error_correction.py"
+      ],
+      "mentions": 5,
+      "confidence": "EXTRACTED"
+    },
+    {
+      "name": "pack",
+      "files": [
+        "lazyown_infinitestorage.py",
+        "tests/test_protocols.py"
+      ],
+      "mentions": 5,
+      "confidence": "EXTRACTED"
+    }
+  ],
+  "relations": [
+    {
+      "source": "setup",
+      "target": "back",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "bit",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "bits",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "bytes",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "correction",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "data",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "decode",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "decoder",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "encode",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "encoder",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "encodes",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "error",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "extract",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "file",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "filename",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "files",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "frame",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "frames",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "get",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "grayscale",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "hamming",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "handler",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "infinite",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "infinitestorage",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "interface",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "lazy",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "lazyown",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "legacy",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "nibble",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "original",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "own",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "pack",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "path",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "protocol",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "raw",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "resolution",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "runner",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "secure",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "security",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "storage",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "unpack",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "upload",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "using",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "validate",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "video",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "setup",
+      "target": "web",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "back",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "bit",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "bits",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "bytes",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "correction",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "data",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "decode",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "decoder",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "encode",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "encoder",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "encodes",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "error",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "extract",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "file",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "filename",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "files",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "frame",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "frames",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "get",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "grayscale",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "hamming",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "handler",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "infinite",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "infinitestorage",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "interface",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "lazy",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "lazyown",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "legacy",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "nibble",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "original",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "own",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "pack",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "path",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "protocol",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "raw",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "resolution",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "runner",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "secure",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "security",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "setup",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "storage",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "unpack",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "upload",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "using",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "validate",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "video",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "specification",
+      "target": "web",
+      "verb": "depends_on",
+      "strength": 1.0,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py",
+        "tests/test_security.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "bit",
+      "target": "back",
+      "verb": "depends_on",
+      "strength": 0.8,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "bit",
+      "target": "bits",
+      "verb": "depends_on",
+      "strength": 0.8,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "bit",
+      "target": "bytes",
+      "verb": "depends_on",
+      "strength": 0.8,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "bit",
+      "target": "correction",
+      "verb": "depends_on",
+      "strength": 0.8,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "bit",
+      "target": "data",
+      "verb": "depends_on",
+      "strength": 0.8,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "bit",
+      "target": "decode",
+      "verb": "depends_on",
+      "strength": 0.8,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py"
+      ]
+    },
+    {
+      "source": "bit",
+      "target": "decoder",
+      "verb": "depends_on",
+      "strength": 0.8,
+      "confidence": "INFERRED",
+      "evidence": [
+        "tests/test_error_correction.py->lazyown_infinitestorage.py",
+        "tests/test_frames.py->lazyown_infinitestorage.py",
+        "tests/test_integration.py->lazyown_infinitestorage.py",
+        "tests/test_protocols.py->lazyown_infinitestorage.py"
+      ]
+    }
+  ],
+  "dialectic": [
+    "Thesis: `back` centralizes 3 files; Antithesis: `bit` pulls 5 files with 2 shared (Jaccard 0.33); Synthesis: should they merge, split by layer, or keep `depends_on` explicit?",
+    "Thesis: `back` centralizes 3 files; Antithesis: `decode` pulls 4 files with 3 shared (Jaccard 0.75); Synthesis: should they merge, split by layer, or keep `bridges` explicit?",
+    "Thesis: `back` centralizes 3 files; Antithesis: `encode` pulls 4 files with 3 shared (Jaccard 0.75); Synthesis: should they merge, split by layer, or keep `bridges` explicit?",
+    "Thesis: `back` centralizes 3 files; Antithesis: `encodes` pulls 3 files with 2 shared (Jaccard 0.50); Synthesis: should they merge, split by layer, or keep `bridges` explicit?",
+    "Thesis: `back` centralizes 3 files; Antithesis: `error` pulls 3 files with 2 shared (Jaccard 0.50); Synthesis: should they merge, split by layer, or keep `bridges` explicit?",
+    "Thesis: `back` centralizes 3 files; Antithesis: `file` pulls 4 files with 3 shared (Jaccard 0.75); Synthesis: should they merge, split by layer, or keep `bridges` explicit?",
+    "Thesis: `back` centralizes 3 files; Antithesis: `files` pulls 3 files with 2 shared (Jaccard 0.50); Synthesis: should they merge, split by layer, or keep `bridges` explicit?",
+    "Thesis: `back` centralizes 3 files; Antithesis: `get` pulls 4 files with 3 shared (Jaccard 0.75); Synthesis: should they merge, split by layer, or keep `bridges` explicit?",
+    "Thesis: `back` centralizes 3 files; Antithesis: `infinite` pulls 3 files with 2 shared (Jaccard 0.50); Synthesis: should they merge, split by layer, or keep `bridges` explicit?",
+    "Thesis: `back` centralizes 3 files; Antithesis: `infinitestorage` pulls 2 files with 2 shared (Jaccard 0.67); Synthesis: should they merge, split by layer, or keep `bridges` explicit?"
+  ]
+}
