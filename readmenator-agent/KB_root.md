@@ -1,13 +1,13 @@
 # Subsystem: root
 
 ## install.sh
-- Doc: Verificar si Python está instalado
 - Layer: utility
+- Doc: Verificar si Python está instalado
 - Language: sh
 
 ## lazyown_infinitestorage.py
-- Doc: LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder.
 - Layer: presentation
+- Doc: LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder.
 - Language: py
 - Symbols:
   - `LazyOwnConfig` (class, line 66) `class LazyOwnConfig`
@@ -91,8 +91,8 @@
 - Imported by: `skill_lazyown_infinitestorage/tools.py`, `tests/test_error_correction.py`, `tests/test_frames.py`, `tests/test_integration.py`, `tests/test_protocols.py`, `tests/test_security.py`, `wsgi_app.py`
 
 ## wsgi_app.py
-- Doc: WSGI entry point for LazyOwnInfiniteStorage web server.
 - Layer: utility
+- Doc: WSGI entry point for LazyOwnInfiniteStorage web server.
 - Language: py
 - Symbols:
   - `get_wsgi_app` (function, line 7) `def get_wsgi_app()`

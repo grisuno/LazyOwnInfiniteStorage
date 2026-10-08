@@ -1,8 +1,8 @@
 # Subsystem: tests
 
 ## tests/test_error_correction.py
-- Doc: Unit tests for ErrorCorrector Hamming(8,4) implementation.
 - Layer: testing
+- Doc: Unit tests for ErrorCorrector Hamming(8,4) implementation.
 - Language: py
 - Symbols:
   - `TestErrorCorrector` (class, line 7) `class TestErrorCorrector`
@@ -18,8 +18,8 @@
 - Depends on: `lazyown_infinitestorage.py`
 
 ## tests/test_frames.py
-- Doc: Unit tests for FrameEncoder and FrameDecoder.
 - Layer: testing
+- Doc: Unit tests for FrameEncoder and FrameDecoder.
 - Language: py
 - Symbols:
   - `TestFrameEncoder` (class, line 8) `class TestFrameEncoder`
@@ -38,8 +38,8 @@
 - Depends on: `lazyown_infinitestorage.py`
 
 ## tests/test_integration.py
-- Doc: Integration tests for full encode/decode roundtrip and web interface.
 - Layer: testing
+- Doc: Integration tests for full encode/decode roundtrip and web interface.
 - Language: py
 - Symbols:
   - `TestEncodeDecodeRoundtrip` (class, line 18) `class TestEncodeDecodeRoundtrip`
@@ -61,8 +61,8 @@
 - Depends on: `lazyown_infinitestorage.py`
 
 ## tests/test_protocols.py
-- Doc: Unit tests for LegacyProtocolHandler and SecureProtocolHandler.
 - Layer: testing
+- Doc: Unit tests for LegacyProtocolHandler and SecureProtocolHandler.
 - Language: py
 - Symbols:
   - `TestLegacyProtocolHandler` (class, line 7) `class TestLegacyProtocolHandler`
@@ -80,8 +80,8 @@
 - Depends on: `lazyown_infinitestorage.py`
 
 ## tests/test_security.py
-- Doc: Unit tests for LazyOwnConfig and SecurityValidator.
 - Layer: testing
+- Doc: Unit tests for LazyOwnConfig and SecurityValidator.
 - Language: py
 - Symbols:
   - `TestLazyOwnConfig` (class, line 9) `class TestLazyOwnConfig`

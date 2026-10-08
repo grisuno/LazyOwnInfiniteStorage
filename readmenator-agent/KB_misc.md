@@ -1,8 +1,8 @@
 # Subsystem: misc
 
 ## skill_lazyown_infinitestorage/tools.py
+- Layer: data_access
 - Doc: MCP tools for LazyOwnInfiniteStorage integration.
-- Layer: utility
 - Language: py
 - Symbols:
   - `lazyown_infinitestorage_encode` (function, line 34) `def lazyown_infinitestorage_encode(params)`

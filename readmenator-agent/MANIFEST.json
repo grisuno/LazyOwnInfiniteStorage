@@ -1,119 +1,23 @@
 {
   "tool": "readmenator",
-  "schema_version": 2,
-  "generated_at": "2026-10-08T01:26:44Z",
-  "project_root": ".",
-  "project_name": "readmenator_LazyOwnInfiniteStorage__2kif1pi",
-  "git_commit": "25bef4df9a2fc8b2992e11ea34360de7d6911981",
-  "git_branch": "main",
-  "source_fingerprint": "6923e398b38c91f1482c75f80956c71421514b834c1c283ebcf017dae97ca7f7",
-  "freshness_check": "readmenator . fresh  # exit 0 = docs match sources, exit 1 = run: readmenator . --rebuild",
+  "generated_at": "2026-09-18T07:05:14Z",
+  "project_root": "/tmp/push_LazyOwnInfiniteStorage_20260918_033829",
   "files": 9,
   "symbols": 153,
-  "imports": 51,
-  "calls": 854,
-  "inherits": 4,
+  "imports": 909,
   "resolved_imports": 7,
   "security_findings": 0,
   "languages": {
-    "py": 8,
-    "sh": 1
-  },
-  "subsystems": {
-    "misc": 1,
-    "root": 3,
-    "tests": 5
+    "sh": 1,
+    "py": 8
   },
   "entrypoints": [],
   "start_here": "INDEX.md",
-  "read_order": [
-    "readmenator-wiki/index.md  # big picture, communities, god nodes",
-    "readmenator-agent/INDEX.md  # file -> purpose -> used-by count",
-    "readmenator-agent/GOTCHAS.md  # blast radius before editing",
-    "readmenator-agent/KB_<subsystem>.md  # only the subsystem you touch"
-  ],
   "workflow": [
     "ls *.md readmenator-*/  # orient: docs first, ignore build noise",
-    "grep -n '<keyword>' INDEX*.md SYMBOLS*.md",
+    "grep -n '<keyword>' INDEX.md",
     "cat KB_<subsystem>.md",
-    "grep -n '<file>' ARCHITECTURE*.md API*.md"
-  ],
-  "documents": [
-    {
-      "path": "API.md",
-      "lines": 63,
-      "approx_tokens": 1930
-    },
-    {
-      "path": "ARCHITECTURE.md",
-      "lines": 22,
-      "approx_tokens": 293
-    },
-    {
-      "path": "CONCEPTS.md",
-      "lines": 120,
-      "approx_tokens": 2657
-    },
-    {
-      "path": "GOTCHAS.md",
-      "lines": 31,
-      "approx_tokens": 372
-    },
-    {
-      "path": "INDEX.md",
-      "lines": 13,
-      "approx_tokens": 262
-    },
-    {
-      "path": "KB_misc.md",
-      "lines": 13,
-      "approx_tokens": 162
-    },
-    {
-      "path": "KB_root.md",
-      "lines": 99,
-      "approx_tokens": 1620
-    },
-    {
-      "path": "KB_tests.md",
-      "lines": 105,
-      "approx_tokens": 1867
-    },
-    {
-      "path": "SECURITY.md",
-      "lines": 3,
-      "approx_tokens": 10
-    },
-    {
-      "path": "SYMBOLS.md",
-      "lines": 157,
-      "approx_tokens": 4235
-    },
-    {
-      "path": "recipes/add-function.md",
-      "lines": 9,
-      "approx_tokens": 99
-    },
-    {
-      "path": "recipes/change-impact.md",
-      "lines": 9,
-      "approx_tokens": 109
-    },
-    {
-      "path": "recipes/fix-cycle.md",
-      "lines": 6,
-      "approx_tokens": 65
-    },
-    {
-      "path": "recipes/fix-security.md",
-      "lines": 6,
-      "approx_tokens": 69
-    },
-    {
-      "path": "recipes/reduce-complexity.md",
-      "lines": 9,
-      "approx_tokens": 80
-    }
+    "grep -n '<file>' ARCHITECTURE.md SYMBOLS.md"
   ],
   "regenerate": "readmenator . --rebuild"
 }
