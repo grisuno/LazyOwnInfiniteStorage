@@ -1,0 +1,112 @@
+{
+ "schema_version": 1,
+ "format": "jsonl",
+ "meta": {
+  "modules": 4,
+  "entities": 116,
+  "languages": {
+   "py": 3,
+   "sh": 1
+  },
+  "kinds": {
+   "attribute": 60,
+   "class": 11,
+   "constant": 2,
+   "constructor": 9,
+   "function": 8,
+   "method": 22,
+   "module": 4
+  },
+  "truncated": false,
+  "skipped_files": 5,
+  "privacy_mode": false
+ },
+ "coverage": {
+  "overall": {
+   "documented": 44,
+   "total": 54,
+   "percent": 81.5
+  },
+  "by_kind": {
+   "class": {
+    "documented": 11,
+    "total": 11,
+    "percent": 100.0
+   },
+   "constructor": {
+    "documented": 0,
+    "total": 9,
+    "percent": 0.0
+   },
+   "function": {
+    "documented": 8,
+    "total": 8,
+    "percent": 100.0
+   },
+   "method": {
+    "documented": 21,
+    "total": 22,
+    "percent": 95.5
+   },
+   "module": {
+    "documented": 4,
+    "total": 4,
+    "percent": 100.0
+   }
+  },
+  "by_module": {
+   "install.sh": {
+    "documented": 1,
+    "total": 1,
+    "percent": 100.0
+   },
+   "lazyown_infinitestorage.py": {
+    "documented": 35,
+    "total": 45,
+    "percent": 77.8
+   },
+   "skill_lazyown_infinitestorage/tools.py": {
+    "documented": 6,
+    "total": 6,
+    "percent": 100.0
+   },
+   "wsgi_app.py": {
+    "documented": 2,
+    "total": 2,
+    "percent": 100.0
+   }
+  }
+ },
+ "modules": [
+  {
+   "uid": "install.sh",
+   "path": "modules/install.sh.jsonl",
+   "entities": 1
+  },
+  {
+   "uid": "lazyown_infinitestorage.py",
+   "path": "modules/lazyown_infinitestorage.py.jsonl",
+   "entities": 106
+  },
+  {
+   "uid": "skill_lazyown_infinitestorage/tools.py",
+   "path": "modules/skill_lazyown_infinitestorage.tools.py.jsonl",
+   "entities": 7
+  },
+  {
+   "uid": "wsgi_app.py",
+   "path": "modules/wsgi_app.py.jsonl",
+   "entities": 2
+  }
+ ],
+ "warnings": {
+  "path": "warnings.jsonl",
+  "total": 1
+ },
+ "usage": [
+  "grep -h '\"name\":\"<Name>\"' readmenator-apidocs/api/modules/*.jsonl",
+  "grep -h '\"qualname\":\"<Owner.method>\"' readmenator-apidocs/api/modules/*.jsonl",
+  "cat readmenator-apidocs/api/modules/<module-slug>.jsonl",
+  "grep -h '\"code\":\"DOC001\"' readmenator-apidocs/api/warnings.jsonl"
+ ]
+}

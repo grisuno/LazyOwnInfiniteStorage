@@ -1,0 +1,2427 @@
+{
+ "metadata": {
+  "generated_at": "2026-10-17T16:44:37.318210+00:00",
+  "source_tree_hash": "0473209e37f0e9c13b6f95b78ca8a7b8b4a64ba958fecfbd97ee78f31784385c",
+  "repo_name": "LazyOwnInfiniteStorage",
+  "depth_level": 2,
+  "depth_cap": 3,
+  "file_coverage_summary": {
+   "total_files": 9,
+   "analyzed": 9,
+   "not_analyzed": 0,
+   "not_analyzed_by_reason": {}
+  },
+  "tree_spec": {}
+ },
+ "description": "Static architecture map of 9 files (py, sh) in 1 components: root. Structure is extracted statically without LLM calls; component prose may be enriched locally.",
+ "files": {
+  "install.sh": {
+   "language": "sh",
+   "symbols": 0
+  },
+  "lazyown_infinitestorage.py": {
+   "language": "py",
+   "symbols": 79
+  },
+  "skill_lazyown_infinitestorage/tools.py": {
+   "language": "py",
+   "symbols": 5
+  },
+  "tests/test_error_correction.py": {
+   "language": "py",
+   "symbols": 10
+  },
+  "tests/test_frames.py": {
+   "language": "py",
+   "symbols": 13
+  },
+  "tests/test_integration.py": {
+   "language": "py",
+   "symbols": 16
+  },
+  "tests/test_protocols.py": {
+   "language": "py",
+   "symbols": 12
+  },
+  "tests/test_security.py": {
+   "language": "py",
+   "symbols": 18
+  },
+  "wsgi_app.py": {
+   "language": "py",
+   "symbols": 1
+  }
+ },
+ "methods_index": {
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::LazyOwnConfig": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::LazyOwnConfig",
+   "start_line": 71,
+   "end_line": 147,
+   "type": "CLASS",
+   "content_hash": "ff1e26369dc6aec5"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::SecurityValidator": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::SecurityValidator",
+   "start_line": 148,
+   "end_line": 150,
+   "type": "CLASS",
+   "content_hash": "de81c0d01889695b"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::__init__": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::__init__",
+   "start_line": 963,
+   "end_line": 965,
+   "type": "FUNCTION",
+   "content_hash": "9cf582db81c278b6"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::validate_file_path": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::validate_file_path",
+   "start_line": 154,
+   "end_line": 163,
+   "type": "FUNCTION",
+   "content_hash": "b124b203da114cde"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::validate_size": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::validate_size",
+   "start_line": 164,
+   "end_line": 168,
+   "type": "FUNCTION",
+   "content_hash": "35c58071834404a9"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::sanitize_filename": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::sanitize_filename",
+   "start_line": 169,
+   "end_line": 176,
+   "type": "FUNCTION",
+   "content_hash": "b3145520b818e639"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::validate_extension": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::validate_extension",
+   "start_line": 177,
+   "end_line": 183,
+   "type": "FUNCTION",
+   "content_hash": "23e1170db6c79de2"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::ErrorCorrector": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::ErrorCorrector",
+   "start_line": 184,
+   "end_line": 186,
+   "type": "CLASS",
+   "content_hash": "dc4a83317b6e47dc"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode_data": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::encode_data",
+   "start_line": 190,
+   "end_line": 199,
+   "type": "FUNCTION",
+   "content_hash": "9e5101a45d56a11e"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode_data": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::decode_data",
+   "start_line": 200,
+   "end_line": 210,
+   "type": "FUNCTION",
+   "content_hash": "8d4e2a7f1f5d21ec"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_encode_nibble": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_encode_nibble",
+   "start_line": 211,
+   "end_line": 221,
+   "type": "FUNCTION",
+   "content_hash": "0e4e61c57e74070b"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_decode_nibble": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_decode_nibble",
+   "start_line": 222,
+   "end_line": 241,
+   "type": "FUNCTION",
+   "content_hash": "eea19e5beb75d81b"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::FrameEncoder": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::FrameEncoder",
+   "start_line": 242,
+   "end_line": 244,
+   "type": "CLASS",
+   "content_hash": "11c84db74dbcff86"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::bits_to_frames": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::bits_to_frames",
+   "start_line": 248,
+   "end_line": 262,
+   "type": "FUNCTION",
+   "content_hash": "aff2b30ae3b00d56"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_create_frame": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_create_frame",
+   "start_line": 263,
+   "end_line": 272,
+   "type": "FUNCTION",
+   "content_hash": "b4453c742fdb93fe"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::FrameDecoder": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::FrameDecoder",
+   "start_line": 273,
+   "end_line": 275,
+   "type": "CLASS",
+   "content_hash": "bb1fe3e7524e6a1f"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::extract_bits_from_raw_frames": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::extract_bits_from_raw_frames",
+   "start_line": 279,
+   "end_line": 304,
+   "type": "FUNCTION",
+   "content_hash": "5397c024832711ac"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::FFmpegPipeline": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::FFmpegPipeline",
+   "start_line": 305,
+   "end_line": 307,
+   "type": "CLASS",
+   "content_hash": "6b96ab3de33fa224"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::get_video_info": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::get_video_info",
+   "start_line": 311,
+   "end_line": 326,
+   "type": "FUNCTION",
+   "content_hash": "8f33a4afa799d6f0"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_get_video_info_ffprobe": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_get_video_info_ffprobe",
+   "start_line": 327,
+   "end_line": 346,
+   "type": "FUNCTION",
+   "content_hash": "9cd2bd914a0a2a9b"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::get_metadata": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::get_metadata",
+   "start_line": 347,
+   "end_line": 365,
+   "type": "FUNCTION",
+   "content_hash": "2fa79736af724d7c"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode_video": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::encode_video",
+   "start_line": 366,
+   "end_line": 392,
+   "type": "FUNCTION",
+   "content_hash": "582baa15dfe62666"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::extract_raw_frames": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::extract_raw_frames",
+   "start_line": 393,
+   "end_line": 416,
+   "type": "FUNCTION",
+   "content_hash": "a6ac5a3e4cba4325"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::ProtocolHandler": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::ProtocolHandler",
+   "start_line": 417,
+   "end_line": 419,
+   "type": "CLASS",
+   "content_hash": "0be17cf0d6aa646d"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::pack": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::pack",
+   "start_line": 461,
+   "end_line": 479,
+   "type": "FUNCTION",
+   "content_hash": "3b4f0c15ddb74f9b"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::unpack": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::unpack",
+   "start_line": 480,
+   "end_line": 507,
+   "type": "FUNCTION",
+   "content_hash": "22f6103e26848851"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::LegacyProtocolHandler": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::LegacyProtocolHandler",
+   "start_line": 429,
+   "end_line": 431,
+   "type": "CLASS",
+   "content_hash": "43320e57ac7ad793"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::SecureProtocolHandler": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::SecureProtocolHandler",
+   "start_line": 454,
+   "end_line": 456,
+   "type": "CLASS",
+   "content_hash": "287b6ea368d7deaf"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::LazyOwnInfiniteStorage": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::LazyOwnInfiniteStorage",
+   "start_line": 508,
+   "end_line": 510,
+   "type": "CLASS",
+   "content_hash": "b27c7995f15d5753"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::create_web_runner": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::create_web_runner",
+   "start_line": 521,
+   "end_line": 524,
+   "type": "FUNCTION",
+   "content_hash": "a839d8afd913e8f4"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::encode",
+   "start_line": 525,
+   "end_line": 549,
+   "type": "FUNCTION",
+   "content_hash": "494a581c4b8bdc7c"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::decode",
+   "start_line": 550,
+   "end_line": 560,
+   "type": "FUNCTION",
+   "content_hash": "3fbcd76ee7d20918"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_validate_encoding_parameters": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_validate_encoding_parameters",
+   "start_line": 561,
+   "end_line": 570,
+   "type": "FUNCTION",
+   "content_hash": "44fb3530333d3408"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_detect_protocol": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_detect_protocol",
+   "start_line": 571,
+   "end_line": 603,
+   "type": "FUNCTION",
+   "content_hash": "bc7d376c54749a43"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_decode_legacy": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_decode_legacy",
+   "start_line": 604,
+   "end_line": 616,
+   "type": "FUNCTION",
+   "content_hash": "2b1ca70118f09e3f"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_decode_secure": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_decode_secure",
+   "start_line": 617,
+   "end_line": 630,
+   "type": "FUNCTION",
+   "content_hash": "8586040002b7fdc5"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::CLIRunner": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::CLIRunner",
+   "start_line": 631,
+   "end_line": 633,
+   "type": "CLASS",
+   "content_hash": "d752dae68fced57c"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::run": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::run",
+   "start_line": 966,
+   "end_line": 969,
+   "type": "FUNCTION",
+   "content_hash": "b31ee7c56a49f9a4"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::Worker": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::Worker",
+   "start_line": 681,
+   "end_line": 686,
+   "type": "CLASS",
+   "content_hash": "e425908e02512e07"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::GUIRunner": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::GUIRunner",
+   "start_line": 836,
+   "end_line": 838,
+   "type": "CLASS",
+   "content_hash": "6d8ff263ad26cd1c"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_init_ui": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_init_ui",
+   "start_line": 709,
+   "end_line": 776,
+   "type": "FUNCTION",
+   "content_hash": "8d17aaae5728319b"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_change_mode": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_change_mode",
+   "start_line": 777,
+   "end_line": 787,
+   "type": "FUNCTION",
+   "content_hash": "848ec93c83524b1a"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_browse_input": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_browse_input",
+   "start_line": 788,
+   "end_line": 797,
+   "type": "FUNCTION",
+   "content_hash": "0ae269cac5535175"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_start": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_start",
+   "start_line": 798,
+   "end_line": 820,
+   "type": "FUNCTION",
+   "content_hash": "715caeb7f689d7e4"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_on_finished": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_on_finished",
+   "start_line": 821,
+   "end_line": 825,
+   "type": "FUNCTION",
+   "content_hash": "0304012ed351ef0d"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_on_error": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_on_error",
+   "start_line": 826,
+   "end_line": 830,
+   "type": "FUNCTION",
+   "content_hash": "b37799ab6bc279f2"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::WebRunner": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::WebRunner",
+   "start_line": 960,
+   "end_line": 962,
+   "type": "CLASS",
+   "content_hash": "c45bd47bd3e09e40"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::run_setup": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::run_setup",
+   "start_line": 861,
+   "end_line": 866,
+   "type": "FUNCTION",
+   "content_hash": "57a3b52188231fe6"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_setup_routes": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_setup_routes",
+   "start_line": 867,
+   "end_line": 871,
+   "type": "FUNCTION",
+   "content_hash": "e8592b9e18cae2e9"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_validate_upload": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_validate_upload",
+   "start_line": 872,
+   "end_line": 889,
+   "type": "FUNCTION",
+   "content_hash": "0386217f1edc3438"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::index": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::index",
+   "start_line": 890,
+   "end_line": 934,
+   "type": "FUNCTION",
+   "content_hash": "27b5364ddc829ab3"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::download": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::download",
+   "start_line": 935,
+   "end_line": 942,
+   "type": "FUNCTION",
+   "content_hash": "b61e3ba925fcb271"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::add_security_headers": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::add_security_headers",
+   "start_line": 943,
+   "end_line": 954,
+   "type": "FUNCTION",
+   "content_hash": "dea15e1686a7d3c6"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::run_tests": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::run_tests",
+   "start_line": 970,
+   "end_line": 1017,
+   "type": "FUNCTION",
+   "content_hash": "d6f35fe139eedc1c"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::main": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::main",
+   "start_line": 1018,
+   "end_line": 1027,
+   "type": "FUNCTION",
+   "content_hash": "b797a95999e4f467"
+  },
+  "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_encode": {
+   "file_path": "skill_lazyown_infinitestorage/tools.py",
+   "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_encode",
+   "start_line": 34,
+   "end_line": 100,
+   "type": "FUNCTION",
+   "content_hash": "7436bd36a0f6ad09"
+  },
+  "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_decode": {
+   "file_path": "skill_lazyown_infinitestorage/tools.py",
+   "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_decode",
+   "start_line": 101,
+   "end_line": 151,
+   "type": "FUNCTION",
+   "content_hash": "cfa49094f13501d9"
+  },
+  "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_upload_to_youtube": {
+   "file_path": "skill_lazyown_infinitestorage/tools.py",
+   "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_upload_to_youtube",
+   "start_line": 152,
+   "end_line": 301,
+   "type": "FUNCTION",
+   "content_hash": "dadb1306b513933e"
+  },
+  "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::get_tool": {
+   "file_path": "skill_lazyown_infinitestorage/tools.py",
+   "qualified_name": "skill_lazyown_infinitestorage/tools.py::get_tool",
+   "start_line": 302,
+   "end_line": 305,
+   "type": "FUNCTION",
+   "content_hash": "b0108631eae504fa"
+  },
+  "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::list_tools": {
+   "file_path": "skill_lazyown_infinitestorage/tools.py",
+   "qualified_name": "skill_lazyown_infinitestorage/tools.py::list_tools",
+   "start_line": 306,
+   "end_line": 308,
+   "type": "FUNCTION",
+   "content_hash": "5b62ec4c4c27fc7c"
+  },
+  "tests/test_error_correction.py|tests/test_error_correction.py::TestErrorCorrector": {
+   "file_path": "tests/test_error_correction.py",
+   "qualified_name": "tests/test_error_correction.py::TestErrorCorrector",
+   "start_line": 7,
+   "end_line": 10,
+   "type": "CLASS",
+   "content_hash": "7e46f8cc816d71cf"
+  },
+  "tests/test_error_correction.py|tests/test_error_correction.py::setup": {
+   "file_path": "tests/test_error_correction.py",
+   "qualified_name": "tests/test_error_correction.py::setup",
+   "start_line": 11,
+   "end_line": 14,
+   "type": "FUNCTION",
+   "content_hash": "53be91a830adb9c0"
+  },
+  "tests/test_error_correction.py|tests/test_error_correction.py::test_encode_data_doubles_length": {
+   "file_path": "tests/test_error_correction.py",
+   "qualified_name": "tests/test_error_correction.py::test_encode_data_doubles_length",
+   "start_line": 15,
+   "end_line": 19,
+   "type": "FUNCTION",
+   "content_hash": "b01fe51fb7b7c7e5"
+  },
+  "tests/test_error_correction.py|tests/test_error_correction.py::test_decode_data_reverses_encoding": {
+   "file_path": "tests/test_error_correction.py",
+   "qualified_name": "tests/test_error_correction.py::test_decode_data_reverses_encoding",
+   "start_line": 20,
+   "end_line": 25,
+   "type": "FUNCTION",
+   "content_hash": "384278ddccb2f05f"
+  },
+  "tests/test_error_correction.py|tests/test_error_correction.py::test_decode_data_with_single_bit_error": {
+   "file_path": "tests/test_error_correction.py",
+   "qualified_name": "tests/test_error_correction.py::test_decode_data_with_single_bit_error",
+   "start_line": 26,
+   "end_line": 32,
+   "type": "FUNCTION",
+   "content_hash": "776fc445a90d9b64"
+  },
+  "tests/test_error_correction.py|tests/test_error_correction.py::test_decode_data_rejects_odd_length": {
+   "file_path": "tests/test_error_correction.py",
+   "qualified_name": "tests/test_error_correction.py::test_decode_data_rejects_odd_length",
+   "start_line": 33,
+   "end_line": 36,
+   "type": "FUNCTION",
+   "content_hash": "b9397160085559da"
+  },
+  "tests/test_error_correction.py|tests/test_error_correction.py::test_encode_nibble_all_values": {
+   "file_path": "tests/test_error_correction.py",
+   "qualified_name": "tests/test_error_correction.py::test_encode_nibble_all_values",
+   "start_line": 37,
+   "end_line": 41,
+   "type": "FUNCTION",
+   "content_hash": "f11428e6aa587e23"
+  },
+  "tests/test_error_correction.py|tests/test_error_correction.py::test_decode_nibble_all_values": {
+   "file_path": "tests/test_error_correction.py",
+   "qualified_name": "tests/test_error_correction.py::test_decode_nibble_all_values",
+   "start_line": 42,
+   "end_line": 48,
+   "type": "FUNCTION",
+   "content_hash": "6e656286e753caf6"
+  },
+  "tests/test_error_correction.py|tests/test_error_correction.py::test_roundtrip_various_inputs": {
+   "file_path": "tests/test_error_correction.py",
+   "qualified_name": "tests/test_error_correction.py::test_roundtrip_various_inputs",
+   "start_line": 49,
+   "end_line": 54,
+   "type": "FUNCTION",
+   "content_hash": "b9a36bbc7e05d8e2"
+  },
+  "tests/test_error_correction.py|tests/test_error_correction.py::test_single_bit_error_per_nibble": {
+   "file_path": "tests/test_error_correction.py",
+   "qualified_name": "tests/test_error_correction.py::test_single_bit_error_per_nibble",
+   "start_line": 55,
+   "end_line": 60,
+   "type": "FUNCTION",
+   "content_hash": "38590500931e8598"
+  },
+  "tests/test_frames.py|tests/test_frames.py::TestFrameEncoder": {
+   "file_path": "tests/test_frames.py",
+   "qualified_name": "tests/test_frames.py::TestFrameEncoder",
+   "start_line": 8,
+   "end_line": 11,
+   "type": "CLASS",
+   "content_hash": "a2ce7e226d40b94d"
+  },
+  "tests/test_frames.py|tests/test_frames.py::setup": {
+   "file_path": "tests/test_frames.py",
+   "qualified_name": "tests/test_frames.py::setup",
+   "start_line": 58,
+   "end_line": 61,
+   "type": "FUNCTION",
+   "content_hash": "b01257713ed1c674"
+  },
+  "tests/test_frames.py|tests/test_frames.py::test_bits_to_frames_yields_correct_number_of_frames": {
+   "file_path": "tests/test_frames.py",
+   "qualified_name": "tests/test_frames.py::test_bits_to_frames_yields_correct_number_of_frames",
+   "start_line": 16,
+   "end_line": 27,
+   "type": "FUNCTION",
+   "content_hash": "e7427f90de23e4fe"
+  },
+  "tests/test_frames.py|tests/test_frames.py::test_each_frame_has_correct_dimensions": {
+   "file_path": "tests/test_frames.py",
+   "qualified_name": "tests/test_frames.py::test_each_frame_has_correct_dimensions",
+   "start_line": 28,
+   "end_line": 32,
+   "type": "FUNCTION",
+   "content_hash": "a0eba8d414bfdc43"
+  },
+  "tests/test_frames.py|tests/test_frames.py::test_bit_one_produces_white_block": {
+   "file_path": "tests/test_frames.py",
+   "qualified_name": "tests/test_frames.py::test_bit_one_produces_white_block",
+   "start_line": 33,
+   "end_line": 37,
+   "type": "FUNCTION",
+   "content_hash": "2b0e2b1c3f8218ed"
+  },
+  "tests/test_frames.py|tests/test_frames.py::test_bit_zero_produces_black_block": {
+   "file_path": "tests/test_frames.py",
+   "qualified_name": "tests/test_frames.py::test_bit_zero_produces_black_block",
+   "start_line": 38,
+   "end_line": 42,
+   "type": "FUNCTION",
+   "content_hash": "d2cd8e65ada7a46c"
+  },
+  "tests/test_frames.py|tests/test_frames.py::test_padding_zeros_fill_incomplete_frame": {
+   "file_path": "tests/test_frames.py",
+   "qualified_name": "tests/test_frames.py::test_padding_zeros_fill_incomplete_frame",
+   "start_line": 43,
+   "end_line": 53,
+   "type": "FUNCTION",
+   "content_hash": "05b03aa05bb57239"
+  },
+  "tests/test_frames.py|tests/test_frames.py::TestFrameDecoder": {
+   "file_path": "tests/test_frames.py",
+   "qualified_name": "tests/test_frames.py::TestFrameDecoder",
+   "start_line": 54,
+   "end_line": 57,
+   "type": "CLASS",
+   "content_hash": "ceb0c5359e97ab60"
+  },
+  "tests/test_frames.py|tests/test_frames.py::test_extract_bits_from_empty_raises": {
+   "file_path": "tests/test_frames.py",
+   "qualified_name": "tests/test_frames.py::test_extract_bits_from_empty_raises",
+   "start_line": 62,
+   "end_line": 65,
+   "type": "FUNCTION",
+   "content_hash": "7c99a0d96b63940f"
+  },
+  "tests/test_frames.py|tests/test_frames.py::test_extract_bits_from_raw_frames_basic": {
+   "file_path": "tests/test_frames.py",
+   "qualified_name": "tests/test_frames.py::test_extract_bits_from_raw_frames_basic",
+   "start_line": 66,
+   "end_line": 73,
+   "type": "FUNCTION",
+   "content_hash": "d4ab3c86e3f8bce2"
+  },
+  "tests/test_frames.py|tests/test_frames.py::test_extract_bits_respects_expected_bits": {
+   "file_path": "tests/test_frames.py",
+   "qualified_name": "tests/test_frames.py::test_extract_bits_respects_expected_bits",
+   "start_line": 74,
+   "end_line": 81,
+   "type": "FUNCTION",
+   "content_hash": "856cc7570d03f69f"
+  },
+  "tests/test_frames.py|tests/test_frames.py::test_extract_bits_from_resized_frame": {
+   "file_path": "tests/test_frames.py",
+   "qualified_name": "tests/test_frames.py::test_extract_bits_from_resized_frame",
+   "start_line": 82,
+   "end_line": 88,
+   "type": "FUNCTION",
+   "content_hash": "f0c25420898152d8"
+  },
+  "tests/test_integration.py|tests/test_integration.py::TestEncodeDecodeRoundtrip": {
+   "file_path": "tests/test_integration.py",
+   "qualified_name": "tests/test_integration.py::TestEncodeDecodeRoundtrip",
+   "start_line": 18,
+   "end_line": 21,
+   "type": "CLASS",
+   "content_hash": "cb5385b3a396bdcc"
+  },
+  "tests/test_integration.py|tests/test_integration.py::setup": {
+   "file_path": "tests/test_integration.py",
+   "qualified_name": "tests/test_integration.py::setup",
+   "start_line": 135,
+   "end_line": 141,
+   "type": "FUNCTION",
+   "content_hash": "09ca0a07bfa19d72"
+  },
+  "tests/test_integration.py|tests/test_integration.py::test_secure_protocol_roundtrip": {
+   "file_path": "tests/test_integration.py",
+   "qualified_name": "tests/test_integration.py::test_secure_protocol_roundtrip",
+   "start_line": 26,
+   "end_line": 43,
+   "type": "FUNCTION",
+   "content_hash": "a6275af7f2f7952a"
+  },
+  "tests/test_integration.py|tests/test_integration.py::test_legacy_protocol_roundtrip": {
+   "file_path": "tests/test_integration.py",
+   "qualified_name": "tests/test_integration.py::test_legacy_protocol_roundtrip",
+   "start_line": 44,
+   "end_line": 61,
+   "type": "FUNCTION",
+   "content_hash": "388ecfb0c4a0bfe5"
+  },
+  "tests/test_integration.py|tests/test_integration.py::test_secure_protocol_resilient_to_resolution_change": {
+   "file_path": "tests/test_integration.py",
+   "qualified_name": "tests/test_integration.py::test_secure_protocol_resilient_to_resolution_change",
+   "start_line": 62,
+   "end_line": 82,
+   "type": "FUNCTION",
+   "content_hash": "7ca43d6aafab2e85"
+  },
+  "tests/test_integration.py|tests/test_integration.py::test_protocol_auto_detection_prefers_secure": {
+   "file_path": "tests/test_integration.py",
+   "qualified_name": "tests/test_integration.py::test_protocol_auto_detection_prefers_secure",
+   "start_line": 83,
+   "end_line": 95,
+   "type": "FUNCTION",
+   "content_hash": "ec1e36d517ea64ae"
+  },
+  "tests/test_integration.py|tests/test_integration.py::test_empty_file_roundtrip": {
+   "file_path": "tests/test_integration.py",
+   "qualified_name": "tests/test_integration.py::test_empty_file_roundtrip",
+   "start_line": 96,
+   "end_line": 109,
+   "type": "FUNCTION",
+   "content_hash": "203d744c08093c2e"
+  },
+  "tests/test_integration.py|tests/test_integration.py::test_large_file_roundtrip": {
+   "file_path": "tests/test_integration.py",
+   "qualified_name": "tests/test_integration.py::test_large_file_roundtrip",
+   "start_line": 110,
+   "end_line": 130,
+   "type": "FUNCTION",
+   "content_hash": "1e8418bf6057c4d4"
+  },
+  "tests/test_integration.py|tests/test_integration.py::TestWebRunner": {
+   "file_path": "tests/test_integration.py",
+   "qualified_name": "tests/test_integration.py::TestWebRunner",
+   "start_line": 131,
+   "end_line": 134,
+   "type": "CLASS",
+   "content_hash": "77f3fad46d083b57"
+  },
+  "tests/test_integration.py|tests/test_integration.py::test_index_get": {
+   "file_path": "tests/test_integration.py",
+   "qualified_name": "tests/test_integration.py::test_index_get",
+   "start_line": 142,
+   "end_line": 146,
+   "type": "FUNCTION",
+   "content_hash": "87acc79af51caa19"
+  },
+  "tests/test_integration.py|tests/test_integration.py::test_encode_upload": {
+   "file_path": "tests/test_integration.py",
+   "qualified_name": "tests/test_integration.py::test_encode_upload",
+   "start_line": 147,
+   "end_line": 166,
+   "type": "FUNCTION",
+   "content_hash": "a545b6ab9537977a"
+  },
+  "tests/test_integration.py|tests/test_integration.py::test_decode_upload": {
+   "file_path": "tests/test_integration.py",
+   "qualified_name": "tests/test_integration.py::test_decode_upload",
+   "start_line": 167,
+   "end_line": 192,
+   "type": "FUNCTION",
+   "content_hash": "d479d3e4c6c531ec"
+  },
+  "tests/test_integration.py|tests/test_integration.py::test_security_headers_present": {
+   "file_path": "tests/test_integration.py",
+   "qualified_name": "tests/test_integration.py::test_security_headers_present",
+   "start_line": 193,
+   "end_line": 198,
+   "type": "FUNCTION",
+   "content_hash": "a765e5ee93206b30"
+  },
+  "tests/test_integration.py|tests/test_integration.py::test_download_not_found": {
+   "file_path": "tests/test_integration.py",
+   "qualified_name": "tests/test_integration.py::test_download_not_found",
+   "start_line": 199,
+   "end_line": 202,
+   "type": "FUNCTION",
+   "content_hash": "c3bf97b1c78e9e7d"
+  },
+  "tests/test_integration.py|tests/test_integration.py::test_missing_file_error": {
+   "file_path": "tests/test_integration.py",
+   "qualified_name": "tests/test_integration.py::test_missing_file_error",
+   "start_line": 203,
+   "end_line": 218,
+   "type": "FUNCTION",
+   "content_hash": "4d220032ad121960"
+  },
+  "tests/test_protocols.py|tests/test_protocols.py::TestLegacyProtocolHandler": {
+   "file_path": "tests/test_protocols.py",
+   "qualified_name": "tests/test_protocols.py::TestLegacyProtocolHandler",
+   "start_line": 7,
+   "end_line": 10,
+   "type": "CLASS",
+   "content_hash": "e1392bdf5be55e81"
+  },
+  "tests/test_protocols.py|tests/test_protocols.py::setup": {
+   "file_path": "tests/test_protocols.py",
+   "qualified_name": "tests/test_protocols.py::setup",
+   "start_line": 39,
+   "end_line": 43,
+   "type": "FUNCTION",
+   "content_hash": "1b95bb717609c6b7"
+  },
+  "tests/test_protocols.py|tests/test_protocols.py::test_pack_includes_end_marker": {
+   "file_path": "tests/test_protocols.py",
+   "qualified_name": "tests/test_protocols.py::test_pack_includes_end_marker",
+   "start_line": 15,
+   "end_line": 20,
+   "type": "FUNCTION",
+   "content_hash": "d3602ad7af2967f2"
+  },
+  "tests/test_protocols.py|tests/test_protocols.py::test_unpack_strips_end_marker": {
+   "file_path": "tests/test_protocols.py",
+   "qualified_name": "tests/test_protocols.py::test_unpack_strips_end_marker",
+   "start_line": 21,
+   "end_line": 26,
+   "type": "FUNCTION",
+   "content_hash": "c0b0388d80aa65ae"
+  },
+  "tests/test_protocols.py|tests/test_protocols.py::test_unpack_with_trailing_zeros": {
+   "file_path": "tests/test_protocols.py",
+   "qualified_name": "tests/test_protocols.py::test_unpack_with_trailing_zeros",
+   "start_line": 27,
+   "end_line": 34,
+   "type": "FUNCTION",
+   "content_hash": "10390ba492f16eaf"
+  },
+  "tests/test_protocols.py|tests/test_protocols.py::TestSecureProtocolHandler": {
+   "file_path": "tests/test_protocols.py",
+   "qualified_name": "tests/test_protocols.py::TestSecureProtocolHandler",
+   "start_line": 35,
+   "end_line": 38,
+   "type": "CLASS",
+   "content_hash": "f59e0b328eb1378e"
+  },
+  "tests/test_protocols.py|tests/test_protocols.py::test_pack_produces_bit_string": {
+   "file_path": "tests/test_protocols.py",
+   "qualified_name": "tests/test_protocols.py::test_pack_produces_bit_string",
+   "start_line": 44,
+   "end_line": 48,
+   "type": "FUNCTION",
+   "content_hash": "723ee44e2988c1c9"
+  },
+  "tests/test_protocols.py|tests/test_protocols.py::test_unpack_recovers_original_data": {
+   "file_path": "tests/test_protocols.py",
+   "qualified_name": "tests/test_protocols.py::test_unpack_recovers_original_data",
+   "start_line": 49,
+   "end_line": 54,
+   "type": "FUNCTION",
+   "content_hash": "3b2162b338743387"
+  },
+  "tests/test_protocols.py|tests/test_protocols.py::test_unpack_detects_corrupted_header": {
+   "file_path": "tests/test_protocols.py",
+   "qualified_name": "tests/test_protocols.py::test_unpack_detects_corrupted_header",
+   "start_line": 55,
+   "end_line": 65,
+   "type": "FUNCTION",
+   "content_hash": "c4f88e80d7188e11"
+  },
+  "tests/test_protocols.py|tests/test_protocols.py::test_unpack_detects_corrupted_payload": {
+   "file_path": "tests/test_protocols.py",
+   "qualified_name": "tests/test_protocols.py::test_unpack_detects_corrupted_payload",
+   "start_line": 66,
+   "end_line": 79,
+   "type": "FUNCTION",
+   "content_hash": "d4670ed3f4ce21b6"
+  },
+  "tests/test_protocols.py|tests/test_protocols.py::test_roundtrip_various_sizes": {
+   "file_path": "tests/test_protocols.py",
+   "qualified_name": "tests/test_protocols.py::test_roundtrip_various_sizes",
+   "start_line": 80,
+   "end_line": 84,
+   "type": "FUNCTION",
+   "content_hash": "c0caca240401ca86"
+  },
+  "tests/test_security.py|tests/test_security.py::TestLazyOwnConfig": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::TestLazyOwnConfig",
+   "start_line": 9,
+   "end_line": 11,
+   "type": "CLASS",
+   "content_hash": "da58d018daf23e3a"
+  },
+  "tests/test_security.py|tests/test_security.py::test_magic_bytes_are_valid": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::test_magic_bytes_are_valid",
+   "start_line": 12,
+   "end_line": 14,
+   "type": "FUNCTION",
+   "content_hash": "cfa44e77e59c5fb4"
+  },
+  "tests/test_security.py|tests/test_security.py::test_protocol_versions_are_distinct": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::test_protocol_versions_are_distinct",
+   "start_line": 15,
+   "end_line": 17,
+   "type": "FUNCTION",
+   "content_hash": "e0b7b68da5a6f5bb"
+  },
+  "tests/test_security.py|tests/test_security.py::test_default_values_within_bounds": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::test_default_values_within_bounds",
+   "start_line": 18,
+   "end_line": 23,
+   "type": "FUNCTION",
+   "content_hash": "d38f219f22efde6c"
+  },
+  "tests/test_security.py|tests/test_security.py::test_header_offsets_are_consistent": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::test_header_offsets_are_consistent",
+   "start_line": 24,
+   "end_line": 30,
+   "type": "FUNCTION",
+   "content_hash": "7c620699ff21f017"
+  },
+  "tests/test_security.py|tests/test_security.py::test_max_file_size_is_reasonable": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::test_max_file_size_is_reasonable",
+   "start_line": 31,
+   "end_line": 36,
+   "type": "FUNCTION",
+   "content_hash": "0f70fb528b0ce5e3"
+  },
+  "tests/test_security.py|tests/test_security.py::TestSecurityValidator": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::TestSecurityValidator",
+   "start_line": 37,
+   "end_line": 40,
+   "type": "CLASS",
+   "content_hash": "fda7144a50f5635a"
+  },
+  "tests/test_security.py|tests/test_security.py::setup": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::setup",
+   "start_line": 41,
+   "end_line": 44,
+   "type": "FUNCTION",
+   "content_hash": "0f2f308440a054c2"
+  },
+  "tests/test_security.py|tests/test_security.py::test_validate_file_path_resolves_absolute": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::test_validate_file_path_resolves_absolute",
+   "start_line": 45,
+   "end_line": 49,
+   "type": "FUNCTION",
+   "content_hash": "fe13c44c33b92ad1"
+  },
+  "tests/test_security.py|tests/test_security.py::test_validate_file_path_rejects_traversal": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::test_validate_file_path_rejects_traversal",
+   "start_line": 50,
+   "end_line": 53,
+   "type": "FUNCTION",
+   "content_hash": "6351fe654aaf1687"
+  },
+  "tests/test_security.py|tests/test_security.py::test_validate_file_path_must_exist_when_required": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::test_validate_file_path_must_exist_when_required",
+   "start_line": 54,
+   "end_line": 57,
+   "type": "FUNCTION",
+   "content_hash": "853c53a2b38c91b4"
+  },
+  "tests/test_security.py|tests/test_security.py::test_validate_size_rejects_oversized_files": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::test_validate_size_rejects_oversized_files",
+   "start_line": 58,
+   "end_line": 61,
+   "type": "FUNCTION",
+   "content_hash": "b66ab5bb2b5b89bc"
+  },
+  "tests/test_security.py|tests/test_security.py::test_validate_size_accepts_maximum": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::test_validate_size_accepts_maximum",
+   "start_line": 62,
+   "end_line": 64,
+   "type": "FUNCTION",
+   "content_hash": "7a2ae56f024be623"
+  },
+  "tests/test_security.py|tests/test_security.py::test_sanitize_filename_strips_unsafe_characters": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::test_sanitize_filename_strips_unsafe_characters",
+   "start_line": 65,
+   "end_line": 69,
+   "type": "FUNCTION",
+   "content_hash": "63539e8657a413c6"
+  },
+  "tests/test_security.py|tests/test_security.py::test_sanitize_filename_preserves_safe_characters": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::test_sanitize_filename_preserves_safe_characters",
+   "start_line": 70,
+   "end_line": 73,
+   "type": "FUNCTION",
+   "content_hash": "323ebb3c82a5af3a"
+  },
+  "tests/test_security.py|tests/test_security.py::test_sanitize_filename_fallback": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::test_sanitize_filename_fallback",
+   "start_line": 74,
+   "end_line": 76,
+   "type": "FUNCTION",
+   "content_hash": "9deaeba46312e50e"
+  },
+  "tests/test_security.py|tests/test_security.py::test_validate_extension_accepts_allowed": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::test_validate_extension_accepts_allowed",
+   "start_line": 77,
+   "end_line": 80,
+   "type": "FUNCTION",
+   "content_hash": "04f04322de4cfbb6"
+  },
+  "tests/test_security.py|tests/test_security.py::test_validate_extension_rejects_disallowed": {
+   "file_path": "tests/test_security.py",
+   "qualified_name": "tests/test_security.py::test_validate_extension_rejects_disallowed",
+   "start_line": 81,
+   "end_line": 83,
+   "type": "FUNCTION",
+   "content_hash": "1c93bbd9faf613ca"
+  },
+  "wsgi_app.py|wsgi_app.py::get_wsgi_app": {
+   "file_path": "wsgi_app.py",
+   "qualified_name": "wsgi_app.py::get_wsgi_app",
+   "start_line": 7,
+   "end_line": 19,
+   "type": "FUNCTION",
+   "content_hash": "7da865154a6fd20a"
+  }
+ },
+ "components": [
+  {
+   "name": "root",
+   "description": "root groups 8 files (py) around LazyOwnConfig, SecurityValidator, __init__, validate_file_path, validate_size. LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder.",
+   "key_entities": [
+    {
+     "qualified_name": "lazyown_infinitestorage.py::LazyOwnConfig",
+     "reference_file": "lazyown_infinitestorage.py",
+     "reference_start_line": 71,
+     "reference_end_line": 147
+    },
+    {
+     "qualified_name": "lazyown_infinitestorage.py::SecurityValidator",
+     "reference_file": "lazyown_infinitestorage.py",
+     "reference_start_line": 148,
+     "reference_end_line": 150
+    },
+    {
+     "qualified_name": "lazyown_infinitestorage.py::__init__",
+     "reference_file": "lazyown_infinitestorage.py",
+     "reference_start_line": 151,
+     "reference_end_line": 153
+    },
+    {
+     "qualified_name": "lazyown_infinitestorage.py::validate_file_path",
+     "reference_file": "lazyown_infinitestorage.py",
+     "reference_start_line": 154,
+     "reference_end_line": 163
+    },
+    {
+     "qualified_name": "lazyown_infinitestorage.py::validate_size",
+     "reference_file": "lazyown_infinitestorage.py",
+     "reference_start_line": 164,
+     "reference_end_line": 168
+    },
+    {
+     "qualified_name": "lazyown_infinitestorage.py::sanitize_filename",
+     "reference_file": "lazyown_infinitestorage.py",
+     "reference_start_line": 169,
+     "reference_end_line": 176
+    },
+    {
+     "qualified_name": "lazyown_infinitestorage.py::validate_extension",
+     "reference_file": "lazyown_infinitestorage.py",
+     "reference_start_line": 177,
+     "reference_end_line": 183
+    },
+    {
+     "qualified_name": "lazyown_infinitestorage.py::ErrorCorrector",
+     "reference_file": "lazyown_infinitestorage.py",
+     "reference_start_line": 184,
+     "reference_end_line": 186
+    }
+   ],
+   "source_cluster_ids": [],
+   "file_methods": [
+    {
+     "file_path": "lazyown_infinitestorage.py",
+     "methods": [
+      "lazyown_infinitestorage.py::LazyOwnConfig",
+      "lazyown_infinitestorage.py::SecurityValidator",
+      "lazyown_infinitestorage.py::__init__",
+      "lazyown_infinitestorage.py::validate_file_path",
+      "lazyown_infinitestorage.py::validate_size",
+      "lazyown_infinitestorage.py::sanitize_filename",
+      "lazyown_infinitestorage.py::validate_extension",
+      "lazyown_infinitestorage.py::ErrorCorrector",
+      "lazyown_infinitestorage.py::__init__",
+      "lazyown_infinitestorage.py::encode_data",
+      "lazyown_infinitestorage.py::decode_data",
+      "lazyown_infinitestorage.py::_encode_nibble",
+      "lazyown_infinitestorage.py::_decode_nibble",
+      "lazyown_infinitestorage.py::FrameEncoder",
+      "lazyown_infinitestorage.py::__init__",
+      "lazyown_infinitestorage.py::bits_to_frames",
+      "lazyown_infinitestorage.py::_create_frame",
+      "lazyown_infinitestorage.py::FrameDecoder",
+      "lazyown_infinitestorage.py::__init__",
+      "lazyown_infinitestorage.py::extract_bits_from_raw_frames",
+      "lazyown_infinitestorage.py::FFmpegPipeline",
+      "lazyown_infinitestorage.py::__init__",
+      "lazyown_infinitestorage.py::get_video_info",
+      "lazyown_infinitestorage.py::_get_video_info_ffprobe",
+      "lazyown_infinitestorage.py::get_metadata",
+      "lazyown_infinitestorage.py::encode_video",
+      "lazyown_infinitestorage.py::extract_raw_frames",
+      "lazyown_infinitestorage.py::ProtocolHandler",
+      "lazyown_infinitestorage.py::pack",
+      "lazyown_infinitestorage.py::unpack",
+      "lazyown_infinitestorage.py::LegacyProtocolHandler",
+      "lazyown_infinitestorage.py::__init__",
+      "lazyown_infinitestorage.py::pack",
+      "lazyown_infinitestorage.py::unpack",
+      "lazyown_infinitestorage.py::SecureProtocolHandler",
+      "lazyown_infinitestorage.py::__init__",
+      "lazyown_infinitestorage.py::pack",
+      "lazyown_infinitestorage.py::unpack",
+      "lazyown_infinitestorage.py::LazyOwnInfiniteStorage",
+      "lazyown_infinitestorage.py::__init__",
+      "lazyown_infinitestorage.py::create_web_runner",
+      "lazyown_infinitestorage.py::encode",
+      "lazyown_infinitestorage.py::decode",
+      "lazyown_infinitestorage.py::_validate_encoding_parameters",
+      "lazyown_infinitestorage.py::_detect_protocol",
+      "lazyown_infinitestorage.py::_decode_legacy",
+      "lazyown_infinitestorage.py::_decode_secure",
+      "lazyown_infinitestorage.py::CLIRunner",
+      "lazyown_infinitestorage.py::__init__",
+      "lazyown_infinitestorage.py::run",
+      "lazyown_infinitestorage.py::Worker",
+      "lazyown_infinitestorage.py::__init__",
+      "lazyown_infinitestorage.py::run",
+      "lazyown_infinitestorage.py::GUIRunner",
+      "lazyown_infinitestorage.py::__init__",
+      "lazyown_infinitestorage.py::_init_ui",
+      "lazyown_infinitestorage.py::_change_mode",
+      "lazyown_infinitestorage.py::_browse_input",
+      "lazyown_infinitestorage.py::_start",
+      "lazyown_infinitestorage.py::_on_finished",
+      "lazyown_infinitestorage.py::_on_error",
+      "lazyown_infinitestorage.py::run",
+      "lazyown_infinitestorage.py::GUIRunner",
+      "lazyown_infinitestorage.py::__init__",
+      "lazyown_infinitestorage.py::run",
+      "lazyown_infinitestorage.py::WebRunner",
+      "lazyown_infinitestorage.py::__init__",
+      "lazyown_infinitestorage.py::run_setup",
+      "lazyown_infinitestorage.py::_setup_routes",
+      "lazyown_infinitestorage.py::_validate_upload",
+      "lazyown_infinitestorage.py::index",
+      "lazyown_infinitestorage.py::download",
+      "lazyown_infinitestorage.py::add_security_headers",
+      "lazyown_infinitestorage.py::run",
+      "lazyown_infinitestorage.py::WebRunner",
+      "lazyown_infinitestorage.py::__init__",
+      "lazyown_infinitestorage.py::run",
+      "lazyown_infinitestorage.py::run_tests",
+      "lazyown_infinitestorage.py::main"
+     ]
+    },
+    {
+     "file_path": "skill_lazyown_infinitestorage/tools.py",
+     "methods": [
+      "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_encode",
+      "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_decode",
+      "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_upload_to_youtube",
+      "skill_lazyown_infinitestorage/tools.py::get_tool",
+      "skill_lazyown_infinitestorage/tools.py::list_tools"
+     ]
+    },
+    {
+     "file_path": "tests/test_error_correction.py",
+     "methods": [
+      "tests/test_error_correction.py::TestErrorCorrector",
+      "tests/test_error_correction.py::setup",
+      "tests/test_error_correction.py::test_encode_data_doubles_length",
+      "tests/test_error_correction.py::test_decode_data_reverses_encoding",
+      "tests/test_error_correction.py::test_decode_data_with_single_bit_error",
+      "tests/test_error_correction.py::test_decode_data_rejects_odd_length",
+      "tests/test_error_correction.py::test_encode_nibble_all_values",
+      "tests/test_error_correction.py::test_decode_nibble_all_values",
+      "tests/test_error_correction.py::test_roundtrip_various_inputs",
+      "tests/test_error_correction.py::test_single_bit_error_per_nibble"
+     ]
+    },
+    {
+     "file_path": "tests/test_frames.py",
+     "methods": [
+      "tests/test_frames.py::TestFrameEncoder",
+      "tests/test_frames.py::setup",
+      "tests/test_frames.py::test_bits_to_frames_yields_correct_number_of_frames",
+      "tests/test_frames.py::test_each_frame_has_correct_dimensions",
+      "tests/test_frames.py::test_bit_one_produces_white_block",
+      "tests/test_frames.py::test_bit_zero_produces_black_block",
+      "tests/test_frames.py::test_padding_zeros_fill_incomplete_frame",
+      "tests/test_frames.py::TestFrameDecoder",
+      "tests/test_frames.py::setup",
+      "tests/test_frames.py::test_extract_bits_from_empty_raises",
+      "tests/test_frames.py::test_extract_bits_from_raw_frames_basic",
+      "tests/test_frames.py::test_extract_bits_respects_expected_bits",
+      "tests/test_frames.py::test_extract_bits_from_resized_frame"
+     ]
+    },
+    {
+     "file_path": "tests/test_integration.py",
+     "methods": [
+      "tests/test_integration.py::TestEncodeDecodeRoundtrip",
+      "tests/test_integration.py::setup",
+      "tests/test_integration.py::test_secure_protocol_roundtrip",
+      "tests/test_integration.py::test_legacy_protocol_roundtrip",
+      "tests/test_integration.py::test_secure_protocol_resilient_to_resolution_change",
+      "tests/test_integration.py::test_protocol_auto_detection_prefers_secure",
+      "tests/test_integration.py::test_empty_file_roundtrip",
+      "tests/test_integration.py::test_large_file_roundtrip",
+      "tests/test_integration.py::TestWebRunner",
+      "tests/test_integration.py::setup",
+      "tests/test_integration.py::test_index_get",
+      "tests/test_integration.py::test_encode_upload",
+      "tests/test_integration.py::test_decode_upload",
+      "tests/test_integration.py::test_security_headers_present",
+      "tests/test_integration.py::test_download_not_found",
+      "tests/test_integration.py::test_missing_file_error"
+     ]
+    },
+    {
+     "file_path": "tests/test_protocols.py",
+     "methods": [
+      "tests/test_protocols.py::TestLegacyProtocolHandler",
+      "tests/test_protocols.py::setup",
+      "tests/test_protocols.py::test_pack_includes_end_marker",
+      "tests/test_protocols.py::test_unpack_strips_end_marker",
+      "tests/test_protocols.py::test_unpack_with_trailing_zeros",
+      "tests/test_protocols.py::TestSecureProtocolHandler",
+      "tests/test_protocols.py::setup",
+      "tests/test_protocols.py::test_pack_produces_bit_string",
+      "tests/test_protocols.py::test_unpack_recovers_original_data",
+      "tests/test_protocols.py::test_unpack_detects_corrupted_header",
+      "tests/test_protocols.py::test_unpack_detects_corrupted_payload",
+      "tests/test_protocols.py::test_roundtrip_various_sizes"
+     ]
+    },
+    {
+     "file_path": "tests/test_security.py",
+     "methods": [
+      "tests/test_security.py::TestLazyOwnConfig",
+      "tests/test_security.py::test_magic_bytes_are_valid",
+      "tests/test_security.py::test_protocol_versions_are_distinct",
+      "tests/test_security.py::test_default_values_within_bounds",
+      "tests/test_security.py::test_header_offsets_are_consistent",
+      "tests/test_security.py::test_max_file_size_is_reasonable",
+      "tests/test_security.py::TestSecurityValidator",
+      "tests/test_security.py::setup",
+      "tests/test_security.py::test_validate_file_path_resolves_absolute",
+      "tests/test_security.py::test_validate_file_path_rejects_traversal",
+      "tests/test_security.py::test_validate_file_path_must_exist_when_required",
+      "tests/test_security.py::test_validate_size_rejects_oversized_files",
+      "tests/test_security.py::test_validate_size_accepts_maximum",
+      "tests/test_security.py::test_sanitize_filename_strips_unsafe_characters",
+      "tests/test_security.py::test_sanitize_filename_preserves_safe_characters",
+      "tests/test_security.py::test_sanitize_filename_fallback",
+      "tests/test_security.py::test_validate_extension_accepts_allowed",
+      "tests/test_security.py::test_validate_extension_rejects_disallowed"
+     ]
+    },
+    {
+     "file_path": "wsgi_app.py",
+     "methods": [
+      "wsgi_app.py::get_wsgi_app"
+     ]
+    }
+   ],
+   "component_id": "1",
+   "can_expand": true,
+   "components": [
+    {
+     "name": "root",
+     "description": "root groups 2 files (py) around LazyOwnConfig, SecurityValidator, __init__, validate_file_path, validate_size. LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder.",
+     "key_entities": [
+      {
+       "qualified_name": "lazyown_infinitestorage.py::LazyOwnConfig",
+       "reference_file": "lazyown_infinitestorage.py",
+       "reference_start_line": 71,
+       "reference_end_line": 147
+      },
+      {
+       "qualified_name": "lazyown_infinitestorage.py::SecurityValidator",
+       "reference_file": "lazyown_infinitestorage.py",
+       "reference_start_line": 148,
+       "reference_end_line": 150
+      },
+      {
+       "qualified_name": "lazyown_infinitestorage.py::__init__",
+       "reference_file": "lazyown_infinitestorage.py",
+       "reference_start_line": 151,
+       "reference_end_line": 153
+      },
+      {
+       "qualified_name": "lazyown_infinitestorage.py::validate_file_path",
+       "reference_file": "lazyown_infinitestorage.py",
+       "reference_start_line": 154,
+       "reference_end_line": 163
+      },
+      {
+       "qualified_name": "lazyown_infinitestorage.py::validate_size",
+       "reference_file": "lazyown_infinitestorage.py",
+       "reference_start_line": 164,
+       "reference_end_line": 168
+      },
+      {
+       "qualified_name": "lazyown_infinitestorage.py::sanitize_filename",
+       "reference_file": "lazyown_infinitestorage.py",
+       "reference_start_line": 169,
+       "reference_end_line": 176
+      },
+      {
+       "qualified_name": "lazyown_infinitestorage.py::validate_extension",
+       "reference_file": "lazyown_infinitestorage.py",
+       "reference_start_line": 177,
+       "reference_end_line": 183
+      },
+      {
+       "qualified_name": "lazyown_infinitestorage.py::ErrorCorrector",
+       "reference_file": "lazyown_infinitestorage.py",
+       "reference_start_line": 184,
+       "reference_end_line": 186
+      }
+     ],
+     "source_cluster_ids": [],
+     "file_methods": [
+      {
+       "file_path": "lazyown_infinitestorage.py",
+       "methods": [
+        "lazyown_infinitestorage.py::LazyOwnConfig",
+        "lazyown_infinitestorage.py::SecurityValidator",
+        "lazyown_infinitestorage.py::__init__",
+        "lazyown_infinitestorage.py::validate_file_path",
+        "lazyown_infinitestorage.py::validate_size",
+        "lazyown_infinitestorage.py::sanitize_filename",
+        "lazyown_infinitestorage.py::validate_extension",
+        "lazyown_infinitestorage.py::ErrorCorrector",
+        "lazyown_infinitestorage.py::__init__",
+        "lazyown_infinitestorage.py::encode_data",
+        "lazyown_infinitestorage.py::decode_data",
+        "lazyown_infinitestorage.py::_encode_nibble",
+        "lazyown_infinitestorage.py::_decode_nibble",
+        "lazyown_infinitestorage.py::FrameEncoder",
+        "lazyown_infinitestorage.py::__init__",
+        "lazyown_infinitestorage.py::bits_to_frames",
+        "lazyown_infinitestorage.py::_create_frame",
+        "lazyown_infinitestorage.py::FrameDecoder",
+        "lazyown_infinitestorage.py::__init__",
+        "lazyown_infinitestorage.py::extract_bits_from_raw_frames",
+        "lazyown_infinitestorage.py::FFmpegPipeline",
+        "lazyown_infinitestorage.py::__init__",
+        "lazyown_infinitestorage.py::get_video_info",
+        "lazyown_infinitestorage.py::_get_video_info_ffprobe",
+        "lazyown_infinitestorage.py::get_metadata",
+        "lazyown_infinitestorage.py::encode_video",
+        "lazyown_infinitestorage.py::extract_raw_frames",
+        "lazyown_infinitestorage.py::ProtocolHandler",
+        "lazyown_infinitestorage.py::pack",
+        "lazyown_infinitestorage.py::unpack",
+        "lazyown_infinitestorage.py::LegacyProtocolHandler",
+        "lazyown_infinitestorage.py::__init__",
+        "lazyown_infinitestorage.py::pack",
+        "lazyown_infinitestorage.py::unpack",
+        "lazyown_infinitestorage.py::SecureProtocolHandler",
+        "lazyown_infinitestorage.py::__init__",
+        "lazyown_infinitestorage.py::pack",
+        "lazyown_infinitestorage.py::unpack",
+        "lazyown_infinitestorage.py::LazyOwnInfiniteStorage",
+        "lazyown_infinitestorage.py::__init__",
+        "lazyown_infinitestorage.py::create_web_runner",
+        "lazyown_infinitestorage.py::encode",
+        "lazyown_infinitestorage.py::decode",
+        "lazyown_infinitestorage.py::_validate_encoding_parameters",
+        "lazyown_infinitestorage.py::_detect_protocol",
+        "lazyown_infinitestorage.py::_decode_legacy",
+        "lazyown_infinitestorage.py::_decode_secure",
+        "lazyown_infinitestorage.py::CLIRunner",
+        "lazyown_infinitestorage.py::__init__",
+        "lazyown_infinitestorage.py::run",
+        "lazyown_infinitestorage.py::Worker",
+        "lazyown_infinitestorage.py::__init__",
+        "lazyown_infinitestorage.py::run",
+        "lazyown_infinitestorage.py::GUIRunner",
+        "lazyown_infinitestorage.py::__init__",
+        "lazyown_infinitestorage.py::_init_ui",
+        "lazyown_infinitestorage.py::_change_mode",
+        "lazyown_infinitestorage.py::_browse_input",
+        "lazyown_infinitestorage.py::_start",
+        "lazyown_infinitestorage.py::_on_finished",
+        "lazyown_infinitestorage.py::_on_error",
+        "lazyown_infinitestorage.py::run",
+        "lazyown_infinitestorage.py::GUIRunner",
+        "lazyown_infinitestorage.py::__init__",
+        "lazyown_infinitestorage.py::run",
+        "lazyown_infinitestorage.py::WebRunner",
+        "lazyown_infinitestorage.py::__init__",
+        "lazyown_infinitestorage.py::run_setup",
+        "lazyown_infinitestorage.py::_setup_routes",
+        "lazyown_infinitestorage.py::_validate_upload",
+        "lazyown_infinitestorage.py::index",
+        "lazyown_infinitestorage.py::download",
+        "lazyown_infinitestorage.py::add_security_headers",
+        "lazyown_infinitestorage.py::run",
+        "lazyown_infinitestorage.py::WebRunner",
+        "lazyown_infinitestorage.py::__init__",
+        "lazyown_infinitestorage.py::run",
+        "lazyown_infinitestorage.py::run_tests",
+        "lazyown_infinitestorage.py::main"
+       ]
+      },
+      {
+       "file_path": "wsgi_app.py",
+       "methods": [
+        "wsgi_app.py::get_wsgi_app"
+       ]
+      }
+     ],
+     "component_id": "1.1",
+     "can_expand": false,
+     "components": [],
+     "components_relations": [],
+     "layer": "presentation",
+     "symbol_count": 80,
+     "top_symbols": [
+      {
+       "n": "LazyOwnConfig",
+       "k": "class"
+      },
+      {
+       "n": "SecurityValidator",
+       "k": "class"
+      },
+      {
+       "n": "__init__",
+       "k": "method"
+      }
+     ],
+     "top_symbols_more": 53
+    },
+    {
+     "name": "skill_lazyown_infinitestorage",
+     "description": "skill_lazyown_infinitestorage groups 1 files (py) around lazyown_infinitestorage_encode, lazyown_infinitestorage_decode, lazyown_infinitestorage_upload_to_youtube, get_tool, list_tools. MCP tools for LazyOwnInfiniteStorage integration.",
+     "key_entities": [
+      {
+       "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_encode",
+       "reference_file": "skill_lazyown_infinitestorage/tools.py",
+       "reference_start_line": 34,
+       "reference_end_line": 100
+      },
+      {
+       "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_decode",
+       "reference_file": "skill_lazyown_infinitestorage/tools.py",
+       "reference_start_line": 101,
+       "reference_end_line": 151
+      },
+      {
+       "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_upload_to_youtube",
+       "reference_file": "skill_lazyown_infinitestorage/tools.py",
+       "reference_start_line": 152,
+       "reference_end_line": 301
+      },
+      {
+       "qualified_name": "skill_lazyown_infinitestorage/tools.py::get_tool",
+       "reference_file": "skill_lazyown_infinitestorage/tools.py",
+       "reference_start_line": 302,
+       "reference_end_line": 305
+      },
+      {
+       "qualified_name": "skill_lazyown_infinitestorage/tools.py::list_tools",
+       "reference_file": "skill_lazyown_infinitestorage/tools.py",
+       "reference_start_line": 306,
+       "reference_end_line": 308
+      }
+     ],
+     "source_cluster_ids": [],
+     "file_methods": [
+      {
+       "file_path": "skill_lazyown_infinitestorage/tools.py",
+       "methods": [
+        "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_encode",
+        "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_decode",
+        "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_upload_to_youtube",
+        "skill_lazyown_infinitestorage/tools.py::get_tool",
+        "skill_lazyown_infinitestorage/tools.py::list_tools"
+       ]
+      }
+     ],
+     "component_id": "1.2",
+     "can_expand": false,
+     "components": [],
+     "components_relations": [],
+     "layer": "utility",
+     "symbol_count": 5,
+     "top_symbols": [
+      {
+       "n": "lazyown_infinitestorage_encode",
+       "k": "function"
+      },
+      {
+       "n": "lazyown_infinitestorage_decode",
+       "k": "function"
+      },
+      {
+       "n": "lazyown_infinitestorage_upload_to_youtube",
+       "k": "function"
+      }
+     ],
+     "top_symbols_more": 2
+    },
+    {
+     "name": "tests",
+     "description": "tests groups 5 files (py) around TestErrorCorrector, setup, test_encode_data_doubles_length, test_decode_data_reverses_encoding, test_decode_data_with_single_bit_error. Unit tests for ErrorCorrector Hamming(8,4) implementation.",
+     "key_entities": [
+      {
+       "qualified_name": "tests/test_error_correction.py::TestErrorCorrector",
+       "reference_file": "tests/test_error_correction.py",
+       "reference_start_line": 7,
+       "reference_end_line": 10
+      },
+      {
+       "qualified_name": "tests/test_error_correction.py::setup",
+       "reference_file": "tests/test_error_correction.py",
+       "reference_start_line": 11,
+       "reference_end_line": 14
+      },
+      {
+       "qualified_name": "tests/test_error_correction.py::test_encode_data_doubles_length",
+       "reference_file": "tests/test_error_correction.py",
+       "reference_start_line": 15,
+       "reference_end_line": 19
+      },
+      {
+       "qualified_name": "tests/test_error_correction.py::test_decode_data_reverses_encoding",
+       "reference_file": "tests/test_error_correction.py",
+       "reference_start_line": 20,
+       "reference_end_line": 25
+      },
+      {
+       "qualified_name": "tests/test_error_correction.py::test_decode_data_with_single_bit_error",
+       "reference_file": "tests/test_error_correction.py",
+       "reference_start_line": 26,
+       "reference_end_line": 32
+      },
+      {
+       "qualified_name": "tests/test_error_correction.py::test_decode_data_rejects_odd_length",
+       "reference_file": "tests/test_error_correction.py",
+       "reference_start_line": 33,
+       "reference_end_line": 36
+      },
+      {
+       "qualified_name": "tests/test_error_correction.py::test_encode_nibble_all_values",
+       "reference_file": "tests/test_error_correction.py",
+       "reference_start_line": 37,
+       "reference_end_line": 41
+      },
+      {
+       "qualified_name": "tests/test_error_correction.py::test_decode_nibble_all_values",
+       "reference_file": "tests/test_error_correction.py",
+       "reference_start_line": 42,
+       "reference_end_line": 48
+      }
+     ],
+     "source_cluster_ids": [],
+     "file_methods": [
+      {
+       "file_path": "tests/test_error_correction.py",
+       "methods": [
+        "tests/test_error_correction.py::TestErrorCorrector",
+        "tests/test_error_correction.py::setup",
+        "tests/test_error_correction.py::test_encode_data_doubles_length",
+        "tests/test_error_correction.py::test_decode_data_reverses_encoding",
+        "tests/test_error_correction.py::test_decode_data_with_single_bit_error",
+        "tests/test_error_correction.py::test_decode_data_rejects_odd_length",
+        "tests/test_error_correction.py::test_encode_nibble_all_values",
+        "tests/test_error_correction.py::test_decode_nibble_all_values",
+        "tests/test_error_correction.py::test_roundtrip_various_inputs",
+        "tests/test_error_correction.py::test_single_bit_error_per_nibble"
+       ]
+      },
+      {
+       "file_path": "tests/test_frames.py",
+       "methods": [
+        "tests/test_frames.py::TestFrameEncoder",
+        "tests/test_frames.py::setup",
+        "tests/test_frames.py::test_bits_to_frames_yields_correct_number_of_frames",
+        "tests/test_frames.py::test_each_frame_has_correct_dimensions",
+        "tests/test_frames.py::test_bit_one_produces_white_block",
+        "tests/test_frames.py::test_bit_zero_produces_black_block",
+        "tests/test_frames.py::test_padding_zeros_fill_incomplete_frame",
+        "tests/test_frames.py::TestFrameDecoder",
+        "tests/test_frames.py::setup",
+        "tests/test_frames.py::test_extract_bits_from_empty_raises",
+        "tests/test_frames.py::test_extract_bits_from_raw_frames_basic",
+        "tests/test_frames.py::test_extract_bits_respects_expected_bits",
+        "tests/test_frames.py::test_extract_bits_from_resized_frame"
+       ]
+      },
+      {
+       "file_path": "tests/test_integration.py",
+       "methods": [
+        "tests/test_integration.py::TestEncodeDecodeRoundtrip",
+        "tests/test_integration.py::setup",
+        "tests/test_integration.py::test_secure_protocol_roundtrip",
+        "tests/test_integration.py::test_legacy_protocol_roundtrip",
+        "tests/test_integration.py::test_secure_protocol_resilient_to_resolution_change",
+        "tests/test_integration.py::test_protocol_auto_detection_prefers_secure",
+        "tests/test_integration.py::test_empty_file_roundtrip",
+        "tests/test_integration.py::test_large_file_roundtrip",
+        "tests/test_integration.py::TestWebRunner",
+        "tests/test_integration.py::setup",
+        "tests/test_integration.py::test_index_get",
+        "tests/test_integration.py::test_encode_upload",
+        "tests/test_integration.py::test_decode_upload",
+        "tests/test_integration.py::test_security_headers_present",
+        "tests/test_integration.py::test_download_not_found",
+        "tests/test_integration.py::test_missing_file_error"
+       ]
+      },
+      {
+       "file_path": "tests/test_protocols.py",
+       "methods": [
+        "tests/test_protocols.py::TestLegacyProtocolHandler",
+        "tests/test_protocols.py::setup",
+        "tests/test_protocols.py::test_pack_includes_end_marker",
+        "tests/test_protocols.py::test_unpack_strips_end_marker",
+        "tests/test_protocols.py::test_unpack_with_trailing_zeros",
+        "tests/test_protocols.py::TestSecureProtocolHandler",
+        "tests/test_protocols.py::setup",
+        "tests/test_protocols.py::test_pack_produces_bit_string",
+        "tests/test_protocols.py::test_unpack_recovers_original_data",
+        "tests/test_protocols.py::test_unpack_detects_corrupted_header",
+        "tests/test_protocols.py::test_unpack_detects_corrupted_payload",
+        "tests/test_protocols.py::test_roundtrip_various_sizes"
+       ]
+      },
+      {
+       "file_path": "tests/test_security.py",
+       "methods": [
+        "tests/test_security.py::TestLazyOwnConfig",
+        "tests/test_security.py::test_magic_bytes_are_valid",
+        "tests/test_security.py::test_protocol_versions_are_distinct",
+        "tests/test_security.py::test_default_values_within_bounds",
+        "tests/test_security.py::test_header_offsets_are_consistent",
+        "tests/test_security.py::test_max_file_size_is_reasonable",
+        "tests/test_security.py::TestSecurityValidator",
+        "tests/test_security.py::setup",
+        "tests/test_security.py::test_validate_file_path_resolves_absolute",
+        "tests/test_security.py::test_validate_file_path_rejects_traversal",
+        "tests/test_security.py::test_validate_file_path_must_exist_when_required",
+        "tests/test_security.py::test_validate_size_rejects_oversized_files",
+        "tests/test_security.py::test_validate_size_accepts_maximum",
+        "tests/test_security.py::test_sanitize_filename_strips_unsafe_characters",
+        "tests/test_security.py::test_sanitize_filename_preserves_safe_characters",
+        "tests/test_security.py::test_sanitize_filename_fallback",
+        "tests/test_security.py::test_validate_extension_accepts_allowed",
+        "tests/test_security.py::test_validate_extension_rejects_disallowed"
+       ]
+      }
+     ],
+     "component_id": "1.3",
+     "can_expand": false,
+     "components": [],
+     "components_relations": [],
+     "layer": "testing",
+     "symbol_count": 69,
+     "top_symbols": [
+      {
+       "n": "TestErrorCorrector",
+       "k": "class"
+      },
+      {
+       "n": "setup",
+       "k": "method"
+      },
+      {
+       "n": "test_encode_data_doubles_length",
+       "k": "method"
+      }
+     ],
+     "top_symbols_more": 59
+    }
+   ],
+   "components_relations": [
+    {
+     "relation": "depends on",
+     "src_name": "skill_lazyown_infinitestorage",
+     "dst_name": "root",
+     "evidence": "1 imports, 0 calls across the boundary",
+     "import_count": 1,
+     "call_count": 0,
+     "key_edges": [],
+     "src_id": "1.2",
+     "dst_id": "1.1",
+     "is_static": true,
+     "all_edges": []
+    },
+    {
+     "relation": "calls into",
+     "src_name": "tests",
+     "dst_name": "root",
+     "evidence": "5 imports, 87 calls across the boundary",
+     "import_count": 5,
+     "call_count": 87,
+     "key_edges": [
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::setup",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::LazyOwnConfig",
+       "call_sites": [
+        {
+         "line": 12,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::setup",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::ErrorCorrector",
+       "call_sites": [
+        {
+         "line": 13,
+         "column": 25
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_encode_data_doubles_length",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode_data",
+       "call_sites": [
+        {
+         "line": 17,
+         "column": 18
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_decode_data_reverses_encoding",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode_data",
+       "call_sites": [
+        {
+         "line": 22,
+         "column": 18
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_decode_data_reverses_encoding",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode_data",
+       "call_sites": [
+        {
+         "line": 23,
+         "column": 18
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_decode_data_with_single_bit_error",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode_data",
+       "call_sites": [
+        {
+         "line": 28,
+         "column": 28
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_decode_data_with_single_bit_error",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode_data",
+       "call_sites": [
+        {
+         "line": 30,
+         "column": 18
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_decode_data_rejects_odd_length",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode_data",
+       "call_sites": [
+        {
+         "line": 35,
+         "column": 12
+        }
+       ],
+       "description": ""
+      }
+     ],
+     "src_id": "1.3",
+     "dst_id": "1.1",
+     "is_static": true,
+     "all_edges": [
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::setup",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::LazyOwnConfig",
+       "call_sites": [
+        {
+         "line": 12,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::setup",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::ErrorCorrector",
+       "call_sites": [
+        {
+         "line": 13,
+         "column": 25
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_encode_data_doubles_length",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode_data",
+       "call_sites": [
+        {
+         "line": 17,
+         "column": 18
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_decode_data_reverses_encoding",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode_data",
+       "call_sites": [
+        {
+         "line": 22,
+         "column": 18
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_decode_data_reverses_encoding",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode_data",
+       "call_sites": [
+        {
+         "line": 23,
+         "column": 18
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_decode_data_with_single_bit_error",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode_data",
+       "call_sites": [
+        {
+         "line": 28,
+         "column": 28
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_decode_data_with_single_bit_error",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode_data",
+       "call_sites": [
+        {
+         "line": 30,
+         "column": 18
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_decode_data_rejects_odd_length",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode_data",
+       "call_sites": [
+        {
+         "line": 35,
+         "column": 12
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_encode_nibble_all_values",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_encode_nibble",
+       "call_sites": [
+        {
+         "line": 39,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_decode_nibble_all_values",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_encode_nibble",
+       "call_sites": [
+        {
+         "line": 44,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_decode_nibble_all_values",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_decode_nibble",
+       "call_sites": [
+        {
+         "line": 45,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_roundtrip_various_inputs",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode_data",
+       "call_sites": [
+        {
+         "line": 50,
+         "column": 18
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_roundtrip_various_inputs",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode_data",
+       "call_sites": [
+        {
+         "line": 51,
+         "column": 18
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_single_bit_error_per_nibble",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_encode_nibble",
+       "call_sites": [
+        {
+         "line": 56,
+         "column": 18
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_error_correction.py|tests/test_error_correction.py::test_single_bit_error_per_nibble",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_decode_nibble",
+       "call_sites": [
+        {
+         "line": 59,
+         "column": 24
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::setup",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::LazyOwnConfig",
+       "call_sites": [
+        {
+         "line": 13,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::setup",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::FrameEncoder",
+       "call_sites": [
+        {
+         "line": 14,
+         "column": 23
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::test_bits_to_frames_yields_correct_number_of_frames",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::bits_to_frames",
+       "call_sites": [
+        {
+         "line": 25,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::test_each_frame_has_correct_dimensions",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::bits_to_frames",
+       "call_sites": [
+        {
+         "line": 30,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::test_bit_one_produces_white_block",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::bits_to_frames",
+       "call_sites": [
+        {
+         "line": 35,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::test_bit_zero_produces_black_block",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::bits_to_frames",
+       "call_sites": [
+        {
+         "line": 40,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::test_padding_zeros_fill_incomplete_frame",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::bits_to_frames",
+       "call_sites": [
+        {
+         "line": 46,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::setup",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::LazyOwnConfig",
+       "call_sites": [
+        {
+         "line": 59,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::setup",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::FrameDecoder",
+       "call_sites": [
+        {
+         "line": 60,
+         "column": 23
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::test_extract_bits_from_empty_raises",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::extract_bits_from_raw_frames",
+       "call_sites": [
+        {
+         "line": 64,
+         "column": 12
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::test_extract_bits_from_raw_frames_basic",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::FrameEncoder",
+       "call_sites": [
+        {
+         "line": 68,
+         "column": 18
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::test_extract_bits_from_raw_frames_basic",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::bits_to_frames",
+       "call_sites": [
+        {
+         "line": 69,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::test_extract_bits_from_raw_frames_basic",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::extract_bits_from_raw_frames",
+       "call_sites": [
+        {
+         "line": 71,
+         "column": 20
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::test_extract_bits_respects_expected_bits",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::FrameEncoder",
+       "call_sites": [
+        {
+         "line": 76,
+         "column": 18
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::test_extract_bits_respects_expected_bits",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::bits_to_frames",
+       "call_sites": [
+        {
+         "line": 77,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::test_extract_bits_respects_expected_bits",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::extract_bits_from_raw_frames",
+       "call_sites": [
+        {
+         "line": 79,
+         "column": 20
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::test_extract_bits_from_resized_frame",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::FrameEncoder",
+       "call_sites": [
+        {
+         "line": 84,
+         "column": 18
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::test_extract_bits_from_resized_frame",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::bits_to_frames",
+       "call_sites": [
+        {
+         "line": 85,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_frames.py|tests/test_frames.py::test_extract_bits_from_resized_frame",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::extract_bits_from_raw_frames",
+       "call_sites": [
+        {
+         "line": 87,
+         "column": 20
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_integration.py|tests/test_integration.py::setup",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::LazyOwnConfig",
+       "call_sites": [
+        {
+         "line": 23,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_integration.py|tests/test_integration.py::test_secure_protocol_roundtrip",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode",
+       "call_sites": [
+        {
+         "line": 33,
+         "column": 12
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_integration.py|tests/test_integration.py::test_secure_protocol_roundtrip",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode",
+       "call_sites": [
+        {
+         "line": 39,
+         "column": 12
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_integration.py|tests/test_integration.py::test_legacy_protocol_roundtrip",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode",
+       "call_sites": [
+        {
+         "line": 51,
+         "column": 12
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_integration.py|tests/test_integration.py::test_legacy_protocol_roundtrip",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode",
+       "call_sites": [
+        {
+         "line": 57,
+         "column": 12
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_integration.py|tests/test_integration.py::test_secure_protocol_resilient_to_resolution_change",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode",
+       "call_sites": [
+        {
+         "line": 69,
+         "column": 12
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_integration.py|tests/test_integration.py::test_secure_protocol_resilient_to_resolution_change",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::run",
+       "call_sites": [
+        {
+         "line": 73,
+         "column": 12
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_integration.py|tests/test_integration.py::test_secure_protocol_resilient_to_resolution_change",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode",
+       "call_sites": [
+        {
+         "line": 78,
+         "column": 12
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_integration.py|tests/test_integration.py::test_protocol_auto_detection_prefers_secure",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode",
+       "call_sites": [
+        {
+         "line": 90,
+         "column": 12
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_integration.py|tests/test_integration.py::test_protocol_auto_detection_prefers_secure",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_detect_protocol",
+       "call_sites": [
+        {
+         "line": 93,
+         "column": 23
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_integration.py|tests/test_integration.py::test_empty_file_roundtrip",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode",
+       "call_sites": [
+        {
+         "line": 102,
+         "column": 12
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_integration.py|tests/test_integration.py::test_empty_file_roundtrip",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode",
+       "call_sites": [
+        {
+         "line": 106,
+         "column": 12
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_integration.py|tests/test_integration.py::test_large_file_roundtrip",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode",
+       "call_sites": [
+        {
+         "line": 117,
+         "column": 12
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_integration.py|tests/test_integration.py::test_large_file_roundtrip",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode",
+       "call_sites": [
+        {
+         "line": 121,
+         "column": 12
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_integration.py|tests/test_integration.py::setup",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::LazyOwnConfig",
+       "call_sites": [
+        {
+         "line": 136,
+         "column": 22
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "tests/test_integration.py|tests/test_integration.py::setup",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::create_web_runner",
+       "call_sites": [
+        {
+         "line": 138,
+         "column": 22
+        }
+       ],
+       "description": ""
+      }
+     ]
+    }
+   ],
+   "layer": "testing",
+   "symbol_count": 154,
+   "top_symbols": [
+    {
+     "n": "LazyOwnConfig",
+     "k": "class"
+    },
+    {
+     "n": "SecurityValidator",
+     "k": "class"
+    },
+    {
+     "n": "__init__",
+     "k": "method"
+    }
+   ],
+   "top_symbols_more": 120,
+   "hub": true
+  }
+ ],
+ "components_relations": []
+}

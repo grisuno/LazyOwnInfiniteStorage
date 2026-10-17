@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-preset="classic">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Change Lifecycle | Live System Map</title>
+<link href="https://unpkg.com/vis-network@9/styles/vis-network.min.css" rel="stylesheet">
+<script src="https://unpkg.com/vis-network@9/standalone/umd/vis-network.min.js"></script>
+<style>
+:root{--canvas:#020617;--mask:#0f172a;--ink:#ffffff;--muted:#94a3b8;--border:#1e293b;--box:#0f172a;--boxink:#ffffff}
+html[data-theme="light"]{--canvas:#f8fafc;--mask:#ffffff;--ink:#0f172a;--muted:#475569;--border:#e2e8f0;--box:#ffffff;--boxink:#0f172a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--ink);font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.toolbar{display:flex;gap:8px;align-items:center;padding:10px 14px;background:var(--mask);border-bottom:1px solid var(--border);flex-wrap:wrap}
+.brand{font-weight:700;font-size:14px;letter-spacing:.04em}
+.kind{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+.live{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;border:1px solid var(--border);border-radius:999px;padding:3px 10px}
+.toolbar input{background:var(--canvas);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:8px 10px;min-width:220px;font:inherit;font-size:12px}
+.toolbar button{background:var(--canvas);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font:inherit;font-size:12px;cursor:pointer;min-height:32px}
+.toolbar button:hover,.toolbar button:focus-visible{border-color:#22d3ee;outline:2px solid #22d3ee;outline-offset:2px}
+.home-link{color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:12px;text-decoration:none;background:var(--canvas)}
+.home-link:hover,.home-link:focus-visible{border-color:#22d3ee;outline:2px solid #22d3ee;outline-offset:2px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;min-height:calc(100vh - 53px)}
+.stage{position:relative;padding:16px;overflow:auto}
+#network{width:100%;height:78vh;min-height:520px;background:var(--canvas);border:1px solid var(--border);border-radius:16px}
+#network:focus-visible{outline:2px solid #22d3ee;outline-offset:3px}
+.symbols{font-size:11px;margin-top:10px;overflow:auto}
+.symbols table{width:100%;border-collapse:collapse}
+.symbols th{text-align:left;color:var(--muted);font-weight:400;border-bottom:1px solid var(--border);padding:3px 4px}
+.symbols td{border-bottom:1px solid var(--border);padding:3px 4px;vertical-align:top}
+.symbols code{font-size:11px}
+.symbols .filedoc{color:var(--muted);margin:0 0 8px;line-height:1.6}
+.symbols .neighbors{color:var(--muted);margin:8px 0 0;line-height:1.6}
+.passport{background:var(--mask);border-left:1px solid var(--border);padding:16px;overflow:auto}
+.passport h2{font-size:13px;margin:0 0 8px}
+.passport .row{font-size:12px;color:var(--muted);margin:6px 0;line-height:1.7}
+.counts{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.chip{border:1px solid var(--border);border-radius:999px;padding:3px 10px;font-size:11px;color:var(--ink);background:transparent;cursor:pointer;font:inherit}
+.legend-title{width:100%;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin:6px 0 2px}
+.legend-item{display:flex;align-items:center;gap:8px;width:100%;text-align:left;background:transparent;color:var(--ink);border:1px solid transparent;border-radius:8px;padding:5px 6px;font:inherit;font-size:12px;cursor:pointer}
+.legend-item:hover,.legend-item:focus-visible{border-color:var(--border);background:var(--canvas);outline:none}
+.swatch{flex:none;width:12px;height:12px;border-radius:50%;box-shadow:0 0 10px currentColor}
+.views{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.views button{background:var(--canvas);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:6px 9px;font:inherit;font-size:11px;cursor:pointer}
+.journey{font-size:12px;line-height:1.7}
+.receipt{font-size:11px;color:var(--muted);border:1px solid var(--border);border-radius:8px;padding:8px;margin-top:10px}
+.routebox{display:flex;gap:6px;margin-top:8px}
+.routebox input{flex:1;background:var(--canvas);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:7px;font:inherit;font-size:12px;min-width:0}
+.routebox button{background:var(--canvas);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:7px 10px;font:inherit;font-size:12px;cursor:pointer}
+.present .layout{grid-template-columns:minmax(0,1fr)}
+.present .passport{display:none}
+.passport.focused .guide{display:none!important}
+.filedoc.clamp{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}
+.peek{position:fixed;z-index:20;pointer-events:none;max-width:340px;background:var(--mask);color:var(--ink);border:1px solid var(--border);border-radius:12px;padding:10px 12px;font-size:11.5px;line-height:1.55;box-shadow:0 18px 40px rgba(0,0,0,.35);display:none}
+.peek b{font-size:13px}
+.peek .m{color:var(--muted)}
+.peek .sw{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+.peek ul{margin:6px 0 0;padding-left:16px}
+.peek .warn{color:#fbbf24}
+.insight{margin:6px 0;padding:6px 9px;border:1px solid var(--border);border-left:3px solid #22d3ee;border-radius:8px;font-size:11.5px;line-height:1.6;color:var(--ink);background:var(--canvas)}
+.insight.bad{border-left-color:#fb7185}
+.detail-nav{display:flex;gap:6px;margin:0 0 10px}
+.detail-nav button{background:var(--canvas);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:4px 9px;font:inherit;font-size:11px;cursor:pointer}
+.detail-nav button:disabled{opacity:.4;cursor:default}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0}
+.tile{border:1px solid var(--border);border-radius:9px;padding:6px;background:var(--canvas);text-align:center}
+.tile b{display:block;font-size:15px}
+.tile span{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.ego{display:block;width:100%;height:auto;margin:6px 0 4px;border:1px solid var(--border);border-radius:10px;background:var(--canvas)}
+.ego g[data-node]{cursor:pointer}
+.ego g[data-node]:hover circle{stroke-width:3}
+.ego text{font-family:inherit;font-size:10.5px;fill:var(--ink)}
+.ego .cap{fill:var(--muted);font-size:9.5px;letter-spacing:.08em}
+.nbs{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0 8px}
+.nbs button{display:inline-flex;align-items:center;gap:5px;background:transparent;color:var(--ink);border:1px solid var(--border);border-radius:999px;padding:2px 9px;font:inherit;font-size:11px;cursor:pointer}
+.nbs button:hover,.nbs button:focus-visible{border-color:#22d3ee;outline:none}
+.nbs i{width:8px;height:8px;border-radius:50%}
+.sublabel{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:8px}
+.symfilter{width:100%;background:var(--canvas);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:6px 8px;font:inherit;font-size:11.5px;margin:4px 0 6px}
+dialog{background:var(--mask);color:var(--ink);border:1px solid var(--border);border-radius:12px;max-width:520px}
+dialog kbd{border:1px solid var(--border);border-radius:6px;padding:1px 6px;font-size:11px}
+@media (max-width:960px){.layout{grid-template-columns:minmax(0,1fr)}.passport{border-left:none;border-top:1px solid var(--border)}}
+</style>
+</head>
+<body>
+<header class="toolbar" aria-label="Map controls">
+<span class="brand">System Maps</span>
+<span class="live">Live physics</span>
+<a class="home-link" href="index.html">Gallery</a>
+<span class="kind">lifecycle | Change Lifecycle</span>
+<input id="search" type="search" placeholder="Search nodes ( / )" aria-label="Search nodes" title="Filter nodes by label or id. Shortcut: /">
+<button type="button" data-action="reach-up" aria-label="Trace upstream reach" title="Show everything that reaches the focused node (authored relationships only)">Upstream</button>
+<button type="button" data-action="reach-down" aria-label="Trace downstream reach" title="Show everything the focused node reaches (authored relationships only)">Downstream</button>
+<button type="button" data-action="lens" aria-label="Compare roles" title="Highlight one semantic role and compare counts; activate again to clear">Lens</button>
+<button type="button" data-action="views-prev" aria-label="Previous chapter" title="Show the previous guided chapter ( [ )">Prev</button>
+<button type="button" data-action="views-next" aria-label="Next chapter" title="Show the next guided chapter ( ] )">Next</button>
+<button type="button" data-action="color" aria-label="Toggle color mode" title="Color nodes by code community or by architectural role ( C )">Color</button>
+<button type="button" data-action="show-all" aria-label="Show all nodes" title="Clear focus, lens, and filters ( Esc )">Show all</button>
+<button type="button" data-action="play" aria-label="Play guided story" title="Play all guided chapters in order">Play</button>
+<button type="button" data-action="stabilize" aria-label="Stabilize layout" title="Re-run the physics stabilization">Stabilize</button>
+<button type="button" data-action="physics" aria-label="Toggle physics" title="Freeze or resume the live physics engine">Physics</button>
+<button type="button" data-action="present" aria-label="Enter presentation stage" title="Hide the side panel for presenting">Present</button>
+<button type="button" data-action="style" aria-label="Cycle visual preset" title="Cycle visual preset: classic, flow, blueprint, editorial">Style</button>
+<button type="button" data-action="theme" aria-label="Toggle theme" title="Toggle dark and light themes">Theme</button>
+<button type="button" data-action="export" aria-label="Open export menu" title="Download a PNG snapshot or the typed JSON">Export</button>
+<button type="button" data-action="help" aria-label="Open diagram guide" title="Open the diagram guide with every shortcut">?</button>
+</header>
+<div class="layout">
+<main class="stage">
+<div id="network" tabindex="0" role="application" aria-label="Change Lifecycle live network. Drag nodes to rearrange them."></div>
+</main>
+<aside class="passport" aria-live="polite" aria-label="Semantic passport">
+<h2 id="passport-title">Diagram guide</h2>
+<div class="row" id="passport-meta"></div>
+<div class="views guide" id="chapters"></div>
+<div class="counts guide" id="role-counts"></div>
+<div class="row guide">Node size = number of links. Color = code community (press C for roles). Labels show the most connected files; zoom in for the rest.</div>
+<div class="row guide">1. Drag any node; physics settles the rest. 2. Click a node to focus it. 3. Upstream and Downstream trace authored reach. 4. Path probes the exact route between two ids. 5. Play walks the guided chapters. Press ? for every shortcut. This page loads its network engine from a CDN and needs network access.</div>
+<div class="routebox"><input id="route-from" placeholder="route from id" aria-label="Route source" title="Source node id for the route probe"><input id="route-to" placeholder="route to id" aria-label="Route target" title="Target node id for the route probe"><button type="button" data-action="route" aria-label="Probe directed route" title="Highlight the shortest authored directed path">Path</button></div>
+<div class="journey" id="journey"></div>
+<div class="symbols" id="node-symbols"></div>
+<div class="receipt" id="receipt"></div>
+</aside>
+</div>
+<dialog id="guide" aria-label="Diagram guide dialog">
+<h2>Diagram guide</h2>
+<p><kbd>/</kbd> search &middot; <kbd>R</kbd> route probe &middot; <kbd>L</kbd> role lens &middot; <kbd>P</kbd> play &middot; <kbd>[</kbd> <kbd>]</kbd> chapters &middot; <kbd>C</kbd> color by community or role &middot; <kbd>Esc</kbd> show all &middot; <kbd>F</kbd> present &middot; <kbd>S</kbd> style &middot; <kbd>T</kbd> theme &middot; <kbd>E</kbd> export &middot; <kbd>+</kbd> <kbd>-</kbd> <kbd>0</kbd> zoom &middot; <kbd>B</kbd> physics</p>
+<p>Drag nodes freely; Stabilize re-runs the physics engine and Physics freezes it. Reach, routes, lens, and chapters reuse authored relationships only. Deep links restore <code>#focus=id</code>, <code>#focus=id&amp;reach=upstream|downstream</code>, <code>#route=a~b</code>, <code>#lens=role</code>, and <code>#view=id</code>.</p>
+<button type="button" data-action="close-guide" title="Close the diagram guide">Close</button>
+</dialog>
+<dialog id="exports" aria-label="Export dialog">
+<h2>Export</h2>
+<p>PNG captures the live canvas; JSON carries the typed source.</p>
+<button type="button" data-action="export-png" title="Download a PNG snapshot of the live canvas">Download PNG</button>
+<button type="button" data-action="export-json" title="Download the typed JSON behind this diagram">Download typed JSON</button>
+<button type="button" data-action="close-exports" title="Close the export menu">Close</button>
+</dialog>
+<script type="application/json" id="vis-nodes">[{"id": "lazyown_infinitestorage.py", "label": "lazyown_infinitestorage.py", "title": "\u003cb>lazyown_infinitestorage.py\u003c/b>\u003cbr>frontend | presentation | py\u003cbr>LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder.\u003cbr>symbols: 79 (LazyOwnConfig, SecurityValidator, __init__, validate_file_path, validate_size +54 more)", "group": "frontend", "language": "py", "doc": "LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder.", "symbols": [{"name": "LazyOwnConfig", "kind": "class", "line": "71", "signature": "class LazyOwnConfig", "doc": "Centralized immutable configuration constants for LazyOwnInfiniteStorage."}, {"name": "SecurityValidator", "kind": "class", "line": "148", "signature": "class SecurityValidator", "doc": "Validates file paths and inputs to prevent path traversal and abuse."}, {"name": "__init__", "kind": "method", "line": "151", "signature": "def __init__(self, config)", "doc": ""}, {"name": "validate_file_path", "kind": "method", "line": "154", "signature": "def validate_file_path(self, file_path, must_exist)", "doc": "Resolves and validates an absolute file path."}, {"name": "validate_size", "kind": "method", "line": "164", "signature": "def validate_size(self, size)", "doc": "Ensures the file size is within acceptable limits."}, {"name": "sanitize_filename", "kind": "method", "line": "169", "signature": "def sanitize_filename(self, filename)", "doc": "Sanitizes a filename to remove unsafe characters."}, {"name": "validate_extension", "kind": "method", "line": "177", "signature": "def validate_extension(self, file_path, allowed_extensions)", "doc": "Ensures the file extension is in the allowed set."}, {"name": "ErrorCorrector", "kind": "class", "line": "184", "signature": "class ErrorCorrector", "doc": "Implements Hamming(8,4) extended error correction for byte streams."}, {"name": "__init__", "kind": "method", "line": "187", "signature": "def __init__(self, config)", "doc": ""}, {"name": "encode_data", "kind": "method", "line": "190", "signature": "def encode_data(self, data)", "doc": "Encodes a byte sequence using Hamming(8,4) correction."}, {"name": "decode_data", "kind": "method", "line": "200", "signature": "def decode_data(self, data)", "doc": "Decodes a Hamming(8,4) encoded byte sequence with single-bit error correction."}, {"name": "_encode_nibble", "kind": "method", "line": "211", "signature": "def _encode_nibble(self, nibble)", "doc": ""}, {"name": "_decode_nibble", "kind": "method", "line": "222", "signature": "def _decode_nibble(self, byte_val)", "doc": ""}, {"name": "FrameEncoder", "kind": "class", "line": "242", "signature": "class FrameEncoder", "doc": "Encodes bit strings into numpy grayscale frames."}, {"name": "__init__", "kind": "method", "line": "245", "signature": "def __init__(self, config)", "doc": ""}, {"name": "bits_to_frames", "kind": "method", "line": "248", "signature": "def bits_to_frames(self, bit_string, frame_width, frame_height, block_size)", "doc": "Yields grayscale frames from a bit string."}, {"name": "_create_frame", "kind": "method", "line": "263", "signature": "def _create_frame(self, bits, width, height, block_size, blocks_per_row)", "doc": ""}, {"name": "FrameDecoder", "kind": "class", "line": "273", "signature": "class FrameDecoder", "doc": "Decodes grayscale frames into bit strings."}, {"name": "__init__", "kind": "method", "line": "276", "signature": "def __init__(self, config)", "doc": ""}, {"name": "extract_bits_from_raw_frames", "kind": "method", "line": "279", "signature": "def extract_bits_from_raw_frames(self, raw_bytes, width, height, block_size, expected_bits)", "doc": "Extracts a bit string from rawvideo grayscale bytes."}, {"name": "FFmpegPipeline", "kind": "class", "line": "305", "signature": "class FFmpegPipeline", "doc": "Manages FFmpeg subprocess communication without intermediate frame files."}, {"name": "__init__", "kind": "method", "line": "308", "signature": "def __init__(self, config)", "doc": ""}, {"name": "get_video_info", "kind": "method", "line": "311", "signature": "def get_video_info(self, input_path)", "doc": "Retrieves native resolution and metadata from a video file."}, {"name": "_get_video_info_ffprobe", "kind": "method", "line": "327", "signature": "def _get_video_info_ffprobe(self, input_path)", "doc": "Retrieves video metadata via ffprobe (no cv2 dependency)."}, {"name": "get_metadata", "kind": "method", "line": "347", "signature": "def get_metadata(self, input_path)", "doc": "Extracts custom lazyown metadata from a video file using ffprobe."}], "symbolTotal": 79, "community": 0, "communityLabel": "root"}, {"id": "tests/test_security.py", "label": "test_security.py", "title": "\u003cb>test_security.py\u003c/b>\u003cbr>test | testing | py\u003cbr>Unit tests for LazyOwnConfig and SecurityValidator.\u003cbr>symbols: 18 (TestLazyOwnConfig, test_magic_bytes_are_valid, test_protocol_versions_are_distinct, test_default_values_within_bounds, test_header_offsets_are_consistent)", "group": "test", "language": "py", "doc": "Unit tests for LazyOwnConfig and SecurityValidator.", "symbols": [{"name": "TestLazyOwnConfig", "kind": "class", "line": "9", "signature": "class TestLazyOwnConfig", "doc": "Specification: Configuration constants are centralized and immutable."}, {"name": "test_magic_bytes_are_valid", "kind": "method", "line": "12", "signature": "def test_magic_bytes_are_valid(self)", "doc": ""}, {"name": "test_protocol_versions_are_distinct", "kind": "method", "line": "15", "signature": "def test_protocol_versions_are_distinct(self)", "doc": ""}, {"name": "test_default_values_within_bounds", "kind": "method", "line": "18", "signature": "def test_default_values_within_bounds(self)", "doc": ""}, {"name": "test_header_offsets_are_consistent", "kind": "method", "line": "24", "signature": "def test_header_offsets_are_consistent(self)", "doc": ""}, {"name": "test_max_file_size_is_reasonable", "kind": "method", "line": "31", "signature": "def test_max_file_size_is_reasonable(self)", "doc": ""}, {"name": "TestSecurityValidator", "kind": "class", "line": "37", "signature": "class TestSecurityValidator", "doc": "Specification: SecurityValidator prevents path traversal, validates sizes and extensions."}, {"name": "setup", "kind": "method", "line": "41", "signature": "def setup(self)", "doc": ""}, {"name": "test_validate_file_path_resolves_absolute", "kind": "method", "line": "45", "signature": "def test_validate_file_path_resolves_absolute(self)", "doc": ""}, {"name": "test_validate_file_path_rejects_traversal", "kind": "method", "line": "50", "signature": "def test_validate_file_path_rejects_traversal(self)", "doc": ""}, {"name": "test_validate_file_path_must_exist_when_required", "kind": "method", "line": "54", "signature": "def test_validate_file_path_must_exist_when_required(self)", "doc": ""}, {"name": "test_validate_size_rejects_oversized_files", "kind": "method", "line": "58", "signature": "def test_validate_size_rejects_oversized_files(self)", "doc": ""}, {"name": "test_validate_size_accepts_maximum", "kind": "method", "line": "62", "signature": "def test_validate_size_accepts_maximum(self)", "doc": ""}, {"name": "test_sanitize_filename_strips_unsafe_characters", "kind": "method", "line": "65", "signature": "def test_sanitize_filename_strips_unsafe_characters(self)", "doc": ""}, {"name": "test_sanitize_filename_preserves_safe_characters", "kind": "method", "line": "70", "signature": "def test_sanitize_filename_preserves_safe_characters(self)", "doc": ""}, {"name": "test_sanitize_filename_fallback", "kind": "method", "line": "74", "signature": "def test_sanitize_filename_fallback(self)", "doc": ""}, {"name": "test_validate_extension_accepts_allowed", "kind": "method", "line": "77", "signature": "def test_validate_extension_accepts_allowed(self)", "doc": ""}, {"name": "test_validate_extension_rejects_disallowed", "kind": "method", "line": "81", "signature": "def test_validate_extension_rejects_disallowed(self)", "doc": ""}], "symbolTotal": 18, "community": 0, "communityLabel": "root"}, {"id": "tests/test_integration.py", "label": "test_integration.py", "title": "\u003cb>test_integration.py\u003c/b>\u003cbr>test | testing | py\u003cbr>Integration tests for full encode/decode roundtrip and web interface.\u003cbr>symbols: 16 (TestEncodeDecodeRoundtrip, setup, test_secure_protocol_roundtrip, test_legacy_protocol_roundtrip, test_secure_protocol_resilient_to_resolution_change)", "group": "test", "language": "py", "doc": "Integration tests for full encode/decode roundtrip and web interface.", "symbols": [{"name": "TestEncodeDecodeRoundtrip", "kind": "class", "line": "18", "signature": "class TestEncodeDecodeRoundtrip", "doc": "Specification: Files encoded to video and decoded back must be bit-identical."}, {"name": "setup", "kind": "method", "line": "22", "signature": "def setup(self)", "doc": ""}, {"name": "test_secure_protocol_roundtrip", "kind": "method", "line": "26", "signature": "def test_secure_protocol_roundtrip(self)", "doc": ""}, {"name": "test_legacy_protocol_roundtrip", "kind": "method", "line": "44", "signature": "def test_legacy_protocol_roundtrip(self)", "doc": ""}, {"name": "test_secure_protocol_resilient_to_resolution_change", "kind": "method", "line": "62", "signature": "def test_secure_protocol_resilient_to_resolution_change(self)", "doc": ""}, {"name": "test_protocol_auto_detection_prefers_secure", "kind": "method", "line": "83", "signature": "def test_protocol_auto_detection_prefers_secure(self)", "doc": ""}, {"name": "test_empty_file_roundtrip", "kind": "method", "line": "96", "signature": "def test_empty_file_roundtrip(self)", "doc": ""}, {"name": "test_large_file_roundtrip", "kind": "method", "line": "110", "signature": "def test_large_file_roundtrip(self)", "doc": ""}, {"name": "TestWebRunner", "kind": "class", "line": "131", "signature": "class TestWebRunner", "doc": "Specification: Web interface accepts uploads, encodes/decodes, and serves downloads."}, {"name": "setup", "kind": "method", "line": "135", "signature": "def setup(self)", "doc": ""}, {"name": "test_index_get", "kind": "method", "line": "142", "signature": "def test_index_get(self)", "doc": ""}, {"name": "test_encode_upload", "kind": "method", "line": "147", "signature": "def test_encode_upload(self)", "doc": ""}, {"name": "test_decode_upload", "kind": "method", "line": "167", "signature": "def test_decode_upload(self)", "doc": ""}, {"name": "test_security_headers_present", "kind": "method", "line": "193", "signature": "def test_security_headers_present(self)", "doc": ""}, {"name": "test_download_not_found", "kind": "method", "line": "199", "signature": "def test_download_not_found(self)", "doc": ""}, {"name": "test_missing_file_error", "kind": "method", "line": "203", "signature": "def test_missing_file_error(self)", "doc": ""}], "symbolTotal": 16, "community": 0, "communityLabel": "root"}, {"id": "tests/test_frames.py", "label": "test_frames.py", "title": "\u003cb>test_frames.py\u003c/b>\u003cbr>test | testing | py\u003cbr>Unit tests for FrameEncoder and FrameDecoder.\u003cbr>symbols: 13 (TestFrameEncoder, setup, test_bits_to_frames_yields_correct_number_of_frames, test_each_frame_has_correct_dimensions, test_bit_one_produces_white_block)", "group": "test", "language": "py", "doc": "Unit tests for FrameEncoder and FrameDecoder.", "symbols": [{"name": "TestFrameEncoder", "kind": "class", "line": "8", "signature": "class TestFrameEncoder", "doc": "Specification: FrameEncoder converts bit strings into grayscale frames."}, {"name": "setup", "kind": "method", "line": "12", "signature": "def setup(self)", "doc": ""}, {"name": "test_bits_to_frames_yields_correct_number_of_frames", "kind": "method", "line": "16", "signature": "def test_bits_to_frames_yields_correct_number_of_frames(self)", "doc": ""}, {"name": "test_each_frame_has_correct_dimensions", "kind": "method", "line": "28", "signature": "def test_each_frame_has_correct_dimensions(self)", "doc": ""}, {"name": "test_bit_one_produces_white_block", "kind": "method", "line": "33", "signature": "def test_bit_one_produces_white_block(self)", "doc": ""}, {"name": "test_bit_zero_produces_black_block", "kind": "method", "line": "38", "signature": "def test_bit_zero_produces_black_block(self)", "doc": ""}, {"name": "test_padding_zeros_fill_incomplete_frame", "kind": "method", "line": "43", "signature": "def test_padding_zeros_fill_incomplete_frame(self)", "doc": ""}, {"name": "TestFrameDecoder", "kind": "class", "line": "54", "signature": "class TestFrameDecoder", "doc": "Specification: FrameDecoder extracts bit strings from rawvideo grayscale bytes."}, {"name": "setup", "kind": "method", "line": "58", "signature": "def setup(self)", "doc": ""}, {"name": "test_extract_bits_from_empty_raises", "kind": "method", "line": "62", "signature": "def test_extract_bits_from_empty_raises(self)", "doc": ""}, {"name": "test_extract_bits_from_raw_frames_basic", "kind": "method", "line": "66", "signature": "def test_extract_bits_from_raw_frames_basic(self)", "doc": ""}, {"name": "test_extract_bits_respects_expected_bits", "kind": "method", "line": "74", "signature": "def test_extract_bits_respects_expected_bits(self)", "doc": ""}, {"name": "test_extract_bits_from_resized_frame", "kind": "method", "line": "82", "signature": "def test_extract_bits_from_resized_frame(self)", "doc": ""}], "symbolTotal": 13, "community": 0, "communityLabel": "root"}, {"id": "tests/test_protocols.py", "label": "test_protocols.py", "title": "\u003cb>test_protocols.py\u003c/b>\u003cbr>test | testing | py\u003cbr>Unit tests for LegacyProtocolHandler and SecureProtocolHandler.\u003cbr>symbols: 12 (TestLegacyProtocolHandler, setup, test_pack_includes_end_marker, test_unpack_strips_end_marker, test_unpack_with_trailing_zeros)", "group": "test", "language": "py", "doc": "Unit tests for LegacyProtocolHandler and SecureProtocolHandler.", "symbols": [{"name": "TestLegacyProtocolHandler", "kind": "class", "line": "7", "signature": "class TestLegacyProtocolHandler", "doc": "Specification: Legacy v1 protocol packs data with end-marker, unpacks by filename resolution."}, {"name": "setup", "kind": "method", "line": "11", "signature": "def setup(self)", "doc": ""}, {"name": "test_pack_includes_end_marker", "kind": "method", "line": "15", "signature": "def test_pack_includes_end_marker(self)", "doc": ""}, {"name": "test_unpack_strips_end_marker", "kind": "method", "line": "21", "signature": "def test_unpack_strips_end_marker(self)", "doc": ""}, {"name": "test_unpack_with_trailing_zeros", "kind": "method", "line": "27", "signature": "def test_unpack_with_trailing_zeros(self)", "doc": ""}, {"name": "TestSecureProtocolHandler", "kind": "class", "line": "35", "signature": "class TestSecureProtocolHandler", "doc": "Specification: Secure v2 protocol packs data with header, CRC32, and Hamming correction."}, {"name": "setup", "kind": "method", "line": "39", "signature": "def setup(self)", "doc": ""}, {"name": "test_pack_produces_bit_string", "kind": "method", "line": "44", "signature": "def test_pack_produces_bit_string(self)", "doc": ""}, {"name": "test_unpack_recovers_original_data", "kind": "method", "line": "49", "signature": "def test_unpack_recovers_original_data(self)", "doc": ""}, {"name": "test_unpack_detects_corrupted_header", "kind": "method", "line": "55", "signature": "def test_unpack_detects_corrupted_header(self)", "doc": ""}, {"name": "test_unpack_detects_corrupted_payload", "kind": "method", "line": "66", "signature": "def test_unpack_detects_corrupted_payload(self)", "doc": ""}, {"name": "test_roundtrip_various_sizes", "kind": "method", "line": "80", "signature": "def test_roundtrip_various_sizes(self, size)", "doc": ""}], "symbolTotal": 12, "community": 0, "communityLabel": "root"}, {"id": "tests/test_error_correction.py", "label": "test_error_correction.py", "title": "\u003cb>test_error_correction.py\u003c/b>\u003cbr>test | testing | py\u003cbr>Unit tests for ErrorCorrector Hamming(8,4) implementation.\u003cbr>symbols: 10 (TestErrorCorrector, setup, test_encode_data_doubles_length, test_decode_data_reverses_encoding, test_decode_data_with_single_bit_error)", "group": "test", "language": "py", "doc": "Unit tests for ErrorCorrector Hamming(8,4) implementation.", "symbols": [{"name": "TestErrorCorrector", "kind": "class", "line": "7", "signature": "class TestErrorCorrector", "doc": "Specification: ErrorCorrector encodes bytes into Hamming(8,4) and corrects single-bit errors."}, {"name": "setup", "kind": "method", "line": "11", "signature": "def setup(self)", "doc": ""}, {"name": "test_encode_data_doubles_length", "kind": "method", "line": "15", "signature": "def test_encode_data_doubles_length(self)", "doc": ""}, {"name": "test_decode_data_reverses_encoding", "kind": "method", "line": "20", "signature": "def test_decode_data_reverses_encoding(self)", "doc": ""}, {"name": "test_decode_data_with_single_bit_error", "kind": "method", "line": "26", "signature": "def test_decode_data_with_single_bit_error(self)", "doc": ""}, {"name": "test_decode_data_rejects_odd_length", "kind": "method", "line": "33", "signature": "def test_decode_data_rejects_odd_length(self)", "doc": ""}, {"name": "test_encode_nibble_all_values", "kind": "method", "line": "37", "signature": "def test_encode_nibble_all_values(self)", "doc": ""}, {"name": "test_decode_nibble_all_values", "kind": "method", "line": "42", "signature": "def test_decode_nibble_all_values(self)", "doc": ""}, {"name": "test_roundtrip_various_inputs", "kind": "method", "line": "49", "signature": "def test_roundtrip_various_inputs(self, data)", "doc": ""}, {"name": "test_single_bit_error_per_nibble", "kind": "method", "line": "55", "signature": "def test_single_bit_error_per_nibble(self, nibble)", "doc": ""}], "symbolTotal": 10, "community": 0, "communityLabel": "root"}, {"id": "skill_lazyown_infinitestorage/tools.py", "label": "tools.py", "title": "\u003cb>tools.py\u003c/b>\u003cbr>test | testing | py\u003cbr>MCP tools for LazyOwnInfiniteStorage integration.\u003cbr>symbols: 5 (lazyown_infinitestorage_encode, lazyown_infinitestorage_decode, lazyown_infinitestorage_upload_to_youtube, get_tool, list_tools)", "group": "test", "language": "py", "doc": "MCP tools for LazyOwnInfiniteStorage integration.", "symbols": [{"name": "lazyown_infinitestorage_encode", "kind": "function", "line": "34", "signature": "def lazyown_infinitestorage_encode(params)", "doc": "Encode a file into a video using LazyOwnInfiniteStorage."}, {"name": "lazyown_infinitestorage_decode", "kind": "function", "line": "101", "signature": "def lazyown_infinitestorage_decode(params)", "doc": "Decode a video back into the original file using LazyOwnInfiniteStorage."}, {"name": "lazyown_infinitestorage_upload_to_youtube", "kind": "function", "line": "152", "signature": "def lazyown_infinitestorage_upload_to_youtube(params)", "doc": "Upload a video to YouTube using browser automation."}, {"name": "get_tool", "kind": "function", "line": "302", "signature": "def get_tool(name)", "doc": "Get a tool by name."}, {"name": "list_tools", "kind": "function", "line": "306", "signature": "def list_tools()", "doc": "List all available tools."}], "symbolTotal": 5, "community": 0, "communityLabel": "root"}, {"id": "wsgi_app.py", "label": "wsgi_app.py", "title": "\u003cb>wsgi_app.py\u003c/b>\u003cbr>test | testing | py\u003cbr>WSGI entry point for LazyOwnInfiniteStorage web server.\u003cbr>symbols: 1 (get_wsgi_app)", "group": "test", "language": "py", "doc": "WSGI entry point for LazyOwnInfiniteStorage web server.", "symbols": [{"name": "get_wsgi_app", "kind": "function", "line": "7", "signature": "def get_wsgi_app()", "doc": "Factory function returning a gunicorn-compatible Flask application."}], "symbolTotal": 1, "community": 0, "communityLabel": "root"}, {"id": "install.sh", "label": "install.sh", "title": "\u003cb>install.sh\u003c/b>\u003cbr>test | testing | sh\u003cbr>Verificar si Python está instalado\u003cbr>symbols: 0", "group": "test", "language": "sh", "doc": "Verificar si Python está instalado", "symbols": [], "symbolTotal": 0, "community": -1, "communityLabel": ""}]</script>
+<script type="application/json" id="vis-edges">[{"from": "skill_lazyown_infinitestorage/tools.py", "to": "lazyown_infinitestorage.py", "title": "transitions", "dashes": false}, {"from": "tests/test_error_correction.py", "to": "lazyown_infinitestorage.py", "title": "transitions", "dashes": false}, {"from": "tests/test_frames.py", "to": "lazyown_infinitestorage.py", "title": "transitions", "dashes": false}, {"from": "tests/test_integration.py", "to": "lazyown_infinitestorage.py", "title": "transitions", "dashes": false}, {"from": "tests/test_protocols.py", "to": "lazyown_infinitestorage.py", "title": "transitions", "dashes": false}, {"from": "tests/test_security.py", "to": "lazyown_infinitestorage.py", "title": "transitions", "dashes": false}, {"from": "wsgi_app.py", "to": "lazyown_infinitestorage.py", "title": "transitions", "dashes": false}]</script>
+<script type="application/json" id="vis-views">[{"id": "primary-path", "title": "Primary path", "focus": ["lazyown_infinitestorage.py", "tests/test_security.py", "tests/test_integration.py", "tests/test_frames.py", "tests/test_protocols.py", "tests/test_error_correction.py"], "description": "Follow the dominant authored path first."}, {"id": "happy-path", "title": "Happy path", "focus": ["lazyown_infinitestorage.py", "tests/test_protocols.py", "install.sh"], "description": "Trace the shortest authored route end to end."}, {"id": "hub-focus", "title": "Hub focus", "focus": ["skill_lazyown_infinitestorage/tools.py"], "description": "Inspect the most connected authored hub."}, {"id": "side-branches", "title": "Side branches", "focus": ["skill_lazyown_infinitestorage/tools.py", "wsgi_app.py", "install.sh"], "description": "Review supporting detail without losing orientation."}, {"id": "full-map", "title": "Full map", "focus": ["lazyown_infinitestorage.py", "tests/test_security.py", "tests/test_integration.py", "tests/test_frames.py", "tests/test_protocols.py", "tests/test_error_correction.py", "skill_lazyown_infinitestorage/tools.py", "wsgi_app.py", "install.sh"], "description": "Restore the complete authored context."}]</script>
+<script type="application/json" id="vis-meta">{"kind": "lifecycle", "title": "Change Lifecycle", "nodeCount": 9, "edgeCount": 7, "totalFiles": "9", "neighbors": 8, "communities": [{"id": 0, "label": "root", "color": "#22d3ee", "size": 8}], "labelTopN": 25}</script>
+<script type="application/json" id="vis-physics">{"enabled": true, "solver": "forceAtlas2Based", "forceAtlas2Based": {"gravitationalConstant": -90.0, "centralGravity": 0.012, "springLength": 120.0, "springConstant": 0.06, "damping": 0.55, "avoidOverlap": 0.6}, "stabilization": {"iterations": 250}}</script>
+<script type="application/json" id="vis-roles">{"frontend": "#22d3ee", "backend": "#34d399", "database": "#a78bfa", "cloud": "#fbbf24", "security": "#fb7185", "messagebus": "#fb923c", "external": "#94a3b8", "core": "#38bdf8", "test": "#64748b"}</script>
+<script>function readmenatorPayload(id,fallback){
+  var el=document.getElementById(id),text=el?el.textContent:"";
+  if(!text||!text.trim())return Promise.resolve(fallback===undefined?null:fallback);
+  if(el.getAttribute("data-encoding")!=="gzip+base64")return Promise.resolve(JSON.parse(text));
+  if(typeof DecompressionStream==="undefined")return Promise.reject(new Error("This browser cannot decompress the embedded data (DecompressionStream missing). Open the page in a current Chrome, Edge, Firefox or Safari."));
+  var bin=atob(text.replace(/\s+/g,"")),bytes=new Uint8Array(bin.length);
+  for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+  return new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"))).text().then(JSON.parse);
+}
+function readmenatorPayloads(specs){
+  return Promise.all(specs.map(function(spec){return readmenatorPayload(spec[0],spec[1]);}));
+}
+function readmenatorPayloadError(err){
+  var box=document.createElement("pre");box.setAttribute("role","alert");
+  box.style.cssText="position:relative;z-index:9999;margin:24px;padding:16px;border:1px solid #f87171;border-radius:8px;background:#1f1115;color:#fecaca;white-space:pre-wrap";
+  box.textContent="Could not load the embedded data: "+(err&&err.message?err.message:String(err));
+  document.body.insertBefore(box,document.body.firstChild);
+}</script>
+<div class="peek" id="peek" role="tooltip"></div>
+<script>
+readmenatorPayloads([["vis-nodes",[]],["vis-edges",[]],["vis-views",[]],["vis-meta",{}],["vis-physics",{}],["vis-roles",{}]]).then(function(__rmPayload){
+"use strict";
+var rawNodes=__rmPayload[0];
+var rawEdges=__rmPayload[1];
+var views=__rmPayload[2];
+var meta=__rmPayload[3];
+var physics=__rmPayload[4];
+var roleColors=__rmPayload[5];
+var root=document.documentElement;
+var container=document.getElementById("network");
+var search=document.getElementById("search");
+var passportTitle=document.getElementById("passport-title");
+var passportMeta=document.getElementById("passport-meta");
+var journey=document.getElementById("journey");
+var receipt=document.getElementById("receipt");
+var chapters=document.getElementById("chapters");
+var roleCounts=document.getElementById("role-counts");
+var nodeSymbols=document.getElementById("node-symbols");
+var guide=document.getElementById("guide");
+var exportsDialog=document.getElementById("exports");
+var state={focus:null,reach:null,lens:null,view:-1,physicsOn:true,edge:null};
+var reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function themeBox(){return root.getAttribute("data-theme")==="light"?{box:"#ffffff",ink:"#0f172a"}:{box:"#0f172a",ink:"#ffffff"};}
+var communities=meta.communities||[];
+var communityColor={};communities.forEach(function(c){communityColor[c.id]=c.color;});
+state.colorMode=communities.length?"community":"role";
+var degree={};rawNodes.forEach(function(n){degree[n.id]=0;});
+rawEdges.forEach(function(e){if(e.from in degree){degree[e.from]++;}if(e.to in degree){degree[e.to]++;}});
+var ranked=rawNodes.slice().sort(function(a,b){return (degree[b.id]-degree[a.id])||(a.id<b.id?-1:1);});
+var labelled={};ranked.slice(0,meta.labelTopN||25).forEach(function(n){labelled[n.id]=true;});
+function colorFor(n){if(state.colorMode==="community"&&n.community>=0&&communityColor[n.community]){return communityColor[n.community];}return roleColors[n.group]||"#94a3b8";}
+var dimSet=null;
+function paintNodes(){
+var palette=themeBox();
+var update=rawNodes.map(function(n){var dim=dimSet&&!dimSet[n.id];var c=dim?"rgba(100,116,139,0.18)":colorFor(n);
+return {id:n.id,color:{background:c,border:dim?"rgba(100,116,139,0.25)":palette.box,highlight:{background:colorFor(n),border:palette.ink},hover:{background:colorFor(n),border:palette.ink}},
+font:{color:dim?"rgba(148,163,184,0.35)":palette.ink,size:labelled[n.id]||(dimSet&&!dim)?22:14,face:"monospace",strokeWidth:5,strokeColor:palette.box},
+label:(labelled[n.id]||allLabels||(dimSet&&!dim))?n.label:" "};});
+visNodes.update(update);
+if(typeof visEdges!=="undefined"){visEdges.update(rawEdges.map(function(e,index){var on=dimSet&&dimSet[e.from]&&dimSet[e.to];
+return {id:"e"+index,width:on?2.2:1,color:{color:on?"#22d3ee":"#64748b",opacity:dimSet?(on?0.95:0.08):0.28,highlight:"#22d3ee",hover:"#22d3ee",inherit:false}};}));}
+renderLegend();}
+function setDim(allowed){dimSet=allowed;paintNodes();}
+var allLabels=false;
+var visNodes=new vis.DataSet(rawNodes.map(function(n){return {id:n.id,label:labelled[n.id]?n.label:" ",group:n.group,shape:"dot",value:1+degree[n.id]};}));
+function syncLabels(scale){var want=scale>=1.1;if(want===allLabels){return;}allLabels=want;
+visNodes.update(rawNodes.filter(function(n){return !labelled[n.id]&&!(dimSet&&dimSet[n.id]);}).map(function(n){return {id:n.id,label:want?n.label:" "};}));}
+var visEdges=new vis.DataSet(rawEdges.map(function(e,index){return {id:"e"+index,from:e.from,to:e.to,arrows:{to:{enabled:true,scaleFactor:0.45}},dashes:!!e.dashes,smooth:{type:"continuous"},color:{color:"#64748b",opacity:0.28,highlight:"#22d3ee",hover:"#22d3ee",inherit:false},width:1,selectionWidth:2,hoverWidth:1.5};}));
+var network=new vis.Network(container,{nodes:visNodes,edges:visEdges},{
+physics:physics,
+interaction:{hover:true,hoverConnectedEdges:true,selectConnectedEdges:true,navigationButtons:false,keyboard:false,tooltipDelay:120},
+nodes:{shape:"dot",borderWidth:2,scaling:{min:7,max:38,label:{enabled:false}}},
+edges:{smooth:{type:"continuous"}}});
+paintNodes();
+if(reduced&&physics.enabled){try{network.stabilize(50);}catch(e){}}
+function outgoing(id){return rawEdges.filter(function(e){return e.from===id;});}
+function incoming(id){return rawEdges.filter(function(e){return e.to===id;});}
+function nodeById(id){for(var i=0;i<rawNodes.length;i++){if(rawNodes[i].id===id){return rawNodes[i];}}return null;}
+function escapeHtml(text){
+return String(text==null?"":text).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function mk(tag,attrs,text){var e=document.createElement(tag);if(attrs){for(var k in attrs){if(k==="class"){e.className=attrs[k];}else{e.setAttribute(k,attrs[k]);}}}if(text!==undefined&&text!==null){e.textContent=text;}return e;}
+function svgEl(tag,attrs){var e=document.createElementNS("http://www.w3.org/2000/svg",tag);if(attrs){for(var k in attrs){e.setAttribute(k,attrs[k]);}}return e;}
+function clearEl(el){if(el.replaceChildren){el.replaceChildren();}else{while(el.firstChild){el.removeChild(el.firstChild);}}}
+function neighborNames(ids){
+var cap=(meta.neighbors||8);
+return ids.slice().sort().slice(0,cap).map(function(id){var n=nodeById(id);return (n?n.label:id);});}
+var detailHistory=[];
+function uniq(list){var seen={};return list.filter(function(x){if(seen[x]){return false;}seen[x]=true;return true;});}
+function short(text,n){text=String(text||"");return text.length>n?text.slice(0,n-1)+"…":text;}
+function egoSvgEl(node,ins,outs){
+var cap=7,rowH=26,leftL=ins.slice(0,cap),rightL=outs.slice(0,cap);
+var rows=Math.max(1,leftL.length,rightL.length);var h=Math.max(120,rows*rowH+46);var w=288,cx=w/2,cy=h/2+6;
+var svg=svgEl("svg",{class:"ego",viewBox:"0 0 "+w+" "+h,role:"img","aria-label":"Neighbourhood of "+node.label});
+var cap1=svgEl("text",{class:"cap",x:"8",y:"14"});cap1.textContent="USED BY "+ins.length;svg.appendChild(cap1);
+var cap2=svgEl("text",{class:"cap",x:String(w-8),y:"14","text-anchor":"end"});cap2.textContent="IMPORTS "+outs.length;svg.appendChild(cap2);
+function col(list,x,anchor,dir){var top=cy-((list.length-1)*rowH)/2;
+list.forEach(function(id){var n=nodeById(id);var y=top+list.indexOf(id)*rowH;var c=n?colorFor(n):"#94a3b8";
+var yy=top+list.slice(0,list.indexOf(id)).length*rowH;
+var path=svgEl("path",{d:"M"+(dir<0?x+6:cx+16)+" "+(dir<0?yy:cy)+" C"+(cx+(dir<0?-60:60)*0.5)+" "+(dir<0?yy:cy)+" "+(cx+(dir<0?-60:60)*0.5)+" "+(dir<0?cy:yy)+" "+(dir<0?cx-16:x-6)+" "+(dir<0?cy:yy),fill:"none",stroke:c,"stroke-opacity":"0.55","stroke-width":"1.4"});svg.appendChild(path);
+var g=svgEl("g",{"data-node":id});var title=svgEl("title",{});title.textContent=id;g.appendChild(title);
+var circle=svgEl("circle",{cx:String(x),cy:String(yy),r:"6",fill:c,stroke:"var(--canvas)","stroke-width":"2"});g.appendChild(circle);
+var label=svgEl("text",{x:String(anchor==="end"?x-10:x+10),y:String(yy+3.5),"text-anchor":anchor});var nn=nodeById(id);label.textContent=short(nn?nn.label:id,12);g.appendChild(label);svg.appendChild(g);});}
+col(leftL,94,"end",-1);col(rightL,w-94,"start",1);
+if(ins.length>cap){var m1=svgEl("text",{class:"cap",x:"8",y:String(h-6)});m1.textContent="+"+(ins.length-cap)+" more";svg.appendChild(m1);}
+if(outs.length>cap){var m2=svgEl("text",{class:"cap",x:String(w-8),y:String(h-6),"text-anchor":"end"});m2.textContent="+"+(outs.length-cap)+" more";svg.appendChild(m2);}
+var hub=svgEl("circle",{cx:String(cx),cy:String(cy),r:"14",fill:colorFor(node),stroke:"#22d3ee","stroke-width":"2.5"});svg.appendChild(hub);
+var hubLabel=svgEl("text",{x:String(cx),y:String(cy-22),"text-anchor":"middle",style:"font-weight:700"});hubLabel.textContent=short(node.label,18);svg.appendChild(hubLabel);
+return svg;}
+function nbButtonEl(id,meta){var n=nodeById(id);if(!n){return null;}var b=mk("button",{type:"button",class:"nb","data-node":id,title:(n.file||n.label)});var dot=mk("i",{});dot.style.background=colorOf(n);b.appendChild(dot);var nm=mk("span",{},n.label);b.appendChild(nm);if(meta){var em=mk("em",{},meta);b.appendChild(em);}return b;}
+function chipListEl(ids){
+var cap=(meta.neighbors||8)*3;
+var wrap=mk("div",{class:"nbs"});
+ids.slice(0,cap).forEach(function(id){var n=nodeById(id);var b=mk("button",{type:"button","data-goto":id,title:id});var dot=mk("i",{});dot.style.background=(n?colorFor(n):"#94a3b8");b.appendChild(dot);b.appendChild(mk("span",{},(n?n.label:id)));wrap.appendChild(b);});
+if(ids.length>cap){wrap.appendChild(mk("span",{class:"sublabel"},"+"+(ids.length-cap)+" more"));}
+return wrap;}
+function renderNodeDetail(node){
+if(!nodeSymbols){return;}
+clearEl(nodeSymbols);
+var ins=uniq(incoming(node.id).map(function(e){return e.from;})).sort(function(a,b){return degree[b]-degree[a]||(a<b?-1:1);});
+var outs=uniq(outgoing(node.id).map(function(e){return e.to;})).sort(function(a,b){return degree[b]-degree[a]||(a<b?-1:1);});
+var rank=ranked.indexOf(node)+1;
+var nav=mk("div",{class:"detail-nav"});
+var back=mk("button",{type:"button","data-detail":"back",title:"Previous node (Backspace)"},"← Back");if(!detailHistory.length){back.disabled=true;}nav.appendChild(back);
+nav.appendChild(mk("button",{type:"button","data-detail":"fit",title:"Zoom to this neighbourhood"},"Fit"));
+nav.appendChild(mk("button",{type:"button","data-detail":"clear",title:"Clear focus (Esc)"},"Clear"));
+nodeSymbols.appendChild(nav);
+if(node.communityLabel){var cw=mk("div",{class:"nbs"});var cb=mk("button",{type:"button","data-community":String(node.community),title:"Isolate this community"});var ci=mk("i",{});ci.style.background=(communityColor[node.community]||"#94a3b8");cb.appendChild(ci);cb.appendChild(mk("span",{},node.communityLabel));cw.appendChild(cb);nodeSymbols.appendChild(cw);}
+var tiles=mk("div",{class:"tiles"});
+[[String(node.symbolTotal||0),"symbols"],[String(ins.length),"used by"],[String(outs.length),"imports"],["#"+rank,"by links"]].forEach(function(pair){var t=mk("div",{class:"tile"});t.appendChild(mk("b",{},pair[0]));t.appendChild(mk("span",{},pair[1]));tiles.appendChild(t);});
+nodeSymbols.appendChild(tiles);
+if(node.doc){var doc=mk("p",{class:"filedoc clamp",title:"Click to expand","data-clamp":"1"},node.doc);nodeSymbols.appendChild(doc);}
+nodeSymbols.appendChild(egoSvgEl(node,ins,outs));
+function sublist(title,ids){if(!ids.length){return;}nodeSymbols.appendChild(mk("div",{class:"sublabel"},title));nodeSymbols.appendChild(chipListEl(ids));}
+sublist("Used by",ins);sublist("Imports",outs);
+var symbols=node.symbols||[];
+if(symbols.length){
+nodeSymbols.appendChild(mk("div",{class:"sublabel"},"Symbols"));
+var filter=mk("input",{class:"symfilter",id:"symfilter",type:"search",placeholder:"filter symbols","aria-label":"Filter symbols"});nodeSymbols.appendChild(filter);
+var table=mk("table",{});var thead=mk("thead",{});var hr=mk("tr",{});hr.appendChild(mk("th",{},"Symbol"));hr.appendChild(mk("th",{},"Kind"));hr.appendChild(mk("th",{},"Line"));thead.appendChild(hr);table.appendChild(thead);
+var tbody=mk("tbody",{id:"symrows"});
+symbols.forEach(function(s){
+var tr=mk("tr",{});
+tr.setAttribute("data-name",String(s.name).toLowerCase());
+var td=mk("td",{});var wrap2=mk("span",{});
+if(s.doc){wrap2.setAttribute("title",s.doc);}
+wrap2.appendChild(mk("b",{},s.name));td.appendChild(wrap2);
+if(s.signature){td.appendChild(mk("code",{},s.signature));}
+if(s.doc){var dd=mk("div",{class:"filedoc"},"");dd.style.margin="2px 0 0";dd.textContent=s.doc;td.appendChild(dd);}
+tr.appendChild(td);tr.appendChild(mk("td",{},s.kind));tr.appendChild(mk("td",{},s.line));tbody.appendChild(tr);});
+table.appendChild(tbody);nodeSymbols.appendChild(table);
+var hidden=(node.symbolTotal||symbols.length)-symbols.length;
+if(hidden>0){nodeSymbols.appendChild(mk("p",{class:"filedoc"},"+"+hidden+" more symbols in source."));}
+filter.addEventListener("input",function(){var q=filter.value.trim().toLowerCase();nodeSymbols.querySelectorAll("#symrows tr").forEach(function(tr){tr.style.display=!q||tr.getAttribute("data-name").indexOf(q)>=0?"":"none";});});
+}
+else{nodeSymbols.appendChild(mk("p",{class:"filedoc"},"No symbols extracted."));}}
+function clearNodeDetail(){
+if(nodeSymbols){clearEl(nodeSymbols);}
+passportTitle.textContent="Diagram guide";}
+function clearNodeDetailSilent(){
+if(nodeSymbols){clearEl(nodeSymbols);}}
+function bfsReach(start,direction){
+var seen={};seen[start]=0;var queue=[start];var order=[start];
+while(queue.length){var current=queue.shift();var nexts=direction==="downstream"?outgoing(current):incoming(current);
+for(var i=0;i<nexts.length;i++){var nid=direction==="downstream"?nexts[i].to:nexts[i].from;
+if(!(nid in seen)){seen[nid]=seen[current]+1;queue.push(nid);order.push(nid);}}}
+return {members:order,hops:seen};}
+function bfsRoute(from,to){
+if(from===to){return [from];}
+var prev={};var seen={};seen[from]=true;var queue=[from];
+while(queue.length){var current=queue.shift();var nexts=outgoing(current);
+for(var i=0;i<nexts.length;i++){var nid=nexts[i].to;
+if(!(nid in seen)){seen[nid]=true;prev[nid]=current;
+if(nid===to){var path=[to];var c=to;while(c!==from){c=prev[c];path.unshift(c);}return path;}
+queue.push(nid);}}}
+return [];}
+function showOnly(allowed){
+var nodeUpdate=rawNodes.map(function(n){return {id:n.id,hidden:!allowed[n.id]};});
+visNodes.update(nodeUpdate);
+var edgeUpdate=rawEdges.map(function(e,index){return {id:"e"+index,hidden:!(allowed[e.from]&&allowed[e.to])};});
+visEdges.update(edgeUpdate);}
+function showAll(){
+var pp=document.querySelector(".passport");if(pp){pp.classList.remove("focused");}
+if(dimSet){dimSet=null;paintNodes();}
+var nodeUpdate=rawNodes.map(function(n){return {id:n.id,hidden:false};});
+visNodes.update(nodeUpdate);
+var edgeUpdate=rawEdges.map(function(e,index){return {id:"e"+index,hidden:false};});
+visEdges.update(edgeUpdate);}
+function setHash(value){try{history.replaceState(null,"",value);}catch(e){location.hash=value;}}
+function focusNode(id,reach,fromHistory){
+var node=nodeById(id);if(!node){return;}
+if(state.focus&&state.focus!==id&&!fromHistory){detailHistory.push(state.focus);}
+state.focus=id;state.reach=reach||null;state.edge=null;
+var allowed={};allowed[id]=true;
+if(state.reach){var found=bfsReach(id,state.reach);found.members.forEach(function(m){allowed[m]=true;});
+var hops=0;for(var k in found.hops){if(found.hops[k]>hops){hops=found.hops[k];}}
+receipt.textContent=(state.reach==="downstream"?"Downstream":"Upstream")+" reach: "+found.members.length+" nodes, "+hops+" max hops. Authored relationships only.";}
+else{receipt.textContent="In: "+incoming(id).length+" | Out: "+outgoing(id).length+" | Views: "+views.length;
+incoming(id).forEach(function(e){allowed[e.from]=true;});outgoing(id).forEach(function(e){allowed[e.to]=true;});}
+if(state.reach){setDim(null);showOnly(allowed);}else{showAll();setDim(allowed);}
+document.querySelector(".passport").classList.add("focused");
+network.selectNodes([id]);
+try{network.fit({nodes:Object.keys(allowed),animation:reduced?false:{duration:600,easingFunction:"easeInOutQuad"}});}catch(e){}
+setTimeout(function(){if(state.focus===id&&dimSet){try{network.fit({nodes:Object.keys(dimSet),animation:reduced?false:{duration:500}});}catch(e){}}},1600);
+passportTitle.textContent=node.label;
+passportMeta.textContent=node.id+" | role "+node.group+" | "+(node.language||"")+" | "+(node.symbolTotal||0)+" symbols";
+renderNodeDetail(node);
+var hash="#focus="+encodeURIComponent(id);
+if(state.reach){hash+="&reach="+state.reach;}
+setHash(hash);}
+function relText(t){var names={resolved_imports:"imports",imports:"imports",calls:"calls into",inherits:"inherits from"};return names[t]||String(t||"links to").replace(/_/g," ");}
+function edgeByVisId(eid){var i=parseInt(String(eid).slice(1),10);return isNaN(i)||!rawEdges[i]?null:{index:i,edge:rawEdges[i]};}
+function isMutual(e){return rawEdges.some(function(x){return x.from===e.to&&x.to===e.from;});}
+function edgeIdFor(from,to){for(var i=0;i<rawEdges.length;i++){if(rawEdges[i].from===from&&rawEdges[i].to===to){return "e"+i;}}return null;}
+function focusEdge(eid){
+var hit=edgeByVisId(eid);if(!hit){return;}var e=hit.edge,a=nodeById(e.from),b=nodeById(e.to);if(!a||!b){return;}
+if(state.focus){detailHistory.push(state.focus);}
+state.focus=null;state.reach=null;state.edge=eid;
+var allowed={};allowed[e.from]=true;allowed[e.to]=true;showAll();setDim(allowed);
+document.querySelector(".passport").classList.add("focused");
+try{network.selectEdges([eid]);}catch(x){}
+try{network.fit({nodes:[e.from,e.to],animation:reduced?false:{duration:600,easingFunction:"easeInOutQuad"}});}catch(x){}
+passportTitle.textContent=a.label+" -> "+b.label;
+passportMeta.textContent="link | "+relText(e.title)+" | "+a.group+" -> "+b.group;
+receipt.textContent="Link focus: "+a.label+" -> "+b.label+". Click an endpoint to walk on.";
+renderEdgeDetail(e);
+setHash("#edge="+encodeURIComponent(e.from)+"~"+encodeURIComponent(e.to));}
+function renderEdgeDetail(e){
+if(!nodeSymbols){return;}clearEl(nodeSymbols);
+var a=nodeById(e.from),b=nodeById(e.to);
+var nav=mk("div",{class:"detail-nav"});
+var back=mk("button",{type:"button","data-detail":"back",title:"Previous node (Backspace)"},"Back");if(!detailHistory.length){back.disabled=true;}nav.appendChild(back);
+nav.appendChild(mk("button",{type:"button","data-detail":"fitedge",title:"Zoom to both ends"},"Fit"));
+nav.appendChild(mk("button",{type:"button","data-detail":"edgehood",title:"Highlight everything linked to either end"},"Both neighbourhoods"));
+nav.appendChild(mk("button",{type:"button","data-detail":"clear",title:"Clear focus (Esc)"},"Clear"));
+nodeSymbols.appendChild(nav);
+var sentence=mk("p",{class:"filedoc"});sentence.appendChild(mk("b",{},a.label));sentence.appendChild(document.createTextNode(" "+relText(e.title)+" "));sentence.appendChild(mk("b",{},b.label));sentence.appendChild(document.createTextNode("."));nodeSymbols.appendChild(sentence);
+nodeSymbols.appendChild(mk("div",{class:"sublabel"},"Endpoints"));nodeSymbols.appendChild(chipListEl([e.from,e.to]));
+var notes=[];
+if(isMutual(e)){notes.push(["bad","Mutual dependency: "+b.label+" also links back to "+a.label+". Two nodes that need each other form the smallest possible cycle."]);}
+if(a.community!==b.community&&a.communityLabel&&b.communityLabel){notes.push(["","Bridges communities "+a.communityLabel+" and "+b.communityLabel+". Bridges are where responsibilities leak between modules."]);}
+if(a.group!==b.group){notes.push(["","Crosses roles: "+a.group+" -> "+b.group+"."]);}
+if(notes.length){nodeSymbols.appendChild(mk("div",{class:"sublabel"},"Insights"));notes.forEach(function(n){nodeSymbols.appendChild(mk("p",{class:"insight"+(n[0]?" "+n[0]:"")},n[1]));});}
+var others=rawEdges.filter(function(x){return x!==e&&((x.from===e.from&&x.to===e.to)||(x.from===e.to&&x.to===e.from));});
+if(others.length){nodeSymbols.appendChild(mk("div",{class:"sublabel"},"Other links between them"));var w=mk("div",{class:"nbs"});others.forEach(function(x){var id=edgeIdFor(x.from,x.to);var bt=mk("button",{type:"button","data-edge":id||"",title:"Inspect this link"},(x.from===e.from?"-> ":"<- ")+relText(x.title));w.appendChild(bt);});nodeSymbols.appendChild(w);}}
+function probeRoute(){
+var from=document.getElementById("route-from").value.trim();
+var to=document.getElementById("route-to").value.trim();
+if(!from||!to){return;}
+var path=bfsRoute(from,to);
+if(!path.length){journey.textContent="No authored directed route from "+from+" to "+to+".";receipt.textContent="Route probe: 0 links.";return;}
+var allowed={};path.forEach(function(n){allowed[n]=true;});
+showOnly(allowed);
+network.selectNodes(path);
+try{network.fit({nodes:path,animation:reduced?false:{duration:600}});}catch(e){}
+var names=path.map(function(n){var node=nodeById(n);return node?node.label:n;});
+journey.textContent="Journey: "+names.join(" -> ")+" ("+(path.length-1)+" hops).";
+receipt.textContent="Route probe: "+path.length+" nodes, "+(path.length-1)+" links.";
+setHash("#route="+encodeURIComponent(from)+"~"+encodeURIComponent(to));}
+function applyLens(role){
+state.lens=role;
+if(!role){showAll();clearNodeDetail();receipt.textContent="Lens cleared.";setHash("#");return;}
+var counts={};rawNodes.forEach(function(n){counts[n.group]=(counts[n.group]||0)+1;});
+var allowed={};rawNodes.forEach(function(n){if(n.group===role){allowed[n.id]=true;}});
+showOnly(allowed);
+var parts=[];for(var k in counts){parts.push(k+": "+counts[k]);}
+receipt.textContent="Lens "+role+": "+(counts[role]||0)+" of "+rawNodes.length+" nodes. "+parts.join(" | ");
+setHash("#lens="+encodeURIComponent(role));}
+function showView(index){
+if(!views.length){return;}
+state.view=(index+views.length)%views.length;
+var view=views[state.view];
+chapters.querySelectorAll("button").forEach(function(b,i){b.disabled=(i===state.view);});
+passportTitle.textContent=view.title;
+passportMeta.textContent=view.description||"";
+clearNodeDetailSilent();
+if(!view.focus.length){showAll();}
+else{var allowed={};view.focus.forEach(function(n){allowed[n]=true;});showOnly(allowed);network.selectNodes(view.focus);}
+journey.textContent=view.focus.length?("Chapter focus: "+view.focus.join(", ")):"";
+receipt.textContent="Chapter "+(state.view+1)+" of "+views.length+".";
+setHash("#view="+encodeURIComponent(view.id));}
+function renderChapters(){
+clearEl(chapters);
+views.forEach(function(view,index){var b=document.createElement("button");b.type="button";b.textContent=view.title;b.setAttribute("aria-label","Show chapter "+view.title);b.setAttribute("title","Focus the "+view.title+" chapter");b.addEventListener("click",function(){showView(index);});chapters.appendChild(b);});}
+function renderLegend(){
+if(!roleCounts){return;}
+clearEl(roleCounts);
+var title=document.createElement("div");title.className="legend-title";
+title.textContent=state.colorMode==="community"?"Communities (click to isolate)":"Roles (click to isolate)";roleCounts.appendChild(title);
+var items=[];
+if(state.colorMode==="community"){communities.forEach(function(c){items.push({key:"c"+c.id,label:c.label,color:c.color,count:c.size,pick:function(){isolateCommunity(c.id,c.label);}});});}
+else{var counts={};rawNodes.forEach(function(n){counts[n.group]=(counts[n.group]||0)+1;});
+Object.keys(counts).sort().forEach(function(role){items.push({key:role,label:role,color:roleColors[role]||"#94a3b8",count:counts[role],pick:function(){applyLens(role);}});});}
+items.forEach(function(item){var b=document.createElement("button");b.type="button";b.className="legend-item";
+var sw=document.createElement("span");sw.className="swatch";sw.style.background=item.color;b.appendChild(sw);
+var tx=document.createElement("span");tx.textContent=item.label+" ("+item.count+")";b.appendChild(tx);
+b.setAttribute("title","Show only "+item.label);b.addEventListener("click",item.pick);roleCounts.appendChild(b);});}
+function isolateCommunity(cid,label){
+var allowed={};var count=0;rawNodes.forEach(function(n){if(n.community===cid){allowed[n.id]=true;count++;}});
+showOnly(allowed);try{network.fit({nodes:Object.keys(allowed),animation:reduced?false:{duration:600}});}catch(e){}
+receipt.textContent="Community "+label+": "+count+" of "+rawNodes.length+" nodes. Press Esc or Show all to reset.";
+setHash("#community="+cid);}
+function toggleColorMode(){state.colorMode=state.colorMode==="community"?"role":"community";if(!communities.length){state.colorMode="role";}paintNodes();}
+function renderRoleCounts(){renderLegend();return;
+var counts={};rawNodes.forEach(function(n){counts[n.group]=(counts[n.group]||0)+1;});
+clearEl(roleCounts);
+Object.keys(counts).sort().forEach(function(role){var s=document.createElement("button");s.type="button";s.className="chip";s.textContent=role+": "+counts[role];s.setAttribute("aria-label","Filter role "+role);s.setAttribute("title","Highlight the "+role+" role");s.addEventListener("click",function(){applyLens(role);});roleCounts.appendChild(s);});}
+function cyclePreset(){
+var presets=["classic","flow","blueprint","editorial"];
+var current=root.getAttribute("data-preset")||"classic";
+root.setAttribute("data-preset",presets[(presets.indexOf(current)+1)%presets.length]);}
+function toggleTheme(){
+var current=root.getAttribute("data-theme")||"dark";
+root.setAttribute("data-theme",current==="dark"?"light":"dark");
+paintNodes();}
+function togglePhysics(){
+state.physicsOn=!state.physicsOn;
+try{network.setOptions({physics:{enabled:state.physicsOn}});}catch(e){}
+receipt.textContent=state.physicsOn?"Physics resumed.":"Physics frozen; nodes stay draggable.";}
+function exportPNG(){
+try{
+var link=document.createElement("a");
+link.href=network.canvas.frame.canvas.toDataURL("image/png");
+link.download="system-map-"+(meta.kind||"map")+".png";
+document.body.appendChild(link);link.click();
+setTimeout(function(){link.remove();},400);
+receipt.textContent="PNG snapshot downloaded.";
+}catch(e){receipt.textContent="PNG export unavailable in this browser.";}}
+function exportJSON(){
+var payload={kind:meta.kind,title:meta.title,nodes:rawNodes,edges:rawEdges,views:views};
+var blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+var link=document.createElement("a");link.href=URL.createObjectURL(blob);link.download="system-map-"+(meta.kind||"map")+".json";document.body.appendChild(link);link.click();
+setTimeout(function(){URL.revokeObjectURL(link.href);link.remove();},400);}
+function readHash(){
+var hash=location.hash||"";
+if(hash.indexOf("#route=")===0){var parts=hash.slice(7).split("~");if(parts.length===2){document.getElementById("route-from").value=decodeURIComponent(parts[0]);document.getElementById("route-to").value=decodeURIComponent(parts[1]);probeRoute();}return;}
+if(hash.indexOf("#lens=")===0){applyLens(decodeURIComponent(hash.slice(6)));return;}
+if(hash.indexOf("#community=")===0){var cid=parseInt(hash.slice(11),10);communities.forEach(function(c){if(c.id===cid){isolateCommunity(c.id,c.label);}});return;}
+if(hash.indexOf("#view=")===0){var id=decodeURIComponent(hash.slice(6));for(var i=0;i<views.length;i++){if(views[i].id===id){showView(i);return;}}return;}
+if(hash.indexOf("#edge=")===0){var ends=hash.slice(6).split("~");if(ends.length===2){var eid=edgeIdFor(decodeURIComponent(ends[0]),decodeURIComponent(ends[1]));if(eid){focusEdge(eid);}}return;}
+if(hash.indexOf("#focus=")===0){var rest=hash.slice(7).split("&reach=");focusNode(decodeURIComponent(rest[0]),rest[1]?decodeURIComponent(rest[1]):null);return;}}
+network.on("click",function(params){
+if(params.nodes.length>0){focusNode(params.nodes[0]);}
+else if(params.edges.length>0){focusEdge(params.edges[0]);}
+else if((state.focus&&!state.reach)||state.edge){showAll();state.focus=null;state.edge=null;clearNodeDetail();setHash("#");}});
+var peek=document.getElementById("peek");
+network.on("hoverNode",function(params){
+var n=nodeById(params.node);if(!n||!peek){return;}
+var ins=incoming(n.id).length,outs=outgoing(n.id).length;
+clearEl(peek);
+var head=mk("b",{});var sw=mk("span",{class:"sw"});sw.style.background=colorFor(n);head.appendChild(sw);head.appendChild(mk("span",{},n.label));peek.appendChild(head);
+peek.appendChild(mk("div",{class:"m"},n.id));
+peek.appendChild(mk("div",{},(n.symbolTotal||0)+" symbols · used by "+ins+" · imports "+outs));
+peek.appendChild(mk("div",{class:"m"},(n.communityLabel?n.communityLabel+" · "+n.group:n.group)));
+if(n.doc){var pd=mk("div",{},short(n.doc,220));pd.style.marginTop="4px";peek.appendChild(pd);}
+var syms=(n.symbols||[]).slice(0,4);
+if(syms.length){var ul=mk("ul",{});syms.forEach(function(s){var li=mk("li",{});li.appendChild(mk("span",{},s.kind+" "));li.appendChild(mk("b",{},s.name));li.appendChild(mk("span",{}," L"+s.line));ul.appendChild(li);});peek.appendChild(ul);}
+var hint=mk("div",{class:"m"},"click to open passport");hint.style.marginTop="4px";peek.appendChild(hint);
+placePeek(params);});
+function placePeek(params){
+var p=params.event&&params.event.center?params.event.center:{x:params.pointer.DOM.x+container.getBoundingClientRect().left,y:params.pointer.DOM.y+container.getBoundingClientRect().top};
+peek.style.display="block";
+var left=Math.min(window.innerWidth-peek.offsetWidth-12,p.x+16),top=Math.min(window.innerHeight-peek.offsetHeight-12,p.y+16);
+peek.style.left=Math.max(8,left)+"px";peek.style.top=Math.max(8,top)+"px";}
+network.on("hoverEdge",function(params){
+var hit=edgeByVisId(params.edge);if(!hit||!peek){return;}
+var e=hit.edge,a=nodeById(e.from),b=nodeById(e.to);if(!a||!b){return;}
+clearEl(peek);
+var head=mk("div",{});head.appendChild(mk("b",{},a.label));head.appendChild(mk("span",{class:"m"}," "+relText(e.title)+" "));head.appendChild(mk("b",{},b.label));peek.appendChild(head);
+if(isMutual(e)){peek.appendChild(mk("div",{class:"warn"},"mutual dependency"));}
+peek.appendChild(mk("div",{class:"m"},a.group+" -> "+b.group+(a.community!==b.community&&a.communityLabel&&b.communityLabel?" | bridges communities":"")));
+var eh=mk("div",{class:"m"},"click to inspect the link");eh.style.marginTop="4px";peek.appendChild(eh);
+placePeek(params);});
+network.on("blurEdge",function(){if(peek){peek.style.display="none";}});
+network.on("blurNode",function(){if(peek){peek.style.display="none";}});
+network.on("dragStart",function(){if(peek){peek.style.display="none";}});
+nodeSymbols.addEventListener("click",function(ev){
+var clamp=ev.target.closest?ev.target.closest("[data-clamp]"):null;if(clamp){clamp.classList.toggle("clamp");return;}
+var t=ev.target.closest?ev.target.closest("[data-goto],[data-node],[data-detail],[data-community],[data-edge]"):null;if(!t){return;}
+var go=t.getAttribute("data-goto")||t.getAttribute("data-node");
+if(go){focusNode(go);return;}
+var eg=t.getAttribute("data-edge");if(eg){focusEdge(eg);return;}
+var cid=t.getAttribute("data-community");
+if(cid!==null){communities.forEach(function(c){if(String(c.id)===cid){isolateCommunity(c.id,c.label);}});return;}
+var act=t.getAttribute("data-detail");
+if(act==="back"){var prev=detailHistory.pop();if(prev){focusNode(prev,null,true);}}
+else if(act==="fit"){var ids=[state.focus];incoming(state.focus).forEach(function(e){ids.push(e.from);});outgoing(state.focus).forEach(function(e){ids.push(e.to);});try{network.fit({nodes:ids,animation:reduced?false:{duration:500}});}catch(e){}}
+else if(act==="clear"){showAll();state.focus=null;state.edge=null;detailHistory=[];clearNodeDetail();setHash("#");}
+else if(act==="fitedge"&&state.edge){var fe=edgeByVisId(state.edge);if(fe){try{network.fit({nodes:[fe.edge.from,fe.edge.to],animation:reduced?false:{duration:500}});}catch(e){}}}
+else if(act==="edgehood"&&state.edge){var he=edgeByVisId(state.edge);if(he){var hood={};[he.edge.from,he.edge.to].forEach(function(id){hood[id]=true;incoming(id).forEach(function(x){hood[x.from]=true;});outgoing(id).forEach(function(x){hood[x.to]=true;});});setDim(hood);try{network.fit({nodes:Object.keys(hood),animation:reduced?false:{duration:500}});}catch(e){}}}});
+network.on("zoom",function(p){syncLabels(p.scale);});
+network.on("stabilized",function(){receipt.textContent="Physics stabilized: "+rawNodes.length+" nodes placed.";
+if(state.focus&&dimSet){try{network.fit({nodes:Object.keys(dimSet),animation:reduced?false:{duration:500}});}catch(e){}}});
+document.querySelectorAll("[data-action]").forEach(function(btn){
+btn.addEventListener("click",function(){
+var action=btn.getAttribute("data-action");
+if(action==="reach-up"&&state.focus){focusNode(state.focus,"upstream");}
+else if(action==="reach-down"&&state.focus){focusNode(state.focus,"downstream");}
+else if(action==="route"){probeRoute();}
+else if(action==="lens"){applyLens(state.lens?null:"backend");}
+else if(action==="color"){toggleColorMode();}
+else if(action==="show-all"){showAll();state.focus=null;try{network.fit({animation:reduced?false:{duration:500}});}catch(e){}receipt.textContent="Showing all "+rawNodes.length+" nodes.";setHash("#");}
+else if(action==="views-prev"){showView(state.view-1);}
+else if(action==="views-next"){showView(state.view+1);}
+else if(action==="play"){var i=0;var step=function(){if(i>=views.length){return;}showView(i);i++;if(!reduced){setTimeout(step,1400);}};step();}
+else if(action==="stabilize"){try{network.stabilize();}catch(e){}receipt.textContent="Stabilizing physics...";}
+else if(action==="physics"){togglePhysics();}
+else if(action==="present"){document.body.classList.toggle("present");}
+else if(action==="style"){cyclePreset();}
+else if(action==="theme"){toggleTheme();}
+else if(action==="export"){if(typeof exportsDialog.showModal==="function"){exportsDialog.showModal();}}
+else if(action==="help"){if(typeof guide.showModal==="function"){guide.showModal();}}
+else if(action==="close-guide"){guide.close();}
+else if(action==="close-exports"){exportsDialog.close();}
+else if(action==="export-png"){exportPNG();}
+else if(action==="export-json"){exportJSON();}});});
+search.addEventListener("input",function(){
+var term=search.value.trim().toLowerCase();
+if(!term){showAll();return;}
+var allowed={};rawNodes.forEach(function(n){
+if(n.label.toLowerCase().indexOf(term)>=0||n.id.toLowerCase().indexOf(term)>=0){allowed[n.id]=true;}});
+showOnly(allowed);});
+document.addEventListener("keydown",function(ev){
+if(ev.target&&(ev.target.tagName==="INPUT"||ev.target.tagName==="TEXTAREA")){return;}
+if(ev.key==="/"){ev.preventDefault();search.focus();}
+else if(ev.key==="R"||ev.key==="r"){var f=document.getElementById("route-from");if(f){f.focus();}}
+else if(ev.key==="L"||ev.key==="l"){applyLens(state.lens?null:"backend");}
+else if(ev.key==="P"||ev.key==="p"){showView(state.view+1);}
+else if(ev.key==="["){showView(state.view-1);}
+else if(ev.key==="]"){showView(state.view+1);}
+else if(ev.key==="B"||ev.key==="b"){togglePhysics();}
+else if(ev.key==="F"||ev.key==="f"){document.body.classList.toggle("present");}
+else if(ev.key==="S"||ev.key==="s"){cyclePreset();}
+else if(ev.key==="T"||ev.key==="t"){toggleTheme();}
+else if(ev.key==="E"||ev.key==="e"){if(typeof exportsDialog.showModal==="function"){exportsDialog.showModal();}}
+else if(ev.key==="?"){if(typeof guide.showModal==="function"){guide.showModal();}}
+else if(ev.key==="+"){try{network.zoomIn();}catch(e){}}
+else if(ev.key==="-"){try{network.zoomOut();}catch(e){}}
+else if(ev.key==="0"){try{network.fit();}catch(e){}}
+else if(ev.key==="C"||ev.key==="c"){toggleColorMode();}
+else if(ev.key==="Backspace"){var prev=detailHistory.pop();if(prev){ev.preventDefault();focusNode(prev,null,true);}}
+else if(ev.key==="Escape"){showAll();state.focus=null;state.edge=null;detailHistory=[];clearNodeDetail();setHash("#");}});
+passportMeta.textContent=(meta.nodeCount||rawNodes.length)+" of "+(meta.totalFiles||rawNodes.length)+" files | "+(meta.edgeCount||rawEdges.length)+" links | "+views.length+" chapters. Primary scope only; full listing lives in the knowledge base.";
+receipt.textContent="Live physics network. Drag nodes, search, focus, trace reach, probe routes, compare roles, or play chapters.";
+renderChapters();renderRoleCounts();readHash();
+},readmenatorPayloadError);
+</script>
+</body>
+</html>

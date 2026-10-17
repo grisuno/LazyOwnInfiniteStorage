@@ -1,0 +1,11 @@
+{
+  "install.sh": "3399bf4ab50bbb238d426421400ba170a27c747166f6c7b928e6832b38ee7225",
+  "lazyown_infinitestorage.py": "16d5baaadcbadb1c23f6b0d6096ff4672805c23d8c0d5f384fc3bcd41dd66e1d",
+  "skill_lazyown_infinitestorage/tools.py": "c43f96163e9e08bffe2a2c4932568a574526764d531e0634caa8141872aedafc",
+  "tests/test_error_correction.py": "ca9b8ab4396d6b2f8282616906472e6cb561bfdfb551d627900b7f02a2ca33a7",
+  "tests/test_frames.py": "7973fe530c61bc7a8015f92e91e1016d36f9ec8b2a890ea1c4303aefe530ea51",
+  "tests/test_integration.py": "bc868825913732adf56cf64caea67fb69490a1eadfd05cb0b6f261ab4e148038",
+  "tests/test_protocols.py": "a3afee477a6b0cdace36520a83d5ecc1fc6fc8157298e8ef888b786c5b57e4fb",
+  "tests/test_security.py": "c97a37812bed0f8b71e91f6ca3ef25fa28b1bfd513eda3a5ed29fb6059527f3e",
+  "wsgi_app.py": "8f3586f7c98bd19f1f5cfd9a20416292b2cbf4b02a78a5b63ad01036a546d928"
+}

@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LazyOwnInfiniteStorage: architecture and execution flows</title>
+<style>
+:root{--bg:#0b0f17;--panel:#111827;--panel2:#0f172a;--line:#1f2937;--text:#e5e7eb;--muted:#94a3b8;--accent:#22d3ee;--accent2:#38bdf8;--bad:#f87171;--good:#34d399;--chip:#1e293b;--fv-box:#111c2e;--fv-entry:#0b3a4a;--fv-ext:#1d1838;--fv-cycle:#2a1630;--fv-dec:#1e1b4b;--fv-stop:#3f1d1d;--fv-hub:#0b3b2e;--fv-purple:#a78bfa;--fv-pink:#f472b6}
+:root[data-theme="light"]{--bg:#f8fafc;--panel:#ffffff;--panel2:#f1f5f9;--line:#e2e8f0;--text:#0f172a;--muted:#475569;--accent:#0891b2;--accent2:#0284c7;--bad:#b91c1c;--good:#047857;--chip:#e2e8f0;--fv-box:#eef6ff;--fv-entry:#cffafe;--fv-ext:#f3e8ff;--fv-cycle:#fce7f3;--fv-dec:#ede9fe;--fv-stop:#fee2e2;--fv-hub:#d1fae5;--fv-purple:#7c3aed;--fv-pink:#db2777}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#f8fafc;--panel:#ffffff;--panel2:#f1f5f9;--line:#e2e8f0;--text:#0f172a;--muted:#475569;--accent:#0891b2;--accent2:#0284c7;--bad:#b91c1c;--good:#047857;--chip:#e2e8f0;--fv-box:#eef6ff;--fv-entry:#cffafe;--fv-ext:#f3e8ff;--fv-cycle:#fce7f3;--fv-dec:#ede9fe;--fv-stop:#fee2e2;--fv-hub:#d1fae5;--fv-purple:#7c3aed;--fv-pink:#db2777}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+header{display:flex;gap:14px;align-items:center;padding:12px 20px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:5}
+header h1{font-size:17px;margin:0}header .sp{margin-left:auto}header button{background:var(--chip);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer}
+main{padding:12px 24px 60px;max-width:1500px;margin:0 auto}
+
+.fv-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:18px 0;overflow:hidden}
+.fv-head{padding:14px 16px 6px}
+.fv-head h3{margin:0 0 4px;font-size:17px}
+.fv-meta{color:var(--muted);font-size:13px;margin:2px 0}
+.fv-cap{color:var(--muted);font-size:13.5px;margin:6px 0 0;max-width:980px}
+.fv-bar{display:flex;flex-wrap:wrap;gap:6px;padding:8px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--panel2);align-items:center}
+.fv-bar button{background:var(--chip);color:var(--text);border:1px solid var(--line);border-radius:7px;padding:4px 10px;cursor:pointer;font-size:13px}
+.fv-bar button:hover{border-color:var(--accent)}
+.fv-bar .fv-hint{color:var(--muted);font-size:12px;margin-left:auto}
+.fv-stage{position:relative;overflow:hidden;cursor:grab;background:var(--bg);touch-action:none}
+.fv-stage.drag{cursor:grabbing}
+.fv-stage svg{position:absolute;left:0;top:0;transform-origin:0 0;user-select:none}
+.fv-card.full{position:fixed;inset:0;z-index:50;margin:0;border-radius:0;display:flex;flex-direction:column}
+.fv-card.full .fv-stage{flex:1;height:auto!important}
+.fv-panel{position:absolute;right:10px;top:10px;width:min(380px,calc(100% - 20px));max-height:calc(100% - 20px);overflow:auto;background:var(--panel);border:1px solid var(--accent);border-radius:10px;padding:12px 14px;box-shadow:0 14px 40px rgba(0,0,0,.45);display:none;font-size:13.5px;cursor:auto}
+.fv-panel.open{display:block}
+.fv-panel h4{margin:0 0 6px;font-size:15px;word-break:break-word}
+.fv-panel pre{white-space:pre-wrap;margin:6px 0}
+.fv-panel table{width:100%;border-collapse:collapse;font-size:12.5px}
+.fv-panel td{border-top:1px solid var(--line);padding:4px 4px;vertical-align:top}
+.fv-panel .x{float:right;cursor:pointer;color:var(--muted);border:0;background:none;font-size:16px}
+.fv-svg-text{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.fv-node{cursor:pointer}
+.fv-node:hover .fv-shape{stroke-width:2.6}
+.fv-dim .fv-edge,.fv-dim .fv-node{opacity:.18}
+.fv-dim .fv-on{opacity:1}
+.fv-toc{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.fv-toc a{background:var(--chip);border-radius:999px;padding:3px 11px;font-size:13px}
+
+#rm-cfg-scrim{position:fixed;inset:0;z-index:90;background:rgba(2,6,23,.6);opacity:0;pointer-events:none;transition:opacity .2s}
+#rm-cfg-scrim.open{opacity:1;pointer-events:auto}
+#rm-cfg-modal{position:fixed;z-index:91;top:50%;left:50%;transform:translate(-50%,-50%) scale(.98);width:min(560px,calc(100vw - 32px));max-height:min(82vh,760px);overflow:auto;background:var(--mask,var(--panel,#0b1224));color:var(--ink,var(--text,#f8fafc));border:1px solid var(--accent,#22d3ee);border-radius:14px;padding:18px 20px;box-shadow:0 24px 70px rgba(0,0,0,.5);display:none}
+#rm-cfg-modal.open{display:block;transform:translate(-50%,-50%) scale(1)}
+#rm-cfg-modal h2{margin:0 0 4px;font-size:16px}
+#rm-cfg-modal .rm-cfg-sub{color:var(--muted,#94a3b8);font-size:12px;margin:0 0 12px;line-height:1.6}
+#rm-cfg-modal .rm-cfg-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--border,var(--line,#1e293b))}
+#rm-cfg-modal label{font-size:12px;font-weight:600}
+#rm-cfg-modal .rm-cfg-help{font-size:11px;color:var(--muted,#94a3b8);grid-column:1/-1;margin:-4px 0 0}
+#rm-cfg-modal input[type="number"],#rm-cfg-modal input[type="text"],#rm-cfg-modal select,#rm-cfg-modal textarea{width:100%;background:var(--canvas,var(--bg,#020617));border:1px solid var(--border,var(--line,#1e293b));border-radius:8px;color:var(--ink,var(--text,#f8fafc));padding:6px 8px;font:inherit;font-size:12px}
+#rm-cfg-modal textarea{resize:vertical;min-height:56px;line-height:1.5}
+#rm-cfg-modal .rm-cfg-sec{margin:14px 0 2px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted,#94a3b8)}
+.rm-home-icon{width:12px;height:12px;flex:none;vertical-align:-1px}
+a.home .rm-home-icon{margin-right:5px}
+#rm-cfg-modal input[type="checkbox"]{width:18px;height:18px;accent-color:var(--accent,#22d3ee)}
+#rm-cfg-modal .rm-cfg-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+#rm-cfg-modal .rm-cfg-actions button{font-size:12px;border-radius:9px;padding:7px 12px;cursor:pointer}
+#rm-cfg-status{font-size:11.5px;color:var(--muted,#94a3b8);margin-top:10px;min-height:18px}
+@media (prefers-reduced-motion:reduce){#rm-cfg-scrim,#rm-cfg-modal{transition:none}}
+:root{--accent:#22d3ee;--accent2:#f472b6}header a.home{border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:13px}header a.home svg{width:12px;height:12px;vertical-align:-1px}</style>
+</head>
+<body>
+<header><h1>LazyOwnInfiniteStorage: architecture and execution flows</h1><a href="index.html">API reference</a><span class="sp"></span><button id="fv-theme" title="Toggle dark and light theme">Theme</button><button type="button" data-rm-config title="Viewer config (no reload)">Config</button></header>
+<main><p class="fv-cap">Every diagram is computed from the source with zero tokens and laid out offline: tiers come from a feedback-arc-set ordering of the component graph, flows from the resolved call graph and the Python syntax tree. Click any box for its signature, docs, and files.</p><div id="fv-host"></div></main>
+<script type="application/json" id="fv-data">{"graphs":[{"id":"architecture","title":"Tiered architecture","kind":"architecture","caption":"Each box is a component (a community of files). Arrows go from the dependent to the dependency, so the top tier orchestrates and the bottom tier is the foundation. Arrow labels count imports; thick arrows are the heaviest quarter. Red dashed arrows point upward: they are the smallest set of imports that creates every cycle and breaks the layering. Click a component to list its files.","w":479.8,"h":161.0,"meta":{"lane_titles":{"0":"Tier 1"},"stats":{"components":2,"edges":0,"reduced":0,"cycles":[],"tiers":1,"entry_components":[]},"upward":[]},"lanes":[{"t":"Tier 1","y":18.0,"h":131.0}],"nodes":[{"id":"d:(root)","t":"(root)","l":["1 files, 0 symbols","Core / utility","key: install.sh"],"s":"component","o":"default","d":{"kind":"component","summary":"1 files, 0 symbols; imports out 0, imported 0 times","layers":[["utility",1]],"files":[{"f":"install.sh","p":"Verificar si Python está instalado","i":0,"n":0}]},"x":95.4,"y":96.5,"w":142.8,"h":81.0},{"id":"c0","t":"root","l":["3 files, 85 symbols","Core / utility","key: lazyown_infinitestorage.py,..."],"s":"component","o":"default","d":{"kind":"component","summary":"3 files, 85 symbols; imports out 0, imported 0 times","layers":[["utility",2],["presentation",1]],"files":[{"f":"lazyown_infinitestorage.py","p":"LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder.","i":7,"n":79},{"f":"skill_lazyown_infinitestorage/tools.py","p":"MCP tools for LazyOwnInfiniteStorage integration.","i":0,"n":5},{"f":"wsgi_app.py","p":"WSGI entry point for LazyOwnInfiniteStorage web server.","i":0,"n":1}]},"x":328.3,"y":96.5,"w":255.0,"h":81.0}],"edges":[],"participants":[],"messages":[]},{"id":"control:lazyown_infinitestorage.py::run","title":"Control flow of lazyown_infinitestorage.CLIRunner.run","kind":"control","caption":"Top to bottom: diamonds are decisions (yes goes right, no continues down), hexagons are loops with a dashed arrow back, rounded ends are returns and raises. Boxes name the project functions called at that step; click one to read what they do.","w":1371.2,"h":1122.0,"meta":{"entry":"lazyown_infinitestorage.CLIRunner.run","file":"lazyown_infinitestorage.py","line":637,"score":18,"reasons":["entry-style name `run`"]},"lanes":[],"nodes":[{"id":"s1","t":"start lazyown_infinitestorage.CLIRunner.run","l":[],"s":"terminal","o":"entry","d":{"kind":"terminal","file":"lazyown_infinitestorage.py","line":0,"stmt":"start lazyown_infinitestorage.CLIRunner.run"},"x":199.4,"y":42.0,"w":350.8,"h":36.0},{"id":"s2","t":"args.gui?","l":[],"s":"decision","o":"decision","d":{"kind":"decision","file":"lazyown_infinitestorage.py","line":652,"stmt":"args.gui?"},"x":199.4,"y":145.0,"w":152.0,"h":62.0},{"id":"s3","t":"return after run(), GUIRunner()","l":["PyQt5 graphical user interface for","LazyOwnInfiniteStorage."],"s":"terminal","o":"entry","d":{"kind":"terminal","file":"lazyown_infinitestorage.py","line":654,"stmt":"return after run(), GUIRunner()","calls":[{"n":"run","d":""},{"n":"GUIRunner","d":"PyQt5 graphical user interface for LazyOwnInfiniteStorage."}]},"x":445.0,"y":263.0,"w":259.6,"h":66.0},{"id":"s4","t":"args.serve?","l":[],"s":"decision","o":"decision","d":{"kind":"decision","file":"lazyown_infinitestorage.py","line":655,"stmt":"args.serve?"},"x":199.4,"y":263.0,"w":163.6,"h":62.0},{"id":"s5","t":"return after run(), WebRunner()","l":["Flask web server interface for","LazyOwnInfiniteStorage."],"s":"terminal","o":"entry","d":{"kind":"terminal","file":"lazyown_infinitestorage.py","line":657,"stmt":"return after run(), WebRunner()","calls":[{"n":"run","d":""},{"n":"WebRunner","d":"Flask web server interface for LazyOwnInfiniteStorage."}]},"x":456.4,"y":383.0,"w":259.6,"h":66.0},{"id":"s6","t":"not args.mode?","l":[],"s":"decision","o":"decision","d":{"kind":"decision","file":"lazyown_infinitestorage.py","line":658,"stmt":"not args.mode?"},"x":199.4,"y":383.0,"w":186.4,"h":62.0},{"id":"s7","t":"args.mode == 'test'?","l":[],"s":"decision","o":"decision","d":{"kind":"decision","file":"lazyown_infinitestorage.py","line":660,"stmt":"args.mode == 'test'?"},"x":442.6,"y":501.0,"w":232.0,"h":62.0},{"id":"s8","t":"return after run_tests()","l":["Executes built-in round-trip tests for","both protocols."],"s":"terminal","o":"entry","d":{"kind":"terminal","file":"lazyown_infinitestorage.py","line":662,"stmt":"return after run_tests()","calls":[{"n":"run_tests","d":"Executes built-in round-trip tests for both protocols."}]},"x":737.6,"y":619.0,"w":274.8,"h":66.0},{"id":"s9","t":"args.mode == 'encode'?","l":[],"s":"decision","o":"decision","d":{"kind":"decision","file":"lazyown_infinitestorage.py","line":670,"stmt":"args.mode == 'encode'?"},"x":442.6,"y":619.0,"w":247.2,"h":62.0},{"id":"s10","t":"not args.input or not args.output or (not arg...","l":[],"s":"decision","o":"decision","d":{"kind":"decision","file":"lazyown_infinitestorage.py","line":671,"stmt":"not args.input or not args.output or (not args.frame_size)?"},"x":822.6,"y":737.0,"w":444.8,"h":62.0},{"id":"s11","t":"encode()","l":["Encodes a file into a video using the","specified protocol."],"s":"box","o":"default","d":{"kind":"box","file":"lazyown_infinitestorage.py","line":673,"stmt":"encode()","calls":[{"n":"encode","d":"Encodes a file into a video using the specified protocol."}]},"x":1213.1,"y":855.0,"w":268.2,"h":66.0},{"id":"s12","t":"args.mode == 'decode'?","l":[],"s":"decision","o":"decision","d":{"kind":"decision","file":"lazyown_infinitestorage.py","line":674,"stmt":"args.mode == 'decode'?"},"x":442.6,"y":737.0,"w":247.2,"h":62.0},{"id":"s13","t":"not args.input or not args.output?","l":[],"s":"decision","o":"decision","d":{"kind":"decision","file":"lazyown_infinitestorage.py","line":675,"stmt":"not args.input or not args.output?"},"x":769.4,"y":855.0,"w":338.4,"h":62.0},{"id":"s14","t":"decode()","l":["Decodes a video back into the original","file using the specified protocol."],"s":"box","o":"default","d":{"kind":"box","file":"lazyown_infinitestorage.py","line":677,"stmt":"decode()","calls":[{"n":"decode","d":"Decodes a video back into the original file using the specified protocol."}]},"x":1110.0,"y":975.0,"w":274.8,"h":66.0},{"id":"s15","t":"end","l":[],"s":"terminal","o":"entry","d":{"kind":"terminal","file":"lazyown_infinitestorage.py","line":0,"stmt":"end"},"x":1213.1,"y":1080.0,"w":96.0,"h":36.0}],"edges":[{"s":"s1","t":"s2","l":"","y":"solid","p":[[199.4,60.0],[199.4,87.0],[199.4,87.0],[199.4,114.0]]},{"s":"s2","t":"s3","l":"yes","y":"solid","p":[[199.4,176.0],[199.4,203.0],[445.0,203.0],[445.0,230.0]]},{"s":"s2","t":"s4","l":"no","y":"solid","p":[[199.4,176.0],[199.4,204.0],[199.4,204.0],[199.4,232.0]]},{"s":"s4","t":"s5","l":"yes","y":"solid","p":[[199.4,294.0],[199.4,322.0],[456.4,322.0],[456.4,350.0]]},{"s":"s4","t":"s6","l":"no","y":"solid","p":[[199.4,294.0],[199.4,323.0],[199.4,323.0],[199.4,352.0]]},{"s":"s6","t":"s7","l":"yes","y":"solid","p":[[199.4,414.0],[199.4,442.0],[442.6,442.0],[442.6,470.0]]},{"s":"s6","t":"s7","l":"no","y":"solid","p":[[199.4,414.0],[199.4,442.0],[442.6,442.0],[442.6,470.0]]},{"s":"s7","t":"s8","l":"yes","y":"solid","p":[[442.6,532.0],[442.6,559.0],[737.6,559.0],[737.6,586.0]]},{"s":"s7","t":"s9","l":"no","y":"solid","p":[[442.6,532.0],[442.6,560.0],[442.6,560.0],[442.6,588.0]]},{"s":"s9","t":"s10","l":"yes","y":"solid","p":[[442.6,650.0],[442.6,678.0],[822.6,678.0],[822.6,706.0]]},{"s":"s10","t":"s11","l":"yes","y":"solid","p":[[822.6,768.0],[822.6,795.0],[1213.1,795.0],[1213.1,822.0]]},{"s":"s10","t":"s11","l":"no","y":"solid","p":[[822.6,768.0],[822.6,795.0],[1213.1,795.0],[1213.1,822.0]]},{"s":"s9","t":"s12","l":"no","y":"solid","p":[[442.6,650.0],[442.6,678.0],[442.6,678.0],[442.6,706.0]]},{"s":"s12","t":"s13","l":"yes","y":"solid","p":[[442.6,768.0],[442.6,796.0],[769.4,796.0],[769.4,824.0]]},{"s":"s13","t":"s14","l":"yes","y":"solid","p":[[769.4,886.0],[769.4,914.0],[1110.0,914.0],[1110.0,942.0]]},{"s":"s13","t":"s14","l":"no","y":"solid","p":[[769.4,886.0],[769.4,914.0],[1110.0,914.0],[1110.0,942.0]]},{"s":"s11","t":"s15","l":"","y":"solid","p":[[1213.1,888.0],[1213.1,975.0],[1213.1,975.0],[1213.1,1062.0]]},{"s":"s14","t":"s15","l":"","y":"solid","p":[[1110.0,1008.0],[1110.0,1035.0],[1213.1,1035.0],[1213.1,1062.0]]},{"s":"s12","t":"s15","l":"no","y":"solid","p":[[442.6,768.0],[442.6,915.0],[1213.1,915.0],[1213.1,1062.0]]}],"participants":[],"messages":[]},{"id":"calltree:lazyown_infinitestorage.py::run","title":"Call tree of lazyown_infinitestorage.CLIRunner.run","kind":"calltree","caption":"Read left to right: every arrow is a call, numbered in the order it happens inside the caller. Dashed arrows reach a function already expanded elsewhere; red arrows are recursion. Same-file functions are blue, other files purple. Click a box for its signature and docs.","w":2010.4,"h":1634.0,"meta":{"entry":"lazyown_infinitestorage.CLIRunner.run","file":"lazyown_infinitestorage.py","line":637,"score":18,"reasons":["entry-style name `run`"]},"lanes":[],"nodes":[{"id":"lazyown_infinitestorage.py::run","t":"lazyown_infinitestorage.CLIRunner.run","l":["lazyown_infinitestorage.py:637"],"s":"box","o":"entry","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":637,"qual":"CLIRunner.run","sig":"def run(self)","doc":""},"x":176.6,"y":64.5,"w":305.2,"h":51.0},{"id":"lazyown_infinitestorage.py::GUIRunner","t":"lazyown_infinitestorage.GUIRunner","l":["PyQt5 graphical user interface for","LazyOwnInfiniteStorage.","lazyown_infinitestorage.py:700"],"s":"box","o":"default","d":{"kind":"class","file":"lazyown_infinitestorage.py","line":700,"qual":"GUIRunner","sig":"class GUIRunner(QWidget)","doc":"PyQt5 graphical user interface for LazyOwnInfiniteStorage."},"x":520.6,"y":64.5,"w":274.8,"h":81.0},{"id":"lazyown_infinitestorage.py::WebRunner","t":"lazyown_infinitestorage.WebRunner","l":["Flask web server interface for","LazyOwnInfiniteStorage.","lazyown_infinitestorage.py:847"],"s":"box","o":"default","d":{"kind":"class","file":"lazyown_infinitestorage.py","line":847,"qual":"WebRunner","sig":"class WebRunner","doc":"Flask web server interface for LazyOwnInfiniteStorage."},"x":520.6,"y":179.5,"w":274.8,"h":81.0},{"id":"lazyown_infinitestorage.py::run_tests","t":"lazyown_infinitestorage.run_tests","l":["Executes built-in round-trip tests for","both protocols.","lazyown_infinitestorage.py:970"],"s":"box","o":"default","d":{"kind":"function","file":"lazyown_infinitestorage.py","line":970,"qual":"run_tests","sig":"def run_tests()","doc":"Executes built-in round-trip tests for both protocols."},"x":520.6,"y":294.5,"w":274.8,"h":81.0},{"id":"lazyown_infinitestorage.py::LazyOwnConfig","t":"lazyown_infinitestorage.LazyOwnConfig","l":["Centralized immutable configuration","constants for LazyOwnInfiniteStorage.","lazyown_infinitestorage.py:71"],"s":"box","o":"default","d":{"kind":"class","file":"lazyown_infinitestorage.py","line":71,"qual":"LazyOwnConfig","sig":"class LazyOwnConfig","doc":"Centralized immutable configuration constants for LazyOwnInfiniteStorage."},"x":906.4,"y":294.5,"w":305.2,"h":81.0},{"id":"lazyown_infinitestorage.py::LazyOwnInfiniteStorage","t":"lazyown_infinitestorage.LazyOwnInfiniteStorage","l":["Main orchestrator for encoding and","decoding files to and from video.","lazyown_infinitestorage.py:508"],"s":"box","o":"default","d":{"kind":"class","file":"lazyown_infinitestorage.py","line":508,"qual":"LazyOwnInfiniteStorage","sig":"class LazyOwnInfiniteStorage","doc":"Main orchestrator for encoding and decoding files to and from video."},"x":906.4,"y":409.5,"w":373.6,"h":81.0},{"id":"lazyown_infinitestorage.py::encode","t":"lazyown_infinitestorage.LazyOwnInfiniteStorag...","l":["Encodes a file into a video using the","specified protocol.","lazyown_infinitestorage.py:525"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":525,"qual":"LazyOwnInfiniteStorage.encode","sig":"def encode(self, input_path, output_path, frame_width, frame_height, fps, block_size, protocol_version)","doc":"Encodes a file into a video using the specified protocol."},"x":906.4,"y":524.5,"w":388.8,"h":81.0},{"id":"lazyown_infinitestorage.py::validate_file_path","t":"lazyown_infinitestorage.SecurityValidator.val...","l":["Resolves and validates an absolute","file path.","lazyown_infinitestorage.py:154"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":154,"qual":"SecurityValidator.validate_file_path","sig":"def validate_file_path(self, file_path, must_exist)","doc":"Resolves and validates an absolute file path."},"x":1349.2,"y":954.5,"w":388.8,"h":81.0},{"id":"lazyown_infinitestorage.py::validate_size","t":"lazyown_infinitestorage.SecurityValidator.val...","l":["Ensures the file size is within","acceptable limits.","lazyown_infinitestorage.py:164"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":164,"qual":"SecurityValidator.validate_size","sig":"def validate_size(self, size)","doc":"Ensures the file size is within acceptable limits."},"x":1349.2,"y":524.5,"w":388.8,"h":81.0},{"id":"lazyown_infinitestorage.py::_validate_encoding_parameters","t":"lazyown_infinitestorage.LazyOwnInfiniteStorag...","l":["lazyown_infinitestorage.py:561"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":561,"qual":"LazyOwnInfiniteStorage._validate_encoding_parameters","sig":"def _validate_encoding_parameters(self, frame_width, frame_height, fps, block_size)","doc":""},"x":1349.2,"y":739.5,"w":388.8,"h":51.0},{"id":"lazyown_infinitestorage.py::bits_to_frames","t":"lazyown_infinitestorage.FrameEncoder.bits_to_...","l":["Yields grayscale frames from a bit","string.","lazyown_infinitestorage.py:248"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":248,"qual":"FrameEncoder.bits_to_frames","sig":"def bits_to_frames(self, bit_string, frame_width, frame_height, block_size)","doc":"Yields grayscale frames from a bit string."},"x":1349.2,"y":639.5,"w":388.8,"h":81.0},{"id":"lazyown_infinitestorage.py::_create_frame","t":"lazyown_infinitestorage.FrameEncoder._create_...","l":["lazyown_infinitestorage.py:263"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":263,"qual":"FrameEncoder._create_frame","sig":"def _create_frame(self, bits, width, height, block_size, blocks_per_row)","doc":""},"x":1792.0,"y":639.5,"w":388.8,"h":51.0},{"id":"lazyown_infinitestorage.py::encode_video","t":"lazyown_infinitestorage.FFmpegPipeline.encode...","l":["Encodes a generator of frames into a","video file via FFmpeg stdin.","lazyown_infinitestorage.py:366"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":366,"qual":"FFmpegPipeline.encode_video","sig":"def encode_video(self, frame_generator, output_path, frame_width, frame_height, fps)","doc":"Encodes a generator of frames into a video file via FFmpeg stdin."},"x":1349.2,"y":839.5,"w":388.8,"h":81.0},{"id":"lazyown_infinitestorage.py::decode","t":"lazyown_infinitestorage.LazyOwnInfiniteStorag...","l":["Decodes a video back into the original","file using the specified protocol.","lazyown_infinitestorage.py:550"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":550,"qual":"LazyOwnInfiniteStorage.decode","sig":"def decode(self, input_path, output_path, block_size, protocol_version)","doc":"Decodes a video back into the original file using the specified protocol."},"x":906.4,"y":639.5,"w":388.8,"h":81.0},{"id":"lazyown_infinitestorage.py::_detect_protocol","t":"lazyown_infinitestorage.LazyOwnInfiniteStorag...","l":["lazyown_infinitestorage.py:571"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":571,"qual":"LazyOwnInfiniteStorage._detect_protocol","sig":"def _detect_protocol(self, input_path, block_size)","doc":""},"x":1349.2,"y":1054.5,"w":388.8,"h":51.0},{"id":"lazyown_infinitestorage.py::get_video_info","t":"lazyown_infinitestorage.FFmpegPipeline.get_vi...","l":["Retrieves native resolution and","metadata from a video file.","lazyown_infinitestorage.py:311"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":311,"qual":"FFmpegPipeline.get_video_info","sig":"def get_video_info(self, input_path)","doc":"Retrieves native resolution and metadata from a video file."},"x":1792.0,"y":1054.5,"w":388.8,"h":81.0},{"id":"lazyown_infinitestorage.py::extract_raw_frames","t":"lazyown_infinitestorage.FFmpegPipeline.extrac...","l":["Extracts raw grayscale frames from a","video file via FFmpeg stdout.","lazyown_infinitestorage.py:393"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":393,"qual":"FFmpegPipeline.extract_raw_frames","sig":"def extract_raw_frames(self, input_path, target_width, target_height, max_frames)","doc":"Extracts raw grayscale frames from a video file via FFmpeg stdout."},"x":1792.0,"y":1284.5,"w":388.8,"h":81.0},{"id":"lazyown_infinitestorage.py::extract_bits_from_raw_frames","t":"lazyown_infinitestorage.FrameDecoder.extract_...","l":["Extracts a bit string from rawvideo","grayscale bytes.","lazyown_infinitestorage.py:279"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":279,"qual":"FrameDecoder.extract_bits_from_raw_frames","sig":"def extract_bits_from_raw_frames(self, raw_bytes, width, height, block_size, expected_bits)","doc":"Extracts a bit string from rawvideo grayscale bytes."},"x":1792.0,"y":1399.5,"w":388.8,"h":81.0},{"id":"lazyown_infinitestorage.py::decode_data","t":"lazyown_infinitestorage.ErrorCorrector.decode...","l":["Decodes a Hamming(8,4) encoded byte","sequence with single-bit error","correction...."],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":200,"qual":"ErrorCorrector.decode_data","sig":"def decode_data(self, data)","doc":"Decodes a Hamming(8,4) encoded byte sequence with single-bit error correction."},"x":1792.0,"y":1169.5,"w":388.8,"h":81.0},{"id":"lazyown_infinitestorage.py::_decode_legacy","t":"lazyown_infinitestorage.LazyOwnInfiniteStorag...","l":["lazyown_infinitestorage.py:604"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":604,"qual":"LazyOwnInfiniteStorage._decode_legacy","sig":"def _decode_legacy(self, input_path, output_path, block_size)","doc":""},"x":1349.2,"y":1139.5,"w":388.8,"h":51.0},{"id":"lazyown_infinitestorage.py::unpack@440","t":"lazyown_infinitestorage.LegacyProtocolHandler...","l":["lazyown_infinitestorage.py:440"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":440,"qual":"LegacyProtocolHandler.unpack","sig":"def unpack(self, bit_string, block_size)","doc":""},"x":1792.0,"y":1499.5,"w":388.8,"h":51.0},{"id":"lazyown_infinitestorage.py::_decode_secure","t":"lazyown_infinitestorage.LazyOwnInfiniteStorag...","l":["lazyown_infinitestorage.py:617"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":617,"qual":"LazyOwnInfiniteStorage._decode_secure","sig":"def _decode_secure(self, input_path, output_path, block_size)","doc":""},"x":1349.2,"y":1224.5,"w":388.8,"h":51.0},{"id":"lazyown_infinitestorage.py::unpack@480","t":"lazyown_infinitestorage.SecureProtocolHandler...","l":["lazyown_infinitestorage.py:480"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":480,"qual":"SecureProtocolHandler.unpack","sig":"def unpack(self, bit_string, block_size)","doc":""},"x":1792.0,"y":1584.5,"w":388.8,"h":51.0}],"edges":[{"s":"lazyown_infinitestorage.py::run","t":"lazyown_infinitestorage.py::GUIRunner","l":"1","y":"solid","p":[[329.2,64.5],[356.2,64.5],[356.2,64.5],[383.2,64.5]]},{"s":"lazyown_infinitestorage.py::run","t":"lazyown_infinitestorage.py::WebRunner","l":"2","y":"solid","p":[[329.2,64.5],[356.2,64.5],[356.2,179.5],[383.2,179.5]]},{"s":"lazyown_infinitestorage.py::run","t":"lazyown_infinitestorage.py::run_tests","l":"3","y":"solid","p":[[329.2,64.5],[356.2,64.5],[356.2,294.5],[383.2,294.5]]},{"s":"lazyown_infinitestorage.py::run_tests","t":"lazyown_infinitestorage.py::LazyOwnConfig","l":"1","y":"solid","p":[[658.0,294.5],[705.9,294.5],[705.9,294.5],[753.8,294.5]]},{"s":"lazyown_infinitestorage.py::run_tests","t":"lazyown_infinitestorage.py::LazyOwnInfiniteStorage","l":"2","y":"solid","p":[[658.0,294.5],[688.8,294.5],[688.8,409.5],[719.6,409.5]]},{"s":"lazyown_infinitestorage.py::run_tests","t":"lazyown_infinitestorage.py::encode","l":"3","y":"solid","p":[[658.0,294.5],[685.0,294.5],[685.0,524.5],[712.0,524.5]]},{"s":"lazyown_infinitestorage.py::encode","t":"lazyown_infinitestorage.py::validate_file_path","l":"1","y":"solid","p":[[1100.8,524.5],[1127.8,524.5],[1127.8,954.5],[1154.8,954.5]]},{"s":"lazyown_infinitestorage.py::encode","t":"lazyown_infinitestorage.py::validate_size","l":"2","y":"solid","p":[[1100.8,524.5],[1127.8,524.5],[1127.8,524.5],[1154.8,524.5]]},{"s":"lazyown_infinitestorage.py::encode","t":"lazyown_infinitestorage.py::_validate_encoding_parameters","l":"3","y":"solid","p":[[1100.8,524.5],[1127.8,524.5],[1127.8,739.5],[1154.8,739.5]]},{"s":"lazyown_infinitestorage.py::encode","t":"lazyown_infinitestorage.py::bits_to_frames","l":"4","y":"solid","p":[[1100.8,524.5],[1127.8,524.5],[1127.8,639.5],[1154.8,639.5]]},{"s":"lazyown_infinitestorage.py::bits_to_frames","t":"lazyown_infinitestorage.py::_create_frame","l":"1","y":"solid","p":[[1543.6,639.5],[1570.6,639.5],[1570.6,639.5],[1597.6,639.5]]},{"s":"lazyown_infinitestorage.py::encode","t":"lazyown_infinitestorage.py::encode_video","l":"5","y":"solid","p":[[1100.8,524.5],[1127.8,524.5],[1127.8,839.5],[1154.8,839.5]]},{"s":"lazyown_infinitestorage.py::run_tests","t":"lazyown_infinitestorage.py::decode","l":"4","y":"solid","p":[[658.0,294.5],[685.0,294.5],[685.0,639.5],[712.0,639.5]]},{"s":"lazyown_infinitestorage.py::decode","t":"lazyown_infinitestorage.py::validate_file_path","l":"","y":"dashed","p":[[1100.8,639.5],[1127.8,639.5],[1127.8,954.5],[1154.8,954.5]]},{"s":"lazyown_infinitestorage.py::decode","t":"lazyown_infinitestorage.py::_detect_protocol","l":"1","y":"solid","p":[[1100.8,639.5],[1127.8,639.5],[1127.8,1054.5],[1154.8,1054.5]]},{"s":"lazyown_infinitestorage.py::_detect_protocol","t":"lazyown_infinitestorage.py::get_video_info","l":"1","y":"solid","p":[[1543.6,1054.5],[1570.6,1054.5],[1570.6,1054.5],[1597.6,1054.5]]},{"s":"lazyown_infinitestorage.py::_detect_protocol","t":"lazyown_infinitestorage.py::extract_raw_frames","l":"2","y":"solid","p":[[1543.6,1054.5],[1570.6,1054.5],[1570.6,1284.5],[1597.6,1284.5]]},{"s":"lazyown_infinitestorage.py::_detect_protocol","t":"lazyown_infinitestorage.py::extract_bits_from_raw_frames","l":"3","y":"solid","p":[[1543.6,1054.5],[1570.6,1054.5],[1570.6,1399.5],[1597.6,1399.5]]},{"s":"lazyown_infinitestorage.py::_detect_protocol","t":"lazyown_infinitestorage.py::decode_data","l":"4","y":"solid","p":[[1543.6,1054.5],[1570.6,1054.5],[1570.6,1169.5],[1597.6,1169.5]]},{"s":"lazyown_infinitestorage.py::decode","t":"lazyown_infinitestorage.py::_decode_legacy","l":"2","y":"solid","p":[[1100.8,639.5],[1127.8,639.5],[1127.8,1139.5],[1154.8,1139.5]]},{"s":"lazyown_infinitestorage.py::_decode_legacy","t":"lazyown_infinitestorage.py::extract_raw_frames","l":"1","y":"solid","p":[[1543.6,1139.5],[1570.6,1139.5],[1570.6,1284.5],[1597.6,1284.5]]},{"s":"lazyown_infinitestorage.py::_decode_legacy","t":"lazyown_infinitestorage.py::extract_bits_from_raw_frames","l":"2","y":"solid","p":[[1543.6,1139.5],[1570.6,1139.5],[1570.6,1399.5],[1597.6,1399.5]]},{"s":"lazyown_infinitestorage.py::_decode_legacy","t":"lazyown_infinitestorage.py::unpack@440","l":"3","y":"solid","p":[[1543.6,1139.5],[1570.6,1139.5],[1570.6,1499.5],[1597.6,1499.5]]},{"s":"lazyown_infinitestorage.py::decode","t":"lazyown_infinitestorage.py::_decode_secure","l":"3","y":"solid","p":[[1100.8,639.5],[1127.8,639.5],[1127.8,1224.5],[1154.8,1224.5]]},{"s":"lazyown_infinitestorage.py::_decode_secure","t":"lazyown_infinitestorage.py::extract_raw_frames","l":"1","y":"solid","p":[[1543.6,1224.5],[1570.6,1224.5],[1570.6,1284.5],[1597.6,1284.5]]},{"s":"lazyown_infinitestorage.py::_decode_secure","t":"lazyown_infinitestorage.py::extract_bits_from_raw_frames","l":"2","y":"solid","p":[[1543.6,1224.5],[1570.6,1224.5],[1570.6,1399.5],[1597.6,1399.5]]},{"s":"lazyown_infinitestorage.py::_decode_secure","t":"lazyown_infinitestorage.py::unpack@480","l":"3","y":"solid","p":[[1543.6,1224.5],[1570.6,1224.5],[1570.6,1584.5],[1597.6,1584.5]]}],"participants":[],"messages":[]},{"id":"calltree:lazyown_infinitestorage.py::\u003cmain\u003e","title":"Call tree of lazyown_infinitestorage (__main__)","kind":"calltree","caption":"Read left to right: every arrow is a call, numbered in the order it happens inside the caller. Dashed arrows reach a function already expanded elsewhere; red arrows are recursion. Same-file functions are blue, other files purple. Click a box for its signature and docs.","w":1752.0,"h":689.0,"meta":{"entry":"lazyown_infinitestorage (__main__)","file":"lazyown_infinitestorage.py","line":1026,"score":8,"reasons":["`if __name__ == \"__main__\"` guard"]},"lanes":[],"nodes":[{"id":"lazyown_infinitestorage.py::\u003cmain\u003e","t":"lazyown_infinitestorage (__main__)","l":["lazyown_infinitestorage.py"],"s":"box","o":"entry","d":{"kind":"entry","file":"lazyown_infinitestorage.py","qual":"\u003cmain\u003e"},"x":165.2,"y":64.5,"w":282.4,"h":51.0},{"id":"lazyown_infinitestorage.py::main","t":"lazyown_infinitestorage.main","l":["Entry point for","LazyOwnInfiniteStorage.","lazyown_infinitestorage.py:1018"],"s":"box","o":"default","d":{"kind":"function","file":"lazyown_infinitestorage.py","line":1018,"qual":"main","sig":"def main()","doc":"Entry point for LazyOwnInfiniteStorage."},"x":478.8,"y":64.5,"w":236.8,"h":81.0},{"id":"lazyown_infinitestorage.py::LazyOwnInfiniteStorage","t":"lazyown_infinitestorage.LazyOwnInfiniteStorage","l":["Main orchestrator for encoding and","decoding files to and from video.","lazyown_infinitestorage.py:508"],"s":"box","o":"default","d":{"kind":"class","file":"lazyown_infinitestorage.py","line":508,"qual":"LazyOwnInfiniteStorage","sig":"class LazyOwnInfiniteStorage","doc":"Main orchestrator for encoding and decoding files to and from video."},"x":1533.6,"y":229.5,"w":373.6,"h":81.0},{"id":"lazyown_infinitestorage.py::CLIRunner","t":"lazyown_infinitestorage.CLIRunner","l":["Command-line interface runner for","LazyOwnInfiniteStorage.","lazyown_infinitestorage.py:631"],"s":"box","o":"default","d":{"kind":"class","file":"lazyown_infinitestorage.py","line":631,"qual":"CLIRunner","sig":"class CLIRunner","doc":"Command-line interface runner for LazyOwnInfiniteStorage."},"x":803.8,"y":64.5,"w":274.8,"h":81.0},{"id":"lazyown_infinitestorage.py::run","t":"lazyown_infinitestorage.CLIRunner.run","l":["lazyown_infinitestorage.py:637"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":637,"qual":"CLIRunner.run","sig":"def run(self)","doc":""},"x":803.8,"y":164.5,"w":305.2,"h":51.0},{"id":"lazyown_infinitestorage.py::GUIRunner","t":"lazyown_infinitestorage.GUIRunner","l":["PyQt5 graphical user interface for","LazyOwnInfiniteStorage.","lazyown_infinitestorage.py:700"],"s":"box","o":"default","d":{"kind":"class","file":"lazyown_infinitestorage.py","line":700,"qual":"GUIRunner","sig":"class GUIRunner(QWidget)","doc":"PyQt5 graphical user interface for LazyOwnInfiniteStorage."},"x":1147.8,"y":164.5,"w":274.8,"h":81.0},{"id":"lazyown_infinitestorage.py::WebRunner","t":"lazyown_infinitestorage.WebRunner","l":["Flask web server interface for","LazyOwnInfiniteStorage.","lazyown_infinitestorage.py:847"],"s":"box","o":"default","d":{"kind":"class","file":"lazyown_infinitestorage.py","line":847,"qual":"WebRunner","sig":"class WebRunner","doc":"Flask web server interface for LazyOwnInfiniteStorage."},"x":1147.8,"y":279.5,"w":274.8,"h":81.0},{"id":"lazyown_infinitestorage.py::run_tests","t":"lazyown_infinitestorage.run_tests","l":["Executes built-in round-trip tests for","both protocols.","lazyown_infinitestorage.py:970"],"s":"box","o":"default","d":{"kind":"function","file":"lazyown_infinitestorage.py","line":970,"qual":"run_tests","sig":"def run_tests()","doc":"Executes built-in round-trip tests for both protocols."},"x":1147.8,"y":394.5,"w":274.8,"h":81.0},{"id":"lazyown_infinitestorage.py::LazyOwnConfig","t":"lazyown_infinitestorage.LazyOwnConfig","l":["Centralized immutable configuration","constants for LazyOwnInfiniteStorage.","lazyown_infinitestorage.py:71"],"s":"box","o":"default","d":{"kind":"class","file":"lazyown_infinitestorage.py","line":71,"qual":"LazyOwnConfig","sig":"class LazyOwnConfig","doc":"Centralized immutable configuration constants for LazyOwnInfiniteStorage."},"x":1533.6,"y":394.5,"w":305.2,"h":81.0},{"id":"lazyown_infinitestorage.py::encode","t":"lazyown_infinitestorage.LazyOwnInfiniteStorag...","l":["Encodes a file into a video using the","specified protocol.","lazyown_infinitestorage.py:525"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":525,"qual":"LazyOwnInfiniteStorage.encode","sig":"def encode(self, input_path, output_path, frame_width, frame_height, fps, block_size, protocol_version)","doc":"Encodes a file into a video using the specified protocol."},"x":1533.6,"y":509.5,"w":388.8,"h":81.0},{"id":"lazyown_infinitestorage.py::decode","t":"lazyown_infinitestorage.LazyOwnInfiniteStorag...","l":["Decodes a video back into the original","file using the specified protocol.","lazyown_infinitestorage.py:550"],"s":"box","o":"default","d":{"kind":"method","file":"lazyown_infinitestorage.py","line":550,"qual":"LazyOwnInfiniteStorage.decode","sig":"def decode(self, input_path, output_path, block_size, protocol_version)","doc":"Decodes a video back into the original file using the specified protocol."},"x":1533.6,"y":624.5,"w":388.8,"h":81.0}],"edges":[{"s":"lazyown_infinitestorage.py::\u003cmain\u003e","t":"lazyown_infinitestorage.py::main","l":"1","y":"solid","p":[[306.4,64.5],[333.4,64.5],[333.4,64.5],[360.4,64.5]]},{"s":"lazyown_infinitestorage.py::main","t":"lazyown_infinitestorage.py::LazyOwnInfiniteStorage","l":"1","y":"solid","p":[[597.2,64.5],[972.0,64.5],[972.0,229.5],[1346.8,229.5]]},{"s":"lazyown_infinitestorage.py::main","t":"lazyown_infinitestorage.py::CLIRunner","l":"2","y":"solid","p":[[597.2,64.5],[631.8,64.5],[631.8,64.5],[666.4,64.5]]},{"s":"lazyown_infinitestorage.py::main","t":"lazyown_infinitestorage.py::run","l":"3","y":"solid","p":[[597.2,64.5],[624.2,64.5],[624.2,164.5],[651.2,164.5]]},{"s":"lazyown_infinitestorage.py::run","t":"lazyown_infinitestorage.py::GUIRunner","l":"1","y":"solid","p":[[956.4,164.5],[983.4,164.5],[983.4,164.5],[1010.4,164.5]]},{"s":"lazyown_infinitestorage.py::run","t":"lazyown_infinitestorage.py::WebRunner","l":"2","y":"solid","p":[[956.4,164.5],[983.4,164.5],[983.4,279.5],[1010.4,279.5]]},{"s":"lazyown_infinitestorage.py::run","t":"lazyown_infinitestorage.py::run_tests","l":"3","y":"solid","p":[[956.4,164.5],[983.4,164.5],[983.4,394.5],[1010.4,394.5]]},{"s":"lazyown_infinitestorage.py::run_tests","t":"lazyown_infinitestorage.py::LazyOwnConfig","l":"1","y":"solid","p":[[1285.2,394.5],[1333.1,394.5],[1333.1,394.5],[1381.0,394.5]]},{"s":"lazyown_infinitestorage.py::run_tests","t":"lazyown_infinitestorage.py::LazyOwnInfiniteStorage","l":"","y":"dashed","p":[[1285.2,394.5],[1316.0,394.5],[1316.0,229.5],[1346.8,229.5]]},{"s":"lazyown_infinitestorage.py::run_tests","t":"lazyown_infinitestorage.py::encode","l":"2","y":"solid","p":[[1285.2,394.5],[1312.2,394.5],[1312.2,509.5],[1339.2,509.5]]},{"s":"lazyown_infinitestorage.py::run_tests","t":"lazyown_infinitestorage.py::decode","l":"3","y":"solid","p":[[1285.2,394.5],[1312.2,394.5],[1312.2,624.5],[1339.2,624.5]]}],"participants":[],"messages":[]}],"api":"index.html"}</script>
+<div id="rm-cfg-scrim"></div><div id="rm-cfg-modal" role="dialog" aria-modal="true" aria-labelledby="rm-cfg-title" aria-hidden="true"><h2 id="rm-cfg-title">Viewer config</h2><p class="rm-cfg-sub">Project view options from readmenator.toml ([viewer], [branding], [maps], [messages]). Apply re-renders only the affected segment, no full reload. Copy TOML persists the choice for the next rebuild.</p><div id="rm-cfg-form"></div><div class="rm-cfg-actions"><button type="button" id="rm-cfg-apply" title="Apply without reloading">Apply</button><button type="button" id="rm-cfg-copy" title="Copy TOML sections to clipboard">Copy TOML</button><button type="button" id="rm-cfg-reset" title="Clear local overrides">Reset</button><button type="button" id="rm-cfg-close" title="Close ( Esc )">Close</button></div><div id="rm-cfg-status" role="status" aria-live="polite"></div></div>
+<script>
+(function(){
+"use strict";
+var NS="http://www.w3.org/2000/svg";
+var TONE={default:["--fv-box","--accent2"],entry:["--fv-entry","--accent"],external:["--fv-ext","--fv-purple"],cycle:["--fv-cycle","--fv-pink"],decision:["--fv-dec","--fv-purple"],stop:["--fv-stop","--bad"],muted:["--panel2","--line"],hub:["--fv-hub","--good"]};
+function el(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+function h(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;}
+function cssv(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim()||"#888";}
+function shapePath(n){var x=n.x-n.w/2,y=n.y-n.h/2,w=n.w,hh=n.h,r;
+  if(n.s==="decision")return "M"+n.x+" "+y+" L"+(x+w)+" "+n.y+" L"+n.x+" "+(y+hh)+" L"+x+" "+n.y+" Z";
+  if(n.s==="loop"){var c=16;return "M"+(x+c)+" "+y+" L"+(x+w-c)+" "+y+" L"+(x+w)+" "+n.y+" L"+(x+w-c)+" "+(y+hh)+" L"+(x+c)+" "+(y+hh)+" L"+x+" "+n.y+" Z";}
+  if(n.s==="io"){var k=12;return "M"+(x+k)+" "+y+" L"+(x+w)+" "+y+" L"+(x+w-k)+" "+(y+hh)+" L"+x+" "+(y+hh)+" Z";}
+  r=(n.s==="terminal"||n.s==="stop")?hh/2:(n.s==="component"?10:7);
+  return "M"+(x+r)+" "+y+" H"+(x+w-r)+" A"+r+" "+r+" 0 0 1 "+(x+w)+" "+(y+r)+" V"+(y+hh-r)+" A"+r+" "+r+" 0 0 1 "+(x+w-r)+" "+(y+hh)+" H"+(x+r)+" A"+r+" "+r+" 0 0 1 "+x+" "+(y+hh-r)+" V"+(y+r)+" A"+r+" "+r+" 0 0 1 "+(x+r)+" "+y+" Z";}
+function bez(p,t){var u=1-t;return [u*u*u*p[0][0]+3*u*u*t*p[1][0]+3*u*t*t*p[2][0]+t*t*t*p[3][0],u*u*u*p[0][1]+3*u*u*t*p[1][1]+3*u*t*t*p[2][1]+t*t*t*p[3][1]];}
+function drawGraph(G,svg,onPick){
+  var defs=el("defs",{},svg);
+  ["n","r","m"].forEach(function(k){var mk=el("marker",{id:"fv-arrow-"+k+"-"+G.uid,viewBox:"0 0 10 10",refX:"9",refY:"5",markerWidth:"7",markerHeight:"7",orient:"auto-start-reverse"},defs);
+    el("path",{d:"M0 0 L10 5 L0 10 z",fill:k==="r"?cssv("--bad"):(k==="m"?cssv("--muted"):cssv("--accent2"))},mk);});
+  el("rect",{x:0,y:0,width:G.w,height:G.h,fill:cssv("--bg")},svg);
+  (G.lanes||[]).forEach(function(l,i){el("rect",{x:6,y:l.y,width:G.w-12,height:l.h,rx:12,fill:cssv(i%2?"--panel2":"--panel"),stroke:cssv("--line")},svg);
+    var t=el("text",{x:18,y:l.y+18,"class":"fv-svg-text","font-size":"12","font-weight":"700",fill:cssv("--muted")},svg);t.textContent=l.t.toUpperCase();});
+  var byId={},edgesOf={},gEdges=el("g",{},svg),gNodes=el("g",{},svg);
+  G.nodes.forEach(function(n){byId[n.id]=n;edgesOf[n.id]=[];});
+  G.edges.forEach(function(e,i){if(!e.p||e.p.length<4)return;var p=e.p;
+    var red=e.y==="back"||e.y==="upward",kind=red?"r":(e.y==="dashed"?"m":"n");
+    var g=el("g",{"class":"fv-edge"},gEdges);
+    var d="M"+p[0][0]+" "+p[0][1]+" C"+p[1][0]+" "+p[1][1]+" "+p[2][0]+" "+p[2][1]+" "+p[3][0]+" "+p[3][1];
+    var path=el("path",{d:d,fill:"none",stroke:red?cssv("--bad"):(e.y==="dashed"?cssv("--muted"):cssv("--accent2")),"stroke-width":e.y==="heavy"?3.4:1.6,"stroke-opacity":e.y==="dashed"?0.7:0.9},g);
+    if(e.y==="dashed"||red)path.setAttribute("stroke-dasharray","6 5");
+    if(e.y==="upward")path.setAttribute("marker-start","url(#fv-arrow-"+kind+"-"+G.uid+")");else path.setAttribute("marker-end","url(#fv-arrow-"+kind+"-"+G.uid+")");
+    if(e.l){var m=bez(p,0.5),tw=e.l.length*6.6+10;el("rect",{x:m[0]-tw/2,y:m[1]-9,width:tw,height:18,rx:5,fill:cssv("--panel"),stroke:red?cssv("--bad"):cssv("--line")},g);
+      var tx=el("text",{x:m[0],y:m[1]+4,"text-anchor":"middle","class":"fv-svg-text","font-size":"11",fill:red?cssv("--bad"):cssv("--text")},g);tx.textContent=e.l;}
+    edgesOf[e.s]&&edgesOf[e.s].push(g);edgesOf[e.t]&&edgesOf[e.t].push(g);g.__ends=[e.s,e.t];});
+  G.nodes.forEach(function(n){var tone=TONE[n.o]||TONE.default;
+    var g=el("g",{"class":"fv-node",tabindex:"0"},gNodes);
+    el("path",{d:shapePath(n),fill:cssv(tone[0]),stroke:cssv(tone[1]),"stroke-width":n.s==="component"?2:1.5,"class":"fv-shape"},g);
+    if(n.s==="note")g.lastChild.setAttribute("stroke-dasharray","5 4");
+    if(n.s==="component")el("rect",{x:n.x-n.w/2+1,y:n.y-n.h/2+1,width:n.w-2,height:5,rx:3,fill:cssv(tone[1])},g);
+    var lines=[n.t].concat(n.l||[]),total=18+(lines.length-1)*15,y0=n.y-total/2+13;
+    lines.forEach(function(line,i){var t=el("text",{x:n.x,y:y0+(i===0?0:3+i*15),"text-anchor":"middle","class":"fv-svg-text","font-size":i===0?"13":"11.5","font-weight":i===0?"700":"400",fill:i===0?cssv("--text"):cssv("--muted")},g);t.textContent=line;});
+    var tip=el("title",{},g);tip.textContent=n.t+(n.d&&n.d.doc?"\n"+n.d.doc:"");
+    g.addEventListener("mouseenter",function(){svg.classList.add("fv-dim");g.classList.add("fv-on");(edgesOf[n.id]||[]).forEach(function(x){x.classList.add("fv-on");});});
+    g.addEventListener("mouseleave",function(){svg.classList.remove("fv-dim");g.classList.remove("fv-on");(edgesOf[n.id]||[]).forEach(function(x){x.classList.remove("fv-on");});});
+    g.addEventListener("click",function(ev){ev.stopPropagation();onPick(n);});});
+}
+function drawSequence(G,svg,onPick){
+  var defs=el("defs",{},svg),mk=el("marker",{id:"fv-arrow-s-"+G.uid,viewBox:"0 0 10 10",refX:"9",refY:"5",markerWidth:"7",markerHeight:"7",orient:"auto"},defs);
+  el("path",{d:"M0 0 L10 5 L0 10 z",fill:cssv("--accent2")},mk);
+  el("rect",{x:0,y:0,width:G.w,height:G.h,fill:cssv("--bg")},svg);
+  (G.participants||[]).forEach(function(p,i){el("line",{x1:p.x,y1:58,x2:p.x,y2:G.h-12,stroke:cssv("--line"),"stroke-dasharray":"4 5"},svg);
+    el("rect",{x:p.x-p.w/2,y:14,width:p.w,height:40,rx:9,fill:cssv(i?"--fv-ext":"--fv-entry"),stroke:cssv(i?"--fv-purple":"--accent")},svg);
+    var t=el("text",{x:p.x,y:39,"text-anchor":"middle","class":"fv-svg-text","font-size":"13","font-weight":"700",fill:cssv("--text")},svg);t.textContent=p.t;});
+  (G.messages||[]).forEach(function(m){var g=el("g",{"class":"fv-node"},svg),dir=m.x2>m.x1?1:-1;
+    el("line",{x1:m.x1,y1:m.y,x2:m.x2-dir*4,y2:m.y,stroke:cssv("--accent2"),"stroke-width":1.6,"marker-end":"url(#fv-arrow-s-"+G.uid+")"},g);
+    var t=el("text",{x:(m.x1+m.x2)/2,y:m.y-6,"text-anchor":"middle","class":"fv-svg-text","font-size":"11.5",fill:cssv("--text")},g);t.textContent=m.n+". "+m.l;
+    var tip=el("title",{},g);tip.textContent=m.l+(m.d&&m.d.doc?"\n"+m.d.doc:"");
+    g.addEventListener("click",function(ev){ev.stopPropagation();onPick({t:m.l,d:m.d||{}});});});
+}
+function panelHtml(n,apiHref){var d=n.d||{},out=[];
+  function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+  out.push("<button class='x' title='Close'>&times;</button><h4>"+esc(n.t)+"</h4>");
+  if(d.kind)out.push("<div class='fv-meta'>"+esc(d.kind)+(d.file?" &middot; <code>"+esc(d.file)+(d.line?":"+esc(d.line):"")+"</code>":"")+"</div>");
+  if(d.summary)out.push("<p>"+esc(d.summary)+"</p>");
+  if(d.sig)out.push("<pre><code>"+esc(d.sig)+"</code></pre>");
+  if(d.doc)out.push("<p>"+esc(d.doc)+"</p>");
+  if(d.stmt&&d.stmt!==n.t)out.push("<pre><code>"+esc(d.stmt)+"</code></pre>");
+  if(d.calls&&d.calls.length)out.push("<p><b>Calls</b></p><table>"+d.calls.map(function(c){return "<tr><td><code>"+esc(c.n)+"()</code></td><td>"+esc(c.d||"")+"</td></tr>";}).join("")+"</table>");
+  if(d.layers&&d.layers.length)out.push("<p class='fv-meta'>Layers: "+d.layers.map(function(l){return esc(l[0])+" "+l[1];}).join(", ")+"</p>");
+  if(d.files&&d.files.length)out.push("<p><b>Files</b> (most imported first)</p><table>"+d.files.map(function(f){return "<tr><td><code>"+esc(f.f)+"</code><br><span class='fv-meta'>"+f.i+" importers, "+f.n+" symbols</span></td><td>"+esc(f.p||"")+"</td></tr>";}).join("")+"</table>");
+  if(apiHref&&d.file&&d.qual)out.push("<p><a href='"+esc(apiHref+"#/m/"+encodeURIComponent(d.file)+"/"+encodeURIComponent(d.qual))+"'>Open in the API reference</a></p>");
+  else if(apiHref&&d.file)out.push("<p><a href='"+esc(apiHref+"#/m/"+encodeURIComponent(d.file))+"'>Open the module in the API reference</a></p>");
+  return out.join("");}
+function mount(host,graphs,opts){
+  opts=opts||{};host.innerHTML="";
+  if(!graphs||!graphs.length){host.appendChild(h("p","fv-meta","No architecture or execution-flow diagrams for this project."));return;}
+  var toc=h("div","fv-toc");host.appendChild(toc);
+  graphs.forEach(function(G,gi){G.uid="g"+gi;
+    var card=h("section","fv-card");card.id="fv-"+gi;host.appendChild(card);
+    var a=h("a",null,G.title);a.href="javascript:void(0)";a.addEventListener("click",function(){card.scrollIntoView({behavior:"smooth"});});toc.appendChild(a);
+    var head=h("div","fv-head");card.appendChild(head);head.appendChild(h("h3",null,G.title));
+    var m=G.meta||{};
+    if(m.entry)head.appendChild(h("div","fv-meta","Entry point "+m.entry+" at "+m.file+":"+m.line+" (score "+m.score+": "+(m.reasons||[]).join("; ")+")"));
+    if(m.stats)head.appendChild(h("div","fv-meta",m.stats.components+" components, "+m.stats.tiers+" tiers, "+m.stats.edges+" dependencies shown, "+m.stats.reduced+" implied edges removed"));
+    if(m.upward&&m.upward.length)head.appendChild(h("div","fv-meta","Fix first (upward): "+m.upward.map(function(u){return u[0]+" -> "+u[1]+" ("+u[2]+")";}).join("; ")));
+    head.appendChild(h("p","fv-cap",G.caption||""));
+    var bar=h("div","fv-bar");card.appendChild(bar);
+    var stage=h("div","fv-stage");card.appendChild(stage);
+    var panel=h("div","fv-panel");stage.appendChild(panel);
+    var svg=el("svg",{width:G.w,height:G.h,viewBox:"0 0 "+G.w+" "+G.h,role:"img","aria-label":G.title});stage.insertBefore(svg,panel);
+    function pick(n){panel.innerHTML=panelHtml(n,opts.apiHref||"");panel.classList.add("open");var x=panel.querySelector(".x");if(x)x.addEventListener("click",function(){panel.classList.remove("open");});}
+    if(G.kind==="sequence")drawSequence(G,svg,pick);else drawGraph(G,svg,pick);
+    var S={k:1,x:0,y:0};
+    function apply(){svg.style.transform="translate("+S.x+"px,"+S.y+"px) scale("+S.k+")";}
+    function clampPan(){var W=stage.clientWidth,H=stage.clientHeight,cw=G.w*S.k,ch=G.h*S.k;
+      S.x=cw<=W?(W-cw)/2:Math.min(0,Math.max(W-cw,S.x));S.y=ch<=H?Math.max(0,Math.min((H-ch)/2,12)):Math.min(0,Math.max(H-ch,S.y));}
+    function fit(){var W=Math.max(320,stage.clientWidth||host.clientWidth||900);S.k=Math.max(opts.minScale||0.8,Math.min(1.15,(W-16)/G.w));
+      var want=G.h*S.k+24,max=card.classList.contains("full")?99999:Math.round(window.innerHeight*0.8);
+      if(!card.classList.contains("full"))stage.style.height=Math.max(260,Math.min(want,max))+"px";S.x=0;S.y=0;clampPan();apply();}
+    function zoom(f,cx,cy){var nk=Math.max(0.25,Math.min(3,S.k*f));cx=cx==null?stage.clientWidth/2:cx;cy=cy==null?stage.clientHeight/2:cy;
+      S.x=cx-(cx-S.x)*nk/S.k;S.y=cy-(cy-S.y)*nk/S.k;S.k=nk;clampPan();apply();}
+    function btn(label,title,fn){var b=h("button",null,label);b.title=title;b.addEventListener("click",fn);bar.appendChild(b);}
+    btn("Fit width","Scale the diagram to the card width",fit);
+    btn("100%","Actual size",function(){S.k=1;clampPan();apply();});
+    btn("+","Zoom in",function(){zoom(1.25);});btn("-","Zoom out",function(){zoom(0.8);});
+    btn("Fullscreen","Toggle fullscreen (Esc leaves)",function(){card.classList.toggle("full");setTimeout(fit,30);});
+    btn("SVG","Download this diagram as SVG",function(){var c=svg.cloneNode(true);c.removeAttribute("style");c.setAttribute("xmlns",NS);
+      var blob=new Blob([new XMLSerializer().serializeToString(c)],{type:"image/svg+xml"}),u=URL.createObjectURL(blob),a2=document.createElement("a");a2.href=u;a2.download=(G.id||"diagram").replace(/[^a-z0-9]+/gi,"_")+".svg";a2.click();setTimeout(function(){URL.revokeObjectURL(u);},500);});
+    bar.appendChild(h("span","fv-hint",G.nodes.length?G.nodes.length+" nodes, "+G.edges.length+" arrows | drag to pan, Ctrl+wheel to zoom, click a node":((G.messages||[]).length+" calls | drag to pan, click a call")));
+    var drag=null;
+    stage.addEventListener("pointerdown",function(ev){if(ev.target.closest&&ev.target.closest(".fv-panel"))return;drag={x:ev.clientX,y:ev.clientY,sx:S.x,sy:S.y,moved:false};stage.classList.add("drag");});
+    window.addEventListener("pointermove",function(ev){if(!drag)return;var dx=ev.clientX-drag.x,dy=ev.clientY-drag.y;if(Math.abs(dx)+Math.abs(dy)>3)drag.moved=true;S.x=drag.sx+dx;S.y=drag.sy+dy;clampPan();apply();});
+    window.addEventListener("pointerup",function(){drag=null;stage.classList.remove("drag");});
+    stage.addEventListener("click",function(ev){if(!ev.target.closest(".fv-panel")&&!ev.target.closest(".fv-node"))panel.classList.remove("open");});
+    stage.addEventListener("wheel",function(ev){var r=stage.getBoundingClientRect();
+      if(ev.ctrlKey||ev.metaKey){ev.preventDefault();zoom(ev.deltaY<0?1.12:0.89,ev.clientX-r.left,ev.clientY-r.top);return;}
+      var ch=G.h*S.k,H=stage.clientHeight;if(ch<=H)return;var before=S.y;S.y-=ev.deltaY;clampPan();if(S.y!==before){ev.preventDefault();apply();}},{passive:false});
+    document.addEventListener("keydown",function(ev){if(ev.key==="Escape"&&card.classList.contains("full")){card.classList.remove("full");setTimeout(fit,30);}});
+    window.addEventListener("resize",fit);
+    requestAnimationFrame(fit);
+  });
+}
+window.ReadmenatorFlows={mount:mount};
+})();
+</script>
+<script>function readmenatorPayload(id,fallback){
+  var el=document.getElementById(id),text=el?el.textContent:"";
+  if(!text||!text.trim())return Promise.resolve(fallback===undefined?null:fallback);
+  if(el.getAttribute("data-encoding")!=="gzip+base64")return Promise.resolve(JSON.parse(text));
+  if(typeof DecompressionStream==="undefined")return Promise.reject(new Error("This browser cannot decompress the embedded data (DecompressionStream missing). Open the page in a current Chrome, Edge, Firefox or Safari."));
+  var bin=atob(text.replace(/\s+/g,"")),bytes=new Uint8Array(bin.length);
+  for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+  return new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"))).text().then(JSON.parse);
+}
+function readmenatorPayloads(specs){
+  return Promise.all(specs.map(function(spec){return readmenatorPayload(spec[0],spec[1]);}));
+}
+function readmenatorPayloadError(err){
+  var box=document.createElement("pre");box.setAttribute("role","alert");
+  box.style.cssText="position:relative;z-index:9999;margin:24px;padding:16px;border:1px solid #f87171;border-radius:8px;background:#1f1115;color:#fecaca;white-space:pre-wrap";
+  box.textContent="Could not load the embedded data: "+(err&&err.message?err.message:String(err));
+  document.body.insertBefore(box,document.body.firstChild);
+}</script>
+<script>
+(function(){var root=document.documentElement;try{var t=localStorage.getItem("readmenator-theme");if(t)root.setAttribute("data-theme",t);}catch(e){}
+window.ReadmenatorViewerApply=function(patch){patch=patch||{};var handled=[];["theme","html_style","accent","accent2"].forEach(function(k){if(k in patch&&handled.indexOf(k)<0)handled.push(k);});if(!handled.length)return handled;try{if(typeof window.__rmFlowsDraw__==="function")window.__rmFlowsDraw__();}catch(e){}return handled;};
+readmenatorPayload("fv-data",{graphs:[],api:""}).then(function(data){
+function draw(){window.ReadmenatorFlows.mount(document.getElementById("fv-host"),data.graphs,{apiHref:data.api});}
+window.__rmFlowsDraw__=draw;
+document.getElementById("fv-theme").addEventListener("click",function(){var cur=root.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");var n=cur==="light"?"dark":"light";root.setAttribute("data-theme",n);try{localStorage.setItem("readmenator-theme",n);}catch(e){}draw();});
+draw();},readmenatorPayloadError);})();
+</script>
+<script>window.__RM_VIEWER__={"accent": "#22d3ee", "accent2": "#f472b6", "agent_extra": "", "agent_heading": "", "agent_intro": "", "author": "", "bundle_beta": 0.85, "charge": -300, "description": "", "folder_notice": "", "github_url": "", "home_url": "", "html_style": "dark", "hulls_enabled": true, "label_top_n": 30, "label_zoom": 1.6, "link_distance": 120, "link_strength": 0.3, "logo_url": "", "mode": "2d", "motion_enabled": true, "name": "", "pages_url": "", "particles": 4, "preset": "classic", "readme_agents_line": "", "readme_developers_line": "", "readme_heading": "", "readme_intro": "", "readme_regen_command": "", "sourceview_max_files": 2500, "sourceview_max_total_chars": 20000000, "theme": "dark"};
+
+(function(){
+"use strict";
+var LS_KEY="readmenator.viewer.v1";
+var SCHEMA=[{"key": "theme", "label": "Theme", "type": "select", "section": "viewer", "options": ["dark", "light"], "help": "Page color scheme. Applies instantly."}, {"key": "preset", "label": "Map preset", "type": "select", "section": "viewer", "options": ["classic", "flow", "blueprint", "editorial"], "help": "Gallery map style. Needs rebuild for system maps."}, {"key": "motion_enabled", "label": "Motion", "type": "bool", "section": "viewer", "help": "Finite animations. Honors prefers-reduced-motion."}, {"key": "mode", "label": "Default view", "type": "select", "section": "viewer", "options": ["2d", "3d"], "help": "Explorer view used on first load."}, {"key": "label_top_n", "label": "Labels (top N)", "type": "int", "section": "viewer", "min": 0, "max": 200, "help": "How many top-ranked files always show names."}, {"key": "label_zoom", "label": "Label zoom", "type": "number", "section": "viewer", "min": 0.5, "max": 4.0, "step": 0.1, "help": "Zoom level from which all labels appear."}, {"key": "charge", "label": "Repulsion", "type": "int", "section": "viewer", "min": -1000, "max": 0, "help": "Force-graph node repulsion. Reheats physics live."}, {"key": "link_distance", "label": "Link distance", "type": "int", "section": "viewer", "min": 20, "max": 400, "help": "Target edge length. Reheats physics live."}, {"key": "link_strength", "label": "Link strength", "type": "number", "section": "viewer", "min": 0.0, "max": 1.0, "step": 0.05, "help": "Edge stiffness. Reheats physics live."}, {"key": "hulls_enabled", "label": "Group halos", "type": "bool", "section": "viewer", "help": "Community halo overlays around file groups."}, {"key": "particles", "label": "Flow particles", "type": "int", "section": "viewer", "min": 0, "max": 12, "help": "Particles on highlighted edges."}, {"key": "bundle_beta", "label": "Bundle strength", "type": "number", "section": "viewer", "min": 0.0, "max": 1.0, "step": 0.05, "help": "Edge bundling pull toward the hierarchy (bundles page)."}, {"key": "html_style", "label": "HTML style", "type": "select", "section": "viewer", "options": ["dark", "light"], "help": "Default style for freshly generated pages."}, {"key": "name", "label": "Project name", "type": "text", "section": "branding", "help": "Page titles and hero. Needs rebuild."}, {"key": "author", "label": "Author", "type": "text", "section": "branding", "help": "Credited in the hero and footer. Needs rebuild."}, {"key": "description", "label": "Description", "type": "text", "section": "branding", "help": "One-line project summary in the hero. Needs rebuild."}, {"key": "github_url", "label": "GitHub URL", "type": "text", "section": "branding", "help": "Absolute http(s) link. Footer icon. Needs rebuild."}, {"key": "pages_url", "label": "Pages URL", "type": "text", "section": "branding", "help": "Absolute http(s) link to the published site. Footer icon. Needs rebuild."}, {"key": "home_url", "label": "Home URL", "type": "text", "section": "branding", "help": "Where the maps home icon points. Footer icon. Needs rebuild."}, {"key": "logo_url", "label": "Logo URL", "type": "text", "section": "branding", "help": "Absolute http(s) brand image shown in the hero. Needs rebuild."}, {"key": "accent", "label": "Accent color", "type": "color", "section": "branding", "help": "Primary highlight color (#rrggbb). Applies instantly."}, {"key": "accent2", "label": "Accent 2", "type": "color", "section": "branding", "help": "Secondary highlight color (#rrggbb). Applies instantly."}, {"key": "sourceview_max_files", "label": "View sources (files)", "type": "int", "section": "maps", "min": 0, "max": 100000, "help": "Files embedding source for the View button. Needs rebuild."}, {"key": "sourceview_max_total_chars", "label": "View sources (chars)", "type": "int", "section": "maps", "min": 0, "max": 1000000000, "help": "Total char budget across embedded sources. Needs rebuild."}, {"key": "readme_heading", "label": "README heading", "type": "text", "section": "messages", "help": "README injection heading. Empty = built-in. Needs rebuild."}, {"key": "readme_intro", "label": "README intro", "type": "textarea", "section": "messages", "help": "Opening paragraph of the README section. Needs rebuild."}, {"key": "readme_agents_line", "label": "README agents line", "type": "text", "section": "messages", "help": "Closing 'AI agents' guidance line. Needs rebuild."}, {"key": "readme_developers_line", "label": "README developers line", "type": "text", "section": "messages", "help": "Closing 'Developers' guidance line. Needs rebuild."}, {"key": "readme_regen_command", "label": "Regen command", "type": "text", "section": "messages", "help": "Rebuild command shown in injections. Needs rebuild."}, {"key": "agent_heading", "label": "Agent heading", "type": "text", "section": "messages", "help": "Agent files injection heading. Needs rebuild."}, {"key": "agent_intro", "label": "Agent intro", "type": "textarea", "section": "messages", "help": "Opening paragraph of agent injections. Needs rebuild."}, {"key": "agent_extra", "label": "Agent extra", "type": "textarea", "section": "messages", "help": "Extra project instructions appended to agent files. Needs rebuild."}, {"key": "folder_notice", "label": "Folder notice", "type": "textarea", "section": "messages", "help": "Notice paragraph in generated folder READMEs. Needs rebuild."}];
+function defaults(){var d={};try{d=window.__RM_VIEWER__||{};}catch(e){}return d;}
+function stored(){try{var raw=localStorage.getItem(LS_KEY);if(raw)return JSON.parse(raw);}catch(e){}return {};}
+function save(patch){try{var cur=stored();for(var k in patch)cur[k]=patch[k];localStorage.setItem(LS_KEY,JSON.stringify(cur));}catch(e){}}
+function clear(){try{localStorage.removeItem(LS_KEY);}catch(e){}}
+function current(){var d=defaults(),s=stored(),out={};for(var i=0;i<SCHEMA.length;i++){var k=SCHEMA[i].key;out[k]=(k in s)?s[k]:d[k];}return out;}
+function setTheme(t){try{document.documentElement.setAttribute("data-theme",t);localStorage.setItem("readmenator-theme",t);}catch(e){try{document.documentElement.setAttribute("data-theme",t);}catch(_){}}}
+function setAccent(which,val){
+  if(!/^#[0-9a-fA-F]{3}([0-9a-fA-F]{3}([0-9a-fA-F]{2})?)?$/.test(String(val||"")))return false;
+  try{document.documentElement.style.setProperty(which,val);}catch(e){return false;}
+  return true;
+}
+function num(v,f){var n=parseFloat(v);return isFinite(n)?n:f;}
+function applyLive(patch){
+  patch=patch||{};var live=[];
+  if("theme" in patch||"html_style" in patch){setTheme(patch.theme||patch.html_style||"dark");live.push("theme");}
+  if("accent" in patch&&setAccent("--accent",patch.accent))live.push("accent");
+  if("accent2" in patch&&setAccent("--accent2",patch.accent2))live.push("accent2");
+  try{
+    if(typeof window.ReadmenatorViewerApply==="function"){
+      var r=window.ReadmenatorViewerApply(patch);
+      if(r===true){if(live.indexOf("view")<0)live.push("view");}
+      else if(r&&r.length)for(var i=0;i<r.length;i++)if(live.indexOf(r[i])<0)live.push(r[i]);
+    }
+  }catch(e){if(window.console)console.warn("viewer apply failed",e);}
+  return live;
+}
+function fieldRow(spec,val){
+  var row=document.createElement("div");row.className="rm-cfg-row";
+  var lab=document.createElement("label");lab.textContent=spec.label;lab.setAttribute("for","rm-cfg-"+spec.key);row.appendChild(lab);
+  var input;
+  if(spec.type==="bool"){input=document.createElement("input");input.type="checkbox";input.checked=!!val;}
+  else if(spec.type==="select"){input=document.createElement("select");(spec.options||[]).forEach(function(o){var op=document.createElement("option");op.value=o;op.textContent=o;if(String(o)===String(val))op.selected=true;input.appendChild(op);});}
+  else if(spec.type==="color"){input=document.createElement("input");input.type="color";try{input.value=/^#[0-9a-fA-F]{6}$/.test(String(val||""))?val:"#22d3ee";}catch(e){input.value="#22d3ee";}}
+  else if(spec.type==="text"){input=document.createElement("input");input.type="text";input.value=(val==null?"":String(val));if(spec.key.indexOf("_url")>=0)input.placeholder="https:"+"//your-site.example/…";}
+  else if(spec.type==="textarea"){input=document.createElement("textarea");input.rows=3;input.value=(val==null?"":String(val));}
+  else{input=document.createElement("input");input.type="number";input.value=val;if(spec.min!=null)input.min=spec.min;if(spec.max!=null)input.max=spec.max;if(spec.step)input.step=spec.step;}
+  input.id="rm-cfg-"+spec.key;input.dataset.key=spec.key;row.appendChild(input);
+  if(spec.help){var h=document.createElement("p");h.className="rm-cfg-help";h.textContent=spec.help;row.appendChild(h);}
+  return row;
+}
+function renderForm(){
+  var form=document.getElementById("rm-cfg-form");
+  if(!form)return {};
+  while(form.firstChild)form.removeChild(form.firstChild);
+  var cur=current(),lastSec="";
+  SCHEMA.forEach(function(spec){
+    var sec=spec.section||"viewer";
+    if(sec!==lastSec){lastSec=sec;var hd=document.createElement("h3");hd.className="rm-cfg-sec";hd.textContent=sec.charAt(0).toUpperCase()+sec.slice(1);form.appendChild(hd);}
+    form.appendChild(fieldRow(spec,cur[spec.key]));
+  });
+  window.__rmCfgBase__=cur;
+  return cur;
+}
+function openModal(){
+  var scrim=document.getElementById("rm-cfg-scrim"),modal=document.getElementById("rm-cfg-modal");
+  if(!scrim||!modal)return;
+  renderForm();
+  scrim.classList.add("open");modal.classList.add("open");modal.setAttribute("aria-hidden","false");
+  var first=document.getElementById("rm-cfg-form").querySelector("select,input,textarea");if(first)first.focus();
+}
+function closeModal(){var scrim=document.getElementById("rm-cfg-scrim"),modal=document.getElementById("rm-cfg-modal");if(scrim)scrim.classList.remove("open");if(modal){modal.classList.remove("open");modal.setAttribute("aria-hidden","true");}}
+function readForm(){
+  var patch={},form=document.getElementById("rm-cfg-form");
+  var els=form.querySelectorAll("[data-key]");
+  for(var i=0;i<els.length;i++){var el=els[i],k=el.dataset.key,spec=null;
+    for(var j=0;j<SCHEMA.length;j++)if(SCHEMA[j].key===k)spec=SCHEMA[j];
+    if(!spec)continue;
+    if(spec.type==="bool")patch[k]=!!el.checked;
+    else if(spec.type==="int")patch[k]=Math.round(num(el.value,0));
+    else if(spec.type==="number")patch[k]=num(el.value,0);
+    else patch[k]=el.value;
+  }
+  return patch;
+}
+function toToml(patch){
+  var sections={},order=[];
+  SCHEMA.forEach(function(spec){
+    if(!(spec.key in patch))return;
+    var sec=spec.section||"viewer";
+    if(!(sec in sections)){sections[sec]=[];order.push(sec);}
+    var v=patch[spec.key],lit;
+    if(typeof v==="boolean")lit=v?"true":"false";
+    else if(typeof v==="number")lit=String(v);
+    else lit='"'+String(v).replace(/\\/g,"\\\\").replace(/"/g,'\\"').replace(/\n/g,"\\n").replace(/\r/g,"\\r").replace(/\t/g,"\\t")+'"';
+    sections[sec].push(spec.key+" = "+lit);
+  });
+  var lines=[];
+  order.forEach(function(sec){lines.push("["+sec+"]");lines.push(sections[sec].join("\n"));lines.push("");});
+  return lines.join("\n").replace(/\n$/,"");
+}
+function status(msg){var s=document.getElementById("rm-cfg-status");if(s)s.textContent=msg;}
+function boot(){
+  document.querySelectorAll("[data-rm-config]").forEach(function(btn){
+    if(btn.__rmBound)return;btn.__rmBound=true;
+    btn.addEventListener("click",openModal);
+  });
+  var scrim=document.getElementById("rm-cfg-scrim");
+  if(scrim)scrim.addEventListener("click",closeModal);
+  var close=document.getElementById("rm-cfg-close");
+  if(close)close.addEventListener("click",closeModal);
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")closeModal();});
+  var apply=document.getElementById("rm-cfg-apply");
+  if(apply)apply.addEventListener("click",function(){
+    var patch=readForm(),base=window.__rmCfgBase__||{},dirty={};
+    for(var k in patch)if(patch[k]!==base[k])dirty[k]=patch[k];
+    save(patch);
+    var live=applyLive(dirty);
+    var pending=Object.keys(dirty).filter(function(k){return live.indexOf(k)<0;});
+    var msg="";
+    if(live.length)msg+="Live: "+live.join(", ")+". ";
+    if(pending.length)msg+="Needs rebuild: "+pending.join(", ")+".";
+    status(msg||"No changes.");
+    window.__rmCfgBase__=patch;
+  });
+  var reset=document.getElementById("rm-cfg-reset");
+  if(reset)reset.addEventListener("click",function(){
+    if(!window.confirm("Clear local Config overrides and restore last-rebuild defaults?"))return;
+    clear();
+    renderForm();
+    applyLive(current());
+    status("Local overrides cleared. Last-rebuild defaults restored.");
+  });
+  var copy=document.getElementById("rm-cfg-copy");
+  if(copy)copy.addEventListener("click",function(){
+    var toml=toToml(readForm());
+    function done(){status("Copied TOML sections. Paste them into readmenator.toml and rebuild to persist.");}
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(toml).then(done,function(){status(toml);});
+      else status(toml);
+    }catch(e){status(toml);}
+  });
+  var init=stored();
+  if(init&&Object.keys(init).length)applyLive(init);
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();
+})();
+</script>
+</body>
+</html>

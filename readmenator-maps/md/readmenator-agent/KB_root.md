@@ -1,0 +1,100 @@
+# Subsystem: root
+
+## install.sh
+- Doc: Verificar si Python está instalado
+- Layer: utility
+- Language: sh
+
+## lazyown_infinitestorage.py
+- Doc: LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder.
+- Layer: presentation
+- Language: py
+- Symbols:
+  - `LazyOwnConfig` (class, line 71) `class LazyOwnConfig`
+  - `SecurityValidator` (class, line 148) `class SecurityValidator`
+  - `ErrorCorrector` (class, line 184) `class ErrorCorrector`
+  - `FrameEncoder` (class, line 242) `class FrameEncoder`
+  - `FrameDecoder` (class, line 273) `class FrameDecoder`
+  - `FFmpegPipeline` (class, line 305) `class FFmpegPipeline`
+  - `ProtocolHandler` (class, line 417) `class ProtocolHandler`
+  - `LegacyProtocolHandler` (class, line 429) `class LegacyProtocolHandler(ProtocolHandler)`
+  - `SecureProtocolHandler` (class, line 454) `class SecureProtocolHandler(ProtocolHandler)`
+  - `LazyOwnInfiniteStorage` (class, line 508) `class LazyOwnInfiniteStorage`
+  - `CLIRunner` (class, line 631) `class CLIRunner`
+  - `run_tests` (function, line 970) `def run_tests()`
+  - `main` (function, line 1018) `def main()`
+  - `__init__` (method, line 151) `def __init__(self, config)`
+  - `validate_file_path` (method, line 154) `def validate_file_path(self, file_path, must_exist)`
+  - `validate_size` (method, line 164) `def validate_size(self, size)`
+  - `sanitize_filename` (method, line 169) `def sanitize_filename(self, filename)`
+  - `validate_extension` (method, line 177) `def validate_extension(self, file_path, allowed_extensions)`
+  - `__init__` (method, line 187) `def __init__(self, config)`
+  - `encode_data` (method, line 190) `def encode_data(self, data)`
+  - `decode_data` (method, line 200) `def decode_data(self, data)`
+  - `_encode_nibble` (method, line 211) `def _encode_nibble(self, nibble)`
+  - `_decode_nibble` (method, line 222) `def _decode_nibble(self, byte_val)`
+  - `__init__` (method, line 245) `def __init__(self, config)`
+  - `bits_to_frames` (method, line 248) `def bits_to_frames(self, bit_string, frame_width, frame_height, block_size)`
+  - `_create_frame` (method, line 263) `def _create_frame(self, bits, width, height, block_size, blocks_per_row)`
+  - `__init__` (method, line 276) `def __init__(self, config)`
+  - `extract_bits_from_raw_frames` (method, line 279) `def extract_bits_from_raw_frames(self, raw_bytes, width, height, block_size, expected_bits)`
+  - `__init__` (method, line 308) `def __init__(self, config)`
+  - `get_video_info` (method, line 311) `def get_video_info(self, input_path)`
+  - `_get_video_info_ffprobe` (method, line 327) `def _get_video_info_ffprobe(self, input_path)`
+  - `get_metadata` (method, line 347) `def get_metadata(self, input_path)`
+  - `encode_video` (method, line 366) `def encode_video(self, frame_generator, output_path, frame_width, frame_height, fps)`
+  - `extract_raw_frames` (method, line 393) `def extract_raw_frames(self, input_path, target_width, target_height, max_frames)`
+  - `pack` (method, line 420) `def pack(self, data, frame_width, frame_height, block_size, fps)`
+  - `unpack` (method, line 424) `def unpack(self, bit_string, block_size)`
+  - `__init__` (method, line 432) `def __init__(self, config)`
+  - `pack` (method, line 435) `def pack(self, data, frame_width, frame_height, block_size, fps)`
+  - `unpack` (method, line 440) `def unpack(self, bit_string, block_size)`
+  - `__init__` (method, line 457) `def __init__(self, config, corrector)`
+  - `pack` (method, line 461) `def pack(self, data, frame_width, frame_height, block_size, fps)`
+  - `unpack` (method, line 480) `def unpack(self, bit_string, block_size)`
+  - `__init__` (method, line 511) `def __init__(self, config)`
+  - `create_web_runner` (method, line 521) `def create_web_runner(self)`
+  - `encode` (method, line 525) `def encode(self, input_path, output_path, frame_width, frame_height, fps, block_size, protocol_version)`
+  - `decode` (method, line 550) `def decode(self, input_path, output_path, block_size, protocol_version)`
+  - `_validate_encoding_parameters` (method, line 561) `def _validate_encoding_parameters(self, frame_width, frame_height, fps, block_size)`
+  - `_detect_protocol` (method, line 571) `def _detect_protocol(self, input_path, block_size)`
+  - `_decode_legacy` (method, line 604) `def _decode_legacy(self, input_path, output_path, block_size)`
+  - `_decode_secure` (method, line 617) `def _decode_secure(self, input_path, output_path, block_size)`
+  - `__init__` (method, line 634) `def __init__(self, storage)`
+  - `run` (method, line 637) `def run(self)`
+  - `Worker` (class, line 681) `class Worker(QThread)`
+  - `GUIRunner` (class, line 700) `class GUIRunner(QWidget)`
+  - `GUIRunner` (class, line 836) `class GUIRunner`
+  - `WebRunner` (class, line 847) `class WebRunner`
+  - `WebRunner` (class, line 960) `class WebRunner`
+  - `__init__` (method, line 687) `def __init__(self, func)`
+  - `run` (method, line 693) `def run(self)`
+  - `__init__` (method, line 703) `def __init__(self, storage)`
+  - `_init_ui` (method, line 709) `def _init_ui(self)`
+  - `_change_mode` (method, line 777) `def _change_mode(self)`
+  - `_browse_input` (method, line 788) `def _browse_input(self)`
+  - `_start` (method, line 798) `def _start(self)`
+  - `_on_finished` (method, line 821) `def _on_finished(self, message)`
+  - `_on_error` (method, line 826) `def _on_error(self, message)`
+  - `run` (method, line 831) `def run(self)`
+  - `__init__` (method, line 839) `def __init__(self, storage)`
+  - `run` (method, line 842) `def run(self)`
+  - `__init__` (method, line 850) `def __init__(self, storage)`
+  - `run_setup` (method, line 861) `def run_setup(self)`
+  - `_setup_routes` (method, line 867) `def _setup_routes(self)`
+  - `run` (method, line 955) `def run(self, host, port)`
+  - `__init__` (method, line 963) `def __init__(self, storage)`
+  - `run` (method, line 966) `def run(self, host, port)`
+  - `_validate_upload` (function, line 872) `def _validate_upload(input_file, action)`
+  - `index` (function, line 890) `def index()`
+  - `download` (function, line 935) `def download(filename)`
+  - `add_security_headers` (function, line 943) `def add_security_headers(response)`
+- Imported by: `skill_lazyown_infinitestorage/tools.py`, `tests/test_error_correction.py`, `tests/test_frames.py`, `tests/test_integration.py`, `tests/test_protocols.py`, `tests/test_security.py`, `wsgi_app.py`
+
+## wsgi_app.py
+- Doc: WSGI entry point for LazyOwnInfiniteStorage web server.
+- Layer: utility
+- Language: py
+- Symbols:
+  - `get_wsgi_app` (function, line 7) `def get_wsgi_app()`
+- Depends on: `lazyown_infinitestorage.py`

@@ -15,7 +15,12 @@ import random
 import shutil
 from typing import Optional, Tuple, List, Generator
 
-import cv2
+try:
+    import cv2
+    HAS_CV2 = True
+except ImportError:
+    cv2 = None
+    HAS_CV2 = False
 import numpy as np
 
 try:
@@ -305,17 +310,39 @@ class FFmpegPipeline:
 
     def get_video_info(self, input_path: str) -> dict:
         """Retrieves native resolution and metadata from a video file."""
-        cap = cv2.VideoCapture(input_path)
-        if not cap.isOpened():
-            raise RuntimeError(f"Cannot open video: {input_path}")
-        info = {
-            'width': int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),
-            'height': int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)),
-            'fps': cap.get(cv2.CAP_PROP_FPS),
-            'frame_count': int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-        }
-        cap.release()
-        return info
+        if HAS_CV2:
+            cap = cv2.VideoCapture(input_path)
+            if not cap.isOpened():
+                raise RuntimeError(f"Cannot open video: {input_path}")
+            info = {
+                'width': int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),
+                'height': int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)),
+                'fps': cap.get(cv2.CAP_PROP_FPS),
+                'frame_count': int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+            }
+            cap.release()
+            return info
+        return self._get_video_info_ffprobe(input_path)
+
+    def _get_video_info_ffprobe(self, input_path: str) -> dict:
+        """Retrieves video metadata via ffprobe (no cv2 dependency)."""
+        proc = subprocess.run(
+            ['ffprobe', '-v', 'error', '-select_streams', 'v:0',
+             '-show_entries', 'stream=width,height,r_avg_frame_rate,nb_frames',
+             '-of', 'csv=p=0', input_path],
+            capture_output=True, text=True, timeout=30
+        )
+        if proc.returncode != 0:
+            raise RuntimeError(f"ffprobe failed: {proc.stderr.strip()}")
+        parts = proc.stdout.strip().split(',')
+        width = int(parts[0]) if len(parts) > 0 and parts[0].isdigit() else 0
+        height = int(parts[1]) if len(parts) > 1 and parts[1].isdigit() else 0
+        fps = 0.0
+        if len(parts) > 2 and '/' in parts[2]:
+            num, den = parts[2].split('/')
+            fps = int(num) / int(den) if int(den) != 0 else 0.0
+        frame_count = int(parts[3]) if len(parts) > 3 and parts[3].isdigit() else 0
+        return {'width': width, 'height': height, 'fps': fps, 'frame_count': frame_count}
 
     def get_metadata(self, input_path: str) -> dict:
         """Extracts custom lazyown metadata from a video file using ffprobe."""
