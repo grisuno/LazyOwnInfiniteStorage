@@ -1,13 +1,13 @@
 # Second Brain
 
-*Last synthesized: 2026-10-17 | 9 files | 2 concept pages | offline, zero tokens*
+*Last synthesized: 2026-10-17 | 11 files | 2 concept pages | offline, zero tokens*
 
 > Raw sources -> readmenator wiki -> links (Karpathy LLM Wiki Pattern, deterministic).
 > Start here, then open one community page. Prefer grep over full reads.
 
 ## Vault Overview
 
-The codebase centres on `lazyown_infinitestorage.py`, `test_security.py`, `test_integration.py`. Architecturally it is 3 layers, dominant testing (5 files) across 2 import-based communities. Recorded risk surface: 0 security findings and 0 dependency cycles.
+The codebase centres on `lazyown_infinitestorage.py`, `test_security.py`, `test_integration.py`. Architecturally it is 3 layers, dominant testing (6 files) across 2 import-based communities. Recorded risk surface: 0 security findings and 0 dependency cycles.
 
 Communities are self-contained in the resolved import graph; no cross-boundary bridges were recorded.
 
@@ -17,14 +17,14 @@ Open work clusters around documentation (100% file coverage), 0 security finding
 
 | Metric | Value |
 |--------|-------|
-| Files | 9 |
-| Symbols | 154 |
-| Resolved imports | 7 |
+| Files | 11 |
+| Symbols | 194 |
+| Resolved imports | 9 |
 | Languages | py, sh |
 | Communities | 2 |
-| Doc coverage | 100% (9/9 files) |
+| Doc coverage | 100% (11/11 files) |
 | Security findings | 0 |
-| Estimated read cost | ~2202 tokens (chars/4, offline so $0) |
+| Estimated read cost | ~2706 tokens (chars/4, offline so $0) |
 
 ## Reading Order
 
@@ -39,18 +39,18 @@ readmenator query "<question>" --target LazyOwnInfiniteStorage
 
 ## Concept Wiki
 
-- [root (8 files, cohesion 1.00)](./community_0_root.md)
+- [root (10 files, cohesion 1.00)](./community_0_root.md)
 - [orphans (1 files, cohesion 0.00)](./community_1_orphans.md)
 
 ## God Nodes
 
 | File | Score |
 |------|-------|
-| `lazyown_infinitestorage.py` | 21.9 |
+| `lazyown_infinitestorage.py` | 26.4 |
 | `tests/test_security.py` | 3.8 |
 | `tests/test_integration.py` | 3.6 |
-| `tests/test_frames.py` | 3.3 |
-| `tests/test_protocols.py` | 3.2 |
+| `tests/test_zip.py` | 3.6 |
+| `mcp_server.py` | 3.3 |
 
 ## Strongest Connections
 

@@ -1,19 +1,19 @@
 {
  "metadata": {
-  "generated_at": "2026-10-17T16:44:37.318210+00:00",
-  "source_tree_hash": "0473209e37f0e9c13b6f95b78ca8a7b8b4a64ba958fecfbd97ee78f31784385c",
+  "generated_at": "2026-10-17T17:04:51.559014+00:00",
+  "source_tree_hash": "0aab6872594cee031844a954cb59c8b1daf57172cbc0c83951846e883d6dd584",
   "repo_name": "LazyOwnInfiniteStorage",
   "depth_level": 2,
   "depth_cap": 3,
   "file_coverage_summary": {
-   "total_files": 9,
-   "analyzed": 9,
+   "total_files": 11,
+   "analyzed": 11,
    "not_analyzed": 0,
    "not_analyzed_by_reason": {}
   },
   "tree_spec": {}
  },
- "description": "Static architecture map of 9 files (py, sh) in 1 components: root. Structure is extracted statically without LLM calls; component prose may be enriched locally.",
+ "description": "Static architecture map of 11 files (py, sh) in 1 components: root. Structure is extracted statically without LLM calls; component prose may be enriched locally.",
  "files": {
   "install.sh": {
    "language": "sh",
@@ -21,11 +21,15 @@
   },
   "lazyown_infinitestorage.py": {
    "language": "py",
-   "symbols": 79
+   "symbols": 84
+  },
+  "mcp_server.py": {
+   "language": "py",
+   "symbols": 13
   },
   "skill_lazyown_infinitestorage/tools.py": {
    "language": "py",
-   "symbols": 5
+   "symbols": 11
   },
   "tests/test_error_correction.py": {
    "language": "py",
@@ -47,6 +51,10 @@
    "language": "py",
    "symbols": 18
   },
+  "tests/test_zip.py": {
+   "language": "py",
+   "symbols": 16
+  },
   "wsgi_app.py": {
    "language": "py",
    "symbols": 1
@@ -56,482 +64,674 @@
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::LazyOwnConfig": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::LazyOwnConfig",
-   "start_line": 71,
-   "end_line": 147,
+   "start_line": 72,
+   "end_line": 155,
    "type": "CLASS",
-   "content_hash": "ff1e26369dc6aec5"
+   "content_hash": "c5a24574e1f39573"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::SecurityValidator": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::SecurityValidator",
-   "start_line": 148,
-   "end_line": 150,
+   "start_line": 156,
+   "end_line": 158,
    "type": "CLASS",
-   "content_hash": "de81c0d01889695b"
+   "content_hash": "5e50f8a215ed0b6b"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::__init__": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::__init__",
-   "start_line": 963,
-   "end_line": 965,
+   "start_line": 1065,
+   "end_line": 1067,
    "type": "FUNCTION",
-   "content_hash": "9cf582db81c278b6"
+   "content_hash": "d1e1df6ba5d01ef7"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::validate_file_path": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::validate_file_path",
-   "start_line": 154,
-   "end_line": 163,
+   "start_line": 162,
+   "end_line": 171,
    "type": "FUNCTION",
-   "content_hash": "b124b203da114cde"
+   "content_hash": "cba2743394b7e990"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::validate_size": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::validate_size",
-   "start_line": 164,
-   "end_line": 168,
+   "start_line": 172,
+   "end_line": 176,
    "type": "FUNCTION",
-   "content_hash": "35c58071834404a9"
+   "content_hash": "850dc4762aa014b3"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::sanitize_filename": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::sanitize_filename",
-   "start_line": 169,
-   "end_line": 176,
+   "start_line": 177,
+   "end_line": 184,
    "type": "FUNCTION",
-   "content_hash": "b3145520b818e639"
+   "content_hash": "1d6d3e1595b4460c"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::validate_extension": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::validate_extension",
-   "start_line": 177,
-   "end_line": 183,
+   "start_line": 185,
+   "end_line": 191,
    "type": "FUNCTION",
-   "content_hash": "23e1170db6c79de2"
+   "content_hash": "16dfbc86dc1cf844"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::ErrorCorrector": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::ErrorCorrector",
-   "start_line": 184,
-   "end_line": 186,
+   "start_line": 192,
+   "end_line": 194,
    "type": "CLASS",
-   "content_hash": "dc4a83317b6e47dc"
+   "content_hash": "bbdc87ae92574409"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode_data": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::encode_data",
-   "start_line": 190,
-   "end_line": 199,
+   "start_line": 198,
+   "end_line": 207,
    "type": "FUNCTION",
-   "content_hash": "9e5101a45d56a11e"
+   "content_hash": "4899570915727dbf"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode_data": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::decode_data",
-   "start_line": 200,
-   "end_line": 210,
+   "start_line": 208,
+   "end_line": 218,
    "type": "FUNCTION",
-   "content_hash": "8d4e2a7f1f5d21ec"
+   "content_hash": "c0aac0875de08de1"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_encode_nibble": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::_encode_nibble",
-   "start_line": 211,
-   "end_line": 221,
+   "start_line": 219,
+   "end_line": 229,
    "type": "FUNCTION",
-   "content_hash": "0e4e61c57e74070b"
+   "content_hash": "81084e2b24a1516b"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_decode_nibble": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::_decode_nibble",
-   "start_line": 222,
-   "end_line": 241,
+   "start_line": 230,
+   "end_line": 249,
    "type": "FUNCTION",
-   "content_hash": "eea19e5beb75d81b"
+   "content_hash": "3b79cef23d975fdc"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::FrameEncoder": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::FrameEncoder",
-   "start_line": 242,
-   "end_line": 244,
+   "start_line": 250,
+   "end_line": 252,
    "type": "CLASS",
-   "content_hash": "11c84db74dbcff86"
+   "content_hash": "7b19920f6d74167f"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::bits_to_frames": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::bits_to_frames",
-   "start_line": 248,
-   "end_line": 262,
+   "start_line": 256,
+   "end_line": 270,
    "type": "FUNCTION",
-   "content_hash": "aff2b30ae3b00d56"
+   "content_hash": "0aeaae997b208e23"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_create_frame": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::_create_frame",
-   "start_line": 263,
-   "end_line": 272,
+   "start_line": 271,
+   "end_line": 280,
    "type": "FUNCTION",
-   "content_hash": "b4453c742fdb93fe"
+   "content_hash": "e365689795537cde"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::FrameDecoder": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::FrameDecoder",
-   "start_line": 273,
-   "end_line": 275,
+   "start_line": 281,
+   "end_line": 283,
    "type": "CLASS",
-   "content_hash": "bb1fe3e7524e6a1f"
+   "content_hash": "8c3ad513a47b796a"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::extract_bits_from_raw_frames": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::extract_bits_from_raw_frames",
-   "start_line": 279,
-   "end_line": 304,
+   "start_line": 287,
+   "end_line": 312,
    "type": "FUNCTION",
-   "content_hash": "5397c024832711ac"
+   "content_hash": "349a26d5fbdc41e7"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::FFmpegPipeline": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::FFmpegPipeline",
-   "start_line": 305,
-   "end_line": 307,
+   "start_line": 313,
+   "end_line": 315,
    "type": "CLASS",
-   "content_hash": "6b96ab3de33fa224"
+   "content_hash": "88320db8f7bc9ba2"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::get_video_info": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::get_video_info",
-   "start_line": 311,
-   "end_line": 326,
+   "start_line": 319,
+   "end_line": 334,
    "type": "FUNCTION",
-   "content_hash": "8f33a4afa799d6f0"
+   "content_hash": "7b282860780d165b"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_get_video_info_ffprobe": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::_get_video_info_ffprobe",
-   "start_line": 327,
-   "end_line": 346,
+   "start_line": 335,
+   "end_line": 354,
    "type": "FUNCTION",
-   "content_hash": "9cd2bd914a0a2a9b"
+   "content_hash": "a923224b2dde37e6"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::get_metadata": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::get_metadata",
-   "start_line": 347,
-   "end_line": 365,
+   "start_line": 355,
+   "end_line": 373,
    "type": "FUNCTION",
-   "content_hash": "2fa79736af724d7c"
+   "content_hash": "a60a0e7f37236950"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode_video": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::encode_video",
-   "start_line": 366,
-   "end_line": 392,
+   "start_line": 374,
+   "end_line": 400,
    "type": "FUNCTION",
-   "content_hash": "582baa15dfe62666"
+   "content_hash": "2ab409437babf1c8"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::extract_raw_frames": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::extract_raw_frames",
-   "start_line": 393,
-   "end_line": 416,
+   "start_line": 401,
+   "end_line": 435,
    "type": "FUNCTION",
-   "content_hash": "a6ac5a3e4cba4325"
+   "content_hash": "fa8a80666ed7cb71"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::ProtocolHandler": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::ProtocolHandler",
-   "start_line": 417,
-   "end_line": 419,
+   "start_line": 436,
+   "end_line": 438,
    "type": "CLASS",
-   "content_hash": "0be17cf0d6aa646d"
+   "content_hash": "4812bcf399ada4a0"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::pack": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::pack",
-   "start_line": 461,
-   "end_line": 479,
+   "start_line": 480,
+   "end_line": 498,
    "type": "FUNCTION",
-   "content_hash": "3b4f0c15ddb74f9b"
+   "content_hash": "2aeb6712a498292f"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::unpack": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::unpack",
-   "start_line": 480,
-   "end_line": 507,
+   "start_line": 499,
+   "end_line": 526,
    "type": "FUNCTION",
-   "content_hash": "22f6103e26848851"
+   "content_hash": "487f8b1631f1fdd3"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::LegacyProtocolHandler": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::LegacyProtocolHandler",
-   "start_line": 429,
-   "end_line": 431,
+   "start_line": 448,
+   "end_line": 450,
    "type": "CLASS",
-   "content_hash": "43320e57ac7ad793"
+   "content_hash": "38ee30930e172fb2"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::SecureProtocolHandler": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::SecureProtocolHandler",
-   "start_line": 454,
-   "end_line": 456,
+   "start_line": 473,
+   "end_line": 475,
    "type": "CLASS",
-   "content_hash": "287b6ea368d7deaf"
+   "content_hash": "f11240a6fd20642a"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::LazyOwnInfiniteStorage": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::LazyOwnInfiniteStorage",
-   "start_line": 508,
-   "end_line": 510,
+   "start_line": 527,
+   "end_line": 529,
    "type": "CLASS",
-   "content_hash": "b27c7995f15d5753"
+   "content_hash": "7eef6229cc02e55e"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::create_web_runner": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::create_web_runner",
-   "start_line": 521,
-   "end_line": 524,
+   "start_line": 540,
+   "end_line": 543,
    "type": "FUNCTION",
-   "content_hash": "a839d8afd913e8f4"
+   "content_hash": "746d2cd0ac65705f"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::encode",
-   "start_line": 525,
-   "end_line": 549,
+   "start_line": 544,
+   "end_line": 566,
    "type": "FUNCTION",
-   "content_hash": "494a581c4b8bdc7c"
+   "content_hash": "d6d346de594a5cdc"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::decode",
-   "start_line": 550,
-   "end_line": 560,
+   "start_line": 567,
+   "end_line": 577,
    "type": "FUNCTION",
-   "content_hash": "3fbcd76ee7d20918"
+   "content_hash": "bd3d3bd2e68d6492"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_validate_encoding_parameters": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::_validate_encoding_parameters",
-   "start_line": 561,
-   "end_line": 570,
+   "start_line": 578,
+   "end_line": 587,
    "type": "FUNCTION",
-   "content_hash": "44fb3530333d3408"
+   "content_hash": "fb66af765921397e"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_detect_protocol": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::_detect_protocol",
-   "start_line": 571,
-   "end_line": 603,
+   "start_line": 588,
+   "end_line": 620,
    "type": "FUNCTION",
-   "content_hash": "bc7d376c54749a43"
+   "content_hash": "8b964a1f5289756a"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_decode_legacy": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::_decode_legacy",
-   "start_line": 604,
-   "end_line": 616,
+   "start_line": 621,
+   "end_line": 633,
    "type": "FUNCTION",
-   "content_hash": "2b1ca70118f09e3f"
+   "content_hash": "61bb0bb9a6a7ac67"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_decode_secure": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::_decode_secure",
-   "start_line": 617,
-   "end_line": 630,
+   "start_line": 634,
+   "end_line": 646,
    "type": "FUNCTION",
-   "content_hash": "8586040002b7fdc5"
+   "content_hash": "899ac7b649d69d59"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_is_within_directory": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::_is_within_directory",
+   "start_line": 647,
+   "end_line": 652,
+   "type": "FUNCTION",
+   "content_hash": "7752b8ebabe7b1f6"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::create_zip": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::create_zip",
+   "start_line": 653,
+   "end_line": 671,
+   "type": "FUNCTION",
+   "content_hash": "66a59d4317c77b96"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::extract_zip": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::extract_zip",
+   "start_line": 672,
+   "end_line": 692,
+   "type": "FUNCTION",
+   "content_hash": "1413b66a1a3a9a0e"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::zip_to_video": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::zip_to_video",
+   "start_line": 693,
+   "end_line": 706,
+   "type": "FUNCTION",
+   "content_hash": "28ba8d2607b888f1"
+  },
+  "lazyown_infinitestorage.py|lazyown_infinitestorage.py::video_to_zip": {
+   "file_path": "lazyown_infinitestorage.py",
+   "qualified_name": "lazyown_infinitestorage.py::video_to_zip",
+   "start_line": 707,
+   "end_line": 722,
+   "type": "FUNCTION",
+   "content_hash": "20e00c4ae3dd8fca"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::CLIRunner": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::CLIRunner",
-   "start_line": 631,
-   "end_line": 633,
+   "start_line": 723,
+   "end_line": 725,
    "type": "CLASS",
-   "content_hash": "d752dae68fced57c"
+   "content_hash": "b12550b15baf2860"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::run": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::run",
-   "start_line": 966,
-   "end_line": 969,
+   "start_line": 1068,
+   "end_line": 1071,
    "type": "FUNCTION",
-   "content_hash": "b31ee7c56a49f9a4"
+   "content_hash": "f115c020ab00f4f0"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::Worker": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::Worker",
-   "start_line": 681,
-   "end_line": 686,
+   "start_line": 783,
+   "end_line": 788,
    "type": "CLASS",
-   "content_hash": "e425908e02512e07"
+   "content_hash": "a946f02d2e089448"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::GUIRunner": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::GUIRunner",
-   "start_line": 836,
-   "end_line": 838,
+   "start_line": 938,
+   "end_line": 940,
    "type": "CLASS",
-   "content_hash": "6d8ff263ad26cd1c"
+   "content_hash": "b62062307e37f9c2"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_init_ui": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::_init_ui",
-   "start_line": 709,
-   "end_line": 776,
+   "start_line": 811,
+   "end_line": 878,
    "type": "FUNCTION",
-   "content_hash": "8d17aaae5728319b"
+   "content_hash": "e8845ae7597e4b05"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_change_mode": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::_change_mode",
-   "start_line": 777,
-   "end_line": 787,
+   "start_line": 879,
+   "end_line": 889,
    "type": "FUNCTION",
-   "content_hash": "848ec93c83524b1a"
+   "content_hash": "071a5c79f699e572"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_browse_input": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::_browse_input",
-   "start_line": 788,
-   "end_line": 797,
+   "start_line": 890,
+   "end_line": 899,
    "type": "FUNCTION",
-   "content_hash": "0ae269cac5535175"
+   "content_hash": "60f4ca3a95dd628d"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_start": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::_start",
-   "start_line": 798,
-   "end_line": 820,
+   "start_line": 900,
+   "end_line": 922,
    "type": "FUNCTION",
-   "content_hash": "715caeb7f689d7e4"
+   "content_hash": "ab38f0bce0004497"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_on_finished": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::_on_finished",
-   "start_line": 821,
-   "end_line": 825,
+   "start_line": 923,
+   "end_line": 927,
    "type": "FUNCTION",
-   "content_hash": "0304012ed351ef0d"
+   "content_hash": "e29fd9b2f099b058"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_on_error": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::_on_error",
-   "start_line": 826,
-   "end_line": 830,
+   "start_line": 928,
+   "end_line": 932,
    "type": "FUNCTION",
-   "content_hash": "b37799ab6bc279f2"
+   "content_hash": "46bd1085937822e2"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::WebRunner": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::WebRunner",
-   "start_line": 960,
-   "end_line": 962,
+   "start_line": 1062,
+   "end_line": 1064,
    "type": "CLASS",
-   "content_hash": "c45bd47bd3e09e40"
+   "content_hash": "ecca17dfa0d8b3fb"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::run_setup": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::run_setup",
-   "start_line": 861,
-   "end_line": 866,
+   "start_line": 963,
+   "end_line": 968,
    "type": "FUNCTION",
-   "content_hash": "57a3b52188231fe6"
+   "content_hash": "6f662d049ff263d7"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_setup_routes": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::_setup_routes",
-   "start_line": 867,
-   "end_line": 871,
+   "start_line": 969,
+   "end_line": 973,
    "type": "FUNCTION",
-   "content_hash": "e8592b9e18cae2e9"
+   "content_hash": "3c8de2dbcbcd3c82"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::_validate_upload": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::_validate_upload",
-   "start_line": 872,
-   "end_line": 889,
+   "start_line": 974,
+   "end_line": 991,
    "type": "FUNCTION",
-   "content_hash": "0386217f1edc3438"
+   "content_hash": "f79ef17f0ba93762"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::index": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::index",
-   "start_line": 890,
-   "end_line": 934,
+   "start_line": 992,
+   "end_line": 1036,
    "type": "FUNCTION",
-   "content_hash": "27b5364ddc829ab3"
+   "content_hash": "2704dc593ec5df00"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::download": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::download",
-   "start_line": 935,
-   "end_line": 942,
+   "start_line": 1037,
+   "end_line": 1044,
    "type": "FUNCTION",
-   "content_hash": "b61e3ba925fcb271"
+   "content_hash": "22c89664ac8882da"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::add_security_headers": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::add_security_headers",
-   "start_line": 943,
-   "end_line": 954,
+   "start_line": 1045,
+   "end_line": 1056,
    "type": "FUNCTION",
-   "content_hash": "dea15e1686a7d3c6"
+   "content_hash": "5871ac82affedaef"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::run_tests": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::run_tests",
-   "start_line": 970,
-   "end_line": 1017,
+   "start_line": 1072,
+   "end_line": 1119,
    "type": "FUNCTION",
-   "content_hash": "d6f35fe139eedc1c"
+   "content_hash": "dbc90d053bd912f3"
   },
   "lazyown_infinitestorage.py|lazyown_infinitestorage.py::main": {
    "file_path": "lazyown_infinitestorage.py",
    "qualified_name": "lazyown_infinitestorage.py::main",
-   "start_line": 1018,
-   "end_line": 1027,
+   "start_line": 1120,
+   "end_line": 1129,
    "type": "FUNCTION",
-   "content_hash": "b797a95999e4f467"
+   "content_hash": "29902c88fdc413e5"
+  },
+  "mcp_server.py|mcp_server.py::_parse_frame_size": {
+   "file_path": "mcp_server.py",
+   "qualified_name": "mcp_server.py::_parse_frame_size",
+   "start_line": 62,
+   "end_line": 68,
+   "type": "FUNCTION",
+   "content_hash": "de4b556f2e900d87"
+  },
+  "mcp_server.py|mcp_server.py::_protocol_value": {
+   "file_path": "mcp_server.py",
+   "qualified_name": "mcp_server.py::_protocol_value",
+   "start_line": 69,
+   "end_line": 78,
+   "type": "FUNCTION",
+   "content_hash": "484f0abcf28d6614"
+  },
+  "mcp_server.py|mcp_server.py::_tool_zip_to_video": {
+   "file_path": "mcp_server.py",
+   "qualified_name": "mcp_server.py::_tool_zip_to_video",
+   "start_line": 79,
+   "end_line": 106,
+   "type": "FUNCTION",
+   "content_hash": "9fc012ed017e1a1e"
+  },
+  "mcp_server.py|mcp_server.py::_tool_video_to_zip": {
+   "file_path": "mcp_server.py",
+   "qualified_name": "mcp_server.py::_tool_video_to_zip",
+   "start_line": 107,
+   "end_line": 130,
+   "type": "FUNCTION",
+   "content_hash": "d8d9554599edabd5"
+  },
+  "mcp_server.py|mcp_server.py::_tool_encode": {
+   "file_path": "mcp_server.py",
+   "qualified_name": "mcp_server.py::_tool_encode",
+   "start_line": 131,
+   "end_line": 156,
+   "type": "FUNCTION",
+   "content_hash": "36768909959d208c"
+  },
+  "mcp_server.py|mcp_server.py::_tool_decode": {
+   "file_path": "mcp_server.py",
+   "qualified_name": "mcp_server.py::_tool_decode",
+   "start_line": 157,
+   "end_line": 178,
+   "type": "FUNCTION",
+   "content_hash": "fccc601011756136"
+  },
+  "mcp_server.py|mcp_server.py::_tool_create_zip": {
+   "file_path": "mcp_server.py",
+   "qualified_name": "mcp_server.py::_tool_create_zip",
+   "start_line": 179,
+   "end_line": 190,
+   "type": "FUNCTION",
+   "content_hash": "8ed05292fc00890d"
+  },
+  "mcp_server.py|mcp_server.py::_tool_extract_zip": {
+   "file_path": "mcp_server.py",
+   "qualified_name": "mcp_server.py::_tool_extract_zip",
+   "start_line": 191,
+   "end_line": 212,
+   "type": "FUNCTION",
+   "content_hash": "bc4ac301278d9365"
+  },
+  "mcp_server.py|mcp_server.py::_build_tools": {
+   "file_path": "mcp_server.py",
+   "qualified_name": "mcp_server.py::_build_tools",
+   "start_line": 213,
+   "end_line": 301,
+   "type": "FUNCTION",
+   "content_hash": "5f65a2c060765ec5"
+  },
+  "mcp_server.py|mcp_server.py::_run": {
+   "file_path": "mcp_server.py",
+   "qualified_name": "mcp_server.py::_run",
+   "start_line": 302,
+   "end_line": 309,
+   "type": "FUNCTION",
+   "content_hash": "01b7366b45552e24"
+  },
+  "mcp_server.py|mcp_server.py::list_tools": {
+   "file_path": "mcp_server.py",
+   "qualified_name": "mcp_server.py::list_tools",
+   "start_line": 310,
+   "end_line": 313,
+   "type": "FUNCTION",
+   "content_hash": "ad373209420da24a"
+  },
+  "mcp_server.py|mcp_server.py::call_tool": {
+   "file_path": "mcp_server.py",
+   "qualified_name": "mcp_server.py::call_tool",
+   "start_line": 314,
+   "end_line": 329,
+   "type": "FUNCTION",
+   "content_hash": "1be48d734e8eda1c"
+  },
+  "mcp_server.py|mcp_server.py::main": {
+   "file_path": "mcp_server.py",
+   "qualified_name": "mcp_server.py::main",
+   "start_line": 330,
+   "end_line": 336,
+   "type": "FUNCTION",
+   "content_hash": "202ab0062793131c"
+  },
+  "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::_parse_frame_size": {
+   "file_path": "skill_lazyown_infinitestorage/tools.py",
+   "qualified_name": "skill_lazyown_infinitestorage/tools.py::_parse_frame_size",
+   "start_line": 34,
+   "end_line": 41,
+   "type": "FUNCTION",
+   "content_hash": "c9162be9db1089df"
+  },
+  "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::_protocol_value": {
+   "file_path": "skill_lazyown_infinitestorage/tools.py",
+   "qualified_name": "skill_lazyown_infinitestorage/tools.py::_protocol_value",
+   "start_line": 42,
+   "end_line": 51,
+   "type": "FUNCTION",
+   "content_hash": "894c33590ce35ed6"
   },
   "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_encode": {
    "file_path": "skill_lazyown_infinitestorage/tools.py",
    "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_encode",
-   "start_line": 34,
-   "end_line": 100,
+   "start_line": 52,
+   "end_line": 104,
    "type": "FUNCTION",
-   "content_hash": "7436bd36a0f6ad09"
+   "content_hash": "f133e6e8f0659cf0"
   },
   "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_decode": {
    "file_path": "skill_lazyown_infinitestorage/tools.py",
    "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_decode",
-   "start_line": 101,
-   "end_line": 151,
+   "start_line": 105,
+   "end_line": 148,
    "type": "FUNCTION",
-   "content_hash": "cfa49094f13501d9"
+   "content_hash": "9236c5fc1aba2c43"
+  },
+  "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_zip_to_video": {
+   "file_path": "skill_lazyown_infinitestorage/tools.py",
+   "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_zip_to_video",
+   "start_line": 149,
+   "end_line": 194,
+   "type": "FUNCTION",
+   "content_hash": "d9a5d2db8f1f9213"
+  },
+  "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_video_to_zip": {
+   "file_path": "skill_lazyown_infinitestorage/tools.py",
+   "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_video_to_zip",
+   "start_line": 195,
+   "end_line": 235,
+   "type": "FUNCTION",
+   "content_hash": "7d0a12dbcd890b18"
+  },
+  "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_create_zip": {
+   "file_path": "skill_lazyown_infinitestorage/tools.py",
+   "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_create_zip",
+   "start_line": 236,
+   "end_line": 267,
+   "type": "FUNCTION",
+   "content_hash": "c18fa16199c278d9"
+  },
+  "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_extract_zip": {
+   "file_path": "skill_lazyown_infinitestorage/tools.py",
+   "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_extract_zip",
+   "start_line": 268,
+   "end_line": 298,
+   "type": "FUNCTION",
+   "content_hash": "a34d88ceafe849f2"
   },
   "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_upload_to_youtube": {
    "file_path": "skill_lazyown_infinitestorage/tools.py",
    "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_upload_to_youtube",
-   "start_line": 152,
-   "end_line": 301,
+   "start_line": 299,
+   "end_line": 452,
    "type": "FUNCTION",
-   "content_hash": "dadb1306b513933e"
+   "content_hash": "7b532f742404b5f4"
   },
   "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::get_tool": {
    "file_path": "skill_lazyown_infinitestorage/tools.py",
    "qualified_name": "skill_lazyown_infinitestorage/tools.py::get_tool",
-   "start_line": 302,
-   "end_line": 305,
+   "start_line": 453,
+   "end_line": 456,
    "type": "FUNCTION",
-   "content_hash": "b0108631eae504fa"
+   "content_hash": "af91757e84f1a738"
   },
   "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::list_tools": {
    "file_path": "skill_lazyown_infinitestorage/tools.py",
    "qualified_name": "skill_lazyown_infinitestorage/tools.py::list_tools",
-   "start_line": 306,
-   "end_line": 308,
+   "start_line": 457,
+   "end_line": 459,
    "type": "FUNCTION",
-   "content_hash": "5b62ec4c4c27fc7c"
+   "content_hash": "276e13e394e44418"
   },
   "tests/test_error_correction.py|tests/test_error_correction.py::TestErrorCorrector": {
    "file_path": "tests/test_error_correction.py",
@@ -1061,6 +1261,110 @@
    "type": "FUNCTION",
    "content_hash": "1c93bbd9faf613ca"
   },
+  "tests/test_zip.py|tests/test_zip.py::TestZipRoundtrip": {
+   "file_path": "tests/test_zip.py",
+   "qualified_name": "tests/test_zip.py::TestZipRoundtrip",
+   "start_line": 12,
+   "end_line": 15,
+   "type": "CLASS",
+   "content_hash": "f5a2cba8f027e245"
+  },
+  "tests/test_zip.py|tests/test_zip.py::setup": {
+   "file_path": "tests/test_zip.py",
+   "qualified_name": "tests/test_zip.py::setup",
+   "start_line": 122,
+   "end_line": 125,
+   "type": "FUNCTION",
+   "content_hash": "594d3a6235c21767"
+  },
+  "tests/test_zip.py|tests/test_zip.py::_make_source_dir": {
+   "file_path": "tests/test_zip.py",
+   "qualified_name": "tests/test_zip.py::_make_source_dir",
+   "start_line": 20,
+   "end_line": 32,
+   "type": "FUNCTION",
+   "content_hash": "bd1b4b813e0aae1b"
+  },
+  "tests/test_zip.py|tests/test_zip.py::test_zip_to_video_roundtrip_secure": {
+   "file_path": "tests/test_zip.py",
+   "qualified_name": "tests/test_zip.py::test_zip_to_video_roundtrip_secure",
+   "start_line": 33,
+   "end_line": 52,
+   "type": "FUNCTION",
+   "content_hash": "553cc4809c7ed51f"
+  },
+  "tests/test_zip.py|tests/test_zip.py::test_create_and_extract_zip_roundtrip": {
+   "file_path": "tests/test_zip.py",
+   "qualified_name": "tests/test_zip.py::test_create_and_extract_zip_roundtrip",
+   "start_line": 53,
+   "end_line": 66,
+   "type": "FUNCTION",
+   "content_hash": "a60405757aa69d5e"
+  },
+  "tests/test_zip.py|tests/test_zip.py::TestZipSecurity": {
+   "file_path": "tests/test_zip.py",
+   "qualified_name": "tests/test_zip.py::TestZipSecurity",
+   "start_line": 67,
+   "end_line": 70,
+   "type": "CLASS",
+   "content_hash": "9956454ffe773545"
+  },
+  "tests/test_zip.py|tests/test_zip.py::test_extract_zip_blocks_path_traversal": {
+   "file_path": "tests/test_zip.py",
+   "qualified_name": "tests/test_zip.py::test_extract_zip_blocks_path_traversal",
+   "start_line": 75,
+   "end_line": 87,
+   "type": "FUNCTION",
+   "content_hash": "3c317e2133687443"
+  },
+  "tests/test_zip.py|tests/test_zip.py::test_extract_zip_blocks_uncompressed_bomb": {
+   "file_path": "tests/test_zip.py",
+   "qualified_name": "tests/test_zip.py::test_extract_zip_blocks_uncompressed_bomb",
+   "start_line": 88,
+   "end_line": 99,
+   "type": "FUNCTION",
+   "content_hash": "66d4b54253b84d3c"
+  },
+  "tests/test_zip.py|tests/test_zip.py::TestEncodeOutputValidation": {
+   "file_path": "tests/test_zip.py",
+   "qualified_name": "tests/test_zip.py::TestEncodeOutputValidation",
+   "start_line": 100,
+   "end_line": 103,
+   "type": "CLASS",
+   "content_hash": "d729768616bfd128"
+  },
+  "tests/test_zip.py|tests/test_zip.py::test_encode_rejects_output_path_traversal": {
+   "file_path": "tests/test_zip.py",
+   "qualified_name": "tests/test_zip.py::test_encode_rejects_output_path_traversal",
+   "start_line": 108,
+   "end_line": 117,
+   "type": "FUNCTION",
+   "content_hash": "5e14df03a6867080"
+  },
+  "tests/test_zip.py|tests/test_zip.py::TestSecurityValidatorUnchanged": {
+   "file_path": "tests/test_zip.py",
+   "qualified_name": "tests/test_zip.py::TestSecurityValidatorUnchanged",
+   "start_line": 118,
+   "end_line": 121,
+   "type": "CLASS",
+   "content_hash": "21e4ed3768e39dac"
+  },
+  "tests/test_zip.py|tests/test_zip.py::test_rejects_traversal": {
+   "file_path": "tests/test_zip.py",
+   "qualified_name": "tests/test_zip.py::test_rejects_traversal",
+   "start_line": 126,
+   "end_line": 129,
+   "type": "FUNCTION",
+   "content_hash": "446f015779c2a468"
+  },
+  "tests/test_zip.py|tests/test_zip.py::test_sanitizes_filename": {
+   "file_path": "tests/test_zip.py",
+   "qualified_name": "tests/test_zip.py::test_sanitizes_filename",
+   "start_line": 130,
+   "end_line": 131,
+   "type": "FUNCTION",
+   "content_hash": "0159eaedba404397"
+  },
   "wsgi_app.py|wsgi_app.py::get_wsgi_app": {
    "file_path": "wsgi_app.py",
    "qualified_name": "wsgi_app.py::get_wsgi_app",
@@ -1073,55 +1377,55 @@
  "components": [
   {
    "name": "root",
-   "description": "root groups 8 files (py) around LazyOwnConfig, SecurityValidator, __init__, validate_file_path, validate_size. LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder.",
+   "description": "root groups 10 files (py) around LazyOwnConfig, SecurityValidator, __init__, validate_file_path, validate_size. LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder.",
    "key_entities": [
     {
      "qualified_name": "lazyown_infinitestorage.py::LazyOwnConfig",
      "reference_file": "lazyown_infinitestorage.py",
-     "reference_start_line": 71,
-     "reference_end_line": 147
+     "reference_start_line": 72,
+     "reference_end_line": 155
     },
     {
      "qualified_name": "lazyown_infinitestorage.py::SecurityValidator",
      "reference_file": "lazyown_infinitestorage.py",
-     "reference_start_line": 148,
-     "reference_end_line": 150
+     "reference_start_line": 156,
+     "reference_end_line": 158
     },
     {
      "qualified_name": "lazyown_infinitestorage.py::__init__",
      "reference_file": "lazyown_infinitestorage.py",
-     "reference_start_line": 151,
-     "reference_end_line": 153
+     "reference_start_line": 159,
+     "reference_end_line": 161
     },
     {
      "qualified_name": "lazyown_infinitestorage.py::validate_file_path",
      "reference_file": "lazyown_infinitestorage.py",
-     "reference_start_line": 154,
-     "reference_end_line": 163
+     "reference_start_line": 162,
+     "reference_end_line": 171
     },
     {
      "qualified_name": "lazyown_infinitestorage.py::validate_size",
      "reference_file": "lazyown_infinitestorage.py",
-     "reference_start_line": 164,
-     "reference_end_line": 168
+     "reference_start_line": 172,
+     "reference_end_line": 176
     },
     {
      "qualified_name": "lazyown_infinitestorage.py::sanitize_filename",
      "reference_file": "lazyown_infinitestorage.py",
-     "reference_start_line": 169,
-     "reference_end_line": 176
+     "reference_start_line": 177,
+     "reference_end_line": 184
     },
     {
      "qualified_name": "lazyown_infinitestorage.py::validate_extension",
      "reference_file": "lazyown_infinitestorage.py",
-     "reference_start_line": 177,
-     "reference_end_line": 183
+     "reference_start_line": 185,
+     "reference_end_line": 191
     },
     {
      "qualified_name": "lazyown_infinitestorage.py::ErrorCorrector",
      "reference_file": "lazyown_infinitestorage.py",
-     "reference_start_line": 184,
-     "reference_end_line": 186
+     "reference_start_line": 192,
+     "reference_end_line": 194
     }
    ],
    "source_cluster_ids": [],
@@ -1176,6 +1480,11 @@
       "lazyown_infinitestorage.py::_detect_protocol",
       "lazyown_infinitestorage.py::_decode_legacy",
       "lazyown_infinitestorage.py::_decode_secure",
+      "lazyown_infinitestorage.py::_is_within_directory",
+      "lazyown_infinitestorage.py::create_zip",
+      "lazyown_infinitestorage.py::extract_zip",
+      "lazyown_infinitestorage.py::zip_to_video",
+      "lazyown_infinitestorage.py::video_to_zip",
       "lazyown_infinitestorage.py::CLIRunner",
       "lazyown_infinitestorage.py::__init__",
       "lazyown_infinitestorage.py::run",
@@ -1211,10 +1520,34 @@
      ]
     },
     {
+     "file_path": "mcp_server.py",
+     "methods": [
+      "mcp_server.py::_parse_frame_size",
+      "mcp_server.py::_protocol_value",
+      "mcp_server.py::_tool_zip_to_video",
+      "mcp_server.py::_tool_video_to_zip",
+      "mcp_server.py::_tool_encode",
+      "mcp_server.py::_tool_decode",
+      "mcp_server.py::_tool_create_zip",
+      "mcp_server.py::_tool_extract_zip",
+      "mcp_server.py::_build_tools",
+      "mcp_server.py::_run",
+      "mcp_server.py::list_tools",
+      "mcp_server.py::call_tool",
+      "mcp_server.py::main"
+     ]
+    },
+    {
      "file_path": "skill_lazyown_infinitestorage/tools.py",
      "methods": [
+      "skill_lazyown_infinitestorage/tools.py::_parse_frame_size",
+      "skill_lazyown_infinitestorage/tools.py::_protocol_value",
       "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_encode",
       "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_decode",
+      "skill_lazyown_infinitestorage/tools.py::lazyown_zip_to_video",
+      "skill_lazyown_infinitestorage/tools.py::lazyown_video_to_zip",
+      "skill_lazyown_infinitestorage/tools.py::lazyown_create_zip",
+      "skill_lazyown_infinitestorage/tools.py::lazyown_extract_zip",
       "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_upload_to_youtube",
       "skill_lazyown_infinitestorage/tools.py::get_tool",
       "skill_lazyown_infinitestorage/tools.py::list_tools"
@@ -1315,6 +1648,27 @@
      ]
     },
     {
+     "file_path": "tests/test_zip.py",
+     "methods": [
+      "tests/test_zip.py::TestZipRoundtrip",
+      "tests/test_zip.py::setup",
+      "tests/test_zip.py::_make_source_dir",
+      "tests/test_zip.py::test_zip_to_video_roundtrip_secure",
+      "tests/test_zip.py::test_create_and_extract_zip_roundtrip",
+      "tests/test_zip.py::TestZipSecurity",
+      "tests/test_zip.py::setup",
+      "tests/test_zip.py::test_extract_zip_blocks_path_traversal",
+      "tests/test_zip.py::test_extract_zip_blocks_uncompressed_bomb",
+      "tests/test_zip.py::TestEncodeOutputValidation",
+      "tests/test_zip.py::setup",
+      "tests/test_zip.py::test_encode_rejects_output_path_traversal",
+      "tests/test_zip.py::TestSecurityValidatorUnchanged",
+      "tests/test_zip.py::setup",
+      "tests/test_zip.py::test_rejects_traversal",
+      "tests/test_zip.py::test_sanitizes_filename"
+     ]
+    },
+    {
      "file_path": "wsgi_app.py",
      "methods": [
       "wsgi_app.py::get_wsgi_app"
@@ -1326,55 +1680,55 @@
    "components": [
     {
      "name": "root",
-     "description": "root groups 2 files (py) around LazyOwnConfig, SecurityValidator, __init__, validate_file_path, validate_size. LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder.",
+     "description": "root groups 3 files (py) around LazyOwnConfig, SecurityValidator, __init__, validate_file_path, validate_size. LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder.",
      "key_entities": [
       {
        "qualified_name": "lazyown_infinitestorage.py::LazyOwnConfig",
        "reference_file": "lazyown_infinitestorage.py",
-       "reference_start_line": 71,
-       "reference_end_line": 147
+       "reference_start_line": 72,
+       "reference_end_line": 155
       },
       {
        "qualified_name": "lazyown_infinitestorage.py::SecurityValidator",
        "reference_file": "lazyown_infinitestorage.py",
-       "reference_start_line": 148,
-       "reference_end_line": 150
+       "reference_start_line": 156,
+       "reference_end_line": 158
       },
       {
        "qualified_name": "lazyown_infinitestorage.py::__init__",
        "reference_file": "lazyown_infinitestorage.py",
-       "reference_start_line": 151,
-       "reference_end_line": 153
+       "reference_start_line": 159,
+       "reference_end_line": 161
       },
       {
        "qualified_name": "lazyown_infinitestorage.py::validate_file_path",
        "reference_file": "lazyown_infinitestorage.py",
-       "reference_start_line": 154,
-       "reference_end_line": 163
+       "reference_start_line": 162,
+       "reference_end_line": 171
       },
       {
        "qualified_name": "lazyown_infinitestorage.py::validate_size",
        "reference_file": "lazyown_infinitestorage.py",
-       "reference_start_line": 164,
-       "reference_end_line": 168
+       "reference_start_line": 172,
+       "reference_end_line": 176
       },
       {
        "qualified_name": "lazyown_infinitestorage.py::sanitize_filename",
        "reference_file": "lazyown_infinitestorage.py",
-       "reference_start_line": 169,
-       "reference_end_line": 176
+       "reference_start_line": 177,
+       "reference_end_line": 184
       },
       {
        "qualified_name": "lazyown_infinitestorage.py::validate_extension",
        "reference_file": "lazyown_infinitestorage.py",
-       "reference_start_line": 177,
-       "reference_end_line": 183
+       "reference_start_line": 185,
+       "reference_end_line": 191
       },
       {
        "qualified_name": "lazyown_infinitestorage.py::ErrorCorrector",
        "reference_file": "lazyown_infinitestorage.py",
-       "reference_start_line": 184,
-       "reference_end_line": 186
+       "reference_start_line": 192,
+       "reference_end_line": 194
       }
      ],
      "source_cluster_ids": [],
@@ -1429,6 +1783,11 @@
         "lazyown_infinitestorage.py::_detect_protocol",
         "lazyown_infinitestorage.py::_decode_legacy",
         "lazyown_infinitestorage.py::_decode_secure",
+        "lazyown_infinitestorage.py::_is_within_directory",
+        "lazyown_infinitestorage.py::create_zip",
+        "lazyown_infinitestorage.py::extract_zip",
+        "lazyown_infinitestorage.py::zip_to_video",
+        "lazyown_infinitestorage.py::video_to_zip",
         "lazyown_infinitestorage.py::CLIRunner",
         "lazyown_infinitestorage.py::__init__",
         "lazyown_infinitestorage.py::run",
@@ -1464,6 +1823,24 @@
        ]
       },
       {
+       "file_path": "mcp_server.py",
+       "methods": [
+        "mcp_server.py::_parse_frame_size",
+        "mcp_server.py::_protocol_value",
+        "mcp_server.py::_tool_zip_to_video",
+        "mcp_server.py::_tool_video_to_zip",
+        "mcp_server.py::_tool_encode",
+        "mcp_server.py::_tool_decode",
+        "mcp_server.py::_tool_create_zip",
+        "mcp_server.py::_tool_extract_zip",
+        "mcp_server.py::_build_tools",
+        "mcp_server.py::_run",
+        "mcp_server.py::list_tools",
+        "mcp_server.py::call_tool",
+        "mcp_server.py::main"
+       ]
+      },
+      {
        "file_path": "wsgi_app.py",
        "methods": [
         "wsgi_app.py::get_wsgi_app"
@@ -1474,8 +1851,8 @@
      "can_expand": false,
      "components": [],
      "components_relations": [],
-     "layer": "presentation",
-     "symbol_count": 80,
+     "layer": "utility",
+     "symbol_count": 98,
      "top_symbols": [
       {
        "n": "LazyOwnConfig",
@@ -1490,41 +1867,59 @@
        "k": "method"
       }
      ],
-     "top_symbols_more": 53
+     "top_symbols_more": 70
     },
     {
      "name": "skill_lazyown_infinitestorage",
-     "description": "skill_lazyown_infinitestorage groups 1 files (py) around lazyown_infinitestorage_encode, lazyown_infinitestorage_decode, lazyown_infinitestorage_upload_to_youtube, get_tool, list_tools. MCP tools for LazyOwnInfiniteStorage integration.",
+     "description": "skill_lazyown_infinitestorage groups 1 files (py) around _parse_frame_size, _protocol_value, lazyown_infinitestorage_encode, lazyown_infinitestorage_decode, lazyown_zip_to_video. MCP tools for LazyOwnInfiniteStorage integration.",
      "key_entities": [
+      {
+       "qualified_name": "skill_lazyown_infinitestorage/tools.py::_parse_frame_size",
+       "reference_file": "skill_lazyown_infinitestorage/tools.py",
+       "reference_start_line": 34,
+       "reference_end_line": 41
+      },
+      {
+       "qualified_name": "skill_lazyown_infinitestorage/tools.py::_protocol_value",
+       "reference_file": "skill_lazyown_infinitestorage/tools.py",
+       "reference_start_line": 42,
+       "reference_end_line": 51
+      },
       {
        "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_encode",
        "reference_file": "skill_lazyown_infinitestorage/tools.py",
-       "reference_start_line": 34,
-       "reference_end_line": 100
+       "reference_start_line": 52,
+       "reference_end_line": 104
       },
       {
        "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_decode",
        "reference_file": "skill_lazyown_infinitestorage/tools.py",
-       "reference_start_line": 101,
-       "reference_end_line": 151
+       "reference_start_line": 105,
+       "reference_end_line": 148
       },
       {
-       "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_upload_to_youtube",
+       "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_zip_to_video",
        "reference_file": "skill_lazyown_infinitestorage/tools.py",
-       "reference_start_line": 152,
-       "reference_end_line": 301
+       "reference_start_line": 149,
+       "reference_end_line": 194
       },
       {
-       "qualified_name": "skill_lazyown_infinitestorage/tools.py::get_tool",
+       "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_video_to_zip",
        "reference_file": "skill_lazyown_infinitestorage/tools.py",
-       "reference_start_line": 302,
-       "reference_end_line": 305
+       "reference_start_line": 195,
+       "reference_end_line": 235
       },
       {
-       "qualified_name": "skill_lazyown_infinitestorage/tools.py::list_tools",
+       "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_create_zip",
        "reference_file": "skill_lazyown_infinitestorage/tools.py",
-       "reference_start_line": 306,
-       "reference_end_line": 308
+       "reference_start_line": 236,
+       "reference_end_line": 267
+      },
+      {
+       "qualified_name": "skill_lazyown_infinitestorage/tools.py::lazyown_extract_zip",
+       "reference_file": "skill_lazyown_infinitestorage/tools.py",
+       "reference_start_line": 268,
+       "reference_end_line": 298
       }
      ],
      "source_cluster_ids": [],
@@ -1532,8 +1927,14 @@
       {
        "file_path": "skill_lazyown_infinitestorage/tools.py",
        "methods": [
+        "skill_lazyown_infinitestorage/tools.py::_parse_frame_size",
+        "skill_lazyown_infinitestorage/tools.py::_protocol_value",
         "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_encode",
         "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_decode",
+        "skill_lazyown_infinitestorage/tools.py::lazyown_zip_to_video",
+        "skill_lazyown_infinitestorage/tools.py::lazyown_video_to_zip",
+        "skill_lazyown_infinitestorage/tools.py::lazyown_create_zip",
+        "skill_lazyown_infinitestorage/tools.py::lazyown_extract_zip",
         "skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_upload_to_youtube",
         "skill_lazyown_infinitestorage/tools.py::get_tool",
         "skill_lazyown_infinitestorage/tools.py::list_tools"
@@ -1545,26 +1946,26 @@
      "components": [],
      "components_relations": [],
      "layer": "utility",
-     "symbol_count": 5,
+     "symbol_count": 11,
      "top_symbols": [
+      {
+       "n": "_parse_frame_size",
+       "k": "function"
+      },
+      {
+       "n": "_protocol_value",
+       "k": "function"
+      },
       {
        "n": "lazyown_infinitestorage_encode",
        "k": "function"
-      },
-      {
-       "n": "lazyown_infinitestorage_decode",
-       "k": "function"
-      },
-      {
-       "n": "lazyown_infinitestorage_upload_to_youtube",
-       "k": "function"
       }
      ],
-     "top_symbols_more": 2
+     "top_symbols_more": 8
     },
     {
      "name": "tests",
-     "description": "tests groups 5 files (py) around TestErrorCorrector, setup, test_encode_data_doubles_length, test_decode_data_reverses_encoding, test_decode_data_with_single_bit_error. Unit tests for ErrorCorrector Hamming(8,4) implementation.",
+     "description": "tests groups 6 files (py) around TestErrorCorrector, setup, test_encode_data_doubles_length, test_decode_data_reverses_encoding, test_decode_data_with_single_bit_error. Unit tests for ErrorCorrector Hamming(8,4) implementation.",
      "key_entities": [
       {
        "qualified_name": "tests/test_error_correction.py::TestErrorCorrector",
@@ -1710,6 +2111,27 @@
         "tests/test_security.py::test_validate_extension_accepts_allowed",
         "tests/test_security.py::test_validate_extension_rejects_disallowed"
        ]
+      },
+      {
+       "file_path": "tests/test_zip.py",
+       "methods": [
+        "tests/test_zip.py::TestZipRoundtrip",
+        "tests/test_zip.py::setup",
+        "tests/test_zip.py::_make_source_dir",
+        "tests/test_zip.py::test_zip_to_video_roundtrip_secure",
+        "tests/test_zip.py::test_create_and_extract_zip_roundtrip",
+        "tests/test_zip.py::TestZipSecurity",
+        "tests/test_zip.py::setup",
+        "tests/test_zip.py::test_extract_zip_blocks_path_traversal",
+        "tests/test_zip.py::test_extract_zip_blocks_uncompressed_bomb",
+        "tests/test_zip.py::TestEncodeOutputValidation",
+        "tests/test_zip.py::setup",
+        "tests/test_zip.py::test_encode_rejects_output_path_traversal",
+        "tests/test_zip.py::TestSecurityValidatorUnchanged",
+        "tests/test_zip.py::setup",
+        "tests/test_zip.py::test_rejects_traversal",
+        "tests/test_zip.py::test_sanitizes_filename"
+       ]
       }
      ],
      "component_id": "1.3",
@@ -1717,7 +2139,7 @@
      "components": [],
      "components_relations": [],
      "layer": "testing",
-     "symbol_count": 69,
+     "symbol_count": 85,
      "top_symbols": [
       {
        "n": "TestErrorCorrector",
@@ -1732,30 +2154,208 @@
        "k": "method"
       }
      ],
-     "top_symbols_more": 59
+     "top_symbols_more": 71
     }
    ],
    "components_relations": [
     {
-     "relation": "depends on",
+     "relation": "calls into",
      "src_name": "skill_lazyown_infinitestorage",
      "dst_name": "root",
-     "evidence": "1 imports, 0 calls across the boundary",
+     "evidence": "1 imports, 8 calls across the boundary",
      "import_count": 1,
-     "call_count": 0,
-     "key_edges": [],
+     "call_count": 8,
+     "key_edges": [
+      {
+       "source": "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::LazyOwnConfig",
+       "call_sites": [
+        {
+         "line": 21,
+         "column": 38
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::LazyOwnInfiniteStorage",
+       "call_sites": [
+        {
+         "line": 21,
+         "column": 15
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_encode",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode",
+       "call_sites": [
+        {
+         "line": 76,
+         "column": 8
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_decode",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode",
+       "call_sites": [
+        {
+         "line": 125,
+         "column": 8
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_zip_to_video",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::zip_to_video",
+       "call_sites": [
+        {
+         "line": 172,
+         "column": 21
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_video_to_zip",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::video_to_zip",
+       "call_sites": [
+        {
+         "line": 215,
+         "column": 23
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_create_zip",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::create_zip",
+       "call_sites": [
+        {
+         "line": 254,
+         "column": 19
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_extract_zip",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::extract_zip",
+       "call_sites": [
+        {
+         "line": 286,
+         "column": 23
+        }
+       ],
+       "description": ""
+      }
+     ],
      "src_id": "1.2",
      "dst_id": "1.1",
      "is_static": true,
-     "all_edges": []
+     "all_edges": [
+      {
+       "source": "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::LazyOwnConfig",
+       "call_sites": [
+        {
+         "line": 21,
+         "column": 38
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::LazyOwnInfiniteStorage",
+       "call_sites": [
+        {
+         "line": 21,
+         "column": 15
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_encode",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::encode",
+       "call_sites": [
+        {
+         "line": 76,
+         "column": 8
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_infinitestorage_decode",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::decode",
+       "call_sites": [
+        {
+         "line": 125,
+         "column": 8
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_zip_to_video",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::zip_to_video",
+       "call_sites": [
+        {
+         "line": 172,
+         "column": 21
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_video_to_zip",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::video_to_zip",
+       "call_sites": [
+        {
+         "line": 215,
+         "column": 23
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_create_zip",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::create_zip",
+       "call_sites": [
+        {
+         "line": 254,
+         "column": 19
+        }
+       ],
+       "description": ""
+      },
+      {
+       "source": "skill_lazyown_infinitestorage/tools.py|skill_lazyown_infinitestorage/tools.py::lazyown_extract_zip",
+       "target": "lazyown_infinitestorage.py|lazyown_infinitestorage.py::extract_zip",
+       "call_sites": [
+        {
+         "line": 286,
+         "column": 23
+        }
+       ],
+       "description": ""
+      }
+     ]
     },
     {
      "relation": "calls into",
      "src_name": "tests",
      "dst_name": "root",
-     "evidence": "5 imports, 87 calls across the boundary",
-     "import_count": 5,
-     "call_count": 87,
+     "evidence": "6 imports, 104 calls across the boundary",
+     "import_count": 6,
+     "call_count": 104,
      "key_edges": [
       {
        "source": "tests/test_error_correction.py|tests/test_error_correction.py::setup",
@@ -2404,7 +3004,7 @@
     }
    ],
    "layer": "testing",
-   "symbol_count": 154,
+   "symbol_count": 194,
    "top_symbols": [
     {
      "n": "LazyOwnConfig",
@@ -2419,7 +3019,7 @@
      "k": "method"
     }
    ],
-   "top_symbols_more": 120,
+   "top_symbols_more": 152,
    "hub": true
   }
  ],

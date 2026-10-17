@@ -13,6 +13,7 @@ import tempfile
 import hashlib
 import random
 import shutil
+import zipfile
 from typing import Optional, Tuple, List, Generator
 
 try:
@@ -143,6 +144,13 @@ class LazyOwnConfig:
     WEB_UPLOAD_FOLDER = 'uploads'
     WEB_DOWNLOAD_FOLDER = 'downloads'
     WEB_SECRET_KEY_ENV = 'LAZYOWN_SECRET_KEY'
+
+    # Zip archive bounds (prevent zip bombs and path traversal on extract)
+    MAX_ZIP_UNCOMPRESSED_BYTES = 2 * 1024 * 1024 * 1024
+    MAX_ZIP_MEMBERS = 10000
+
+    # Bounded raw frame extraction limit (prevent memory DoS on huge videos)
+    MAX_EXTRACT_BYTES = 2 * 1024 * 1024 * 1024
 
 
 class SecurityValidator:
@@ -404,7 +412,18 @@ class FFmpegPipeline:
         cmd.append('-')
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         try:
-            raw_bytes = proc.stdout.read()
+            chunks = []
+            total = 0
+            limit = self._config.MAX_EXTRACT_BYTES
+            while True:
+                chunk = proc.stdout.read(65536)
+                if not chunk:
+                    break
+                total += len(chunk)
+                if total > limit:
+                    raise ValueError(f"Extracted data exceeds maximum {limit} bytes")
+                chunks.append(chunk)
+            raw_bytes = b''.join(chunks)
         finally:
             proc.stdout.close()
             proc.wait()
@@ -525,15 +544,12 @@ class LazyOwnInfiniteStorage:
     def encode(self, input_path: str, output_path: str, frame_width: int, frame_height: int, fps: int, block_size: int, protocol_version: Optional[int] = None) -> None:
         """Encodes a file into a video using the specified protocol."""
         input_path = self._validator.validate_file_path(input_path, must_exist=True)
-        output_path = self._validator.validate_file_path(output_path, must_exist=False)
         self._validator.validate_size(os.path.getsize(input_path))
         self._validate_encoding_parameters(frame_width, frame_height, fps, block_size)
         if protocol_version is None:
             protocol_version = self.config.PROTOCOL_VERSION_SECURE
         if protocol_version == self.config.PROTOCOL_VERSION_LEGACY:
             handler = self._legacy_handler
-            base, ext = os.path.splitext(output_path)
-            output_path = f"{base}_{frame_width}x{frame_height}{ext}"
         else:
             handler = self._secure_handler
         with open(input_path, 'rb') as f:
@@ -545,6 +561,7 @@ class LazyOwnInfiniteStorage:
             output_path = f"{base}_{frame_width}x{frame_height}{ext}"
         if not ext:
             output_path = f"{output_path}.mp4"
+        output_path = self._validator.validate_file_path(output_path, must_exist=False)
         self._ffmpeg.encode_video(frame_generator, output_path, frame_width, frame_height, fps)
 
     def decode(self, input_path: str, output_path: str, block_size: int, protocol_version: Optional[int] = None) -> None:
@@ -627,6 +644,81 @@ class LazyOwnInfiniteStorage:
         with open(output_path, 'wb') as f:
             f.write(data)
 
+    def _is_within_directory(self, directory: str, target: str) -> bool:
+        """Return True if target path resolves inside directory (zip slip protection)."""
+        directory = os.path.abspath(directory)
+        target = os.path.abspath(target)
+        return os.path.commonpath([directory, target]) == directory
+
+    def create_zip(self, source_path: str, output_zip: str) -> str:
+        """Create a zip archive from a file or directory. Returns the output zip path."""
+        source_path = self._validator.validate_file_path(source_path, must_exist=True)
+        output_zip = self._validator.validate_file_path(output_zip, must_exist=False)
+        base, ext = os.path.splitext(output_zip)
+        if not ext:
+            output_zip = f"{output_zip}.zip"
+        output_zip = self._validator.validate_file_path(output_zip, must_exist=False)
+        with zipfile.ZipFile(output_zip, 'w', zipfile.ZIP_DEFLATED) as zf:
+            if os.path.isdir(source_path):
+                for root, _dirs, files in os.walk(source_path):
+                    for name in files:
+                        full = os.path.join(root, name)
+                        arc = os.path.relpath(full, os.path.dirname(source_path) if os.path.isdir(source_path) else source_path)
+                        zf.write(full, arc)
+            else:
+                zf.write(source_path, os.path.basename(source_path))
+        return output_zip
+
+    def extract_zip(self, zip_path: str, output_dir: str) -> str:
+        """Safely extract a zip archive into output_dir (blocks zip slip). Returns output_dir."""
+        zip_path = self._validator.validate_file_path(zip_path, must_exist=True)
+        output_dir = self._validator.validate_file_path(output_dir, must_exist=False)
+        os.makedirs(output_dir, exist_ok=True)
+        output_dir = os.path.abspath(output_dir)
+        total_uncompressed = 0
+        with zipfile.ZipFile(zip_path, 'r') as zf:
+            if len(zf.namelist()) > self.config.MAX_ZIP_MEMBERS:
+                raise ValueError(f"Zip exceeds maximum member count {self.config.MAX_ZIP_MEMBERS}")
+            for member in zf.infolist():
+                total_uncompressed += member.file_size
+                if total_uncompressed > self.config.MAX_ZIP_UNCOMPRESSED_BYTES:
+                    raise ValueError(f"Zip exceeds maximum uncompressed size {self.config.MAX_ZIP_UNCOMPRESSED_BYTES} bytes")
+                target = os.path.join(output_dir, member.filename)
+                if not self._is_within_directory(output_dir, target):
+                    raise ValueError(f"Zip member escapes target directory: {member.filename}")
+        with zipfile.ZipFile(zip_path, 'r') as zf:
+            zf.extractall(output_dir)
+        return output_dir
+
+    def zip_to_video(self, source_path: str, output_video: str, frame_width: int, frame_height: int, fps: int, block_size: int, protocol_version: Optional[int] = None) -> str:
+        """Zip a file or directory then encode the archive to video. Returns the video path."""
+        with tempfile.TemporaryDirectory(prefix=self.config.TEMP_DIR_PREFIX) as tmpdir:
+            zip_path = os.path.join(tmpdir, 'archive.zip')
+            self.create_zip(source_path, zip_path)
+            self.encode(zip_path, output_video, frame_width, frame_height, fps, block_size, protocol_version)
+        base, ext = os.path.splitext(output_video)
+        final = output_video
+        if f"_{frame_width}x{frame_height}" not in base:
+            final = f"{base}_{frame_width}x{frame_height}{ext}"
+        if not os.path.splitext(final)[1]:
+            final = f"{final}.mp4"
+        return self._validator.validate_file_path(final, must_exist=False)
+
+    def video_to_zip(self, input_video: str, output_dir: str, block_size: int, protocol_version: Optional[int] = None) -> str:
+        """Decode a video to a zip archive then extract it into output_dir. Returns output_dir."""
+        input_video = self._validator.validate_file_path(input_video, must_exist=True)
+        output_dir = self._validator.validate_file_path(output_dir, must_exist=False)
+        if protocol_version is None:
+            protocol_version = self._detect_protocol(input_video, block_size)
+        with tempfile.TemporaryDirectory(prefix=self.config.TEMP_DIR_PREFIX) as tmpdir:
+            zip_path = os.path.join(tmpdir, 'archive.zip')
+            if protocol_version == self.config.PROTOCOL_VERSION_LEGACY:
+                self._decode_legacy(input_video, zip_path, block_size)
+            else:
+                self._decode_secure(input_video, zip_path, block_size)
+            self.extract_zip(zip_path, output_dir)
+        return output_dir
+
 
 class CLIRunner:
     """Command-line interface runner for LazyOwnInfiniteStorage."""
@@ -636,9 +728,11 @@ class CLIRunner:
 
     def run(self) -> None:
         parser = argparse.ArgumentParser(description='LazyOwnInfiniteStorage')
-        parser.add_argument('--mode', choices=['encode', 'decode', 'test'], help='Operation mode')
+        parser.add_argument('--mode', choices=['encode', 'decode', 'zip-to-video', 'video-to-zip', 'test'], help='Operation mode')
         parser.add_argument('--input', help='Input file path')
         parser.add_argument('--output', help='Output file path')
+        parser.add_argument('--zip_source', help='File or directory to zip (for zip-to-video mode)')
+        parser.add_argument('--zip_output_dir', help='Directory to extract restored zip into (for video-to-zip mode)')
         parser.add_argument('--frame_size', type=int, nargs=2, help='Frame width and height')
         parser.add_argument('--fps', type=int, default=LazyOwnConfig.DEFAULT_FPS, help='Frames per second')
         parser.add_argument('--block_size', type=int, default=LazyOwnConfig.DEFAULT_BLOCK_SIZE, help='Block size in pixels')
@@ -675,6 +769,14 @@ class CLIRunner:
             if not args.input or not args.output:
                 parser.error('--input and --output are required for decode')
             self._storage.decode(args.input, args.output, args.block_size, protocol_version)
+        elif args.mode == 'zip-to-video':
+            if not args.zip_source or not args.output or not args.frame_size:
+                parser.error('--zip_source, --output, and --frame_size are required for zip-to-video')
+            self._storage.zip_to_video(args.zip_source, args.output, args.frame_size[0], args.frame_size[1], args.fps, args.block_size, protocol_version)
+        elif args.mode == 'video-to-zip':
+            if not args.input or not args.zip_output_dir:
+                parser.error('--input and --zip_output_dir are required for video-to-zip')
+            self._storage.video_to_zip(args.input, args.zip_output_dir, args.block_size, protocol_version)
 
 
 if HAS_PYQT5:
@@ -977,7 +1079,7 @@ def run_tests() -> None:
         data = bytes(random.randint(0, 255) for _ in range(1024))
         with open(source_path, 'wb') as f:
             f.write(data)
-        md5_source = hashlib.md5(data).hexdigest()
+        digest_source = hashlib.sha256(data).hexdigest()
 
         secure_base = os.path.join(tmpdir, 'secure.mp4')
         secure_dec = os.path.join(tmpdir, 'secure_decoded.bin')
@@ -987,8 +1089,8 @@ def run_tests() -> None:
         secure_enc = os.path.join(tmpdir, secure_candidates[0])
         storage.decode(secure_enc, secure_dec, 4, config.PROTOCOL_VERSION_SECURE)
         with open(secure_dec, 'rb') as f:
-            md5_secure = hashlib.md5(f.read()).hexdigest()
-        assert md5_source == md5_secure, "Secure protocol round-trip failed"
+            digest_secure = hashlib.sha256(f.read()).hexdigest()
+        assert digest_source == digest_secure, "Secure protocol round-trip failed"
         print("Secure protocol round-trip passed")
 
         resized_path = os.path.join(tmpdir, 'resized_640x480.mp4')
@@ -996,8 +1098,8 @@ def run_tests() -> None:
         secure_dec2 = os.path.join(tmpdir, 'secure_resized_decoded.bin')
         storage.decode(resized_path, secure_dec2, 4, config.PROTOCOL_VERSION_SECURE)
         with open(secure_dec2, 'rb') as f:
-            md5_resized = hashlib.md5(f.read()).hexdigest()
-        assert md5_source == md5_resized, "Secure protocol resized decode failed"
+            digest_resized = hashlib.sha256(f.read()).hexdigest()
+        assert digest_source == digest_resized, "Secure protocol resized decode failed"
         print("Secure protocol resized round-trip passed")
 
         legacy_base = os.path.join(tmpdir, 'legacy.mp4')
@@ -1008,8 +1110,8 @@ def run_tests() -> None:
         legacy_enc = os.path.join(tmpdir, legacy_candidates[0])
         storage.decode(legacy_enc, legacy_dec, 4, config.PROTOCOL_VERSION_LEGACY)
         with open(legacy_dec, 'rb') as f:
-            md5_legacy = hashlib.md5(f.read()).hexdigest()
-        assert md5_source == md5_legacy, "Legacy protocol round-trip failed"
+            digest_legacy = hashlib.sha256(f.read()).hexdigest()
+        assert digest_source == digest_legacy, "Legacy protocol round-trip failed"
         print("Legacy protocol round-trip passed")
 
         print("All tests passed")

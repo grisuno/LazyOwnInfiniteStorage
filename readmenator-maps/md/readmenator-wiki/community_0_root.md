@@ -1,60 +1,62 @@
 # root
 
-*Community 0 | 8 files | cohesion 1.00*
+*Community 0 | 10 files | cohesion 1.00*
 
 ## Definition
 
-This community groups 8 file(s) rooted at `tests` with dominant language py (cohesion 1.00). Central symbols: `CLIRunner`, `ErrorCorrector`, `FFmpegPipeline`, `FrameDecoder`, `FrameEncoder`, `GUIRunner`, `LazyOwnConfig`, `LazyOwnInfiniteStorage`. Core file: `lazyown_infinitestorage.py` (79 symbols). Documented purpose: LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder..
+This community groups 10 file(s) rooted at `tests` with dominant language py (cohesion 1.00). Central symbols: `CLIRunner`, `ErrorCorrector`, `FFmpegPipeline`, `FrameDecoder`, `FrameEncoder`, `GUIRunner`, `LazyOwnConfig`, `LazyOwnInfiniteStorage`. Core file: `lazyown_infinitestorage.py` (84 symbols). Documented purpose: LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder..
 
 ## Files
 
 | File | Language | Layer | Symbols | Doc |
 |------|----------|-------|---------|-----|
-| `lazyown_infinitestorage.py` | py | presentation | 79 | yes |
-| `skill_lazyown_infinitestorage/tools.py` | py | utility | 5 | yes |
+| `lazyown_infinitestorage.py` | py | presentation | 84 | yes |
+| `mcp_server.py` | py | utility | 13 | yes |
+| `skill_lazyown_infinitestorage/tools.py` | py | utility | 11 | yes |
 | `tests/test_error_correction.py` | py | testing | 10 | yes |
 | `tests/test_frames.py` | py | testing | 13 | yes |
 | `tests/test_integration.py` | py | testing | 16 | yes |
 | `tests/test_protocols.py` | py | testing | 12 | yes |
 | `tests/test_security.py` | py | testing | 18 | yes |
+| `tests/test_zip.py` | py | testing | 16 | yes |
 | `wsgi_app.py` | py | utility | 1 | yes |
 
 ## Key Symbols
 
-- `LazyOwnConfig` (class, `lazyown_infinitestorage.py:71`) `class LazyOwnConfig` - Centralized immutable configuration constants for LazyOwnInfiniteStorage.
-- `SecurityValidator` (class, `lazyown_infinitestorage.py:148`) `class SecurityValidator` - Validates file paths and inputs to prevent path traversal and abuse.
-- `__init__` (method, `lazyown_infinitestorage.py:151`) `def __init__(self, config)`
-- `validate_file_path` (method, `lazyown_infinitestorage.py:154`) `def validate_file_path(self, file_path, must_exist)` - Resolves and validates an absolute file path.
-- `validate_size` (method, `lazyown_infinitestorage.py:164`) `def validate_size(self, size)` - Ensures the file size is within acceptable limits.
-- `sanitize_filename` (method, `lazyown_infinitestorage.py:169`) `def sanitize_filename(self, filename)` - Sanitizes a filename to remove unsafe characters.
-- `validate_extension` (method, `lazyown_infinitestorage.py:177`) `def validate_extension(self, file_path, allowed_extensions)` - Ensures the file extension is in the allowed set.
-- `ErrorCorrector` (class, `lazyown_infinitestorage.py:184`) `class ErrorCorrector` - Implements Hamming(8,4) extended error correction for byte streams.
-- `__init__` (method, `lazyown_infinitestorage.py:187`) `def __init__(self, config)`
-- `encode_data` (method, `lazyown_infinitestorage.py:190`) `def encode_data(self, data)` - Encodes a byte sequence using Hamming(8,4) correction.
-- `decode_data` (method, `lazyown_infinitestorage.py:200`) `def decode_data(self, data)` - Decodes a Hamming(8,4) encoded byte sequence with single-bit error correction.
-- `_encode_nibble` (method, `lazyown_infinitestorage.py:211`) `def _encode_nibble(self, nibble)`
-- `_decode_nibble` (method, `lazyown_infinitestorage.py:222`) `def _decode_nibble(self, byte_val)`
-- `FrameEncoder` (class, `lazyown_infinitestorage.py:242`) `class FrameEncoder` - Encodes bit strings into numpy grayscale frames.
-- `__init__` (method, `lazyown_infinitestorage.py:245`) `def __init__(self, config)`
-- `bits_to_frames` (method, `lazyown_infinitestorage.py:248`) `def bits_to_frames(self, bit_string, frame_width, frame_height, block_size)` - Yields grayscale frames from a bit string.
-- `_create_frame` (method, `lazyown_infinitestorage.py:263`) `def _create_frame(self, bits, width, height, block_size, blocks_per_row)`
-- `FrameDecoder` (class, `lazyown_infinitestorage.py:273`) `class FrameDecoder` - Decodes grayscale frames into bit strings.
-- `__init__` (method, `lazyown_infinitestorage.py:276`) `def __init__(self, config)`
-- `extract_bits_from_raw_frames` (method, `lazyown_infinitestorage.py:279`) `def extract_bits_from_raw_frames(self, raw_bytes, width, height, block_size, exp` - Extracts a bit string from rawvideo grayscale bytes.
-- `FFmpegPipeline` (class, `lazyown_infinitestorage.py:305`) `class FFmpegPipeline` - Manages FFmpeg subprocess communication without intermediate frame files.
-- `__init__` (method, `lazyown_infinitestorage.py:308`) `def __init__(self, config)`
-- `get_video_info` (method, `lazyown_infinitestorage.py:311`) `def get_video_info(self, input_path)` - Retrieves native resolution and metadata from a video file.
-- `_get_video_info_ffprobe` (method, `lazyown_infinitestorage.py:327`) `def _get_video_info_ffprobe(self, input_path)` - Retrieves video metadata via ffprobe (no cv2 dependency).
-- `get_metadata` (method, `lazyown_infinitestorage.py:347`) `def get_metadata(self, input_path)` - Extracts custom lazyown metadata from a video file using ffprobe.
-- `encode_video` (method, `lazyown_infinitestorage.py:366`) `def encode_video(self, frame_generator, output_path, frame_width, frame_height,` - Encodes a generator of frames into a video file via FFmpeg stdin.
-- `extract_raw_frames` (method, `lazyown_infinitestorage.py:393`) `def extract_raw_frames(self, input_path, target_width, target_height, max_frames` - Extracts raw grayscale frames from a video file via FFmpeg stdout.
-- `ProtocolHandler` (class, `lazyown_infinitestorage.py:417`) `class ProtocolHandler` - Abstract base for encoding and decoding protocol implementations.
-- `pack` (method, `lazyown_infinitestorage.py:420`) `def pack(self, data, frame_width, frame_height, block_size, fps)` - Packs raw data into a bit string.
-- `unpack` (method, `lazyown_infinitestorage.py:424`) `def unpack(self, bit_string, block_size)` - Unpacks a bit string into raw data.
+- `LazyOwnConfig` (class, `lazyown_infinitestorage.py:72`) `class LazyOwnConfig` - Centralized immutable configuration constants for LazyOwnInfiniteStorage.
+- `SecurityValidator` (class, `lazyown_infinitestorage.py:156`) `class SecurityValidator` - Validates file paths and inputs to prevent path traversal and abuse.
+- `__init__` (method, `lazyown_infinitestorage.py:159`) `def __init__(self, config)`
+- `validate_file_path` (method, `lazyown_infinitestorage.py:162`) `def validate_file_path(self, file_path, must_exist)` - Resolves and validates an absolute file path.
+- `validate_size` (method, `lazyown_infinitestorage.py:172`) `def validate_size(self, size)` - Ensures the file size is within acceptable limits.
+- `sanitize_filename` (method, `lazyown_infinitestorage.py:177`) `def sanitize_filename(self, filename)` - Sanitizes a filename to remove unsafe characters.
+- `validate_extension` (method, `lazyown_infinitestorage.py:185`) `def validate_extension(self, file_path, allowed_extensions)` - Ensures the file extension is in the allowed set.
+- `ErrorCorrector` (class, `lazyown_infinitestorage.py:192`) `class ErrorCorrector` - Implements Hamming(8,4) extended error correction for byte streams.
+- `__init__` (method, `lazyown_infinitestorage.py:195`) `def __init__(self, config)`
+- `encode_data` (method, `lazyown_infinitestorage.py:198`) `def encode_data(self, data)` - Encodes a byte sequence using Hamming(8,4) correction.
+- `decode_data` (method, `lazyown_infinitestorage.py:208`) `def decode_data(self, data)` - Decodes a Hamming(8,4) encoded byte sequence with single-bit error correction.
+- `_encode_nibble` (method, `lazyown_infinitestorage.py:219`) `def _encode_nibble(self, nibble)`
+- `_decode_nibble` (method, `lazyown_infinitestorage.py:230`) `def _decode_nibble(self, byte_val)`
+- `FrameEncoder` (class, `lazyown_infinitestorage.py:250`) `class FrameEncoder` - Encodes bit strings into numpy grayscale frames.
+- `__init__` (method, `lazyown_infinitestorage.py:253`) `def __init__(self, config)`
+- `bits_to_frames` (method, `lazyown_infinitestorage.py:256`) `def bits_to_frames(self, bit_string, frame_width, frame_height, block_size)` - Yields grayscale frames from a bit string.
+- `_create_frame` (method, `lazyown_infinitestorage.py:271`) `def _create_frame(self, bits, width, height, block_size, blocks_per_row)`
+- `FrameDecoder` (class, `lazyown_infinitestorage.py:281`) `class FrameDecoder` - Decodes grayscale frames into bit strings.
+- `__init__` (method, `lazyown_infinitestorage.py:284`) `def __init__(self, config)`
+- `extract_bits_from_raw_frames` (method, `lazyown_infinitestorage.py:287`) `def extract_bits_from_raw_frames(self, raw_bytes, width, height, block_size, exp` - Extracts a bit string from rawvideo grayscale bytes.
+- `FFmpegPipeline` (class, `lazyown_infinitestorage.py:313`) `class FFmpegPipeline` - Manages FFmpeg subprocess communication without intermediate frame files.
+- `__init__` (method, `lazyown_infinitestorage.py:316`) `def __init__(self, config)`
+- `get_video_info` (method, `lazyown_infinitestorage.py:319`) `def get_video_info(self, input_path)` - Retrieves native resolution and metadata from a video file.
+- `_get_video_info_ffprobe` (method, `lazyown_infinitestorage.py:335`) `def _get_video_info_ffprobe(self, input_path)` - Retrieves video metadata via ffprobe (no cv2 dependency).
+- `get_metadata` (method, `lazyown_infinitestorage.py:355`) `def get_metadata(self, input_path)` - Extracts custom lazyown metadata from a video file using ffprobe.
+- `encode_video` (method, `lazyown_infinitestorage.py:374`) `def encode_video(self, frame_generator, output_path, frame_width, frame_height,` - Encodes a generator of frames into a video file via FFmpeg stdin.
+- `extract_raw_frames` (method, `lazyown_infinitestorage.py:401`) `def extract_raw_frames(self, input_path, target_width, target_height, max_frames` - Extracts raw grayscale frames from a video file via FFmpeg stdout.
+- `ProtocolHandler` (class, `lazyown_infinitestorage.py:436`) `class ProtocolHandler` - Abstract base for encoding and decoding protocol implementations.
+- `pack` (method, `lazyown_infinitestorage.py:439`) `def pack(self, data, frame_width, frame_height, block_size, fps)` - Packs raw data into a bit string.
+- `unpack` (method, `lazyown_infinitestorage.py:443`) `def unpack(self, bit_string, block_size)` - Unpacks a bit string into raw data.
 
 ## Internal vs External Edges
 
-- Internal resolved imports (EXTRACTED): 7
+- Internal resolved imports (EXTRACTED): 9
 - Cross-boundary resolved imports (EXTRACTED): 0
 
 ## Connections
@@ -73,6 +75,7 @@ This community groups 8 file(s) rooted at `tests` with dominant language py (coh
 - [layer strict] `tests/test_integration.py` (testing) -> `lazyown_infinitestorage.py` (presentation)
 - [layer strict] `tests/test_protocols.py` (testing) -> `lazyown_infinitestorage.py` (presentation)
 - [layer strict] `tests/test_security.py` (testing) -> `lazyown_infinitestorage.py` (presentation)
+- [layer strict] `tests/test_zip.py` (testing) -> `lazyown_infinitestorage.py` (presentation)
 
 ## Open Questions
 
@@ -83,10 +86,12 @@ This community groups 8 file(s) rooted at `tests` with dominant language py (coh
 ## Sources
 
 - `lazyown_infinitestorage.py`
+- `mcp_server.py`
 - `skill_lazyown_infinitestorage/tools.py`
 - `tests/test_error_correction.py`
 - `tests/test_frames.py`
 - `tests/test_integration.py`
 - `tests/test_protocols.py`
 - `tests/test_security.py`
+- `tests/test_zip.py`
 - `wsgi_app.py`

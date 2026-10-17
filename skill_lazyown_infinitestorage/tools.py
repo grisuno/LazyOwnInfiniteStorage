@@ -10,15 +10,15 @@ from typing import Dict, Any
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 try:
-    from lazyown_infinitestorage import (
-        encode_file as lazyown_encode,
-        decode_file as lazyown_decode,
-        get_available_protocols
-    )
+    from lazyown_infinitestorage import LazyOwnInfiniteStorage, LazyOwnConfig
     LAZYOWN_AVAILABLE = True
 except ImportError as e:
     LAZYOWN_AVAILABLE = False
     LAZYOWN_IMPORT_ERROR = str(e)
+
+_STORAGE = None
+if LAZYOWN_AVAILABLE:
+    _STORAGE = LazyOwnInfiniteStorage(LazyOwnConfig())
 
 # For YouTube upload, we'll use Selenium if available
 try:
@@ -31,6 +31,24 @@ try:
 except ImportError:
     SELENIUM_AVAILABLE = False
 
+def _parse_frame_size(frame_size_str: str) -> tuple:
+    try:
+        width, height = map(int, frame_size_str.split())
+        return width, height
+    except ValueError:
+        raise ValueError("frame_size must be in format 'width height' (e.g., '640 480')")
+
+
+def _protocol_value(protocol: str) -> int:
+    if protocol is None:
+        return LazyOwnConfig.PROTOCOL_VERSION_SECURE
+    return (
+        LazyOwnConfig.PROTOCOL_VERSION_LEGACY
+        if str(protocol).lower() == "legacy"
+        else LazyOwnConfig.PROTOCOL_VERSION_SECURE
+    )
+
+
 def lazyown_infinitestorage_encode(params: Dict[str, Any]) -> Dict[str, Any]:
     """Encode a file into a video using LazyOwnInfiniteStorage."""
     if not LAZYOWN_AVAILABLE:
@@ -38,65 +56,51 @@ def lazyown_infinitestorage_encode(params: Dict[str, Any]) -> Dict[str, Any]:
             "error": f"LazyOwnInfiniteStorage not available: {LAZYOWN_IMPORT_ERROR}",
             "success": False
         }
-    
+
     try:
         input_file = params.get("input_file")
         output_file = params.get("output_file")
         frame_size_str = params.get("frame_size", "640 480")
-        fps = int(params.get("fps", 30))
-        block_size = int(params.get("block_size", 4))
+        fps = int(params.get("fps", LazyOwnConfig.DEFAULT_FPS))
+        block_size = int(params.get("block_size", LazyOwnConfig.DEFAULT_BLOCK_SIZE))
         protocol = params.get("protocol", "secure")
-        
+
         if not input_file or not output_file:
             return {
                 "error": "input_file and output_file are required",
                 "success": False
             }
-        
-        # Parse frame size
-        try:
-            width, height = map(int, frame_size_str.split())
-            frame_size = (width, height)
-        except ValueError:
-            return {
-                "error": "frame_size must be in format 'width height' (e.g., '640 480')",
-                "success": False
-            }
-        
-        # Validate inputs
-        if not os.path.exists(input_file):
-            return {
-                "error": f"Input file not found: {input_file}",
-                "success": False
-            }
-        
-        # Call the encoding function
-        lazyown_encode(
+
+        width, height = _parse_frame_size(frame_size_str)
+
+        _STORAGE.encode(
             input_path=input_file,
             output_path=output_file,
-            frame_size=frame_size,
+            frame_width=width,
+            frame_height=height,
             fps=fps,
             block_size=block_size,
-            protocol=protocol
+            protocol_version=_protocol_value(protocol),
         )
-        
+
         return {
             "success": True,
             "message": f"Successfully encoded {input_file} to {output_file}",
             "output_file": output_file,
             "parameters": {
-                "frame_size": frame_size,
+                "frame_size": [width, height],
                 "fps": fps,
                 "block_size": block_size,
                 "protocol": protocol
             }
         }
-        
+
     except Exception as e:
         return {
             "error": f"Encoding failed: {str(e)}",
             "success": False
         }
+
 
 def lazyown_infinitestorage_decode(params: Dict[str, Any]) -> Dict[str, Any]:
     """Decode a video back into the original file using LazyOwnInfiniteStorage."""
@@ -105,34 +109,26 @@ def lazyown_infinitestorage_decode(params: Dict[str, Any]) -> Dict[str, Any]:
             "error": f"LazyOwnInfiniteStorage not available: {LAZYOWN_IMPORT_ERROR}",
             "success": False
         }
-    
+
     try:
         input_file = params.get("input_file")
         output_file = params.get("output_file")
-        block_size = int(params.get("block_size", 4))
+        block_size = int(params.get("block_size", LazyOwnConfig.DEFAULT_BLOCK_SIZE))
         protocol = params.get("protocol", "secure")
-        
+
         if not input_file or not output_file:
             return {
                 "error": "input_file and output_file are required",
                 "success": False
             }
-        
-        # Validate inputs
-        if not os.path.exists(input_file):
-            return {
-                "error": f"Input video not found: {input_file}",
-                "success": False
-            }
-        
-        # Call the decoding function
-        lazyown_decode(
+
+        _STORAGE.decode(
             input_path=input_file,
             output_path=output_file,
             block_size=block_size,
-            protocol=protocol
+            protocol_version=_protocol_value(protocol),
         )
-        
+
         return {
             "success": True,
             "message": f"Successfully decoded {input_file} to {output_file}",
@@ -142,10 +138,161 @@ def lazyown_infinitestorage_decode(params: Dict[str, Any]) -> Dict[str, Any]:
                 "protocol": protocol
             }
         }
-        
+
     except Exception as e:
         return {
             "error": f"Decoding failed: {str(e)}",
+            "success": False
+        }
+
+
+def lazyown_zip_to_video(params: Dict[str, Any]) -> Dict[str, Any]:
+    """Zip a file or directory then encode the archive into a video (zip -> video)."""
+    if not LAZYOWN_AVAILABLE:
+        return {
+            "error": f"LazyOwnInfiniteStorage not available: {LAZYOWN_IMPORT_ERROR}",
+            "success": False
+        }
+
+    try:
+        source_path = params.get("source_path")
+        output_video = params.get("output_video")
+        frame_size_str = params.get("frame_size", "640 480")
+        fps = int(params.get("fps", LazyOwnConfig.DEFAULT_FPS))
+        block_size = int(params.get("block_size", LazyOwnConfig.DEFAULT_BLOCK_SIZE))
+        protocol = params.get("protocol", "secure")
+
+        if not source_path or not output_video:
+            return {
+                "error": "source_path and output_video are required",
+                "success": False
+            }
+
+        width, height = _parse_frame_size(frame_size_str)
+        video_path = _STORAGE.zip_to_video(
+            source_path, output_video, width, height, fps, block_size, _protocol_value(protocol),
+        )
+
+        return {
+            "success": True,
+            "message": f"Zipped {source_path} and encoded to video {video_path}",
+            "video_path": video_path,
+            "parameters": {
+                "frame_size": [width, height],
+                "fps": fps,
+                "block_size": block_size,
+                "protocol": protocol
+            }
+        }
+
+    except Exception as e:
+        return {
+            "error": f"zip_to_video failed: {str(e)}",
+            "success": False
+        }
+
+
+def lazyown_video_to_zip(params: Dict[str, Any]) -> Dict[str, Any]:
+    """Decode a video into a zip archive then extract it (video -> zip -> files)."""
+    if not LAZYOWN_AVAILABLE:
+        return {
+            "error": f"LazyOwnInfiniteStorage not available: {LAZYOWN_IMPORT_ERROR}",
+            "success": False
+        }
+
+    try:
+        input_video = params.get("input_video")
+        output_dir = params.get("output_dir")
+        block_size = int(params.get("block_size", LazyOwnConfig.DEFAULT_BLOCK_SIZE))
+        protocol = params.get("protocol", "secure")
+
+        if not input_video or not output_dir:
+            return {
+                "error": "input_video and output_dir are required",
+                "success": False
+            }
+
+        restored_dir = _STORAGE.video_to_zip(
+            input_video, output_dir, block_size, _protocol_value(protocol),
+        )
+
+        return {
+            "success": True,
+            "message": f"Decoded {input_video} and extracted zip to {restored_dir}",
+            "output_dir": restored_dir,
+            "parameters": {
+                "block_size": block_size,
+                "protocol": protocol
+            }
+        }
+
+    except Exception as e:
+        return {
+            "error": f"video_to_zip failed: {str(e)}",
+            "success": False
+        }
+
+
+def lazyown_create_zip(params: Dict[str, Any]) -> Dict[str, Any]:
+    """Create a zip archive from a file or directory."""
+    if not LAZYOWN_AVAILABLE:
+        return {
+            "error": f"LazyOwnInfiniteStorage not available: {LAZYOWN_IMPORT_ERROR}",
+            "success": False
+        }
+
+    try:
+        source_path = params.get("source_path")
+        output_zip = params.get("output_zip")
+
+        if not source_path or not output_zip:
+            return {
+                "error": "source_path and output_zip are required",
+                "success": False
+            }
+
+        zip_path = _STORAGE.create_zip(source_path, output_zip)
+        return {
+            "success": True,
+            "message": f"Created zip {zip_path}",
+            "zip_path": zip_path
+        }
+
+    except Exception as e:
+        return {
+            "error": f"create_zip failed: {str(e)}",
+            "success": False
+        }
+
+
+def lazyown_extract_zip(params: Dict[str, Any]) -> Dict[str, Any]:
+    """Safely extract a zip archive into a directory (blocks zip slip)."""
+    if not LAZYOWN_AVAILABLE:
+        return {
+            "error": f"LazyOwnInfiniteStorage not available: {LAZYOWN_IMPORT_ERROR}",
+            "success": False
+        }
+
+    try:
+        zip_path = params.get("zip_path")
+        output_dir = params.get("output_dir")
+
+        if not zip_path or not output_dir:
+            return {
+                "error": "zip_path and output_dir are required",
+                "success": False
+            }
+
+        restored_dir = _STORAGE.extract_zip(zip_path, output_dir)
+        return {
+            "success": True,
+            "message": f"Extracted {zip_path} to {restored_dir}",
+            "output_dir": restored_dir
+        }
+
+    except Exception as e:
+        return {
+            "error": f"extract_zip failed: {str(e)}",
             "success": False
         }
 
@@ -296,7 +443,11 @@ def lazyown_infinitestorage_upload_to_youtube(params: Dict[str, Any]) -> Dict[st
 TOOLS = {
     "lazyown_infinitestorage_encode": lazyown_infinitestorage_encode,
     "lazyown_infinitestorage_decode": lazyown_infinitestorage_decode,
-    "lazyown_infinitestorage_upload_to_youtube": lazyown_infinitestorage_upload_to_youtube
+    "lazyown_infinitestorage_upload_to_youtube": lazyown_infinitestorage_upload_to_youtube,
+    "lazyown_zip_to_video": lazyown_zip_to_video,
+    "lazyown_video_to_zip": lazyown_video_to_zip,
+    "lazyown_create_zip": lazyown_create_zip,
+    "lazyown_extract_zip": lazyown_extract_zip,
 }
 
 def get_tool(name: str):

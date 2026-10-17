@@ -10,86 +10,111 @@
 - Layer: presentation
 - Language: py
 - Symbols:
-  - `LazyOwnConfig` (class, line 71) `class LazyOwnConfig`
-  - `SecurityValidator` (class, line 148) `class SecurityValidator`
-  - `ErrorCorrector` (class, line 184) `class ErrorCorrector`
-  - `FrameEncoder` (class, line 242) `class FrameEncoder`
-  - `FrameDecoder` (class, line 273) `class FrameDecoder`
-  - `FFmpegPipeline` (class, line 305) `class FFmpegPipeline`
-  - `ProtocolHandler` (class, line 417) `class ProtocolHandler`
-  - `LegacyProtocolHandler` (class, line 429) `class LegacyProtocolHandler(ProtocolHandler)`
-  - `SecureProtocolHandler` (class, line 454) `class SecureProtocolHandler(ProtocolHandler)`
-  - `LazyOwnInfiniteStorage` (class, line 508) `class LazyOwnInfiniteStorage`
-  - `CLIRunner` (class, line 631) `class CLIRunner`
-  - `run_tests` (function, line 970) `def run_tests()`
-  - `main` (function, line 1018) `def main()`
-  - `__init__` (method, line 151) `def __init__(self, config)`
-  - `validate_file_path` (method, line 154) `def validate_file_path(self, file_path, must_exist)`
-  - `validate_size` (method, line 164) `def validate_size(self, size)`
-  - `sanitize_filename` (method, line 169) `def sanitize_filename(self, filename)`
-  - `validate_extension` (method, line 177) `def validate_extension(self, file_path, allowed_extensions)`
-  - `__init__` (method, line 187) `def __init__(self, config)`
-  - `encode_data` (method, line 190) `def encode_data(self, data)`
-  - `decode_data` (method, line 200) `def decode_data(self, data)`
-  - `_encode_nibble` (method, line 211) `def _encode_nibble(self, nibble)`
-  - `_decode_nibble` (method, line 222) `def _decode_nibble(self, byte_val)`
-  - `__init__` (method, line 245) `def __init__(self, config)`
-  - `bits_to_frames` (method, line 248) `def bits_to_frames(self, bit_string, frame_width, frame_height, block_size)`
-  - `_create_frame` (method, line 263) `def _create_frame(self, bits, width, height, block_size, blocks_per_row)`
-  - `__init__` (method, line 276) `def __init__(self, config)`
-  - `extract_bits_from_raw_frames` (method, line 279) `def extract_bits_from_raw_frames(self, raw_bytes, width, height, block_size, expected_bits)`
-  - `__init__` (method, line 308) `def __init__(self, config)`
-  - `get_video_info` (method, line 311) `def get_video_info(self, input_path)`
-  - `_get_video_info_ffprobe` (method, line 327) `def _get_video_info_ffprobe(self, input_path)`
-  - `get_metadata` (method, line 347) `def get_metadata(self, input_path)`
-  - `encode_video` (method, line 366) `def encode_video(self, frame_generator, output_path, frame_width, frame_height, fps)`
-  - `extract_raw_frames` (method, line 393) `def extract_raw_frames(self, input_path, target_width, target_height, max_frames)`
-  - `pack` (method, line 420) `def pack(self, data, frame_width, frame_height, block_size, fps)`
-  - `unpack` (method, line 424) `def unpack(self, bit_string, block_size)`
-  - `__init__` (method, line 432) `def __init__(self, config)`
-  - `pack` (method, line 435) `def pack(self, data, frame_width, frame_height, block_size, fps)`
-  - `unpack` (method, line 440) `def unpack(self, bit_string, block_size)`
-  - `__init__` (method, line 457) `def __init__(self, config, corrector)`
-  - `pack` (method, line 461) `def pack(self, data, frame_width, frame_height, block_size, fps)`
-  - `unpack` (method, line 480) `def unpack(self, bit_string, block_size)`
-  - `__init__` (method, line 511) `def __init__(self, config)`
-  - `create_web_runner` (method, line 521) `def create_web_runner(self)`
-  - `encode` (method, line 525) `def encode(self, input_path, output_path, frame_width, frame_height, fps, block_size, protocol_version)`
-  - `decode` (method, line 550) `def decode(self, input_path, output_path, block_size, protocol_version)`
-  - `_validate_encoding_parameters` (method, line 561) `def _validate_encoding_parameters(self, frame_width, frame_height, fps, block_size)`
-  - `_detect_protocol` (method, line 571) `def _detect_protocol(self, input_path, block_size)`
-  - `_decode_legacy` (method, line 604) `def _decode_legacy(self, input_path, output_path, block_size)`
-  - `_decode_secure` (method, line 617) `def _decode_secure(self, input_path, output_path, block_size)`
-  - `__init__` (method, line 634) `def __init__(self, storage)`
-  - `run` (method, line 637) `def run(self)`
-  - `Worker` (class, line 681) `class Worker(QThread)`
-  - `GUIRunner` (class, line 700) `class GUIRunner(QWidget)`
-  - `GUIRunner` (class, line 836) `class GUIRunner`
-  - `WebRunner` (class, line 847) `class WebRunner`
-  - `WebRunner` (class, line 960) `class WebRunner`
-  - `__init__` (method, line 687) `def __init__(self, func)`
-  - `run` (method, line 693) `def run(self)`
-  - `__init__` (method, line 703) `def __init__(self, storage)`
-  - `_init_ui` (method, line 709) `def _init_ui(self)`
-  - `_change_mode` (method, line 777) `def _change_mode(self)`
-  - `_browse_input` (method, line 788) `def _browse_input(self)`
-  - `_start` (method, line 798) `def _start(self)`
-  - `_on_finished` (method, line 821) `def _on_finished(self, message)`
-  - `_on_error` (method, line 826) `def _on_error(self, message)`
-  - `run` (method, line 831) `def run(self)`
-  - `__init__` (method, line 839) `def __init__(self, storage)`
-  - `run` (method, line 842) `def run(self)`
-  - `__init__` (method, line 850) `def __init__(self, storage)`
-  - `run_setup` (method, line 861) `def run_setup(self)`
-  - `_setup_routes` (method, line 867) `def _setup_routes(self)`
-  - `run` (method, line 955) `def run(self, host, port)`
-  - `__init__` (method, line 963) `def __init__(self, storage)`
-  - `run` (method, line 966) `def run(self, host, port)`
-  - `_validate_upload` (function, line 872) `def _validate_upload(input_file, action)`
-  - `index` (function, line 890) `def index()`
-  - `download` (function, line 935) `def download(filename)`
-  - `add_security_headers` (function, line 943) `def add_security_headers(response)`
-- Imported by: `skill_lazyown_infinitestorage/tools.py`, `tests/test_error_correction.py`, `tests/test_frames.py`, `tests/test_integration.py`, `tests/test_protocols.py`, `tests/test_security.py`, `wsgi_app.py`
+  - `LazyOwnConfig` (class, line 72) `class LazyOwnConfig`
+  - `SecurityValidator` (class, line 156) `class SecurityValidator`
+  - `ErrorCorrector` (class, line 192) `class ErrorCorrector`
+  - `FrameEncoder` (class, line 250) `class FrameEncoder`
+  - `FrameDecoder` (class, line 281) `class FrameDecoder`
+  - `FFmpegPipeline` (class, line 313) `class FFmpegPipeline`
+  - `ProtocolHandler` (class, line 436) `class ProtocolHandler`
+  - `LegacyProtocolHandler` (class, line 448) `class LegacyProtocolHandler(ProtocolHandler)`
+  - `SecureProtocolHandler` (class, line 473) `class SecureProtocolHandler(ProtocolHandler)`
+  - `LazyOwnInfiniteStorage` (class, line 527) `class LazyOwnInfiniteStorage`
+  - `CLIRunner` (class, line 723) `class CLIRunner`
+  - `run_tests` (function, line 1072) `def run_tests()`
+  - `main` (function, line 1120) `def main()`
+  - `__init__` (method, line 159) `def __init__(self, config)`
+  - `validate_file_path` (method, line 162) `def validate_file_path(self, file_path, must_exist)`
+  - `validate_size` (method, line 172) `def validate_size(self, size)`
+  - `sanitize_filename` (method, line 177) `def sanitize_filename(self, filename)`
+  - `validate_extension` (method, line 185) `def validate_extension(self, file_path, allowed_extensions)`
+  - `__init__` (method, line 195) `def __init__(self, config)`
+  - `encode_data` (method, line 198) `def encode_data(self, data)`
+  - `decode_data` (method, line 208) `def decode_data(self, data)`
+  - `_encode_nibble` (method, line 219) `def _encode_nibble(self, nibble)`
+  - `_decode_nibble` (method, line 230) `def _decode_nibble(self, byte_val)`
+  - `__init__` (method, line 253) `def __init__(self, config)`
+  - `bits_to_frames` (method, line 256) `def bits_to_frames(self, bit_string, frame_width, frame_height, block_size)`
+  - `_create_frame` (method, line 271) `def _create_frame(self, bits, width, height, block_size, blocks_per_row)`
+  - `__init__` (method, line 284) `def __init__(self, config)`
+  - `extract_bits_from_raw_frames` (method, line 287) `def extract_bits_from_raw_frames(self, raw_bytes, width, height, block_size, expected_bits)`
+  - `__init__` (method, line 316) `def __init__(self, config)`
+  - `get_video_info` (method, line 319) `def get_video_info(self, input_path)`
+  - `_get_video_info_ffprobe` (method, line 335) `def _get_video_info_ffprobe(self, input_path)`
+  - `get_metadata` (method, line 355) `def get_metadata(self, input_path)`
+  - `encode_video` (method, line 374) `def encode_video(self, frame_generator, output_path, frame_width, frame_height, fps)`
+  - `extract_raw_frames` (method, line 401) `def extract_raw_frames(self, input_path, target_width, target_height, max_frames)`
+  - `pack` (method, line 439) `def pack(self, data, frame_width, frame_height, block_size, fps)`
+  - `unpack` (method, line 443) `def unpack(self, bit_string, block_size)`
+  - `__init__` (method, line 451) `def __init__(self, config)`
+  - `pack` (method, line 454) `def pack(self, data, frame_width, frame_height, block_size, fps)`
+  - `unpack` (method, line 459) `def unpack(self, bit_string, block_size)`
+  - `__init__` (method, line 476) `def __init__(self, config, corrector)`
+  - `pack` (method, line 480) `def pack(self, data, frame_width, frame_height, block_size, fps)`
+  - `unpack` (method, line 499) `def unpack(self, bit_string, block_size)`
+  - `__init__` (method, line 530) `def __init__(self, config)`
+  - `create_web_runner` (method, line 540) `def create_web_runner(self)`
+  - `encode` (method, line 544) `def encode(self, input_path, output_path, frame_width, frame_height, fps, block_size, protocol_version)`
+  - `decode` (method, line 567) `def decode(self, input_path, output_path, block_size, protocol_version)`
+  - `_validate_encoding_parameters` (method, line 578) `def _validate_encoding_parameters(self, frame_width, frame_height, fps, block_size)`
+  - `_detect_protocol` (method, line 588) `def _detect_protocol(self, input_path, block_size)`
+  - `_decode_legacy` (method, line 621) `def _decode_legacy(self, input_path, output_path, block_size)`
+  - `_decode_secure` (method, line 634) `def _decode_secure(self, input_path, output_path, block_size)`
+  - `_is_within_directory` (method, line 647) `def _is_within_directory(self, directory, target)`
+  - `create_zip` (method, line 653) `def create_zip(self, source_path, output_zip)`
+  - `extract_zip` (method, line 672) `def extract_zip(self, zip_path, output_dir)`
+  - `zip_to_video` (method, line 693) `def zip_to_video(self, source_path, output_video, frame_width, frame_height, fps, block_size, protocol_version)`
+  - `video_to_zip` (method, line 707) `def video_to_zip(self, input_video, output_dir, block_size, protocol_version)`
+  - `__init__` (method, line 726) `def __init__(self, storage)`
+  - `run` (method, line 729) `def run(self)`
+  - `Worker` (class, line 783) `class Worker(QThread)`
+  - `GUIRunner` (class, line 802) `class GUIRunner(QWidget)`
+  - `GUIRunner` (class, line 938) `class GUIRunner`
+  - `WebRunner` (class, line 949) `class WebRunner`
+  - `WebRunner` (class, line 1062) `class WebRunner`
+  - `__init__` (method, line 789) `def __init__(self, func)`
+  - `run` (method, line 795) `def run(self)`
+  - `__init__` (method, line 805) `def __init__(self, storage)`
+  - `_init_ui` (method, line 811) `def _init_ui(self)`
+  - `_change_mode` (method, line 879) `def _change_mode(self)`
+  - `_browse_input` (method, line 890) `def _browse_input(self)`
+  - `_start` (method, line 900) `def _start(self)`
+  - `_on_finished` (method, line 923) `def _on_finished(self, message)`
+  - `_on_error` (method, line 928) `def _on_error(self, message)`
+  - `run` (method, line 933) `def run(self)`
+  - `__init__` (method, line 941) `def __init__(self, storage)`
+  - `run` (method, line 944) `def run(self)`
+  - `__init__` (method, line 952) `def __init__(self, storage)`
+  - `run_setup` (method, line 963) `def run_setup(self)`
+  - `_setup_routes` (method, line 969) `def _setup_routes(self)`
+  - `run` (method, line 1057) `def run(self, host, port)`
+  - `__init__` (method, line 1065) `def __init__(self, storage)`
+  - `run` (method, line 1068) `def run(self, host, port)`
+  - `_validate_upload` (function, line 974) `def _validate_upload(input_file, action)`
+  - `index` (function, line 992) `def index()`
+  - `download` (function, line 1037) `def download(filename)`
+  - `add_security_headers` (function, line 1045) `def add_security_headers(response)`
+- Imported by: `mcp_server.py`, `skill_lazyown_infinitestorage/tools.py`, `tests/test_error_correction.py`, `tests/test_frames.py`, `tests/test_integration.py`, `tests/test_protocols.py`, `tests/test_security.py`, `tests/test_zip.py`, `wsgi_app.py`
+
+## mcp_server.py
+- Doc: Model Context Protocol server for LazyOwnInfiniteStorage.
+- Layer: utility
+- Language: py
+- Symbols:
+  - `_parse_frame_size` (function, line 62) `def _parse_frame_size(value)`
+  - `_protocol_value` (function, line 69) `def _protocol_value(protocol)`
+  - `_tool_zip_to_video` (function, line 79) `def _tool_zip_to_video(arguments)`
+  - `_tool_video_to_zip` (function, line 107) `def _tool_video_to_zip(arguments)`
+  - `_tool_encode` (function, line 131) `def _tool_encode(arguments)`
+  - `_tool_decode` (function, line 157) `def _tool_decode(arguments)`
+  - `_tool_create_zip` (function, line 179) `def _tool_create_zip(arguments)`
+  - `_tool_extract_zip` (function, line 191) `def _tool_extract_zip(arguments)`
+  - `_build_tools` (function, line 213) `def _build_tools()`
+  - `_run` (function, line 302) `def _run()`
+  - `main` (function, line 330) `def main()`
+  - `list_tools` (function, line 310) `def list_tools()`
+  - `call_tool` (function, line 314) `def call_tool(name, arguments)`
+- Depends on: `lazyown_infinitestorage.py`
 
 ## wsgi_app.py
 - Doc: WSGI entry point for LazyOwnInfiniteStorage web server.

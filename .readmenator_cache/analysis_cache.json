@@ -3,7 +3,7 @@
     "god_nodes": [
       [
         "lazyown_infinitestorage.py",
-        21.9
+        26.4
       ],
       [
         "tests/test_security.py",
@@ -14,6 +14,14 @@
         3.6
       ],
       [
+        "tests/test_zip.py",
+        3.6
+      ],
+      [
+        "mcp_server.py",
+        3.3
+      ],
+      [
         "tests/test_frames.py",
         3.3
       ],
@@ -22,20 +30,16 @@
         3.2
       ],
       [
+        "skill_lazyown_infinitestorage/tools.py",
+        3.1
+      ],
+      [
         "tests/test_error_correction.py",
         3.0
       ],
       [
-        "skill_lazyown_infinitestorage/tools.py",
-        2.5
-      ],
-      [
         "wsgi_app.py",
         2.1
-      ],
-      [
-        "install.sh",
-        0.0
       ]
     ],
     "communities": [
@@ -43,37 +47,41 @@
         "id": 0,
         "label": "root",
         "file_ids": [
-          "tests/test_error_correction.py",
+          "tests/test_integration.py",
           "lazyown_infinitestorage.py",
-          "skill_lazyown_infinitestorage/tools.py",
-          "wsgi_app.py",
+          "tests/test_zip.py",
+          "mcp_server.py",
           "tests/test_frames.py",
-          "tests/test_protocols.py",
           "tests/test_security.py",
-          "tests/test_integration.py"
+          "wsgi_app.py",
+          "skill_lazyown_infinitestorage/tools.py",
+          "tests/test_error_correction.py",
+          "tests/test_protocols.py"
         ],
         "cohesion": 1.0,
-        "size": 8
+        "size": 10
       }
     ],
     "surprising_connections": [],
     "suggested_questions": [
-      "What does lazyown_infinitestorage.py depend on, and what depends on it? (7 connections)",
+      "What does lazyown_infinitestorage.py depend on, and what depends on it? (9 connections)",
       "What does test_security.py depend on, and what depends on it? (1 connections)",
       "What does test_integration.py depend on, and what depends on it? (1 connections)",
-      "How are the 8 files in 'root' related to each other?",
+      "How are the 10 files in 'root' related to each other?",
       "What is LazyOwnConfig in lazyown_infinitestorage.py and how is it used?"
     ]
   },
   "layers": {
     "install.sh": "utility",
     "lazyown_infinitestorage.py": "presentation",
+    "mcp_server.py": "utility",
     "skill_lazyown_infinitestorage/tools.py": "utility",
     "tests/test_error_correction.py": "testing",
     "tests/test_frames.py": "testing",
     "tests/test_integration.py": "testing",
     "tests/test_protocols.py": "testing",
     "tests/test_security.py": "testing",
+    "tests/test_zip.py": "testing",
     "wsgi_app.py": "utility"
   },
   "security": {

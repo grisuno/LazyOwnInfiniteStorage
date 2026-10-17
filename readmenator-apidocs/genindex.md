@@ -2,7 +2,7 @@
 
 [Back to index](index.md)
 
-[A](#a) | [B](#b) | [C](#c) | [D](#d) | [E](#e) | [F](#f) | [G](#g) | [H](#h) | [I](#i) | [L](#l) | [M](#m) | [P](#p) | [R](#r) | [S](#s) | [T](#t) | [U](#u) | [V](#v) | [W](#w)
+[A](#a) | [B](#b) | [C](#c) | [D](#d) | [E](#e) | [F](#f) | [G](#g) | [H](#h) | [I](#i) | [L](#l) | [M](#m) | [P](#p) | [R](#r) | [S](#s) | [T](#t) | [U](#u) | [V](#v) | [W](#w) | [Z](#z)
 
 <a id="a"></a>
 
@@ -27,6 +27,7 @@
 - [`CANDIDATE_BLOCK_SIZES`](modules/lazyown_infinitestorage.py.md#lazyownconfig-candidate_block_sizes) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
 - [`CLIRunner`](modules/lazyown_infinitestorage.py.md#clirunner) class in `lazyown_infinitestorage`
 - [`create_web_runner`](modules/lazyown_infinitestorage.py.md#lazyowninfinitestorage-create_web_runner) method of `LazyOwnInfiniteStorage` in `lazyown_infinitestorage`
+- [`create_zip`](modules/lazyown_infinitestorage.py.md#lazyowninfinitestorage-create_zip) method of `LazyOwnInfiniteStorage` in `lazyown_infinitestorage`
 
 <a id="d"></a>
 
@@ -50,6 +51,7 @@
 - [`ErrorCorrector`](modules/lazyown_infinitestorage.py.md#errorcorrector) class in `lazyown_infinitestorage`
 - [`extract_bits_from_raw_frames`](modules/lazyown_infinitestorage.py.md#framedecoder-extract_bits_from_raw_frames) method of `FrameDecoder` in `lazyown_infinitestorage`
 - [`extract_raw_frames`](modules/lazyown_infinitestorage.py.md#ffmpegpipeline-extract_raw_frames) method of `FFmpegPipeline` in `lazyown_infinitestorage`
+- [`extract_zip`](modules/lazyown_infinitestorage.py.md#lazyowninfinitestorage-extract_zip) method of `LazyOwnInfiniteStorage` in `lazyown_infinitestorage`
 
 <a id="f"></a>
 
@@ -123,9 +125,13 @@
 
 ## L
 
+- [`lazyown_create_zip`](modules/skill_lazyown_infinitestorage.tools.py.md#lazyown_create_zip) function in `skill_lazyown_infinitestorage.tools`
+- [`lazyown_extract_zip`](modules/skill_lazyown_infinitestorage.tools.py.md#lazyown_extract_zip) function in `skill_lazyown_infinitestorage.tools`
 - [`lazyown_infinitestorage_decode`](modules/skill_lazyown_infinitestorage.tools.py.md#lazyown_infinitestorage_decode) function in `skill_lazyown_infinitestorage.tools`
 - [`lazyown_infinitestorage_encode`](modules/skill_lazyown_infinitestorage.tools.py.md#lazyown_infinitestorage_encode) function in `skill_lazyown_infinitestorage.tools`
 - [`lazyown_infinitestorage_upload_to_youtube`](modules/skill_lazyown_infinitestorage.tools.py.md#lazyown_infinitestorage_upload_to_youtube) function in `skill_lazyown_infinitestorage.tools`
+- [`lazyown_video_to_zip`](modules/skill_lazyown_infinitestorage.tools.py.md#lazyown_video_to_zip) function in `skill_lazyown_infinitestorage.tools`
+- [`lazyown_zip_to_video`](modules/skill_lazyown_infinitestorage.tools.py.md#lazyown_zip_to_video) function in `skill_lazyown_infinitestorage.tools`
 - [`LazyOwnConfig`](modules/lazyown_infinitestorage.py.md#lazyownconfig) class in `lazyown_infinitestorage`
 - [`LazyOwnInfiniteStorage`](modules/lazyown_infinitestorage.py.md#lazyowninfinitestorage) class in `lazyown_infinitestorage`
 - [`LegacyProtocolHandler`](modules/lazyown_infinitestorage.py.md#legacyprotocolhandler) class in `lazyown_infinitestorage`
@@ -137,11 +143,15 @@
 
 - [`MAGIC_BYTES`](modules/lazyown_infinitestorage.py.md#lazyownconfig-magic_bytes) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
 - [`main`](modules/lazyown_infinitestorage.py.md#main) function in `lazyown_infinitestorage`
+- [`main`](modules/mcp_server.py.md#main) function in `mcp_server`
 - [`MAX_BLOCK_SIZE`](modules/lazyown_infinitestorage.py.md#lazyownconfig-max_block_size) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
+- [`MAX_EXTRACT_BYTES`](modules/lazyown_infinitestorage.py.md#lazyownconfig-max_extract_bytes) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
 - [`MAX_FPS`](modules/lazyown_infinitestorage.py.md#lazyownconfig-max_fps) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
 - [`MAX_FRAME_HEIGHT`](modules/lazyown_infinitestorage.py.md#lazyownconfig-max_frame_height) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
 - [`MAX_FRAME_WIDTH`](modules/lazyown_infinitestorage.py.md#lazyownconfig-max_frame_width) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
 - [`MAX_INPUT_FILE_SIZE`](modules/lazyown_infinitestorage.py.md#lazyownconfig-max_input_file_size) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
+- [`MAX_ZIP_MEMBERS`](modules/lazyown_infinitestorage.py.md#lazyownconfig-max_zip_members) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
+- [`MAX_ZIP_UNCOMPRESSED_BYTES`](modules/lazyown_infinitestorage.py.md#lazyownconfig-max_zip_uncompressed_bytes) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
 - [`MIN_BLOCK_SIZE`](modules/lazyown_infinitestorage.py.md#lazyownconfig-min_block_size) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
 - [`MIN_FPS`](modules/lazyown_infinitestorage.py.md#lazyownconfig-min_fps) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
 - [`MIN_FRAME_HEIGHT`](modules/lazyown_infinitestorage.py.md#lazyownconfig-min_frame_height) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
@@ -179,6 +189,8 @@
 ## T
 
 - [`TEMP_DIR_PREFIX`](modules/lazyown_infinitestorage.py.md#lazyownconfig-temp_dir_prefix) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
+- [`TOOL_DESCRIPTIONS`](modules/mcp_server.py.md#tool_descriptions) constant in `mcp_server`
+- [`TOOL_HANDLERS`](modules/mcp_server.py.md#tool_handlers) constant in `mcp_server`
 - [`TOOLS`](modules/skill_lazyown_infinitestorage.tools.py.md#tools) constant in `skill_lazyown_infinitestorage.tools`
 
 <a id="u"></a>
@@ -196,6 +208,7 @@
 - [`validate_extension`](modules/lazyown_infinitestorage.py.md#securityvalidator-validate_extension) method of `SecurityValidator` in `lazyown_infinitestorage`
 - [`validate_file_path`](modules/lazyown_infinitestorage.py.md#securityvalidator-validate_file_path) method of `SecurityValidator` in `lazyown_infinitestorage`
 - [`validate_size`](modules/lazyown_infinitestorage.py.md#securityvalidator-validate_size) method of `SecurityValidator` in `lazyown_infinitestorage`
+- [`video_to_zip`](modules/lazyown_infinitestorage.py.md#lazyowninfinitestorage-video_to_zip) method of `LazyOwnInfiniteStorage` in `lazyown_infinitestorage`
 
 <a id="w"></a>
 
@@ -205,3 +218,9 @@
 - [`WEB_MAX_CONTENT_LENGTH`](modules/lazyown_infinitestorage.py.md#lazyownconfig-web_max_content_length) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
 - [`WEB_SECRET_KEY_ENV`](modules/lazyown_infinitestorage.py.md#lazyownconfig-web_secret_key_env) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
 - [`WEB_UPLOAD_FOLDER`](modules/lazyown_infinitestorage.py.md#lazyownconfig-web_upload_folder) attribute of `LazyOwnConfig` in `lazyown_infinitestorage`
+
+<a id="z"></a>
+
+## Z
+
+- [`zip_to_video`](modules/lazyown_infinitestorage.py.md#lazyowninfinitestorage-zip_to_video) method of `LazyOwnInfiniteStorage` in `lazyown_infinitestorage`

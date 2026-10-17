@@ -103,3 +103,26 @@
   - `test_validate_extension_accepts_allowed` (method, line 77) `def test_validate_extension_accepts_allowed(self)`
   - `test_validate_extension_rejects_disallowed` (method, line 81) `def test_validate_extension_rejects_disallowed(self)`
 - Depends on: `lazyown_infinitestorage.py`
+
+## tests/test_zip.py
+- Doc: Tests for zip pipeline and security hardening in LazyOwnInfiniteStorage.
+- Layer: testing
+- Language: py
+- Symbols:
+  - `TestZipRoundtrip` (class, line 12) `class TestZipRoundtrip`
+  - `TestZipSecurity` (class, line 67) `class TestZipSecurity`
+  - `TestEncodeOutputValidation` (class, line 100) `class TestEncodeOutputValidation`
+  - `TestSecurityValidatorUnchanged` (class, line 118) `class TestSecurityValidatorUnchanged`
+  - `setup` (method, line 16) `def setup(self)`
+  - `_make_source_dir` (method, line 20) `def _make_source_dir(self, tmpdir)`
+  - `test_zip_to_video_roundtrip_secure` (method, line 33) `def test_zip_to_video_roundtrip_secure(self)`
+  - `test_create_and_extract_zip_roundtrip` (method, line 53) `def test_create_and_extract_zip_roundtrip(self)`
+  - `setup` (method, line 71) `def setup(self)`
+  - `test_extract_zip_blocks_path_traversal` (method, line 75) `def test_extract_zip_blocks_path_traversal(self)`
+  - `test_extract_zip_blocks_uncompressed_bomb` (method, line 88) `def test_extract_zip_blocks_uncompressed_bomb(self)`
+  - `setup` (method, line 104) `def setup(self)`
+  - `test_encode_rejects_output_path_traversal` (method, line 108) `def test_encode_rejects_output_path_traversal(self)`
+  - `setup` (method, line 122) `def setup(self)`
+  - `test_rejects_traversal` (method, line 126) `def test_rejects_traversal(self)`
+  - `test_sanitizes_filename` (method, line 130) `def test_sanitizes_filename(self)`
+- Depends on: `lazyown_infinitestorage.py`

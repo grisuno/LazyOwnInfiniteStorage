@@ -2,30 +2,30 @@
  "schema_version": 1,
  "format": "jsonl",
  "meta": {
-  "modules": 4,
-  "entities": 116,
+  "modules": 5,
+  "entities": 131,
   "languages": {
-   "py": 3,
+   "py": 4,
    "sh": 1
   },
   "kinds": {
-   "attribute": 60,
+   "attribute": 63,
    "class": 11,
-   "constant": 2,
+   "constant": 4,
    "constructor": 9,
-   "function": 8,
-   "method": 22,
-   "module": 4
+   "function": 13,
+   "method": 26,
+   "module": 5
   },
   "truncated": false,
-  "skipped_files": 5,
+  "skipped_files": 6,
   "privacy_mode": false
  },
  "coverage": {
   "overall": {
-   "documented": 44,
-   "total": 54,
-   "percent": 81.5
+   "documented": 54,
+   "total": 64,
+   "percent": 84.4
   },
   "by_kind": {
    "class": {
@@ -39,18 +39,18 @@
     "percent": 0.0
    },
    "function": {
-    "documented": 8,
-    "total": 8,
+    "documented": 13,
+    "total": 13,
     "percent": 100.0
    },
    "method": {
-    "documented": 21,
-    "total": 22,
-    "percent": 95.5
+    "documented": 25,
+    "total": 26,
+    "percent": 96.2
    },
    "module": {
-    "documented": 4,
-    "total": 4,
+    "documented": 5,
+    "total": 5,
     "percent": 100.0
    }
   },
@@ -61,13 +61,18 @@
     "percent": 100.0
    },
    "lazyown_infinitestorage.py": {
-    "documented": 35,
-    "total": 45,
-    "percent": 77.8
+    "documented": 39,
+    "total": 49,
+    "percent": 79.6
+   },
+   "mcp_server.py": {
+    "documented": 2,
+    "total": 2,
+    "percent": 100.0
    },
    "skill_lazyown_infinitestorage/tools.py": {
-    "documented": 6,
-    "total": 6,
+    "documented": 10,
+    "total": 10,
     "percent": 100.0
    },
    "wsgi_app.py": {
@@ -86,12 +91,17 @@
   {
    "uid": "lazyown_infinitestorage.py",
    "path": "modules/lazyown_infinitestorage.py.jsonl",
-   "entities": 106
+   "entities": 113
+  },
+  {
+   "uid": "mcp_server.py",
+   "path": "modules/mcp_server.py.jsonl",
+   "entities": 4
   },
   {
    "uid": "skill_lazyown_infinitestorage/tools.py",
    "path": "modules/skill_lazyown_infinitestorage.tools.py.jsonl",
-   "entities": 7
+   "entities": 11
   },
   {
    "uid": "wsgi_app.py",

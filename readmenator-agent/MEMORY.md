@@ -2,13 +2,13 @@
 
 > Cross-session context for agents. Sections 1-6 are regenerated from the source tree with zero LLM tokens: declared rules are quoted verbatim with `file:line`, measured baselines come from the scan. Section 7 is written by agents and humans and is preserved across rebuilds.
 
-Generated from 9 files at commit `25bef4df9a2f`. Read this first, then `readmenator-wiki/index.md`, then `readmenator . ask "<question>"` for anything specific.
+Generated from 11 files at commit `d4b6ed81f514`. Read this first, then `readmenator-wiki/index.md`, then `readmenator . ask "<question>"` for anything specific.
 
 ## 1. Purpose and domain
 
 - What it is: Production-grade tool for encoding any file into a video and decoding it back with full data recovery, even after video resolution changes. (`README.md:3`)
-- Domain vocabulary (term, files): `setup` (6), `bit` (5), `specification` (5), `file` (4), `protocol` (4), `decode` (4), `lazy` (4), `own` (4), `encode` (4), `get` (4), `bytes` (4), `unit` (4), `video` (3), `error` (3), `data` (3)
-- Subsystem `root`: 8 files, core `lazyown_infinitestorage.py`: LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder.
+- Domain vocabulary (term, files): `setup` (7), `protocol` (6), `bit` (6), `lazy` (6), `own` (6), `encode` (6), `specification` (6), `video` (5), `decode` (5), `extract` (5), `infinite` (5), `storage` (5), `files` (5), `zip` (4), `file` (4)
+- Subsystem `root`: 10 files, core `lazyown_infinitestorage.py`: LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder.
 - Business rules that the code cannot show live in section 7: record them there.
 
 ## 2. Workflow
@@ -41,7 +41,7 @@ Declared:
 
 Measured baseline:
 - Security findings at medium or above: 0 (see `readmenator-agent/SECURITY.md`); do not add new ones.
-- Dependency cycles: 0; layer violations: 5 (see `readmenator-agent/GOTCHAS.md`).
+- Dependency cycles: 0; layer violations: 6 (see `readmenator-agent/GOTCHAS.md`).
 
 ## 4. Style norms
 
@@ -51,9 +51,9 @@ Declared:
 - Adding comments where necessary to explain your code logic. (`CONTRIBUTING.md:50`)
 
 Measured baseline:
-- py: 8 files, 154 symbols; docstrings on 34% of symbols; functions snake_case (100%); types PascalCase (100%); median file 88 lines, max 1027.
+- py: 10 files, 194 symbols; docstrings on 34% of symbols; functions snake_case (100%); types PascalCase (100%); median file 131 lines, max 1129.
 - sh: 1 files, 0 symbols; median file 37 lines, max 37.
-- Tests: 5 files under tests; follow the existing naming (e.g. `test_error_correction.py`).
+- Tests: 6 files under tests; follow the existing naming (e.g. `test_error_correction.py`).
 
 ## 5. Minimum deliverables
 
@@ -88,8 +88,8 @@ Measured baseline:
 
 ## 6. Risks to respect
 
-- God nodes (changes ripple widely): `lazyown_infinitestorage.py`, `tests/test_security.py`, `tests/test_integration.py`, `tests/test_frames.py`, `tests/test_protocols.py`
-- Hotspots (complex and central): `lazyown_infinitestorage.py`, `tests/test_integration.py`, `skill_lazyown_infinitestorage/tools.py`, `tests/test_security.py`, `tests/test_frames.py`
+- God nodes (changes ripple widely): `lazyown_infinitestorage.py`, `tests/test_security.py`, `tests/test_integration.py`, `tests/test_zip.py`, `mcp_server.py`
+- Hotspots (complex and central): `lazyown_infinitestorage.py`, `skill_lazyown_infinitestorage/tools.py`, `tests/test_integration.py`, `mcp_server.py`, `tests/test_zip.py`
 - Full blast radius: `readmenator-agent/GOTCHAS.md`; findings: `readmenator-agent/SECURITY.md`.
 
 ## 7. Session log (preserved across rebuilds)

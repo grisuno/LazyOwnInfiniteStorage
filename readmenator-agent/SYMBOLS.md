@@ -2,90 +2,114 @@
 
 | Symbol | Kind | File:Line | Signature |
 |--------|------|-----------|-----------|
-| `CLIRunner` | class | `lazyown_infinitestorage.py:631` | `class CLIRunner` |
-| `ErrorCorrector` | class | `lazyown_infinitestorage.py:184` | `class ErrorCorrector` |
-| `FFmpegPipeline` | class | `lazyown_infinitestorage.py:305` | `class FFmpegPipeline` |
-| `FrameDecoder` | class | `lazyown_infinitestorage.py:273` | `class FrameDecoder` |
-| `FrameEncoder` | class | `lazyown_infinitestorage.py:242` | `class FrameEncoder` |
-| `GUIRunner` | class | `lazyown_infinitestorage.py:700` | `class GUIRunner(QWidget)` |
-| `GUIRunner` | class | `lazyown_infinitestorage.py:836` | `class GUIRunner` |
-| `LazyOwnConfig` | class | `lazyown_infinitestorage.py:71` | `class LazyOwnConfig` |
-| `LazyOwnInfiniteStorage` | class | `lazyown_infinitestorage.py:508` | `class LazyOwnInfiniteStorage` |
-| `LegacyProtocolHandler` | class | `lazyown_infinitestorage.py:429` | `class LegacyProtocolHandler(ProtocolHandler)` |
-| `ProtocolHandler` | class | `lazyown_infinitestorage.py:417` | `class ProtocolHandler` |
-| `SecureProtocolHandler` | class | `lazyown_infinitestorage.py:454` | `class SecureProtocolHandler(ProtocolHandler)` |
-| `SecurityValidator` | class | `lazyown_infinitestorage.py:148` | `class SecurityValidator` |
-| `WebRunner` | class | `lazyown_infinitestorage.py:847` | `class WebRunner` |
-| `WebRunner` | class | `lazyown_infinitestorage.py:960` | `class WebRunner` |
-| `Worker` | class | `lazyown_infinitestorage.py:681` | `class Worker(QThread)` |
-| `__init__` | method | `lazyown_infinitestorage.py:151` | `def __init__(self, config)` |
-| `__init__` | method | `lazyown_infinitestorage.py:187` | `def __init__(self, config)` |
-| `__init__` | method | `lazyown_infinitestorage.py:245` | `def __init__(self, config)` |
-| `__init__` | method | `lazyown_infinitestorage.py:276` | `def __init__(self, config)` |
-| `__init__` | method | `lazyown_infinitestorage.py:308` | `def __init__(self, config)` |
-| `__init__` | method | `lazyown_infinitestorage.py:432` | `def __init__(self, config)` |
-| `__init__` | method | `lazyown_infinitestorage.py:457` | `def __init__(self, config, corrector)` |
-| `__init__` | method | `lazyown_infinitestorage.py:511` | `def __init__(self, config)` |
-| `__init__` | method | `lazyown_infinitestorage.py:634` | `def __init__(self, storage)` |
-| `__init__` | method | `lazyown_infinitestorage.py:687` | `def __init__(self, func)` |
-| `__init__` | method | `lazyown_infinitestorage.py:703` | `def __init__(self, storage)` |
-| `__init__` | method | `lazyown_infinitestorage.py:839` | `def __init__(self, storage)` |
-| `__init__` | method | `lazyown_infinitestorage.py:850` | `def __init__(self, storage)` |
-| `__init__` | method | `lazyown_infinitestorage.py:963` | `def __init__(self, storage)` |
-| `_browse_input` | method | `lazyown_infinitestorage.py:788` | `def _browse_input(self)` |
-| `_change_mode` | method | `lazyown_infinitestorage.py:777` | `def _change_mode(self)` |
-| `_create_frame` | method | `lazyown_infinitestorage.py:263` | `def _create_frame(self, bits, width, height, block_size, blocks_per_row)` |
-| `_decode_legacy` | method | `lazyown_infinitestorage.py:604` | `def _decode_legacy(self, input_path, output_path, block_size)` |
-| `_decode_nibble` | method | `lazyown_infinitestorage.py:222` | `def _decode_nibble(self, byte_val)` |
-| `_decode_secure` | method | `lazyown_infinitestorage.py:617` | `def _decode_secure(self, input_path, output_path, block_size)` |
-| `_detect_protocol` | method | `lazyown_infinitestorage.py:571` | `def _detect_protocol(self, input_path, block_size)` |
-| `_encode_nibble` | method | `lazyown_infinitestorage.py:211` | `def _encode_nibble(self, nibble)` |
-| `_get_video_info_ffprobe` | method | `lazyown_infinitestorage.py:327` | `def _get_video_info_ffprobe(self, input_path)` |
-| `_init_ui` | method | `lazyown_infinitestorage.py:709` | `def _init_ui(self)` |
-| `_on_error` | method | `lazyown_infinitestorage.py:826` | `def _on_error(self, message)` |
-| `_on_finished` | method | `lazyown_infinitestorage.py:821` | `def _on_finished(self, message)` |
-| `_setup_routes` | method | `lazyown_infinitestorage.py:867` | `def _setup_routes(self)` |
-| `_start` | method | `lazyown_infinitestorage.py:798` | `def _start(self)` |
-| `_validate_encoding_parameters` | method | `lazyown_infinitestorage.py:561` | `def _validate_encoding_parameters(self, frame_width, frame_height, fps, block_size)` |
-| `_validate_upload` | function | `lazyown_infinitestorage.py:872` | `def _validate_upload(input_file, action)` |
-| `add_security_headers` | function | `lazyown_infinitestorage.py:943` | `def add_security_headers(response)` |
-| `bits_to_frames` | method | `lazyown_infinitestorage.py:248` | `def bits_to_frames(self, bit_string, frame_width, frame_height, block_size)` |
-| `create_web_runner` | method | `lazyown_infinitestorage.py:521` | `def create_web_runner(self)` |
-| `decode` | method | `lazyown_infinitestorage.py:550` | `def decode(self, input_path, output_path, block_size, protocol_version)` |
-| `decode_data` | method | `lazyown_infinitestorage.py:200` | `def decode_data(self, data)` |
-| `download` | function | `lazyown_infinitestorage.py:935` | `def download(filename)` |
-| `encode` | method | `lazyown_infinitestorage.py:525` | `def encode(self, input_path, output_path, frame_width, frame_height, fps, block_size, protocol_version)` |
-| `encode_data` | method | `lazyown_infinitestorage.py:190` | `def encode_data(self, data)` |
-| `encode_video` | method | `lazyown_infinitestorage.py:366` | `def encode_video(self, frame_generator, output_path, frame_width, frame_height, fps)` |
-| `extract_bits_from_raw_frames` | method | `lazyown_infinitestorage.py:279` | `def extract_bits_from_raw_frames(self, raw_bytes, width, height, block_size, expected_bits)` |
-| `extract_raw_frames` | method | `lazyown_infinitestorage.py:393` | `def extract_raw_frames(self, input_path, target_width, target_height, max_frames)` |
-| `get_metadata` | method | `lazyown_infinitestorage.py:347` | `def get_metadata(self, input_path)` |
-| `get_video_info` | method | `lazyown_infinitestorage.py:311` | `def get_video_info(self, input_path)` |
-| `index` | function | `lazyown_infinitestorage.py:890` | `def index()` |
-| `main` | function | `lazyown_infinitestorage.py:1018` | `def main()` |
-| `pack` | method | `lazyown_infinitestorage.py:420` | `def pack(self, data, frame_width, frame_height, block_size, fps)` |
-| `pack` | method | `lazyown_infinitestorage.py:435` | `def pack(self, data, frame_width, frame_height, block_size, fps)` |
-| `pack` | method | `lazyown_infinitestorage.py:461` | `def pack(self, data, frame_width, frame_height, block_size, fps)` |
-| `run` | method | `lazyown_infinitestorage.py:637` | `def run(self)` |
-| `run` | method | `lazyown_infinitestorage.py:693` | `def run(self)` |
-| `run` | method | `lazyown_infinitestorage.py:831` | `def run(self)` |
-| `run` | method | `lazyown_infinitestorage.py:842` | `def run(self)` |
-| `run` | method | `lazyown_infinitestorage.py:955` | `def run(self, host, port)` |
-| `run` | method | `lazyown_infinitestorage.py:966` | `def run(self, host, port)` |
-| `run_setup` | method | `lazyown_infinitestorage.py:861` | `def run_setup(self)` |
-| `run_tests` | function | `lazyown_infinitestorage.py:970` | `def run_tests()` |
-| `sanitize_filename` | method | `lazyown_infinitestorage.py:169` | `def sanitize_filename(self, filename)` |
-| `unpack` | method | `lazyown_infinitestorage.py:424` | `def unpack(self, bit_string, block_size)` |
-| `unpack` | method | `lazyown_infinitestorage.py:440` | `def unpack(self, bit_string, block_size)` |
-| `unpack` | method | `lazyown_infinitestorage.py:480` | `def unpack(self, bit_string, block_size)` |
-| `validate_extension` | method | `lazyown_infinitestorage.py:177` | `def validate_extension(self, file_path, allowed_extensions)` |
-| `validate_file_path` | method | `lazyown_infinitestorage.py:154` | `def validate_file_path(self, file_path, must_exist)` |
-| `validate_size` | method | `lazyown_infinitestorage.py:164` | `def validate_size(self, size)` |
-| `get_tool` | function | `skill_lazyown_infinitestorage/tools.py:302` | `def get_tool(name)` |
-| `lazyown_infinitestorage_decode` | function | `skill_lazyown_infinitestorage/tools.py:101` | `def lazyown_infinitestorage_decode(params)` |
-| `lazyown_infinitestorage_encode` | function | `skill_lazyown_infinitestorage/tools.py:34` | `def lazyown_infinitestorage_encode(params)` |
-| `lazyown_infinitestorage_upload_to_youtube` | function | `skill_lazyown_infinitestorage/tools.py:152` | `def lazyown_infinitestorage_upload_to_youtube(params)` |
-| `list_tools` | function | `skill_lazyown_infinitestorage/tools.py:306` | `def list_tools()` |
+| `CLIRunner` | class | `lazyown_infinitestorage.py:723` | `class CLIRunner` |
+| `ErrorCorrector` | class | `lazyown_infinitestorage.py:192` | `class ErrorCorrector` |
+| `FFmpegPipeline` | class | `lazyown_infinitestorage.py:313` | `class FFmpegPipeline` |
+| `FrameDecoder` | class | `lazyown_infinitestorage.py:281` | `class FrameDecoder` |
+| `FrameEncoder` | class | `lazyown_infinitestorage.py:250` | `class FrameEncoder` |
+| `GUIRunner` | class | `lazyown_infinitestorage.py:802` | `class GUIRunner(QWidget)` |
+| `GUIRunner` | class | `lazyown_infinitestorage.py:938` | `class GUIRunner` |
+| `LazyOwnConfig` | class | `lazyown_infinitestorage.py:72` | `class LazyOwnConfig` |
+| `LazyOwnInfiniteStorage` | class | `lazyown_infinitestorage.py:527` | `class LazyOwnInfiniteStorage` |
+| `LegacyProtocolHandler` | class | `lazyown_infinitestorage.py:448` | `class LegacyProtocolHandler(ProtocolHandler)` |
+| `ProtocolHandler` | class | `lazyown_infinitestorage.py:436` | `class ProtocolHandler` |
+| `SecureProtocolHandler` | class | `lazyown_infinitestorage.py:473` | `class SecureProtocolHandler(ProtocolHandler)` |
+| `SecurityValidator` | class | `lazyown_infinitestorage.py:156` | `class SecurityValidator` |
+| `WebRunner` | class | `lazyown_infinitestorage.py:949` | `class WebRunner` |
+| `WebRunner` | class | `lazyown_infinitestorage.py:1062` | `class WebRunner` |
+| `Worker` | class | `lazyown_infinitestorage.py:783` | `class Worker(QThread)` |
+| `__init__` | method | `lazyown_infinitestorage.py:159` | `def __init__(self, config)` |
+| `__init__` | method | `lazyown_infinitestorage.py:195` | `def __init__(self, config)` |
+| `__init__` | method | `lazyown_infinitestorage.py:253` | `def __init__(self, config)` |
+| `__init__` | method | `lazyown_infinitestorage.py:284` | `def __init__(self, config)` |
+| `__init__` | method | `lazyown_infinitestorage.py:316` | `def __init__(self, config)` |
+| `__init__` | method | `lazyown_infinitestorage.py:451` | `def __init__(self, config)` |
+| `__init__` | method | `lazyown_infinitestorage.py:476` | `def __init__(self, config, corrector)` |
+| `__init__` | method | `lazyown_infinitestorage.py:530` | `def __init__(self, config)` |
+| `__init__` | method | `lazyown_infinitestorage.py:726` | `def __init__(self, storage)` |
+| `__init__` | method | `lazyown_infinitestorage.py:789` | `def __init__(self, func)` |
+| `__init__` | method | `lazyown_infinitestorage.py:805` | `def __init__(self, storage)` |
+| `__init__` | method | `lazyown_infinitestorage.py:941` | `def __init__(self, storage)` |
+| `__init__` | method | `lazyown_infinitestorage.py:952` | `def __init__(self, storage)` |
+| `__init__` | method | `lazyown_infinitestorage.py:1065` | `def __init__(self, storage)` |
+| `_browse_input` | method | `lazyown_infinitestorage.py:890` | `def _browse_input(self)` |
+| `_change_mode` | method | `lazyown_infinitestorage.py:879` | `def _change_mode(self)` |
+| `_create_frame` | method | `lazyown_infinitestorage.py:271` | `def _create_frame(self, bits, width, height, block_size, blocks_per_row)` |
+| `_decode_legacy` | method | `lazyown_infinitestorage.py:621` | `def _decode_legacy(self, input_path, output_path, block_size)` |
+| `_decode_nibble` | method | `lazyown_infinitestorage.py:230` | `def _decode_nibble(self, byte_val)` |
+| `_decode_secure` | method | `lazyown_infinitestorage.py:634` | `def _decode_secure(self, input_path, output_path, block_size)` |
+| `_detect_protocol` | method | `lazyown_infinitestorage.py:588` | `def _detect_protocol(self, input_path, block_size)` |
+| `_encode_nibble` | method | `lazyown_infinitestorage.py:219` | `def _encode_nibble(self, nibble)` |
+| `_get_video_info_ffprobe` | method | `lazyown_infinitestorage.py:335` | `def _get_video_info_ffprobe(self, input_path)` |
+| `_init_ui` | method | `lazyown_infinitestorage.py:811` | `def _init_ui(self)` |
+| `_is_within_directory` | method | `lazyown_infinitestorage.py:647` | `def _is_within_directory(self, directory, target)` |
+| `_on_error` | method | `lazyown_infinitestorage.py:928` | `def _on_error(self, message)` |
+| `_on_finished` | method | `lazyown_infinitestorage.py:923` | `def _on_finished(self, message)` |
+| `_setup_routes` | method | `lazyown_infinitestorage.py:969` | `def _setup_routes(self)` |
+| `_start` | method | `lazyown_infinitestorage.py:900` | `def _start(self)` |
+| `_validate_encoding_parameters` | method | `lazyown_infinitestorage.py:578` | `def _validate_encoding_parameters(self, frame_width, frame_height, fps, block_size)` |
+| `_validate_upload` | function | `lazyown_infinitestorage.py:974` | `def _validate_upload(input_file, action)` |
+| `add_security_headers` | function | `lazyown_infinitestorage.py:1045` | `def add_security_headers(response)` |
+| `bits_to_frames` | method | `lazyown_infinitestorage.py:256` | `def bits_to_frames(self, bit_string, frame_width, frame_height, block_size)` |
+| `create_web_runner` | method | `lazyown_infinitestorage.py:540` | `def create_web_runner(self)` |
+| `create_zip` | method | `lazyown_infinitestorage.py:653` | `def create_zip(self, source_path, output_zip)` |
+| `decode` | method | `lazyown_infinitestorage.py:567` | `def decode(self, input_path, output_path, block_size, protocol_version)` |
+| `decode_data` | method | `lazyown_infinitestorage.py:208` | `def decode_data(self, data)` |
+| `download` | function | `lazyown_infinitestorage.py:1037` | `def download(filename)` |
+| `encode` | method | `lazyown_infinitestorage.py:544` | `def encode(self, input_path, output_path, frame_width, frame_height, fps, block_size, protocol_version)` |
+| `encode_data` | method | `lazyown_infinitestorage.py:198` | `def encode_data(self, data)` |
+| `encode_video` | method | `lazyown_infinitestorage.py:374` | `def encode_video(self, frame_generator, output_path, frame_width, frame_height, fps)` |
+| `extract_bits_from_raw_frames` | method | `lazyown_infinitestorage.py:287` | `def extract_bits_from_raw_frames(self, raw_bytes, width, height, block_size, expected_bits)` |
+| `extract_raw_frames` | method | `lazyown_infinitestorage.py:401` | `def extract_raw_frames(self, input_path, target_width, target_height, max_frames)` |
+| `extract_zip` | method | `lazyown_infinitestorage.py:672` | `def extract_zip(self, zip_path, output_dir)` |
+| `get_metadata` | method | `lazyown_infinitestorage.py:355` | `def get_metadata(self, input_path)` |
+| `get_video_info` | method | `lazyown_infinitestorage.py:319` | `def get_video_info(self, input_path)` |
+| `index` | function | `lazyown_infinitestorage.py:992` | `def index()` |
+| `main` | function | `lazyown_infinitestorage.py:1120` | `def main()` |
+| `pack` | method | `lazyown_infinitestorage.py:439` | `def pack(self, data, frame_width, frame_height, block_size, fps)` |
+| `pack` | method | `lazyown_infinitestorage.py:454` | `def pack(self, data, frame_width, frame_height, block_size, fps)` |
+| `pack` | method | `lazyown_infinitestorage.py:480` | `def pack(self, data, frame_width, frame_height, block_size, fps)` |
+| `run` | method | `lazyown_infinitestorage.py:729` | `def run(self)` |
+| `run` | method | `lazyown_infinitestorage.py:795` | `def run(self)` |
+| `run` | method | `lazyown_infinitestorage.py:933` | `def run(self)` |
+| `run` | method | `lazyown_infinitestorage.py:944` | `def run(self)` |
+| `run` | method | `lazyown_infinitestorage.py:1057` | `def run(self, host, port)` |
+| `run` | method | `lazyown_infinitestorage.py:1068` | `def run(self, host, port)` |
+| `run_setup` | method | `lazyown_infinitestorage.py:963` | `def run_setup(self)` |
+| `run_tests` | function | `lazyown_infinitestorage.py:1072` | `def run_tests()` |
+| `sanitize_filename` | method | `lazyown_infinitestorage.py:177` | `def sanitize_filename(self, filename)` |
+| `unpack` | method | `lazyown_infinitestorage.py:443` | `def unpack(self, bit_string, block_size)` |
+| `unpack` | method | `lazyown_infinitestorage.py:459` | `def unpack(self, bit_string, block_size)` |
+| `unpack` | method | `lazyown_infinitestorage.py:499` | `def unpack(self, bit_string, block_size)` |
+| `validate_extension` | method | `lazyown_infinitestorage.py:185` | `def validate_extension(self, file_path, allowed_extensions)` |
+| `validate_file_path` | method | `lazyown_infinitestorage.py:162` | `def validate_file_path(self, file_path, must_exist)` |
+| `validate_size` | method | `lazyown_infinitestorage.py:172` | `def validate_size(self, size)` |
+| `video_to_zip` | method | `lazyown_infinitestorage.py:707` | `def video_to_zip(self, input_video, output_dir, block_size, protocol_version)` |
+| `zip_to_video` | method | `lazyown_infinitestorage.py:693` | `def zip_to_video(self, source_path, output_video, frame_width, frame_height, fps, block_size, protocol_version)` |
+| `_build_tools` | function | `mcp_server.py:213` | `def _build_tools()` |
+| `_parse_frame_size` | function | `mcp_server.py:62` | `def _parse_frame_size(value)` |
+| `_protocol_value` | function | `mcp_server.py:69` | `def _protocol_value(protocol)` |
+| `_run` | function | `mcp_server.py:302` | `def _run()` |
+| `_tool_create_zip` | function | `mcp_server.py:179` | `def _tool_create_zip(arguments)` |
+| `_tool_decode` | function | `mcp_server.py:157` | `def _tool_decode(arguments)` |
+| `_tool_encode` | function | `mcp_server.py:131` | `def _tool_encode(arguments)` |
+| `_tool_extract_zip` | function | `mcp_server.py:191` | `def _tool_extract_zip(arguments)` |
+| `_tool_video_to_zip` | function | `mcp_server.py:107` | `def _tool_video_to_zip(arguments)` |
+| `_tool_zip_to_video` | function | `mcp_server.py:79` | `def _tool_zip_to_video(arguments)` |
+| `call_tool` | function | `mcp_server.py:314` | `def call_tool(name, arguments)` |
+| `list_tools` | function | `mcp_server.py:310` | `def list_tools()` |
+| `main` | function | `mcp_server.py:330` | `def main()` |
+| `_parse_frame_size` | function | `skill_lazyown_infinitestorage/tools.py:34` | `def _parse_frame_size(frame_size_str)` |
+| `_protocol_value` | function | `skill_lazyown_infinitestorage/tools.py:42` | `def _protocol_value(protocol)` |
+| `get_tool` | function | `skill_lazyown_infinitestorage/tools.py:453` | `def get_tool(name)` |
+| `lazyown_create_zip` | function | `skill_lazyown_infinitestorage/tools.py:236` | `def lazyown_create_zip(params)` |
+| `lazyown_extract_zip` | function | `skill_lazyown_infinitestorage/tools.py:268` | `def lazyown_extract_zip(params)` |
+| `lazyown_infinitestorage_decode` | function | `skill_lazyown_infinitestorage/tools.py:105` | `def lazyown_infinitestorage_decode(params)` |
+| `lazyown_infinitestorage_encode` | function | `skill_lazyown_infinitestorage/tools.py:52` | `def lazyown_infinitestorage_encode(params)` |
+| `lazyown_infinitestorage_upload_to_youtube` | function | `skill_lazyown_infinitestorage/tools.py:299` | `def lazyown_infinitestorage_upload_to_youtube(params)` |
+| `lazyown_video_to_zip` | function | `skill_lazyown_infinitestorage/tools.py:195` | `def lazyown_video_to_zip(params)` |
+| `lazyown_zip_to_video` | function | `skill_lazyown_infinitestorage/tools.py:149` | `def lazyown_zip_to_video(params)` |
+| `list_tools` | function | `skill_lazyown_infinitestorage/tools.py:457` | `def list_tools()` |
 | `TestErrorCorrector` | class | `tests/test_error_correction.py:7` | `class TestErrorCorrector` |
 | `setup` | method | `tests/test_error_correction.py:11` | `def setup(self)` |
 | `test_decode_data_rejects_odd_length` | method | `tests/test_error_correction.py:33` | `def test_decode_data_rejects_odd_length(self)` |
@@ -155,4 +179,20 @@
 | `test_validate_file_path_resolves_absolute` | method | `tests/test_security.py:45` | `def test_validate_file_path_resolves_absolute(self)` |
 | `test_validate_size_accepts_maximum` | method | `tests/test_security.py:62` | `def test_validate_size_accepts_maximum(self)` |
 | `test_validate_size_rejects_oversized_files` | method | `tests/test_security.py:58` | `def test_validate_size_rejects_oversized_files(self)` |
+| `TestEncodeOutputValidation` | class | `tests/test_zip.py:100` | `class TestEncodeOutputValidation` |
+| `TestSecurityValidatorUnchanged` | class | `tests/test_zip.py:118` | `class TestSecurityValidatorUnchanged` |
+| `TestZipRoundtrip` | class | `tests/test_zip.py:12` | `class TestZipRoundtrip` |
+| `TestZipSecurity` | class | `tests/test_zip.py:67` | `class TestZipSecurity` |
+| `_make_source_dir` | method | `tests/test_zip.py:20` | `def _make_source_dir(self, tmpdir)` |
+| `setup` | method | `tests/test_zip.py:16` | `def setup(self)` |
+| `setup` | method | `tests/test_zip.py:71` | `def setup(self)` |
+| `setup` | method | `tests/test_zip.py:104` | `def setup(self)` |
+| `setup` | method | `tests/test_zip.py:122` | `def setup(self)` |
+| `test_create_and_extract_zip_roundtrip` | method | `tests/test_zip.py:53` | `def test_create_and_extract_zip_roundtrip(self)` |
+| `test_encode_rejects_output_path_traversal` | method | `tests/test_zip.py:108` | `def test_encode_rejects_output_path_traversal(self)` |
+| `test_extract_zip_blocks_path_traversal` | method | `tests/test_zip.py:75` | `def test_extract_zip_blocks_path_traversal(self)` |
+| `test_extract_zip_blocks_uncompressed_bomb` | method | `tests/test_zip.py:88` | `def test_extract_zip_blocks_uncompressed_bomb(self)` |
+| `test_rejects_traversal` | method | `tests/test_zip.py:126` | `def test_rejects_traversal(self)` |
+| `test_sanitizes_filename` | method | `tests/test_zip.py:130` | `def test_sanitizes_filename(self)` |
+| `test_zip_to_video_roundtrip_secure` | method | `tests/test_zip.py:33` | `def test_zip_to_video_roundtrip_secure(self)` |
 | `get_wsgi_app` | function | `wsgi_app.py:7` | `def get_wsgi_app()` |

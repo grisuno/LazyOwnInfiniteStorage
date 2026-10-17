@@ -4,7 +4,7 @@ Log each answered question here so the wiki compounds. Format: question, answer,
 
 ## Suggested
 
-### Q: What does lazyown_infinitestorage.py depend on, and what depends on it? (7 connections)
+### Q: What does lazyown_infinitestorage.py depend on, and what depends on it? (9 connections)
 
 - Status: unanswered
 
@@ -16,7 +16,7 @@ Log each answered question here so the wiki compounds. Format: question, answer,
 
 - Status: unanswered
 
-### Q: How are the 8 files in 'root' related to each other?
+### Q: How are the 10 files in 'root' related to each other?
 
 - Status: unanswered
 

@@ -1,6 +1,6 @@
 # `lazyown_infinitestorage`
 
-> Source: [lazyown_infinitestorage.py:1](../../lazyown_infinitestorage.py#L1) | language `py` | coverage 77.8% | [API index](../index.md)
+> Source: [lazyown_infinitestorage.py:1](../../lazyown_infinitestorage.py#L1) | language `py` | coverage 79.6% | [API index](../index.md)
 
 LazyOwnInfiniteStorage - Production-grade file-to-video encoder/decoder.
 
@@ -78,6 +78,10 @@ classDiagram
     LazyOwnInfiniteStorage : create_web_runner()
     LazyOwnInfiniteStorage : encode()
     LazyOwnInfiniteStorage : decode()
+    LazyOwnInfiniteStorage : create_zip()
+    LazyOwnInfiniteStorage : extract_zip()
+    LazyOwnInfiniteStorage : zip_to_video()
+    LazyOwnInfiniteStorage : video_to_zip()
     class CLIRunner
     CLIRunner : __init__()
     CLIRunner : run()
@@ -106,10 +110,12 @@ flowchart LR
     n_lazyown_infinitestorage_py__SecurityValidator_validate_file_path(["SecurityValidator.validate_file_path"])
     n_lazyown_infinitestorage_py__SecurityValidator_validate_size(["SecurityValidator.validate_size"])
     n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_decode(["LazyOwnInfiniteStorage.decode"])
+    n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_create_zip(["LazyOwnInfiniteStorage.create_zip"])
+    n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_extract_zip(["LazyOwnInfiniteStorage.extract_zip"])
+    n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_zip_to_video(["LazyOwnInfiniteStorage.zip_to_video"])
+    n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_video_to_zip(["LazyOwnInfiniteStorage.video_to_zip"])
     n_lazyown_infinitestorage_py__CLIRunner_run(["CLIRunner.run"])
     n_lazyown_infinitestorage_py__run_tests(["run_tests"])
-    n_lazyown_infinitestorage_py__main(["main"])
-    n_lazyown_infinitestorage_py__CLIRunner___init__(["CLIRunner.__init__"])
     n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage___init__ --> n_lazyown_infinitestorage_py__ErrorCorrector___init__
     n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage___init__ --> n_lazyown_infinitestorage_py__FFmpegPipeline___init__
     n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage___init__ --> n_lazyown_infinitestorage_py__FrameDecoder___init__
@@ -123,14 +129,17 @@ flowchart LR
     n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_encode --> n_lazyown_infinitestorage_py__SecurityValidator_validate_file_path
     n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_encode --> n_lazyown_infinitestorage_py__SecurityValidator_validate_size
     n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_decode --> n_lazyown_infinitestorage_py__SecurityValidator_validate_file_path
+    n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_create_zip --> n_lazyown_infinitestorage_py__SecurityValidator_validate_file_path
+    n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_extract_zip --> n_lazyown_infinitestorage_py__SecurityValidator_validate_file_path
+    n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_zip_to_video --> n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_create_zip
+    n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_zip_to_video --> n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_encode
+    n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_zip_to_video --> n_lazyown_infinitestorage_py__SecurityValidator_validate_file_path
+    n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_video_to_zip --> n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_extract_zip
+    n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_video_to_zip --> n_lazyown_infinitestorage_py__SecurityValidator_validate_file_path
     n_lazyown_infinitestorage_py__CLIRunner_run --> n_lazyown_infinitestorage_py__run_tests
     n_lazyown_infinitestorage_py__run_tests --> n_lazyown_infinitestorage_py__LazyOwnConfig
     n_lazyown_infinitestorage_py__run_tests --> n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage___init__
     n_lazyown_infinitestorage_py__run_tests --> n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_decode
-    n_lazyown_infinitestorage_py__run_tests --> n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage_encode
-    n_lazyown_infinitestorage_py__main --> n_lazyown_infinitestorage_py__CLIRunner___init__
-    n_lazyown_infinitestorage_py__main --> n_lazyown_infinitestorage_py__CLIRunner_run
-    n_lazyown_infinitestorage_py__main --> n_lazyown_infinitestorage_py__LazyOwnInfiniteStorage___init__
 ```
 
 ## Classes
@@ -139,7 +148,7 @@ flowchart LR
 
 ### `LazyOwnConfig`
 
-`class` | [lazyown_infinitestorage.py:71](../../lazyown_infinitestorage.py#L71)
+`class` | [lazyown_infinitestorage.py:72](../../lazyown_infinitestorage.py#L72)
 
 ```python
 class LazyOwnConfig
@@ -211,6 +220,9 @@ Centralized immutable configuration constants for LazyOwnInfiniteStorage.
 | [`WEB_UPLOAD_FOLDER`](#lazyownconfig-web_upload_folder) |  | `'uploads'` |  |
 | [`WEB_DOWNLOAD_FOLDER`](#lazyownconfig-web_download_folder) |  | `'downloads'` |  |
 | [`WEB_SECRET_KEY_ENV`](#lazyownconfig-web_secret_key_env) |  | `'LAZYOWN_SECRET_KEY'` |  |
+| [`MAX_ZIP_UNCOMPRESSED_BYTES`](#lazyownconfig-max_zip_uncompressed_bytes) |  | `2 * 1024 * 1024 * 1024` |  |
+| [`MAX_ZIP_MEMBERS`](#lazyownconfig-max_zip_members) |  | `10000` |  |
+| [`MAX_EXTRACT_BYTES`](#lazyownconfig-max_extract_bytes) |  | `2 * 1024 * 1024 * 1024` |  |
 
 ---
 
@@ -218,7 +230,7 @@ Centralized immutable configuration constants for LazyOwnInfiniteStorage.
 
 ### `SecurityValidator`
 
-`class` | [lazyown_infinitestorage.py:148](../../lazyown_infinitestorage.py#L148)
+`class` | [lazyown_infinitestorage.py:156](../../lazyown_infinitestorage.py#L156)
 
 ```python
 class SecurityValidator
@@ -240,7 +252,7 @@ Validates file paths and inputs to prevent path traversal and abuse.
 
 #### `SecurityValidator.__init__`
 
-`constructor` | [lazyown_infinitestorage.py:151](../../lazyown_infinitestorage.py#L151)
+`constructor` | [lazyown_infinitestorage.py:159](../../lazyown_infinitestorage.py#L159)
 
 ```python
 def __init__(self, config: LazyOwnConfig)
@@ -258,7 +270,7 @@ def __init__(self, config: LazyOwnConfig)
 
 #### `SecurityValidator.validate_file_path`
 
-`method` | [lazyown_infinitestorage.py:154](../../lazyown_infinitestorage.py#L154)
+`method` | [lazyown_infinitestorage.py:162](../../lazyown_infinitestorage.py#L162)
 
 ```python
 def validate_file_path(self, file_path: str, must_exist: bool = False) -> str
@@ -280,13 +292,13 @@ Resolves and validates an absolute file path.
 - `FileNotFoundError`: (raised in the body, not documented)
 - `ValueError`: (raised in the body, not documented)
 
-*Called by:* [`LazyOwnInfiniteStorage.decode`](#lazyowninfinitestorage-decode), [`LazyOwnInfiniteStorage.encode`](#lazyowninfinitestorage-encode)
+*Called by:* [`LazyOwnInfiniteStorage.create_zip`](#lazyowninfinitestorage-create_zip), [`LazyOwnInfiniteStorage.decode`](#lazyowninfinitestorage-decode), [`LazyOwnInfiniteStorage.encode`](#lazyowninfinitestorage-encode), [`LazyOwnInfiniteStorage.extract_zip`](#lazyowninfinitestorage-extract_zip), [`LazyOwnInfiniteStorage.video_to_zip`](#lazyowninfinitestorage-video_to_zip), [`LazyOwnInfiniteStorage.zip_to_video`](#lazyowninfinitestorage-zip_to_video)
 
 <a id="securityvalidator-validate_size"></a>
 
 #### `SecurityValidator.validate_size`
 
-`method` | [lazyown_infinitestorage.py:164](../../lazyown_infinitestorage.py#L164)
+`method` | [lazyown_infinitestorage.py:172](../../lazyown_infinitestorage.py#L172)
 
 ```python
 def validate_size(self, size: int) -> None
@@ -310,7 +322,7 @@ Ensures the file size is within acceptable limits.
 
 #### `SecurityValidator.sanitize_filename`
 
-`method` | [lazyown_infinitestorage.py:169](../../lazyown_infinitestorage.py#L169)
+`method` | [lazyown_infinitestorage.py:177](../../lazyown_infinitestorage.py#L177)
 
 ```python
 def sanitize_filename(self, filename: str) -> str
@@ -330,7 +342,7 @@ Sanitizes a filename to remove unsafe characters.
 
 #### `SecurityValidator.validate_extension`
 
-`method` | [lazyown_infinitestorage.py:177](../../lazyown_infinitestorage.py#L177)
+`method` | [lazyown_infinitestorage.py:185](../../lazyown_infinitestorage.py#L185)
 
 ```python
 def validate_extension(self, file_path: str, allowed_extensions: set) -> None
@@ -355,7 +367,7 @@ Ensures the file extension is in the allowed set.
 
 ### `ErrorCorrector`
 
-`class` | [lazyown_infinitestorage.py:184](../../lazyown_infinitestorage.py#L184)
+`class` | [lazyown_infinitestorage.py:192](../../lazyown_infinitestorage.py#L192)
 
 ```python
 class ErrorCorrector
@@ -375,7 +387,7 @@ Implements Hamming(8,4) extended error correction for byte streams.
 
 #### `ErrorCorrector.__init__`
 
-`constructor` | [lazyown_infinitestorage.py:187](../../lazyown_infinitestorage.py#L187)
+`constructor` | [lazyown_infinitestorage.py:195](../../lazyown_infinitestorage.py#L195)
 
 ```python
 def __init__(self, config: LazyOwnConfig)
@@ -393,7 +405,7 @@ def __init__(self, config: LazyOwnConfig)
 
 #### `ErrorCorrector.encode_data`
 
-`method` | [lazyown_infinitestorage.py:190](../../lazyown_infinitestorage.py#L190)
+`method` | [lazyown_infinitestorage.py:198](../../lazyown_infinitestorage.py#L198)
 
 ```python
 def encode_data(self, data: bytes) -> bytes
@@ -413,7 +425,7 @@ Encodes a byte sequence using Hamming(8,4) correction.
 
 #### `ErrorCorrector.decode_data`
 
-`method` | [lazyown_infinitestorage.py:200](../../lazyown_infinitestorage.py#L200)
+`method` | [lazyown_infinitestorage.py:208](../../lazyown_infinitestorage.py#L208)
 
 ```python
 def decode_data(self, data: bytes) -> bytes
@@ -439,7 +451,7 @@ Decodes a Hamming(8,4) encoded byte sequence with single-bit error correction.
 
 ### `FrameEncoder`
 
-`class` | [lazyown_infinitestorage.py:242](../../lazyown_infinitestorage.py#L242)
+`class` | [lazyown_infinitestorage.py:250](../../lazyown_infinitestorage.py#L250)
 
 ```python
 class FrameEncoder
@@ -458,7 +470,7 @@ Encodes bit strings into numpy grayscale frames.
 
 #### `FrameEncoder.__init__`
 
-`constructor` | [lazyown_infinitestorage.py:245](../../lazyown_infinitestorage.py#L245)
+`constructor` | [lazyown_infinitestorage.py:253](../../lazyown_infinitestorage.py#L253)
 
 ```python
 def __init__(self, config: LazyOwnConfig)
@@ -476,7 +488,7 @@ def __init__(self, config: LazyOwnConfig)
 
 #### `FrameEncoder.bits_to_frames`
 
-`method` `generator` | [lazyown_infinitestorage.py:248](../../lazyown_infinitestorage.py#L248)
+`method` `generator` | [lazyown_infinitestorage.py:256](../../lazyown_infinitestorage.py#L256)
 
 ```python
 def bits_to_frames(self, bit_string: str, frame_width: int, frame_height: int, block_size: int) -> Generator[np.ndarray, None, None]
@@ -503,7 +515,7 @@ Yields grayscale frames from a bit string.
 
 ### `FrameDecoder`
 
-`class` | [lazyown_infinitestorage.py:273](../../lazyown_infinitestorage.py#L273)
+`class` | [lazyown_infinitestorage.py:281](../../lazyown_infinitestorage.py#L281)
 
 ```python
 class FrameDecoder
@@ -522,7 +534,7 @@ Decodes grayscale frames into bit strings.
 
 #### `FrameDecoder.__init__`
 
-`constructor` | [lazyown_infinitestorage.py:276](../../lazyown_infinitestorage.py#L276)
+`constructor` | [lazyown_infinitestorage.py:284](../../lazyown_infinitestorage.py#L284)
 
 ```python
 def __init__(self, config: LazyOwnConfig)
@@ -540,7 +552,7 @@ def __init__(self, config: LazyOwnConfig)
 
 #### `FrameDecoder.extract_bits_from_raw_frames`
 
-`method` | [lazyown_infinitestorage.py:279](../../lazyown_infinitestorage.py#L279)
+`method` | [lazyown_infinitestorage.py:287](../../lazyown_infinitestorage.py#L287)
 
 ```python
 def extract_bits_from_raw_frames(self, raw_bytes: bytes, width: int, height: int, block_size: int, expected_bits: Optional[int] = None) -> str
@@ -570,7 +582,7 @@ Extracts a bit string from rawvideo grayscale bytes.
 
 ### `FFmpegPipeline`
 
-`class` | [lazyown_infinitestorage.py:305](../../lazyown_infinitestorage.py#L305)
+`class` | [lazyown_infinitestorage.py:313](../../lazyown_infinitestorage.py#L313)
 
 ```python
 class FFmpegPipeline
@@ -592,7 +604,7 @@ Manages FFmpeg subprocess communication without intermediate frame files.
 
 #### `FFmpegPipeline.__init__`
 
-`constructor` | [lazyown_infinitestorage.py:308](../../lazyown_infinitestorage.py#L308)
+`constructor` | [lazyown_infinitestorage.py:316](../../lazyown_infinitestorage.py#L316)
 
 ```python
 def __init__(self, config: LazyOwnConfig)
@@ -610,7 +622,7 @@ def __init__(self, config: LazyOwnConfig)
 
 #### `FFmpegPipeline.get_video_info`
 
-`method` | [lazyown_infinitestorage.py:311](../../lazyown_infinitestorage.py#L311)
+`method` | [lazyown_infinitestorage.py:319](../../lazyown_infinitestorage.py#L319)
 
 ```python
 def get_video_info(self, input_path: str) -> dict
@@ -634,7 +646,7 @@ Retrieves native resolution and metadata from a video file.
 
 #### `FFmpegPipeline.get_metadata`
 
-`method` | [lazyown_infinitestorage.py:347](../../lazyown_infinitestorage.py#L347)
+`method` | [lazyown_infinitestorage.py:355](../../lazyown_infinitestorage.py#L355)
 
 ```python
 def get_metadata(self, input_path: str) -> dict
@@ -654,7 +666,7 @@ Extracts custom lazyown metadata from a video file using ffprobe.
 
 #### `FFmpegPipeline.encode_video`
 
-`method` | [lazyown_infinitestorage.py:366](../../lazyown_infinitestorage.py#L366)
+`method` | [lazyown_infinitestorage.py:374](../../lazyown_infinitestorage.py#L374)
 
 ```python
 def encode_video(self, frame_generator: Generator[np.ndarray, None, None], output_path: str, frame_width: int, frame_height: int, fps: int) -> None
@@ -682,7 +694,7 @@ Encodes a generator of frames into a video file via FFmpeg stdin.
 
 #### `FFmpegPipeline.extract_raw_frames`
 
-`method` | [lazyown_infinitestorage.py:393](../../lazyown_infinitestorage.py#L393)
+`method` | [lazyown_infinitestorage.py:401](../../lazyown_infinitestorage.py#L401)
 
 ```python
 def extract_raw_frames(self, input_path: str, target_width: Optional[int] = None, target_height: Optional[int] = None, max_frames: Optional[int] = None) -> bytes
@@ -704,6 +716,7 @@ Extracts raw grayscale frames from a video file via FFmpeg stdout.
 **Raises**
 
 - `RuntimeError`: (raised in the body, not documented)
+- `ValueError`: (raised in the body, not documented)
 
 ---
 
@@ -711,7 +724,7 @@ Extracts raw grayscale frames from a video file via FFmpeg stdout.
 
 ### `ProtocolHandler`
 
-`class` | [lazyown_infinitestorage.py:417](../../lazyown_infinitestorage.py#L417)
+`class` | [lazyown_infinitestorage.py:436](../../lazyown_infinitestorage.py#L436)
 
 ```python
 class ProtocolHandler
@@ -732,7 +745,7 @@ Abstract base for encoding and decoding protocol implementations.
 
 #### `ProtocolHandler.pack`
 
-`method` | [lazyown_infinitestorage.py:420](../../lazyown_infinitestorage.py#L420)
+`method` | [lazyown_infinitestorage.py:439](../../lazyown_infinitestorage.py#L439)
 
 ```python
 def pack(self, data: bytes, frame_width: int, frame_height: int, block_size: int, fps: int) -> str
@@ -760,7 +773,7 @@ Packs raw data into a bit string.
 
 #### `ProtocolHandler.unpack`
 
-`method` | [lazyown_infinitestorage.py:424](../../lazyown_infinitestorage.py#L424)
+`method` | [lazyown_infinitestorage.py:443](../../lazyown_infinitestorage.py#L443)
 
 ```python
 def unpack(self, bit_string: str, block_size: int, **kwargs) -> bytes
@@ -788,7 +801,7 @@ Unpacks a bit string into raw data.
 
 ### `LegacyProtocolHandler`
 
-`class` | [lazyown_infinitestorage.py:429](../../lazyown_infinitestorage.py#L429)
+`class` | [lazyown_infinitestorage.py:448](../../lazyown_infinitestorage.py#L448)
 
 ```python
 class LegacyProtocolHandler(ProtocolHandler)
@@ -810,7 +823,7 @@ Implements the original v1 protocol with filename-based resolution and end marke
 
 #### `LegacyProtocolHandler.__init__`
 
-`constructor` | [lazyown_infinitestorage.py:432](../../lazyown_infinitestorage.py#L432)
+`constructor` | [lazyown_infinitestorage.py:451](../../lazyown_infinitestorage.py#L451)
 
 ```python
 def __init__(self, config: LazyOwnConfig)
@@ -828,7 +841,7 @@ def __init__(self, config: LazyOwnConfig)
 
 #### `LegacyProtocolHandler.pack`
 
-`method` | [lazyown_infinitestorage.py:435](../../lazyown_infinitestorage.py#L435)
+`method` | [lazyown_infinitestorage.py:454](../../lazyown_infinitestorage.py#L454)
 
 ```python
 def pack(self, data: bytes, frame_width: int, frame_height: int, block_size: int, fps: int) -> str
@@ -848,13 +861,13 @@ Packs raw data into a bit string.
 
 **Returns:** `str`
 
-> **Inherited:** Documentation from [`ProtocolHandler.pack`](#protocolhandler-pack) (lazyown_infinitestorage.py:420).
+> **Inherited:** Documentation from [`ProtocolHandler.pack`](#protocolhandler-pack) (lazyown_infinitestorage.py:439).
 
 <a id="legacyprotocolhandler-unpack"></a>
 
 #### `LegacyProtocolHandler.unpack`
 
-`method` | [lazyown_infinitestorage.py:440](../../lazyown_infinitestorage.py#L440)
+`method` | [lazyown_infinitestorage.py:459](../../lazyown_infinitestorage.py#L459)
 
 ```python
 def unpack(self, bit_string: str, block_size: int, **kwargs) -> bytes
@@ -872,7 +885,7 @@ Unpacks a bit string into raw data.
 
 **Returns:** `bytes`
 
-> **Inherited:** Documentation from [`ProtocolHandler.unpack`](#protocolhandler-unpack) (lazyown_infinitestorage.py:424).
+> **Inherited:** Documentation from [`ProtocolHandler.unpack`](#protocolhandler-unpack) (lazyown_infinitestorage.py:443).
 
 ---
 
@@ -880,7 +893,7 @@ Unpacks a bit string into raw data.
 
 ### `SecureProtocolHandler`
 
-`class` | [lazyown_infinitestorage.py:454](../../lazyown_infinitestorage.py#L454)
+`class` | [lazyown_infinitestorage.py:473](../../lazyown_infinitestorage.py#L473)
 
 ```python
 class SecureProtocolHandler(ProtocolHandler)
@@ -902,7 +915,7 @@ Implements the v2 protocol with structured headers, CRC32, and Hamming error cor
 
 #### `SecureProtocolHandler.__init__`
 
-`constructor` | [lazyown_infinitestorage.py:457](../../lazyown_infinitestorage.py#L457)
+`constructor` | [lazyown_infinitestorage.py:476](../../lazyown_infinitestorage.py#L476)
 
 ```python
 def __init__(self, config: LazyOwnConfig, corrector: ErrorCorrector)
@@ -921,7 +934,7 @@ def __init__(self, config: LazyOwnConfig, corrector: ErrorCorrector)
 
 #### `SecureProtocolHandler.pack`
 
-`method` | [lazyown_infinitestorage.py:461](../../lazyown_infinitestorage.py#L461)
+`method` | [lazyown_infinitestorage.py:480](../../lazyown_infinitestorage.py#L480)
 
 ```python
 def pack(self, data: bytes, frame_width: int, frame_height: int, block_size: int, fps: int) -> str
@@ -941,13 +954,13 @@ Packs raw data into a bit string.
 
 **Returns:** `str`
 
-> **Inherited:** Documentation from [`ProtocolHandler.pack`](#protocolhandler-pack) (lazyown_infinitestorage.py:420).
+> **Inherited:** Documentation from [`ProtocolHandler.pack`](#protocolhandler-pack) (lazyown_infinitestorage.py:439).
 
 <a id="secureprotocolhandler-unpack"></a>
 
 #### `SecureProtocolHandler.unpack`
 
-`method` | [lazyown_infinitestorage.py:480](../../lazyown_infinitestorage.py#L480)
+`method` | [lazyown_infinitestorage.py:499](../../lazyown_infinitestorage.py#L499)
 
 ```python
 def unpack(self, bit_string: str, block_size: int, **kwargs) -> bytes
@@ -969,7 +982,7 @@ Unpacks a bit string into raw data.
 
 - `ValueError`: (raised in the body, not documented)
 
-> **Inherited:** Documentation from [`ProtocolHandler.unpack`](#protocolhandler-unpack) (lazyown_infinitestorage.py:424).
+> **Inherited:** Documentation from [`ProtocolHandler.unpack`](#protocolhandler-unpack) (lazyown_infinitestorage.py:443).
 
 ---
 
@@ -977,7 +990,7 @@ Unpacks a bit string into raw data.
 
 ### `LazyOwnInfiniteStorage`
 
-`class` | [lazyown_infinitestorage.py:508](../../lazyown_infinitestorage.py#L508)
+`class` | [lazyown_infinitestorage.py:527](../../lazyown_infinitestorage.py#L527)
 
 ```python
 class LazyOwnInfiniteStorage
@@ -993,12 +1006,16 @@ Main orchestrator for encoding and decoding files to and from video.
 | [`create_web_runner`](#lazyowninfinitestorage-create_web_runner) | method | Return a WebRunner for WSGI or local web server use. |
 | [`encode`](#lazyowninfinitestorage-encode) | method | Encodes a file into a video using the specified protocol. |
 | [`decode`](#lazyowninfinitestorage-decode) | method | Decodes a video back into the original file using the specified protocol. |
+| [`create_zip`](#lazyowninfinitestorage-create_zip) | method | Create a zip archive from a file or directory. |
+| [`extract_zip`](#lazyowninfinitestorage-extract_zip) | method | Safely extract a zip archive into output_dir (blocks zip slip). |
+| [`zip_to_video`](#lazyowninfinitestorage-zip_to_video) | method | Zip a file or directory then encode the archive to video. |
+| [`video_to_zip`](#lazyowninfinitestorage-video_to_zip) | method | Decode a video to a zip archive then extract it into output_dir. |
 
 <a id="lazyowninfinitestorage-__init__"></a>
 
 #### `LazyOwnInfiniteStorage.__init__`
 
-`constructor` | [lazyown_infinitestorage.py:511](../../lazyown_infinitestorage.py#L511)
+`constructor` | [lazyown_infinitestorage.py:530](../../lazyown_infinitestorage.py#L530)
 
 ```python
 def __init__(self, config: Optional[LazyOwnConfig] = None)
@@ -1018,7 +1035,7 @@ def __init__(self, config: Optional[LazyOwnConfig] = None)
 
 #### `LazyOwnInfiniteStorage.create_web_runner`
 
-`method` | [lazyown_infinitestorage.py:521](../../lazyown_infinitestorage.py#L521)
+`method` | [lazyown_infinitestorage.py:540](../../lazyown_infinitestorage.py#L540)
 
 ```python
 def create_web_runner(self)
@@ -1032,7 +1049,7 @@ Return a WebRunner for WSGI or local web server use.
 
 #### `LazyOwnInfiniteStorage.encode`
 
-`method` | [lazyown_infinitestorage.py:525](../../lazyown_infinitestorage.py#L525)
+`method` | [lazyown_infinitestorage.py:544](../../lazyown_infinitestorage.py#L544)
 
 ```python
 def encode(self, input_path: str, output_path: str, frame_width: int, frame_height: int, fps: int, block_size: int, protocol_version: Optional[int] = None) -> None
@@ -1054,13 +1071,13 @@ Encodes a file into a video using the specified protocol.
 
 *Calls:* [`FFmpegPipeline.encode_video`](#ffmpegpipeline-encode_video), [`FrameEncoder.bits_to_frames`](#frameencoder-bits_to_frames), [`SecurityValidator.validate_file_path`](#securityvalidator-validate_file_path), [`SecurityValidator.validate_size`](#securityvalidator-validate_size)
 
-*Called by:* [`run_tests`](#run_tests)
+*Called by:* [`LazyOwnInfiniteStorage.zip_to_video`](#lazyowninfinitestorage-zip_to_video), [`run_tests`](#run_tests)
 
 <a id="lazyowninfinitestorage-decode"></a>
 
 #### `LazyOwnInfiniteStorage.decode`
 
-`method` | [lazyown_infinitestorage.py:550](../../lazyown_infinitestorage.py#L550)
+`method` | [lazyown_infinitestorage.py:567](../../lazyown_infinitestorage.py#L567)
 
 ```python
 def decode(self, input_path: str, output_path: str, block_size: int, protocol_version: Optional[int] = None) -> None
@@ -1081,13 +1098,128 @@ Decodes a video back into the original file using the specified protocol.
 
 *Called by:* [`run_tests`](#run_tests)
 
+<a id="lazyowninfinitestorage-create_zip"></a>
+
+#### `LazyOwnInfiniteStorage.create_zip`
+
+`method` | [lazyown_infinitestorage.py:653](../../lazyown_infinitestorage.py#L653)
+
+```python
+def create_zip(self, source_path: str, output_zip: str) -> str
+```
+
+Create a zip archive from a file or directory.
+
+Returns the output zip path.
+
+**Parameters**
+
+| Name | Type | Default | Description |
+|---|---|---|---|
+| `source_path` | `str` |  |  |
+| `output_zip` | `str` |  |  |
+
+**Returns:** `str`
+
+*Calls:* [`SecurityValidator.validate_file_path`](#securityvalidator-validate_file_path)
+
+*Called by:* [`LazyOwnInfiniteStorage.zip_to_video`](#lazyowninfinitestorage-zip_to_video)
+
+<a id="lazyowninfinitestorage-extract_zip"></a>
+
+#### `LazyOwnInfiniteStorage.extract_zip`
+
+`method` | [lazyown_infinitestorage.py:672](../../lazyown_infinitestorage.py#L672)
+
+```python
+def extract_zip(self, zip_path: str, output_dir: str) -> str
+```
+
+Safely extract a zip archive into output_dir (blocks zip slip).
+
+Returns output_dir.
+
+**Parameters**
+
+| Name | Type | Default | Description |
+|---|---|---|---|
+| `zip_path` | `str` |  |  |
+| `output_dir` | `str` |  |  |
+
+**Returns:** `str`
+
+**Raises**
+
+- `ValueError`: (raised in the body, not documented)
+
+*Calls:* [`SecurityValidator.validate_file_path`](#securityvalidator-validate_file_path)
+
+*Called by:* [`LazyOwnInfiniteStorage.video_to_zip`](#lazyowninfinitestorage-video_to_zip)
+
+<a id="lazyowninfinitestorage-zip_to_video"></a>
+
+#### `LazyOwnInfiniteStorage.zip_to_video`
+
+`method` | [lazyown_infinitestorage.py:693](../../lazyown_infinitestorage.py#L693)
+
+```python
+def zip_to_video(self, source_path: str, output_video: str, frame_width: int, frame_height: int, fps: int, block_size: int, protocol_version: Optional[int] = None) -> str
+```
+
+Zip a file or directory then encode the archive to video.
+
+Returns the video path.
+
+**Parameters**
+
+| Name | Type | Default | Description |
+|---|---|---|---|
+| `source_path` | `str` |  |  |
+| `output_video` | `str` |  |  |
+| `frame_width` | `int` |  |  |
+| `frame_height` | `int` |  |  |
+| `fps` | `int` |  |  |
+| `block_size` | `int` |  |  |
+| `protocol_version` | `Optional[int]` | `None` |  |
+
+**Returns:** `str`
+
+*Calls:* [`LazyOwnInfiniteStorage.create_zip`](#lazyowninfinitestorage-create_zip), [`LazyOwnInfiniteStorage.encode`](#lazyowninfinitestorage-encode), [`SecurityValidator.validate_file_path`](#securityvalidator-validate_file_path)
+
+<a id="lazyowninfinitestorage-video_to_zip"></a>
+
+#### `LazyOwnInfiniteStorage.video_to_zip`
+
+`method` | [lazyown_infinitestorage.py:707](../../lazyown_infinitestorage.py#L707)
+
+```python
+def video_to_zip(self, input_video: str, output_dir: str, block_size: int, protocol_version: Optional[int] = None) -> str
+```
+
+Decode a video to a zip archive then extract it into output_dir.
+
+Returns output_dir.
+
+**Parameters**
+
+| Name | Type | Default | Description |
+|---|---|---|---|
+| `input_video` | `str` |  |  |
+| `output_dir` | `str` |  |  |
+| `block_size` | `int` |  |  |
+| `protocol_version` | `Optional[int]` | `None` |  |
+
+**Returns:** `str`
+
+*Calls:* [`LazyOwnInfiniteStorage.extract_zip`](#lazyowninfinitestorage-extract_zip), [`SecurityValidator.validate_file_path`](#securityvalidator-validate_file_path)
+
 ---
 
 <a id="clirunner"></a>
 
 ### `CLIRunner`
 
-`class` | [lazyown_infinitestorage.py:631](../../lazyown_infinitestorage.py#L631)
+`class` | [lazyown_infinitestorage.py:723](../../lazyown_infinitestorage.py#L723)
 
 ```python
 class CLIRunner
@@ -1106,7 +1238,7 @@ Command-line interface runner for LazyOwnInfiniteStorage.
 
 #### `CLIRunner.__init__`
 
-`constructor` | [lazyown_infinitestorage.py:634](../../lazyown_infinitestorage.py#L634)
+`constructor` | [lazyown_infinitestorage.py:726](../../lazyown_infinitestorage.py#L726)
 
 ```python
 def __init__(self, storage: LazyOwnInfiniteStorage)
@@ -1124,7 +1256,7 @@ def __init__(self, storage: LazyOwnInfiniteStorage)
 
 #### `CLIRunner.run`
 
-`method` | [lazyown_infinitestorage.py:637](../../lazyown_infinitestorage.py#L637)
+`method` | [lazyown_infinitestorage.py:729](../../lazyown_infinitestorage.py#L729)
 
 ```python
 def run(self) -> None
@@ -1142,7 +1274,7 @@ def run(self) -> None
 
 ### `run_tests`
 
-`function` | [lazyown_infinitestorage.py:970](../../lazyown_infinitestorage.py#L970)
+`function` | [lazyown_infinitestorage.py:1072](../../lazyown_infinitestorage.py#L1072)
 
 ```python
 def run_tests() -> None
@@ -1160,7 +1292,7 @@ Executes built-in round-trip tests for both protocols.
 
 ### `main`
 
-`function` | [lazyown_infinitestorage.py:1018](../../lazyown_infinitestorage.py#L1018)
+`function` | [lazyown_infinitestorage.py:1120](../../lazyown_infinitestorage.py#L1120)
 
 ```python
 def main() -> None
@@ -1178,7 +1310,7 @@ Entry point for LazyOwnInfiniteStorage.
 
 ### `BANNER`
 
-`constant` | [lazyown_infinitestorage.py:42](../../lazyown_infinitestorage.py#L42)
+`constant` | [lazyown_infinitestorage.py:43](../../lazyown_infinitestorage.py#L43)
 
 ```python
 BANNER

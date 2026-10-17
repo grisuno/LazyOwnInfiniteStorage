@@ -1,37 +1,37 @@
 # LazyOwnInfiniteStorage
 
-> Static analysis knowledge base for LazyOwnInfiniteStorage: 1 communities, 9 files, 51 imports, 2 languages, 154 symbols.
+> Static analysis knowledge base for LazyOwnInfiniteStorage: 1 communities, 11 files, 65 imports, 2 languages, 194 symbols.
 
 Generated offline by readmenator (zero LLM tokens). Start with the wiki index for the big picture, then the agent INDEX for file lookup.
 
 ## Wiki
 
-- [readmenator-wiki/index.md](md/readmenator-wiki/index.md): The codebase centres on lazyowninfinitestorage.py, testsecurity.py, testintegration.py. Architecturally it is 3 layers, dominant testing (5 files) across 2...
+- [readmenator-wiki/index.md](md/readmenator-wiki/index.md): The codebase centres on lazyowninfinitestorage.py, testsecurity.py, testintegration.py. Architecturally it is 3 layers, dominant testing (6 files) across 2...
 - [readmenator-wiki/REPORT.md](md/readmenator-wiki/REPORT.md): Project: LazyOwnInfiniteStorage | 2026-10-17 | offline, deterministic
-- [readmenator-wiki/community_0_root.md](md/readmenator-wiki/community_0_root.md): Community 0 | 8 files | cohesion 1.00
+- [readmenator-wiki/community_0_root.md](md/readmenator-wiki/community_0_root.md): Community 0 | 10 files | cohesion 1.00
 - [readmenator-wiki/community_1_orphans.md](md/readmenator-wiki/community_1_orphans.md): Community 1 | 1 files | cohesion 0.00
 - [readmenator-wiki/concepts.md](md/readmenator-wiki/concepts.md): Second-brain semantic layer: nouns map atomically to file sets (EXTRACTED); verbs aggregate structural edges (INFERRED).
 - [readmenator-wiki/queries.md](md/readmenator-wiki/queries.md): Log each answered question here so the wiki compounds. Format: question, answer, cited files.
 
 ## GraphRAG
 
-- [readmenator-graphrag/REPORTS.md](md/readmenator-graphrag/REPORTS.md): Entities: 240 | Relationships: 590 | Communities: 2 | Themes: 0 | Text units: 163
+- [readmenator-graphrag/REPORTS.md](md/readmenator-graphrag/REPORTS.md): Entities: 287 | Relationships: 748 | Communities: 2 | Themes: 0 | Text units: 205
 
 ## Agent Docs
 
 - [readmenator-agent/INDEX.md](md/readmenator-agent/INDEX.md)
 - [readmenator-agent/GOTCHAS.md](md/readmenator-agent/GOTCHAS.md): These files have the most connections. Changes here have high blast radius.
-- [readmenator-agent/API.md](md/readmenator-agent/API.md): Imported by: skilllazyowninfinitestorage/tools.py, tests/testerrorcorrection.py, tests/testframes.py, tests/testintegration.py, tests/testprotocols.py...
-- [readmenator-agent/ARCHITECTURE.md](md/readmenator-agent/ARCHITECTURE.md): skilllazyowninfinitestorage/tools.py -> lazyowninfinitestorage.py
+- [readmenator-agent/API.md](md/readmenator-agent/API.md): Imported by: mcpserver.py, skilllazyowninfinitestorage/tools.py, tests/testerrorcorrection.py, tests/testframes.py, tests/testintegration.py...
+- [readmenator-agent/ARCHITECTURE.md](md/readmenator-agent/ARCHITECTURE.md): mcpserver.py -> lazyowninfinitestorage.py
 - [readmenator-agent/CONCEPTS.md](md/readmenator-agent/CONCEPTS.md): Nouns map atomically to file sets (EXTRACTED); verbs aggregate structural edges (INFERRED).
 - [readmenator-agent/KB_misc.md](md/readmenator-agent/KB_misc.md): Doc: MCP tools for LazyOwnInfiniteStorage integration.
 - [readmenator-agent/KB_root.md](md/readmenator-agent/KB_root.md): Doc: Verificar si Python está instalado
 - [readmenator-agent/KB_tests.md](md/readmenator-agent/KB_tests.md): Doc: Unit tests for ErrorCorrector Hamming(8,4) implementation.
-- [readmenator-agent/MEMORY.md](md/readmenator-agent/MEMORY.md): Generated from 9 files at commit 25bef4df9a2f. Read this first, then readmenator-wiki/index.md, then readmenator . ask "<question>" for anything specific.
+- [readmenator-agent/MEMORY.md](md/readmenator-agent/MEMORY.md): Generated from 11 files at commit d4b6ed81f514. Read this first, then readmenator-wiki/index.md, then readmenator . ask "<question>" for anything specific.
 - [readmenator-agent/SECURITY.md](md/readmenator-agent/SECURITY.md)
 - [readmenator-agent/SYMBOLS.md](md/readmenator-agent/SYMBOLS.md)
 - [readmenator-agent/recipes/add-function.md](md/readmenator-agent/recipes/add-function.md): Find the target file by purpose: grep -in '<topic>' readmenator-agent/INDEX.md
-- [readmenator-agent/recipes/change-impact.md](md/readmenator-agent/recipes/change-impact.md): Riskiest file: lazyowninfinitestorage.py (7 dependents)
+- [readmenator-agent/recipes/change-impact.md](md/readmenator-agent/recipes/change-impact.md): Riskiest file: lazyowninfinitestorage.py (9 dependents)
 - [readmenator-agent/recipes/fix-cycle.md](md/readmenator-agent/recipes/fix-cycle.md): Read cycles: grep -A5 'Dependency Cycles' readmenator-agent/GOTCHAS.md
 - [readmenator-agent/recipes/fix-security.md](md/readmenator-agent/recipes/fix-security.md): Read findings: grep -n '<file>' readmenator-agent/SECURITY.md
 - [readmenator-agent/recipes/reduce-complexity.md](md/readmenator-agent/recipes/reduce-complexity.md): Target hotspot: lazyowninfinitestorage.py
@@ -41,8 +41,8 @@ Generated offline by readmenator (zero LLM tokens). Start with the wiki index fo
 - [KNOWLEDGE_BASE.md](md/KNOWLEDGE_BASE.md): Start here: Statistics Dashboard for scope, God Nodes for blast radius, Architecture Reference for per-file API. Agents: prefer readmenator-agent/INDEX.md +...
 - [README.md](md/README.md): Production-grade tool for encoding any file into a video and decoding it back with full data recovery, even after video resolution changes.
 - [SECURITY.md](md/SECURITY.md): Use this section to tell people about which versions of your project are
-- [readmenator-diagrams/overview.md](md/readmenator-diagrams/overview.md): Static architecture map of 9 files (py, sh) in 1 components: root. Structure is extracted statically without LLM calls; component prose may be enriched locally.
-- [readmenator-diagrams/root.md](md/readmenator-diagrams/root.md): root groups 8 files (py) around LazyOwnConfig, SecurityValidator, init, validatefilepath, validatesize. LazyOwnInfiniteStorage - Production-grade file-to-video...
+- [readmenator-diagrams/overview.md](md/readmenator-diagrams/overview.md): Static architecture map of 11 files (py, sh) in 1 components: root. Structure is extracted statically without LLM calls; component prose may be enriched...
+- [readmenator-diagrams/root.md](md/readmenator-diagrams/root.md): root groups 10 files (py) around LazyOwnConfig, SecurityValidator, init, validatefilepath, validatesize. LazyOwnInfiniteStorage - Production-grade...
 
 ## Optional
 

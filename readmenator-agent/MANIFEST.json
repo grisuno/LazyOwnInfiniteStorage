@@ -1,28 +1,28 @@
 {
   "tool": "readmenator",
   "schema_version": 2,
-  "generated_at": "2026-10-17T16:43:35Z",
+  "generated_at": "2026-10-17T17:03:55Z",
   "project_root": ".",
   "project_name": "LazyOwnInfiniteStorage",
-  "git_commit": "25bef4df9a2fc8b2992e11ea34360de7d6911981",
+  "git_commit": "d4b6ed81f51453b0de338999ecb43ef93cb1273c",
   "git_branch": "main",
-  "source_fingerprint": "0473209e37f0e9c13b6f95b78ca8a7b8b4a64ba958fecfbd97ee78f31784385c",
+  "source_fingerprint": "0aab6872594cee031844a954cb59c8b1daf57172cbc0c83951846e883d6dd584",
   "freshness_check": "readmenator . fresh  # exit 0 = docs match sources, exit 1 = run: readmenator . --rebuild",
-  "files": 9,
-  "symbols": 154,
-  "imports": 51,
-  "calls": 874,
+  "files": 11,
+  "symbols": 194,
+  "imports": 65,
+  "calls": 1128,
   "inherits": 4,
-  "resolved_imports": 7,
+  "resolved_imports": 9,
   "security_findings": 0,
   "languages": {
-    "py": 8,
+    "py": 10,
     "sh": 1
   },
   "subsystems": {
     "misc": 1,
-    "root": 3,
-    "tests": 5
+    "root": 4,
+    "tests": 6
   },
   "entrypoints": [],
   "start_here": "INDEX.md",
@@ -43,43 +43,48 @@
   "documents": [
     {
       "path": "API.md",
-      "lines": 63,
-      "approx_tokens": 1921
+      "lines": 77,
+      "approx_tokens": 2410
     },
     {
       "path": "ARCHITECTURE.md",
-      "lines": 22,
-      "approx_tokens": 293
+      "lines": 26,
+      "approx_tokens": 356
     },
     {
       "path": "CONCEPTS.md",
       "lines": 120,
-      "approx_tokens": 2657
+      "approx_tokens": 2912
     },
     {
       "path": "GOTCHAS.md",
-      "lines": 31,
-      "approx_tokens": 372
+      "lines": 33,
+      "approx_tokens": 420
     },
     {
       "path": "INDEX.md",
-      "lines": 13,
-      "approx_tokens": 262
+      "lines": 15,
+      "approx_tokens": 315
     },
     {
       "path": "KB_misc.md",
-      "lines": 13,
-      "approx_tokens": 162
+      "lines": 19,
+      "approx_tokens": 283
     },
     {
       "path": "KB_root.md",
-      "lines": 100,
-      "approx_tokens": 1647
+      "lines": 125,
+      "approx_tokens": 2056
     },
     {
       "path": "KB_tests.md",
-      "lines": 105,
-      "approx_tokens": 1867
+      "lines": 128,
+      "approx_tokens": 2244
+    },
+    {
+      "path": "MEMORY.md",
+      "lines": 100,
+      "approx_tokens": 1668
     },
     {
       "path": "SECURITY.md",
@@ -88,8 +93,8 @@
     },
     {
       "path": "SYMBOLS.md",
-      "lines": 158,
-      "approx_tokens": 4269
+      "lines": 198,
+      "approx_tokens": 5288
     },
     {
       "path": "recipes/add-function.md",
